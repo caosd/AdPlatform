@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.PaymentDao">
+
+	<resultMap type="com.stomato.domain.Payment" id="payment"> 
+		<result property="uid" column="uid"/>
+		<result property="payType" column="pay_type"/>
+		<result property="paypalLogin" column="paypal_login"/>
+		<result property="beneficiaryName" column="beneficiary_name"/>
+		<result property="bankName" column="bank_name"/>
+		<result property="bankAddress" column="bank_address"/>
+		<result property="iban" column="iban"/>
+		<result property="swiftCode" column="swift_code"/>
+		<result property="isIntermediary" column="is_intermediary"/>
+		<result property="createDate" column="create_date"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.stomato.domain.Payment">
+		insert into 
+		t_payment(uid, pay_type, paypal_login, beneficiary_name, bank_name, bank_address, iban, swift_code, is_intermediary, create_date)
+		values(#{uid}, #{payType}, #{paypalLogin}, #{beneficiaryName}, #{bankName}, #{bankAddress}, #{iban}, #{swiftCode}, #{isIntermediary}, now())
+	</insert>
+	
+	<select id="select" parameterType="int" resultMap="payment" >
+		select * from t_payment where uid=#{uid} order by id desc limit 0,1
+	</select>
+	
+	<update id="update" parameterType="com.stomato.domain.Payment">
+		update t_payment set 
+		pay_type=#{payType}, paypal_login=#{paypalLogin}, beneficiary_name=#{beneficiaryName},
+		bank_name=#{bankName}, bank_address=#{bankAddress}, iban=#{iban}, swift_code=#{swiftCode}, is_intermediary=#{isIntermediary}
+		where uid=#{uid}
+	</update>
+	
+</mapper>

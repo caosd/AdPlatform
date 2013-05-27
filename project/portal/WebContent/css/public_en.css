@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.banner_aboutus {background: url(/images/banner_en_aboutus.jpg) no-repeat;}
+.banner_partner {background: url(/images/banner_en_partner.jpg) no-repeat;}
+.banner_helpcenter {background: url(/images/banner_en_helpcenter.jpg) no-repeat;}
+.banner_news {background: url(/images/banner_en_news.jpg) no-repeat;}
+.maincnt .leftcnt .chat_qq {background: url(/images/online_en_qq.png) no-repeat;}
+.maincnt .leftcnt .chat_qq:hover {background: url(/images/online_en_qq_hover.png) no-repeat;}
+.maincnt .leftcnt .chat_msn {background: url(/images/online_en_skype.png) no-repeat;}
+.maincnt .leftcnt .chat_msn:hover {background: url(/images/online_en_skype_hover.png) no-repeat;}

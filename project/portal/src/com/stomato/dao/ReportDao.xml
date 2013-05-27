@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.ReportDao">
+
+	<resultMap type="com.stomato.domain.ReportResult" id="report">
+		<result property="idate" column="idate"/>
+		<result property="value" column="kpi_value"/>
+	</resultMap>
+	
+	<select id="getHourlyReport" parameterType="com.stomato.domain.ReportParam" resultMap="report">
+		select UNIX_TIMESTAMP(concat(idate, lpad(ihour, 2, 0), '0000')) as idate, kpi_value from t_report_hourly where dev_id=#{uid} and kpi_code=#{code} and app_id=#{appId} and idate between #{istart} and #{iend} order by idate,ihour asc;
+	</select>
+	
+	<select id="getDailyReport" parameterType="com.stomato.domain.ReportParam" resultMap="report">
+		select UNIX_TIMESTAMP(concat(idate, '000000')) as idate, kpi_value from t_report_daily where dev_id=#{uid} and kpi_code=#{code} and app_id=#{appId} and idate between #{istart} and #{iend} order by idate asc;
+	</select>
+	
+	<select id="getMonthlyReport" parameterType="com.stomato.domain.ReportParam" resultMap="report">
+		select UNIX_TIMESTAMP(concat(mon, '01000000')) as idate, kpi_value from t_report_monthly where dev_id=#{uid} and kpi_code=#{code} and app_id=#{appId} and mon between #{istart} and #{iend} order by idate asc;
+	</select>
+	
+	<select id="getSummaryReport" parameterType="map" resultType="map">
+		select 
+		sum(case when a.kpi_code = 'sm_user_amount' and a.idate = #{idate} then a.kpi_value else 0 end) as amounts,
+		sum(case when a.kpi_code = 'sm_user_new' and a.idate = #{idate} then a.kpi_value else 0 end) as new_today,
+		sum(case when a.kpi_code = 'sm_user_new' and a.idate = DATE_FORMAT(DATE_ADD(STR_TO_DATE(#{idate}, '%Y%m%d'), interval -1 day), '%Y%m%d') then a.kpi_value else 0 end) as new_yesterday,
+		sum(case when a.kpi_code = 'sm_user_online' and a.idate = #{idate} then a.kpi_value else 0 end) as online_today,
+		sum(case when a.kpi_code = 'sm_user_online' and a.idate = DATE_FORMAT(DATE_ADD(STR_TO_DATE(#{idate}, '%Y%m%d'), interval -1 day), '%Y%m%d') then a.kpi_value else 0 end) as online_yesterday,
+		sum(case when a.kpi_code = 'sm_earnings_amount' and a.idate = #{idate} then a.kpi_value else 0 end) as earnings,
+		b.app_key as app_key
+		from t_report_daily as a inner join t_apps as b on a.app_id = b.id 
+		where a.dev_id=#{uid} and a.idate between DATE_FORMAT(DATE_ADD(STR_TO_DATE(#{idate}, '%Y%m%d'), interval -1 day), '%Y%m%d') and #{idate} group by a.app_id
+	</select>
+</mapper>

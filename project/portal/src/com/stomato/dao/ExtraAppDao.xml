@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.ExtraAppDao">
+
+	<resultMap type="com.stomato.domain.ExtraApp" id="extraApp"> 
+		<result property="id" column="id" />
+		<result property="order" column="ord" />
+		<result property="name" column="name"/>
+		<result property="size" column="size"/>
+        <result property="version" column="version"/>
+        <result property="previewsCounts" column="previews_counts"/>
+        <result property="description" column="description"/>
+        <result property="downloadUrl" column="download_url"/>
+        <result property="downloadCounts" column="download_counts"/>
+	</resultMap>
+	
+	<insert id="addApp" parameterType="com.stomato.domain.ExtraApp">
+		insert into t_extra_applist(ord, name, icon, size, version, previews_counts, description, download_url, download_counts)
+		                     values(#{order}, #{name}, #{size}, #{version}, #{previewsCounts}, #{description}, #{downloadUrl}, #{downloadCounts})
+	</insert>
+	
+	<select id="getApp" parameterType="int" resultMap="extraApp" >
+		select * from t_extra_applist where id=#{id} limit 0,1
+	</select>
+	
+	<select id="getAppList" parameterType="int" resultMap="extraApp" >
+		select id, name, size, download_url, download_counts from t_extra_applist order by ord asc;
+	</select>
+	
+	<update id="updateApp" parameterType="com.stomato.domain.ExtraApp">
+		update t_extra_applist
+		   set ord=#{order}, name=#{name}, size=#{size}, version=#{version}, previews_counts=#{previewsCounts}, description=#{description}, download_url=#{downloadUrl}, download_counts=#{downloadCounts}
+		 where id=#{id}
+	</update>
+	
+	<delete id="deleteApp" parameterType="int">
+        delete from t_extra_applist where id=#{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,26 @@
+* {text-shadow:none;box-shadow:none;}
+body {
+    font: 100% helvetica, arial;
+}
+.footer, .sidebar, .header, .hidden {
+    display: none;
+}
+#links {
+    background-color: #EFEFEF;
+}
+#links a,
+#links a:visited {
+    color: #333;
+    text-decoration: none;
+}
+#links a.active {
+    border-color: #666;
+    box-shadow: none;
+}
+#counter-totals span {
+    font-size: 80%;
+    color: #333;
+}
+div.bare-box {
+    border-color: #666;
+}
