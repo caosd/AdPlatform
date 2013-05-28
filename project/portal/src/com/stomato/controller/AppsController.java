@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,7 +77,7 @@ public class AppsController extends UserController {
 		}
 		
 		User user = this.lookup(request);
-		boolean ready = AppHelper.syncPackage(user.getId(), form.getPkg());
+		boolean ready = true;//AppHelper.syncPackage(user.getId(), form.getPkg());
 		if (!ready) {
 			model.addAttribute("failedWithDuplicatePackage", true);
 			return "backend/apps/createForm";
@@ -86,7 +87,7 @@ public class AppsController extends UserController {
 		App app = form.asPojo();
 		app.setUid(user.getId());
 		app.setKey(appKey);
-		int appId = AppHelper.syncApp(app);
+		int appId = new Random().nextInt(1000);//AppHelper.syncApp(app);
 		
 		if (appId > 0) {
 			app.setId(appId);
@@ -104,8 +105,9 @@ public class AppsController extends UserController {
 	@ResponseBody
 	@RequestMapping(value="/validation", method=RequestMethod.GET)
 	public Object addApp(@RequestParam String pkg, HttpServletRequest request) {
-		User user = this.lookup(request);
-		return AppHelper.syncPackage(user.getId(), pkg);
+		//User user = this.lookup(request);
+		//return AppHelper.syncPackage(user.getId(), pkg);
+		return true;
 	}
 
 	@RequestMapping(value="/{appKey}/detail", method=RequestMethod.GET)

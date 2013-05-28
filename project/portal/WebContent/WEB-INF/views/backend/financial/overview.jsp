@@ -44,7 +44,7 @@ margin-right: 20px;
 	<div class="inside">
 		<div class="container">
 			<div id="content">
-			    <%@include file="../includes/sidebar.jsp"%>
+			    <%@include file="../includes/accounts_sidebar.jsp"%>
 			    <div class="right_content">
 					<h2><fmt:message key="app_upload_title"/></h2>
 					<c:if test="${param.failed}">

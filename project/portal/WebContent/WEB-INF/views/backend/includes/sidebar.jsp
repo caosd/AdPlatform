@@ -2,25 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%
 	String uri = request.getRequestURI();//this is absolute file path, caused by sitemash
-	boolean isPushAd = uri.indexOf("/apps/pushsetting") > 0;
-	boolean isPushTest = uri.indexOf("/apps/pushtest") > 0;
-	boolean isPushComposer = uri.indexOf("/apps/pushcomposer") > 0;
 	boolean isEarnings = uri.indexOf("/reports/earnings") > 0;
 	boolean isReport = uri.indexOf("/reports") > 0;
 	if (isEarnings) isReport = false;
 	boolean isAppDetail = uri.indexOf("/detail") > 0;
 	boolean isAppEdit = uri.indexOf("/edit") > 0;
 	boolean isUploads = uri.indexOf("/uploads") > 0;
-	
-    boolean isFinancialOverview = uri.indexOf("/financial/overview") > 0;
-    boolean isFinancialAccounts = uri.indexOf("/financial/accounts") > 0;
-    boolean isFinancialRemittance = uri.indexOf("/financial/remittance") > 0;
-    boolean isFinancialRemittanceHistory = uri.indexOf("/financial/remittance_history") > 0;
-    if (isFinancialRemittanceHistory) isFinancialRemittance = false;
-    
-    boolean isDailyIncomingReport = uri.indexOf("/report/incoming/daily") > 0;
-    boolean isMonthlyIncomingReport = uri.indexOf("/report/incoming/monthly") > 0;
-    boolean isHourlyIncomingReport = uri.indexOf("/report/incoming/hourly") > 0;
+
+    boolean isPushAd = uri.indexOf("/apps/pushsetting") > 0;
+    boolean isPushTest = uri.indexOf("/apps/pushtest") > 0;
+    boolean isPushComposer = uri.indexOf("/apps/pushcomposer") > 0;
 %>
 <div class="left_content">
 	<div id="premium_sidebar" class="sidebar">
@@ -66,25 +57,4 @@
             <li id="sdk_download"><a href="/sdk/download"> <span> <fmt:message key="side.app.downsdk"/> </span></a></li>
 		</ul>
 	</div>
-    <div id="financial_sidebar" class="sidebar">
-        <h2>
-            <span><fmt:message key="side.financial"/></span>
-        </h2>
-        <ul>
-            <li class="<%=isFinancialOverview?"current":"" %>"><a href="/financial/overview"> <span> <fmt:message key="side.financial.overview"/> </span></a></li>
-            <li class="<%=isFinancialAccounts?"current":"" %>"><a href="/financial/accounts"> <span> <fmt:message key="side.financial.accounts"/> </span></a></li>
-            <li class="<%=isFinancialRemittance?"current":"" %>"><a href="/financial/remittance"> <span> <fmt:message key="side.financial.remittance"/> </span></a></li>
-            <li class="<%=isFinancialRemittanceHistory?"current":"" %>"><a href="/financial/remittance_history"> <span> <fmt:message key="side.financial.remittance_history"/> </span></a></li>
-        </ul>
-    </div>
-    <div id="incomingReport_sidebar" class="sidebar">
-        <h2>
-            <span><fmt:message key="side.report.incoming"/></span>
-        </h2>
-        <ul>
-            <li class="<%=isMonthlyIncomingReport?"current":"" %>"><a href="/report/incoming/monthly"> <span> <fmt:message key="side.report.incoming.monthly"/> </span></a></li>
-            <li class="<%=isDailyIncomingReport?"current":"" %>"><a href="/report/incoming/daily"> <span> <fmt:message key="side.report.incoming.daily"/> </span></a></li>
-            <li class="<%=isHourlyIncomingReport?"current":"" %>"><a href="/report/incoming/hourly"> <span> <fmt:message key="side.report.incoming.hourly"/> </span></a></li>
-        </ul>
-    </div>
 </div>

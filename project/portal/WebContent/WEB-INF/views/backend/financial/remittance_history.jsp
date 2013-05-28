@@ -11,7 +11,7 @@
     <div class="inside">
         <div class="container">
             <div id="content">
-                <%@include file="../includes/sidebar.jsp"%>
+                <%@include file="../includes/accounts_sidebar.jsp"%>
                 <div class="right_content">
                     <h2>汇款记录</h2>
                     <div class="box">
