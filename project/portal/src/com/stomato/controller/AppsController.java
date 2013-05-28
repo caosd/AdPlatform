@@ -358,4 +358,35 @@ public class AppsController extends UserController {
 		return "redirect:/apps/" + appKey + "/uploads";
 	}
 	
+	@RequestMapping(value="/create", method=RequestMethod.GET)
+	public String createApp(HttpServletRequest request) {
+		Object stepObj = request.getParameter("step");
+		int step = null == stepObj ? 1 : Integer.parseInt(stepObj.toString());
+		if (step >= 4 || step <= 0) {
+			step = 1;
+		}
+		return "backend/apps/new_step" + step;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/create_ajax", method=RequestMethod.GET)
+	public Object create_ajax(HttpServletRequest request) {
+		return null;
+	}
+	
+	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
+	public String pushtest(@PathVariable String appKey, HttpServletRequest request) {
+		return "backend/apps/pushtest";
+	}
+	
+	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.GET)
+	public String pushsetting(@PathVariable String appKey, HttpServletRequest request) {
+		return "backend/apps/pushsetting";
+	}
+	
+	@RequestMapping(value="/{appKey}/push/composer", method=RequestMethod.GET)
+	public String pushcomposer(@PathVariable String appKey, HttpServletRequest request) {
+		return "backend/apps/pushcomposer";
+	}
+	
 }

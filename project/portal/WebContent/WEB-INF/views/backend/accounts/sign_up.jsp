@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%
-String who = request.getParameter("sm");
-if (!"stomato".equals(who)) {
-	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-    return;
-}
-%>
 <%@include file="../includes/html_attributes.jsp"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,8 +17,6 @@ if ("true".equals(request.getParameter("success"))) {
 	out.print("<p>注册成功</p>");
 }
 %>
-				<h2>内部注册使用</h2>
-
 				<form:form commandName="regForm" method="post" class="blueform">
 				    <ul class="form">
 				        <li><label for="userName"><fmt:message key="label.username"/><span class="red">*</span></label> <form:input path="userName" /> <form:errors path="userName" cssClass="error"/></li>

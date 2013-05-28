@@ -2,14 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%
 	String uri = request.getRequestURI();//this is absolute file path, caused by sitemash
-	boolean isPushAd = uri.indexOf("/push") > 0;
+	boolean isPushAd = uri.indexOf("/apps/pushsetting") > 0;
+	boolean isPushTest = uri.indexOf("/apps/pushtest") > 0;
+	boolean isPushComposer = uri.indexOf("/apps/pushcomposer") > 0;
 	boolean isEarnings = uri.indexOf("/reports/earnings") > 0;
 	boolean isReport = uri.indexOf("/reports") > 0;
 	if (isEarnings) isReport = false;
 	boolean isAppDetail = uri.indexOf("/detail") > 0;
 	boolean isAppEdit = uri.indexOf("/edit") > 0;
 	boolean isUploads = uri.indexOf("/uploads") > 0;
-
+	
     boolean isFinancialOverview = uri.indexOf("/financial/overview") > 0;
     boolean isFinancialAccounts = uri.indexOf("/financial/accounts") > 0;
     boolean isFinancialRemittance = uri.indexOf("/financial/remittance") > 0;
@@ -26,11 +28,21 @@
 			<span> <fmt:message key="side.app.push"/> </span>
 		</h2>
 		<ul>
-			<li id="premium_composer" class="<%=isPushAd?"current":"" %>">
-				<a href="/apps/${app.key }/push">
-					<span class="icon push-composer"></span><fmt:message key="side.app.test"/>
-				</a>
-			</li>
+            <li id="premium_composer" class="<%=isPushTest?"current":"" %>">
+                <a href="/apps/${app.key }/push/test">
+                    <span class="icon push-composer"></span><fmt:message key="side.app.test"/>
+                </a>
+            </li>
+            <li id="premium_composer" class="<%=isPushAd?"current":"" %>">
+                <a href="/apps/${app.key }/push/setting">
+                    <span class="icon push-composer"></span>推送设置
+                </a>
+            </li>
+            <li id="premium_composer" class="<%=isPushComposer?"current":"" %>">
+                <a href="/apps/${app.key }/push/composer">
+                    <span class="icon push-composer"></span>自定义内容
+                </a>
+            </li>
 			<li id="premium_reports" class="<%=(isReport||isEarnings)?"current":"" %>">
 				<a href="/apps/${app.key }/reports">
 					<span class="icon reports"></span><fmt:message key="side.app.report"/>

@@ -1905,6 +1905,7 @@ form.blueform .reg_check {
 form.blueform label {
     padding:0;
 }
+div.bluebox a.file,
 form.blueform a.file{
 	text-decoration:none;
     display: inline-block;
@@ -1920,7 +1921,11 @@ form.blueform a.file{
     cursor: pointer;
     text-align: center;
 }
-form.blueform a.file span{display: block;line-height: 39px;}
+div.bluebox a.file span,
+form.blueform a.file span{
+	display: block;line-height: 39px;
+}
+div.bluebox a.file em,
 form.blueform a.file em {
     background:url(/images/icon-add.png) 0 0;
     display: inline-block;
@@ -1931,7 +1936,9 @@ form.blueform a.file em {
     line-height: 20em;
     vertical-align: middle;
 }
+div.bluebox a.file:hover em,
 form.blueform a.file:hover em{background-position:-19px 0;}
+div.bluebox a.file input[type=file],
 form.blueform a.file input[type=file] {
     display: block;
     position: absolute;
@@ -1942,8 +1949,6 @@ form.blueform a.file input[type=file] {
     font-size: 100px;
     opacity: 0;
     filter:alpha(opacity=0);
-}
-form.blueform input.file {
 }
 div.bluebox dd {
     padding:5px 10px 0 0px;

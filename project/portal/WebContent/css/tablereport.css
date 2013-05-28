@@ -1,0 +1,102 @@
+.data th,
+.data td {
+	text-align: center;
+}
+/* date range pickers */
+#settings #date-range {
+    height: 30px;
+    padding: 0;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    white-space: nowrap;
+}
+#settings #date-range input[type=text] {
+    font-size:12px;
+    height:23px;
+    line-height:25px;
+    padding:0 5px;
+    text-align:center;
+    width:80px;
+}
+#settings #date-range button.mini {
+    height:25px;
+    line-height:25px;
+    vertical-align:top;
+}
+#settings #date-range #start-date-container,
+#settings #date-range #end-date-container {
+  position:relative;
+}
+#settings #date-range #start-date-container .date-picker,
+#settings #date-range #end-date-container .date-picker {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    display: none;
+    z-index: 5;
+}
+
+#settings select[name="precision"] {
+  bottom:15px;
+  display:none;
+  position:absolute;
+  right:0;
+}
+
+#settings #links {
+    display: inline-block;
+    height: 17px;
+    *zoom: 1;
+    *display: inline;
+}
+#settings #links a {
+    color: #222;
+    padding: 2px 7px;
+    border: 1px solid transparent;
+    text-shadow: #FFF 0 1px 1px;
+    line-height:20px;
+    font-weight: bold;
+    border-bottom: 1px solid #b8c2ca;
+    border-right: 1px solid #b8c2ca;
+    border-top: 1px solid #b8c2ca;
+    background: #dddddd;
+    background: -moz-linear-gradient(top, #fefefe 0%, #b8b8b8 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#b8b8b8));
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#b8b8b8',GradientType=0 );
+    text-shadow: 0 1px 1px #FFF;
+    text-decoration:none;
+    float: left;
+}
+#settings #links a:hover{
+    background: #357dca;
+    background: -moz-linear-gradient(top, #B8B8B8 0%, #FEFEFE 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#B8B8B8), color-stop(100%,#FEFEFE));
+}
+#settings #links a.active {
+    color: #FFF;
+    background: #357dca;
+    background: -moz-linear-gradient(top, #357dca 0%, #4b8bd2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#357dca), color-stop(100%,#4b8bd2));
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#357dca', endColorstr='#4b8bd2',GradientType=0 );
+    text-shadow: 0 -1px 1px #666;
+}
+#settings #links a.first {
+    border-top-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-left: 1px solid #b8c2ca;
+}
+#settings #links a.last {
+    border-top-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-left: 0;
+}
