@@ -33,7 +33,7 @@ public class FinancialController extends UserController{
 	@Autowired
 	private RemittanceService remittanceService;
 	
-	private static final String uploadsDir = "/files/%s/credentials/%s_%s_%s.%s";
+	private static final String uploadsDir = "F:/project/AdPlatform/project/portal/WebContent/files/%s/credentials/%s_%s_%s.%s";
 	private static final String fileSeparator = System.getProperty("file.separator");
 	
 	@RequestMapping(value="/overview",method=RequestMethod.GET)
@@ -90,7 +90,7 @@ public class FinancialController extends UserController{
 				model.addAttribute(photo,"图片上传失败，请选择图片文件!");
 				return "";
 			}
-			File targetFile = new File(String.format(uploadsDir, uid,"credentials",credentialsType,credentialsNo,photo,imgsuffixs));
+			File targetFile = new File(String.format(uploadsDir, uid,credentialsType,credentialsNo,photo,imgsuffixs));
 			if (!targetFile.exists()) {
 				boolean made = targetFile.mkdirs();
 				logger.info("result[" + made + "] create dirs:" + targetFile.getPath());

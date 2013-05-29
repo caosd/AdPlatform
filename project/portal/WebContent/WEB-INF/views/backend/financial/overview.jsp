@@ -84,8 +84,8 @@ margin-right: 20px;
                             <li>
                                 <label> 证件上传 </label>
                                 <div>
-                                    <img src="/images/identity_front.gif" class="identity_tile"/>
-                                    <img src="/images/identity_behind.gif" class="identity_tile"/>
+                                    <img src="${credentials.credentialsPhoto1 == '' ? '/images/identity_front.gif':credentials.credentialsPhoto1 }" class="identity_tile"/>
+                                    <img src="${credentials.credentialsPhoto2 == '' ? '/images/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
                                     <div>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
