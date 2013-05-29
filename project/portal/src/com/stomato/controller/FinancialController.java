@@ -55,15 +55,15 @@ public class FinancialController extends UserController{
 		String file1path = "";
 		String file2path = "";
 		if( file1.getSize() > 0 ){
-			file1path = savePhoto(file1, model, user.getId(), form.getCredentialsType(), form.getCredentialsNo(), "photo1");
+			file1path = savePhoto(file1, model, user.getUid(), form.getCredentialsType(), form.getCredentialsNo(), "photo1");
 		}
 		if( file2.getSize() > 0){
-			file2path = savePhoto(file2, model, user.getId(), form.getCredentialsType(), form.getCredentialsNo(), "photo2");
+			file2path = savePhoto(file2, model, user.getUid(), form.getCredentialsType(), form.getCredentialsNo(), "photo2");
 		}
 		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
 		if( credentials == null ){
 			credentials = form.asPojo();
-			credentials.setUid(user.getId());
+			credentials.setUid(user.getUid());
 			credentials.setCredentialsPhoto1(file1path);
 			credentials.setCredentialsPhoto2(file2path);
 			this.credentialsService.addCredentials(credentials);

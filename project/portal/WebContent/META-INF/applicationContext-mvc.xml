@@ -52,6 +52,7 @@
         <mvc:interceptor>
 	        <mvc:mapping path="/accounts/**" />
 	        <mvc:mapping path="/apps/**" />
+            <mvc:mapping path="/financial/**"/>
 			<bean class="com.stomato.interceptor.UserInterceptor" />
 		</mvc:interceptor>
         <mvc:interceptor>
