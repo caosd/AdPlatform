@@ -96,7 +96,7 @@ public class AppHelper {
 	
 	public static String generateAppKey(String userName) {
 		String appKey = userName + new Date().toString() + "34FG10";
-		return StringUtils.toMD5(appKey).substring(2, 26);
+		return StringUtils.toMD5(appKey);
 	}
 	
 	private static String dumpPostParam(Map<String, Object> params) {

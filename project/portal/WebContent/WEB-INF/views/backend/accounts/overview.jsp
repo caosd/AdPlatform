@@ -21,23 +21,25 @@
                             <dd>${user.email}</dd>
 							<dt><fmt:message key="label.account_type"/></dt>
 							<dd>
-							<c:if test="${user.accountType == 1}"><fmt:message key="option.individual"/></c:if>
-							<c:if test="${user.accountType == 2}"><fmt:message key="option.company"/></c:if>
+							<c:if test="${user.type == 1}"><fmt:message key="option.individual"/></c:if>
+							<c:if test="${user.type == 2}"><fmt:message key="option.company"/></c:if>
 							</dd>
-							<c:if test="${user.accountType == 2 }">
+							<c:if test="${user.type == 2 }">
 							<dt><fmt:message key="label.company_name"/></dt>
-							<dd>${user.companyName}</dd>
+							<dd>${user.company}</dd>
 							</c:if>
-							<c:if test="${user.accountType == 1 }">
-							<dt><fmt:message key="label.family_name"/></dt>
-							<dd>${user.firstName} ${user.lastName }</dd>
+							<c:if test="${user.type == 1 }">
+							<dt><fmt:message key="label.contact_name"/></dt>
+							<dd>${user.contactName }</dd>
 							</c:if>
-							<dt><fmt:message key="label.country"/></dt>
-							<dd>${user.country}</dd>
-							<dt><fmt:message key="label.address"/></dt>
-							<dd>${user.address}</dd>
+                            <dt><fmt:message key="label.contact_tel"/></dt>
+                            <dd>${user.contactTel}</dd>
+                            <dt><fmt:message key="label.qq"/></dt>
+                            <dd>${user.qq}</dd>
+							<dt><fmt:message key="label.website"/></dt>
+							<dd>${user.website}</dd>
                             <dt><fmt:message key="label.account_created"/></dt>
-                            <dd><fmt:formatDate value="${user.regDate}" type="both" pattern="MMM, dd HH:mm:ss z"/></dd>
+                            <dd><fmt:formatDate value="${user.createtime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dd>
                             <dt><fmt:message key="label.last_login_time"/></dt>
                             <dd><fmt:formatDate value="${user.loginTokenTime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dd>
 						</dl>

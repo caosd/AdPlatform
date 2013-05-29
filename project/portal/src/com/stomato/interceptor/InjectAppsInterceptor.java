@@ -28,7 +28,7 @@ public class InjectAppsInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 		User user = this.lookup(request);
 		if (user != null) {
-			List<App> applist = appService.getLastedAppList(user.getId());
+			List<App> applist = appService.getLastedAppList(user.getUid());
 			request.setAttribute("lastedApps", applist);
 		}
 		return true;

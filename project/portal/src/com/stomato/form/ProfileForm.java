@@ -13,17 +13,17 @@ public class ProfileForm {
 	
 	@Min(1)
 	@Max(2)
-	private Integer accountType;
+	private Integer type;
 	
-	private String companyName;
+	private String company;
 	
-	private String country;
+	private String contactName;
 
-	private String address;
+	private String contactTel;
 	
-	private String firstName;
+	private String qq;
 	
-	private String lastName;
+	private String website;
 
 	public int getId() {
 		return id;
@@ -32,55 +32,55 @@ public class ProfileForm {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public Integer getAccountType() {
-		return accountType;
+
+	public Integer getType() {
+		return type;
 	}
 
-	public void setAccountType(Integer accountType) {
-		this.accountType = accountType;
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public String getCompany() {
+		return company;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	
-	public String getCountry() {
-		return country;
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public String getContactName() {
+		return contactName;
 	}
 
-	public String getAddress() {
-		return address;
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public String getContactTel() {
+		return contactTel;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public void setContactTel(String contactTel) {
+		this.contactTel = contactTel;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public String getQq() {
+		return qq;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public void setQq(String qq) {
+		this.qq = qq;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public String getWebsite() {
+		return website;
 	}
-	
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

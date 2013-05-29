@@ -9,9 +9,6 @@ import com.stomato.form.RegistrationForm;
 
 @Component
 public class RegistrationValidation {
-	public boolean supports(Class<?> klass) {
-		return RegistrationForm.class.isAssignableFrom(klass);
-	}
 
 	public void validate(Object target, Errors errors) {
 		RegistrationForm form = (RegistrationForm) target;

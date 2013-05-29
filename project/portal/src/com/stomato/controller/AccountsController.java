@@ -73,7 +73,7 @@ public class AccountsController extends UserController {
 		if (!result.hasErrors()) {
 			User sessionUser = this.lookup(request);
 			User user = new User();
-			user.setId(sessionUser.getId());
+			user.setUid(sessionUser.getUid());
 			user.setUserName(sessionUser.getUserName());
 			user.setPassword(form.getPassword());
 			user = accountsService.getUser(user);
@@ -108,18 +108,13 @@ public class AccountsController extends UserController {
 		User user = this.lookup(request);
 		User formUser = form.asPojo();
 		form = null;
-		if (formUser.getAccountType() == 1) {
-			formUser.setCompanyName(null);
-		} else if (formUser.getAccountType() == 2) {
-			formUser.setFirstName(null);
-			formUser.setLastName(null);
+		if (formUser.getType() == 1) {
+			formUser.setCompany(null);
+		} else if (formUser.getType() == 2) {
+			formUser.setContactName(null);
 		}
-		user.setAccountType(formUser.getAccountType());
-		user.setAddress(formUser.getAddress());
-		user.setCompanyName(formUser.getCompanyName());
-		user.setCountry(formUser.getCountry());
-		user.setFirstName(formUser.getFirstName());
-		user.setLastName(formUser.getLastName());
+		user.setType(formUser.getType());
+		user.setCompany(formUser.getCompany());
 		
 		accountsService.updateUser(user);
 		this.refreshUserSession(request, user);
@@ -130,7 +125,7 @@ public class AccountsController extends UserController {
 	@RequestMapping("/statements")
 	public String showTransferRecords(HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
-		List<Transfer> transfers = accountsService.selectAllStatements(user.getId());
+		List<Transfer> transfers = accountsService.selectAllStatements(user.getUid());
 		model.addAttribute("statements", transfers);
 
 		return "backend/accounts/statements";
@@ -139,7 +134,7 @@ public class AccountsController extends UserController {
 	@RequestMapping(value="/payment", method=RequestMethod.GET)
 	public String showForm(@ModelAttribute PaymentForm form, HttpServletRequest request) {
 		User user = this.lookup(request);
-		Payment payment = accountsService.getPayment(user.getId());
+		Payment payment = accountsService.getPayment(user.getUid());
 		if (payment != null) {
 			try {
 				BeanUtils.copyProperties(form, payment);
@@ -162,7 +157,7 @@ public class AccountsController extends UserController {
 		}
 		User user = this.lookup(request);
 		Payment payment = form.asPojo();
-		payment.setUid(user.getId());
+		payment.setUid(user.getUid());
 		accountsService.savePayment(payment);
 		model.addAttribute("updated", true);
 		form = null;

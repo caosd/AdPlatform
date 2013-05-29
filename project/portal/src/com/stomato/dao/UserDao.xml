@@ -4,22 +4,22 @@
 <mapper namespace="com.stomato.dao.UserDao">
 
 	<resultMap type="com.stomato.domain.User" id="user"> 
-		<result property="id" column="id" />
+		<result property="uid" column="uid" />
 		<result property="userName" column="account_name" />
-		<result property="accountType" column="account_type"/>
 		<result property="email" column="email"/>
-		<result property="companyName" column="company_name"/>
-		<result property="country" column="country"/>
-		<result property="firstName" column="first_name"/>
-		<result property="lastName" column="last_name"/>
-		<result property="address" column="address" />
-		<result property="regDate" column="reg_date" />
+        <result property="type" column="type"/>
+		<result property="company" column="company_name"/>
+		<result property="contactName" column="contact_name"/>
+		<result property="contactTel" column="contact_tel"/>
+		<result property="qq" column="qq"/>
+		<result property="website" column="website" />
+		<result property="createtime" column="createtime" />
         <result property="loginTokenTime" column="login_token_time" />
 	</resultMap>
 	
 	<insert id="addUser" parameterType="com.stomato.domain.User">
-		insert into t_user(account_name, account_pwd, account_type, email, company_name, country, first_name, last_name, address, reg_date)
-					values(#{userName}, upper(md5(#{password})), #{accountType}, #{email}, #{companyName}, #{country}, #{firstName}, #{lastName}, #{address}, now())
+		insert into t_user(account_name, account_pwd, type, email, company, contact_name, contact_tel, qq, website, createtime)
+					values(#{userName}, upper(md5(#{password})), #{type}, #{email}, #{company}, #{contactName}, #{contactTel}, #{qq}, #{website}, now())
 	</insert>
 	
 	<select id="getUser" parameterType="com.stomato.domain.User" resultMap="user" >
@@ -27,20 +27,20 @@
 	</select>
 	
 	<update id="updateLoginToken" parameterType="com.stomato.domain.User">
-		update t_user set login_token=#{loginToken}, login_token_time=now() where id=#{id}
+		update t_user set login_token=#{loginToken}, login_token_time=now() where uid=#{uid}
 	</update>
 	
 	<update id="updateUser" parameterType="com.stomato.domain.User">
-		update t_user set account_type=#{accountType},company_name=#{companyName},country=#{country},first_name=#{firstName},last_name=#{lastName},address=#{address}
-		where id=#{id}
+		update t_user set type=#{type},company=#{company},contact_name=#{contactName},contact_tel=#{contactTel},qq=#{qq},website=#{website}
+		where uid=#{uid}
 	</update>
 	
 	<update id="updatePassword" parameterType="com.stomato.domain.User">
-        update t_user set account_pwd=upper(md5(#{password})) where id=#{id}
+        update t_user set account_pwd=upper(md5(#{password})) where uid=#{uid}
     </update>
     
 	<update id="updateEmail" parameterType="com.stomato.domain.User">
-        update t_user set email=#{email} where id=#{id}
+        update t_user set email=#{email} where uid=#{uid}
     </update>
 	
 	<select id="verify" parameterType="com.stomato.domain.User" resultMap="user">
