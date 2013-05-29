@@ -68,18 +68,18 @@ margin-right: 20px;
                            <li>6) 客服QQ：2359097716.</li>
 	                   </ul>
 	                </div>
-					<form method="POST" class="blueform" enctype="multipart/form-data">
+					<form:form commandName="credentialForm" method="POST" class="blueform" enctype="multipart/form-data">
 						<ul class="form">
                             <li>
-                                <label> 证件类型 </label> 
-                                <select>
-                                    <option value="">居民身份证</option>
-                                    <option value="">个体工商营业执照</option>
-                                </select>
+                                <label for="credentialsType"> 证件类型 </label> 
+                                <form:select path="credentialsType">
+                                    <form:option value="1">居民身份证</form:option>
+                                    <form:option value="2">个体工商营业执照</form:option>
+                                </form:select>
                             </li>
                             <li>
-                                <label> 证件号 </label> 
-                                <input type="text"/>
+                                <label for="credentialsNo"> 证件号 </label> 
+                                <form:input type="text" path="credentialsNo" value="${credentials.credentialsNo }"/>
                             </li>
                             <li>
                                 <label> 证件上传 </label>
@@ -89,18 +89,18 @@ margin-right: 20px;
                                     <div>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
-                                            <input title="支持jpg,gif,png格式" size="3" name="file1" type="file" id="fileCtrl1">
+                                            <input title="支持jpg,gif,png格式" size="3" name="file1" type="file" id="fileCtrl1" value="${credentials.credentialsPhoto1 }"/>
                                         </a>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
-                                            <input title="支持jpg,gif,png格式" size="3" name="file2" type="file" id="fileCtrl2">
+                                            <input title="支持jpg,gif,png格式" size="3" name="file2" type="file" id="fileCtrl2" value="${credentials.credentialsPhoto2 }"/>
                                         </a>
                                     </div>
                                 </div>
                             </li>
                             <li>
-                                <label> 开户银行 </label> 
-                                <select id="cardBank" name="finance.cardBank" style="width:176px;">
+                                <label for="bankName"> 开户银行 </label> 
+                                <form:select id="cardBank" path="bankName" style="width:176px;">
 				                    <option value="中国工商银行">中国工商银行</option>
 				                    <option value="中国农业银行">中国农业银行</option>
 				                    <option value="中国建设银行">中国建设银行</option>
@@ -129,21 +129,21 @@ margin-right: 20px;
 				                    <option value="南京银行">南京银行</option>
 				                    <option value="平安银行">平安银行</option>  
 				                    <option value="其他银行">其他银行</option>  
-				                </select>
+				                </form:select>
                             </li>
                             <li>
-                                <label> 银行卡号 </label> 
-                                <input type="text" style="width:200px"/>
+                                <label for="bankCard"> 银行卡号 </label> 
+                                <form:input type="text" path="bankCard" style="width:200px" value="${credentials.bankCard }"/>
                                 <span class="info">为确保结算安全，该项信息不能修改，如需变更，请联系客服!<br/>银行卡的户名必须同姓名一致!</span>
                             </li>
                             <li>
-                                <label> 开户人姓名 </label> 
-                                <input type="text" style="width:200px"/>
+                                <label for="bankAccount"> 开户人姓名 </label> 
+                                <form:input type="text" path="bankAccount" style="width:200px" value="${credentials.bankAccount }"/>
                                 <span class="info2">办理此银行卡时所用真实姓名，请与身份证保持一致!</span>
                             </li>
                             <li>
-                                <label> 银行地址 </label> 
-                                <input type="text" style="width:200px"/>
+                                <label for="bankAddress"> 银行地址 </label> 
+                                <form:input type="text" path="bankAddress" style="width:200px" value="${credentials.bankAddress }"/>
                                 <span class="info">格式为：xx省,xx市/县,xx支行/分行　　　请认真核对<br/>为确保结算安全，该项信息不能修改，如需变更，请联系客服!</span>
                             </li>
 						</ul>
@@ -154,7 +154,7 @@ margin-right: 20px;
 								</button>
 							</li>
 						</ul>
-					</form>
+					</form:form>
 				</div>
 			</div>
 			<div class="clear"></div>

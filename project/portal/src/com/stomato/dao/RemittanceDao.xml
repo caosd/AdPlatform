@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.RemittanceDao">
+
+	<resultMap type="com.stomato.domain.Remittance" id="remittance"> 
+		<result property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="money" column="money"/>
+		<result property="bankAccount" column="bank_account"/>
+		<result property="bankName" column="bank_name"/>
+		<result property="bankCard" column="bank_card"/>
+		<result property="status" column="status"/>
+		<result property="remark" column="remark"/>
+		<result property="remittanceTime" column="remittance_time"/>
+		<result property="createTime" column="create_time"/>
+		<result property="lastUpdateTime" column="last_update_time"/>
+	</resultMap>
+
+	<select id="addRemittance" parameterType="com.stomato.domain.Remittance">
+		INSERT INTO t_remittance (
+			uid,
+			money,
+			bank_account,
+			bank_name,
+			bank_card,
+			STATUS,
+			remark,
+			remittance_time,
+			create_time,
+			last_update_time
+		)
+		VALUES
+			(
+			#{uid}, 
+			#{money}, 
+			#{bankAccount}, 
+			#{bankName}, 
+			#{bankCard}, 
+			#{status}, 
+			#{remark}, 
+			#{remittanceTime}, 
+			now(), 
+			now())
+	</select>
+	
+	<select id="getRemittance" parameterType="com.stomato.domain.Remittance" resultMap="remittance" >
+		select * from t_remittance where id=#{id}
+	</select>
+	
+</mapper>

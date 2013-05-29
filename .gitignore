@@ -8,11 +8,11 @@ dist/
 *.log
 *.class
 
-portal/classes/
-portal/bin/
-portal/build/
-portal/.settings/
-portal/.classpath
+project/portal/classes/
+project/portal/bin/
+project/portal/build/
+project/portal/.settings/
+project/portal/.classpath
 
 */.sublime-project
 */.sublime-workspace
