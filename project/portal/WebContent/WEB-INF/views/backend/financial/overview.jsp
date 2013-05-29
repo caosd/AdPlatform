@@ -68,18 +68,29 @@ margin-right: 20px;
                            <li>6) 客服QQ：2359097716.</li>
 	                   </ul>
 	                </div>
+					<c:if test="${not empty success}">
+					<div class="protip success">
+						<strong><fmt:message key="tips"/></strong> <fmt:message key="${success}"/>
+					</div>
+					</c:if>
+					<c:if test="${not empty error}">
+					<div class="protip warn">
+						<strong><fmt:message key="tips"/></strong> <fmt:message key="${error}"/>
+					</div>
+					</c:if>
 					<form:form commandName="credentialForm" method="POST" class="blueform" enctype="multipart/form-data">
 						<ul class="form">
                             <li>
                                 <label for="credentialsType"> 证件类型 </label> 
                                 <form:select path="credentialsType">
-                                    <form:option value="1">居民身份证</form:option>
-                                    <form:option value="2">个体工商营业执照</form:option>
+                                    <form:option value="1" selected="${credentials.credentialsType == 1 ? 'selected':'' }">居民身份证</form:option>
+                                    <form:option value="2" selected="${credentials.credentialsType == 2 ? 'selected':'' }">个体工商营业执照</form:option>
                                 </form:select>
                             </li>
                             <li>
                                 <label for="credentialsNo"> 证件号 </label> 
                                 <form:input type="text" path="credentialsNo" value="${credentials.credentialsNo }"/>
+                                <form:errors path="credentialsNo" cssClass="error"/>
                             </li>
                             <li>
                                 <label> 证件上传 </label>
@@ -90,10 +101,12 @@ margin-right: 20px;
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
                                             <input title="支持jpg,gif,png格式" size="3" name="file1" type="file" id="fileCtrl1" value="${credentials.credentialsPhoto1 }"/>
+		                                    <form:errors path="file1" cssClass="error"/>
                                         </a>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
                                             <input title="支持jpg,gif,png格式" size="3" name="file2" type="file" id="fileCtrl2" value="${credentials.credentialsPhoto2 }"/>
+                                            <form:errors path="file2" cssClass="error"/>
                                         </a>
                                     </div>
                                 </div>
@@ -101,50 +114,53 @@ margin-right: 20px;
                             <li>
                                 <label for="bankName"> 开户银行 </label> 
                                 <form:select id="cardBank" path="bankName" style="width:176px;">
-				                    <option value="中国工商银行">中国工商银行</option>
-				                    <option value="中国农业银行">中国农业银行</option>
-				                    <option value="中国建设银行">中国建设银行</option>
-				                    <option value="招商银行">招商银行</option>
-				                    <option value="中国银行">中国银行</option>
-				                    <option value="兴业银行">兴业银行</option>
-				                    <option value="交通银行">交通银行</option>
-				                    <option value="中信银行">中信银行</option>
-				                    <option value="深圳发展银行">深圳发展银行</option>
-				                    <option value="浦发银行">浦发银行</option>
-				                    <option value="北京农村商业银行">北京农村商业银行</option>
-				                    <option value="北京银行">北京银行</option>
-				                    <option value="中国民生银行">中国民生银行</option>
-				                    <option value="中国光大银行">中国光大银行</option>
-				                    <option value="华夏银行">华夏银行</option>
-				                    <option value="温州银行">温州银行</option>
-				                    <option value="上海农村商业银行">上海农村商业银行</option>
-				                    <option value="渤海银行">渤海银行</option>
-				                    <option value="晋城市商业银行">晋城市商业银行</option>
-				                    <option value="汉口银行">汉口银行</option>
-				                    <option value="广东发展银行">广东发展银行</option>
-				                    <option value="宁波银行">宁波银行</option>
-				                    <option value="浙商银行">浙商银行</option>
-				                    <option value="杭州银行">杭州银行</option>
-				                    <option value="BEA东亚银行">BEA东亚银行</option>
-				                    <option value="南京银行">南京银行</option>
-				                    <option value="平安银行">平安银行</option>  
-				                    <option value="其他银行">其他银行</option>  
+				                    <option value="中国工商银行" <c:out value="${credentials.bankName eq '中国工商银行' ? 'selected':'' }"/>>中国工商银行</option>
+				                    <option value="中国农业银行" <c:out value="${credentials.bankName eq '中国农业银行' ? 'selected':'' }"/>>中国农业银行</option>
+				                    <option value="中国建设银行" <c:out value="${credentials.bankName eq '中国建设银行' ? 'selected':'' }"/>>中国建设银行</option>
+				                    <option value="招商银行" <c:out value="${credentials.bankName eq '招商银行' ? 'selected':'' }"/>>招商银行</option>
+				                    <option value="中国银行" <c:out value="${credentials.bankName eq '中国银行' ? 'selected':'' }"/>>中国银行</option>
+				                    <option value="兴业银行" <c:out value="${credentials.bankName eq '兴业银行' ? 'selected':'' }"/>>兴业银行</option>
+				                    <option value="交通银行" <c:out value="${credentials.bankName eq '交通银行' ? 'selected':'' }"/>>交通银行</option>
+				                    <option value="中信银行" <c:out value="${credentials.bankName eq '中信银行' ? 'selected':'' }"/>>中信银行</option>
+				                    <option value="深圳发展银行" <c:out value="${credentials.bankName eq '深圳发展银行' ? 'selected':'' }"/>>深圳发展银行</option>
+				                    <option value="浦发银行" <c:out value="${credentials.bankName eq '浦发银行' ? 'selected':'' }"/>>浦发银行</option>
+				                    <option value="北京农村商业银行" <c:out value="${credentials.bankName eq '北京农村商业银行' ? 'selected':'' }"/>>北京农村商业银行</option>
+				                    <option value="北京银行" <c:out value="${credentials.bankName eq '北京银行' ? 'selected':'' }"/>>北京银行</option>
+				                    <option value="中国民生银行" <c:out value="${credentials.bankName eq '中国民生银行' ? 'selected':'' }"/>>中国民生银行</option>
+				                    <option value="中国光大银行" <c:out value="${credentials.bankName eq '中国光大银行' ? 'selected':'' }"/>>中国光大银行</option>
+				                    <option value="华夏银行" <c:out value="${credentials.bankName eq '华夏银行' ? 'selected':'' }"/>>华夏银行</option>
+				                    <option value="温州银行" <c:out value="${credentials.bankName eq '温州银行' ? 'selected':'' }"/>>温州银行</option>
+				                    <option value="上海农村商业银行" <c:out value="${credentials.bankName eq '上海农村商业银行' ? 'selected':'' }"/>>上海农村商业银行</option>
+				                    <option value="渤海银行" <c:out value="${credentials.bankName eq '渤海银行' ? 'selected':'' }"/>>渤海银行</option>
+				                    <option value="晋城市商业银行" <c:out value="${credentials.bankName eq '晋城市商业银行' ? 'selected':'' }"/>>晋城市商业银行</option>
+				                    <option value="汉口银行" <c:out value="${credentials.bankName eq '汉口银行' ? 'selected':'' }"/>>汉口银行</option>
+				                    <option value="广东发展银行" <c:out value="${credentials.bankName eq '广东发展银行' ? 'selected':'' }"/>>广东发展银行</option>
+				                    <option value="宁波银行" <c:out value="${credentials.bankName eq '宁波银行' ? 'selected':'' }"/>>宁波银行</option>
+				                    <option value="浙商银行" <c:out value="${credentials.bankName eq '浙商银行' ? 'selected':'' }"/>>浙商银行</option>
+				                    <option value="杭州银行" <c:out value="${credentials.bankName eq '杭州银行' ? 'selected':'' }"/>>杭州银行</option>
+				                    <option value="BEA东亚银行" <c:out value="${credentials.bankName eq 'BEA东亚银行' ? 'selected':'' }"/>>BEA东亚银行</option>
+				                    <option value="南京银行" <c:out value="${credentials.bankName eq '南京银行' ? 'selected':'' }"/>>南京银行</option>
+				                    <option value="平安银行" <c:out value="${credentials.bankName eq '平安银行' ? 'selected':'' }"/>>平安银行</option>  
+				                    <option value="其他银行" <c:out value="${credentials.bankName eq '其他银行' ? 'selected':'' }"/>>其他银行</option>  
 				                </form:select>
                             </li>
                             <li>
                                 <label for="bankCard"> 银行卡号 </label> 
                                 <form:input type="text" path="bankCard" style="width:200px" value="${credentials.bankCard }"/>
                                 <span class="info">为确保结算安全，该项信息不能修改，如需变更，请联系客服!<br/>银行卡的户名必须同姓名一致!</span>
+                                <form:errors path="bankCard" cssClass="error"/>
                             </li>
                             <li>
                                 <label for="bankAccount"> 开户人姓名 </label> 
                                 <form:input type="text" path="bankAccount" style="width:200px" value="${credentials.bankAccount }"/>
                                 <span class="info2">办理此银行卡时所用真实姓名，请与身份证保持一致!</span>
+                                <form:errors path="bankAccount" cssClass="error"/>
                             </li>
                             <li>
                                 <label for="bankAddress"> 银行地址 </label> 
                                 <form:input type="text" path="bankAddress" style="width:200px" value="${credentials.bankAddress }"/>
                                 <span class="info">格式为：xx省,xx市/县,xx支行/分行　　　请认真核对<br/>为确保结算安全，该项信息不能修改，如需变更，请联系客服!</span>
+                                <form:errors path="bankAddress" cssClass="error"/>
                             </li>
 						</ul>
 						<ul class="form">

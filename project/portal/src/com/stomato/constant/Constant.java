@@ -1,5 +1,8 @@
 package com.stomato.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public interface Constant {
 	
 	//系统配置

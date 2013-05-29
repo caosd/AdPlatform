@@ -29,9 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import brut.androlib.AndrolibException;
+/*import brut.androlib.AndrolibException;
 import brut.androlib.ApkDecoder;
-import brut.androlib.res.data.ResPackage;
+import brut.androlib.res.data.ResPackage;*/
 
 import com.stomato.constant.Constant;
 import com.stomato.domain.App;
@@ -396,7 +396,7 @@ public class AppsController extends UserController {
 		return "backend/apps/new_step" + step;
 	}
 	
-	@RequestMapping(value="/analyze_app", method=RequestMethod.GET)
+	/*@RequestMapping(value="/analyze_app", method=RequestMethod.GET)
 	public String analyze_app(@RequestParam MultipartFile file, HttpServletRequest request) {
 		User user = this.lookup(request);
 		if (file.getSize() > 0) {
@@ -435,7 +435,7 @@ public class AppsController extends UserController {
 			
 		}
 		return "";
-	}
+	}*/
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
 	public String pushtest(@PathVariable String appKey, HttpServletRequest request) {

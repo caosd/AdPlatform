@@ -1,6 +1,8 @@
 package com.stomato.form;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.stomato.domain.Credentials;
@@ -11,15 +13,19 @@ public class CredentialForm {
 	private Long uid;
 
 	private Integer credentialsType;
-
+	@NotEmpty
 	private String credentialsNo;
+	
+	private MultipartFile file1;
 
+	private MultipartFile file2;
+	
 	private String bankName;
-
+	@NotEmpty
 	private String bankCard;
-
+	@NotEmpty
 	private String bankAccount;
-
+	@NotEmpty
 	private String bankAddress;
 
 	public Long getId() {
@@ -56,6 +62,22 @@ public class CredentialForm {
 
 	public String getBankName() {
 		return bankName;
+	}
+
+	public MultipartFile getFile1() {
+		return file1;
+	}
+
+	public void setFile1(MultipartFile file1) {
+		this.file1 = file1;
+	}
+
+	public MultipartFile getFile2() {
+		return file2;
+	}
+
+	public void setFile2(MultipartFile file2) {
+		this.file2 = file2;
 	}
 
 	public void setBankName(String bankName) {
