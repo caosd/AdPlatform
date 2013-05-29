@@ -8,7 +8,7 @@ public class User implements Serializable {
 	
 	private static final long serialVersionUID = -1486031757640904209L;
 	
-	private int id;
+	private int uid;
 
 	private String userName;
 	
@@ -16,32 +16,32 @@ public class User implements Serializable {
 	
 	private String email;
 	
-	private Integer accountType;
+	private Integer type;
 	
-	private String companyName;
+	private String company;
 	
-	private String country;
+	private String contactName;
 
-	private String address;
+	private String contactTel;
 	
-	private String firstName;
+	private String qq;
 	
-	private String lastName;
+	private String website;
 	
-	private Date regDate;
+	private Date createtime;
 	
 	private String loginToken;
 	
 	private Date loginTokenTime;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 	
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -58,62 +58,70 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Integer getAccountType() {
-		return accountType;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAccountType(Integer accountType) {
-		this.accountType = accountType;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public Integer getType() {
+		return type;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	
-	public String getCountry() {
-		return country;
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public String getCompany() {
+		return company;
 	}
 
-	public String getAddress() {
-		return address;
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public String getContactName() {
+		return contactName;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public String getContactTel() {
+		return contactTel;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public void setContactTel(String contactTel) {
+		this.contactTel = contactTel;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	public Date getRegDate() {
-		return regDate;
+	public String getQq() {
+		return qq;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setQq(String qq) {
+		this.qq = qq;
 	}
-	
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
 	public String getLoginToken() {
 		return loginToken;
 	}
@@ -129,15 +137,7 @@ public class User implements Serializable {
 	public void setLoginTokenTime(Date loginTokenTime) {
 		this.loginTokenTime = loginTokenTime;
 	}
-	
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

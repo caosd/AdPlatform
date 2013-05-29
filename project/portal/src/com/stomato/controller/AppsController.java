@@ -7,11 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import main.air.Unzip;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import brut.androlib.AndrolibException;
+import brut.androlib.ApkDecoder;
+import brut.androlib.res.data.ResPackage;
+
+import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.User;
@@ -33,6 +42,7 @@ import com.stomato.enums.ReportTypeEnum;
 import com.stomato.form.AppForm;
 import com.stomato.helper.AppHelper;
 import com.stomato.service.AppService;
+import com.stomato.service.ConfigService;
 import com.stomato.service.UserImeiService;
 import com.stomato.utils.DateUtils;
 import com.stomato.utils.ReportUtils;
@@ -55,10 +65,13 @@ public class AppsController extends UserController {
 	@Autowired
 	private AppValidation appValidation;
 	
+	@Autowired
+	private ConfigService configService;
+	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
-		List<App> applist = appService.getAppList(user.getId());
+		List<App> applist = appService.getAppList(user.getUid());
 		model.addAttribute("applist", applist);
 		
 		return "backend/apps/applist";
@@ -77,7 +90,7 @@ public class AppsController extends UserController {
 		}
 		
 		User user = this.lookup(request);
-		boolean ready = true;//AppHelper.syncPackage(user.getId(), form.getPkg());
+		boolean ready = true;//AppHelper.syncPackage(user.getUid(), form.getPkg());
 		if (!ready) {
 			model.addAttribute("failedWithDuplicatePackage", true);
 			return "backend/apps/createForm";
@@ -85,7 +98,7 @@ public class AppsController extends UserController {
 		
 		String appKey = AppHelper.generateAppKey(user.getUserName());
 		App app = form.asPojo();
-		app.setUid(user.getId());
+		app.setUid(user.getUid());
 		app.setKey(appKey);
 		int appId = new Random().nextInt(1000);//AppHelper.syncApp(app);
 		
@@ -106,7 +119,7 @@ public class AppsController extends UserController {
 	@RequestMapping(value="/validation", method=RequestMethod.GET)
 	public Object addApp(@RequestParam String pkg, HttpServletRequest request) {
 		//User user = this.lookup(request);
-		//return AppHelper.syncPackage(user.getId(), pkg);
+		//return AppHelper.syncPackage(user.getUid(), pkg);
 		return true;
 	}
 
@@ -146,7 +159,7 @@ public class AppsController extends UserController {
 		User user = this.lookup(request);
 		App app = new App();
 		app.setKey(appKey);
-		app.setUid(user.getId());
+		app.setUid(user.getUid());
 		appService.deleteApp(app);
 		
 		return "redirect:/apps";
@@ -176,7 +189,7 @@ public class AppsController extends UserController {
 		data.put("end", endDate);
 		
 		ReportParam rptParam = new ReportParam();
-		rptParam.setUid(user.getId());
+		rptParam.setUid(user.getUid());
 		rptParam.setAppId(app.getId());
 		rptParam.setStartDate(startDate);
 		rptParam.setEndDate(endDate);
@@ -206,7 +219,7 @@ public class AppsController extends UserController {
 	public String push(Model model, HttpServletRequest request) {
 		User user = this.lookup(request);
 		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getId(), app.getId());
+		UserImei userImei = new UserImei(user.getUid(), app.getId());
 		
 		List<UserImei> list = userImeiService.getAllUserImei(userImei);
 		model.addAttribute("userImeiList", list);
@@ -219,7 +232,7 @@ public class AppsController extends UserController {
 	public Object updateUserImei(@RequestParam int id, @RequestParam String imei, @RequestParam String description, HttpServletRequest request) {
 		User user = this.lookup(request);
 		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getId(), app.getId());
+		UserImei userImei = new UserImei(user.getUid(), app.getId());
 		userImei.setImei(imei);
 		userImei.setDescription(description);
 		
@@ -232,7 +245,7 @@ public class AppsController extends UserController {
 	public Object deleteUserImei(@RequestParam int id, HttpServletRequest request) {
 		User user = this.lookup(request);
 		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getId(), app.getId());
+		UserImei userImei = new UserImei(user.getUid(), app.getId());
 		userImei.setId(id);
 		
 		return userImeiService.deleteUserImei(userImei) == 1;
@@ -247,7 +260,7 @@ public class AppsController extends UserController {
 		}
 		User user = this.lookup(request);
 		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getId(), app.getId());
+		UserImei userImei = new UserImei(user.getUid(), app.getId());
 		userImei.setImei(imei);
 		userImei.setDescription(description);
 		try {
@@ -273,7 +286,7 @@ public class AppsController extends UserController {
 		int errCode = -1;
 		User user = this.lookup(request);
 		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getId(), app.getId());
+		UserImei userImei = new UserImei(user.getUid(), app.getId());
 		userImei.setId(id);
 		
 		userImei = userImeiService.getUserImei(userImei);
@@ -300,7 +313,7 @@ public class AppsController extends UserController {
 		int errCode = -1;
 		User user = this.lookup(request);
 		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getId(), app.getId());
+		UserImei userImei = new UserImei(user.getUid(), app.getId());
 		userImei.setId(id);
 		
 		userImei = userImeiService.getUserImei(userImei);
@@ -326,7 +339,7 @@ public class AppsController extends UserController {
 	@RequestMapping(value="/ajax_summary", method=RequestMethod.GET)
 	public Object summary(HttpServletRequest request) {
 		User user = this.lookup(request);
-		return appService.getSummaryReport(user.getId());
+		return appService.getSummaryReport(user.getUid());
 	}
 	
 	private static final String uploadsDir = "/sm_uploads";
@@ -367,13 +380,61 @@ public class AppsController extends UserController {
 		if (step >= 4 || step <= 0) {
 			step = 1;
 		}
+		
 		return "backend/apps/new_step" + step;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/create_ajax", method=RequestMethod.GET)
-	public Object create_ajax(HttpServletRequest request) {
-		return null;
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public String postCreateApp(MultipartFile file, HttpServletRequest request) {
+		User user = this.lookup(request);
+		Object stepObj = request.getParameter("step");
+		int step = null == stepObj ? 1 : Integer.parseInt(stepObj.toString());
+		if (step >= 4 || step <= 0) {
+			step = 1;
+		}
+		
+		return "backend/apps/new_step" + step;
+	}
+	
+	@RequestMapping(value="/analyze_app", method=RequestMethod.GET)
+	public String analyze_app(@RequestParam MultipartFile file, HttpServletRequest request) {
+		User user = this.lookup(request);
+		if (file.getSize() > 0) {
+			String fileSeparator = System.getProperty("file.separator");
+			String tf = configService.loadConfig(Constant.Configs.filesDirPath);
+			tf += fileSeparator + user.getUid() + fileSeparator + Constant.Configs.appsDirPath + fileSeparator + file.getName() + apkSuffix;
+			File targetFile = new File(tf);
+			if (!targetFile.exists()) {
+				boolean made = targetFile.mkdirs();
+				logger.info("result[" + made + "] create path:" + targetFile.getPath());
+			}
+			try {
+				file.transferTo(targetFile);
+				
+				String appKey = AppHelper.generateAppKey(user.getUserName());
+				App app = new App();
+				app.setUid(user.getUid());
+				app.setKey(appKey);
+				ApkDecoder d = new ApkDecoder();
+				d.setApkFile(new File(tf));
+				try {
+					Set<ResPackage> p = d.getResTable().listMainPackages();
+					for(ResPackage r:p){
+						logger.info("反编译APK后包名：" + r.getName());
+						app.setPkg(r.getName());
+					}
+				} catch (AndrolibException e) {
+					e.printStackTrace();
+				}
+				Unzip.getIcons(tf);
+				
+				appService.addApp(app);
+			} catch (Exception e) {
+				logger.error("[Upload Error] " + e.getMessage());
+			}
+			
+		}
+		return "";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)

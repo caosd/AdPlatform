@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="header">
 	<div class="container">
-		<a href="${not empty user.userName?"/apps":"/" }" title="Smile Tomato" class="logo"><span>Smile Tomato</span></a>
+		<!-- <a href="${not empty user.userName?"/apps":"/" }" title="Smile Tomato" class="logo"><span>Smile Tomato</span></a>  -->
 		<c:if test="${not empty user.userName }">
 		<div class="appselect">
 			<a href="" title="" class="appselect_button">

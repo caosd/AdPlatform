@@ -23,11 +23,22 @@
                 <form method="POST" class="blueform" enctype="multipart/form-data" style="margin-left: 95px;width: 812px;">
                   <ul class="form">
                       <li>
+                        <label> 应用名称 </label> 
+                        <input type="text" name="appName" />
+                      </li>
+                      <li>
                         <label> 上传应用 </label> 
                         <a href="javascript:void(0);" class="file">
 	                        <span><em>+</em> 添加您的应用 </span>
-	                        <input title="支持jpg,gif,png格式" size="3" name="file1" type="file">
+	                        <input title="支持jpg,gif,png格式" size="3" name="file" type="file">
 	                    </a>
+                      </li>
+                  </ul>
+                  <ul class="form">
+                      <li>
+                          <button id="btn_sub" type="submit">
+                               上传应用
+                          </button>
                       </li>
                   </ul>
                 </form>

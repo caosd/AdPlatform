@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.stomato.domain.User;
+import com.stomato.enums.AccountTypeEnum;
 import com.stomato.form.RegistrationForm;
 import com.stomato.service.AccountsService;
 import com.stomato.validator.RegistrationValidation;
@@ -40,13 +41,13 @@ public class RegistrationController {
 		User verifier = new User();
 		verifier.setEmail(form.getEmail());
 		verifier.setUserName(form.getUserName());
-		User dbUser = accountsService.verify(verifier);
-		if (dbUser != null) {
-			if (form.getEmail().equals(dbUser.getEmail())) {
+		verifier = accountsService.verify(verifier);
+		if (verifier != null) {
+			if (form.getEmail().equals(verifier.getEmail())) {
 				result.rejectValue("email", "error.email_is_exist", "This email address has been registered.");
 				return "backend/accounts/sign_up";
 			}
-			if (form.getUserName().equals(dbUser.getUserName())) {
+			if (form.getUserName().equals(verifier.getUserName())) {
 				result.rejectValue("userName", "error.username_is_exist", "This username has been registered.");
 				return "backend/accounts/sign_up";
 			}
@@ -55,7 +56,11 @@ public class RegistrationController {
 		User user = form.asPojo();
 		accountsService.addUser(user);
 		
-		form = null;
-		return "redirect:/accounts/sign-up?sm=stomato&success=true";
+		user = accountsService.getUser(user);
+		if (user.getType() == AccountTypeEnum.Company.value()) {
+			
+		}
+		
+		return "redirect:/accounts/sign-up?success=true";
 	}
 }

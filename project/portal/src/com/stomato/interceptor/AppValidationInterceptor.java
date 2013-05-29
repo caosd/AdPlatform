@@ -35,7 +35,7 @@ public class AppValidationInterceptor extends HandlerInterceptorAdapter {
 				User user = this.lookup(request);
 				App app = new App();
 				app.setKey(appKey);
-				app.setUid(user.getId());
+				app.setUid(user.getUid());
 				app = appService.getApp(app);
 				if (app != null) {
 					request.setAttribute("app", app);

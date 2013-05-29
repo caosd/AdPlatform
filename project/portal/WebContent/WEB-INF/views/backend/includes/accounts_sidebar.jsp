@@ -68,7 +68,6 @@ boolean isHourlyIncomingReport = uri.indexOf("/report/incoming/hourly") > 0;
         <ul>
             <li class="<%=isMonthlyIncomingReport?"current":"" %>"><a href="/report/incoming/monthly"> <span> <fmt:message key="side.report.incoming.monthly"/> </span></a></li>
             <li class="<%=isDailyIncomingReport?"current":"" %>"><a href="/report/incoming/daily"> <span> <fmt:message key="side.report.incoming.daily"/> </span></a></li>
-            <li class="<%=isHourlyIncomingReport?"current":"" %>"><a href="/report/incoming/hourly"> <span> <fmt:message key="side.report.incoming.hourly"/> </span></a></li>
         </ul>
     </div>
 </div>
