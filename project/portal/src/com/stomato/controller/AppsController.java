@@ -7,14 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
-import main.air.Unzip;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-/*import brut.androlib.AndrolibException;
-import brut.androlib.ApkDecoder;
-import brut.androlib.res.data.ResPackage;*/
-
-import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.User;
