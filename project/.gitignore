@@ -6,4 +6,6 @@ portal/build/
 portal/.classpath
 portal/.project
 .DS_Store
+*.swp
+portal/WebContent/WEB-INF/classes/
 
