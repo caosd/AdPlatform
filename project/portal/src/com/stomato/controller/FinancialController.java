@@ -1,6 +1,7 @@
 package com.stomato.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.stomato.domain.Credentials;
 import com.stomato.domain.Remittance;
 import com.stomato.domain.User;
+import com.stomato.domain.UserAccount;
 import com.stomato.form.CredentialForm;
 import com.stomato.service.CredentialsService;
 import com.stomato.service.RemittanceService;
+import com.stomato.service.UserAccountsService;
 import com.stomato.validator.CredentialValidation;
 
 @Controller
@@ -31,6 +34,8 @@ public class FinancialController extends UserController{
 	private CredentialsService credentialsService;
 	@Autowired
 	private CredentialValidation credentialValidation;
+	@Autowired
+	private UserAccountsService userAccountsService;
 	@Autowired
 	private RemittanceService remittanceService;
 	
@@ -119,15 +124,23 @@ public class FinancialController extends UserController{
 		if(	credentials != null ){
 			model.addAttribute("credentials", credentials);
 		}
+		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(this.lookup(request));
+		if(	userAccount != null ){
+			model.addAttribute("userAccount", userAccount);
+		}
 		return "backend/financial/remittance";
 	}
 	@RequestMapping(value="/remittance",method=RequestMethod.POST)
 	public String remittance(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		User user = this.lookup(request);
-		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
+		Credentials credentials = this.credentialsService.getCredentialsByUser(this.lookup(request));
 		if(	credentials != null ){
 			model.addAttribute("credentials", credentials);
+		}
+		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(this.lookup(request));
+		if(	userAccount != null ){
+			model.addAttribute("userAccount", userAccount);
 		}
 		
 		double money = super.getDoubleParameter(request,"money");
@@ -147,7 +160,11 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/remittance_history")
-	public String remittance_history(HttpServletRequest request, HttpServletResponse response) {
+	public String remittance_history(HttpServletRequest request, Model model) {
+		
+		User user = this.lookup(request);
+		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(user.getUid());
+		model.addAttribute("remittanceList", remittanceList);
 		return "backend/financial/remittance_history";
 	}
 }

@@ -28,9 +28,22 @@
                              </tr>
                            </thead>
                            <tbody>
-                             <tr>
-                               <td colspan="7">没有任何可显示的结果</td>
-                             </tr>
+                           <c:forEach items="${remittanceList}" var="remittance" varStatus="stat">
+								<tr>
+								<th>${remittance.bankAccount }</th>
+								<td>${remittance.bankCard }</td>
+								<td>${remittance.money }</td>
+								<td>${remittance.createTime }</td>
+								<td>${remittance.remittanceTime }</td>
+								<td>${remittance.status }</td>
+								<td>${remittance.remark }</td>
+								</tr>
+							</c:forEach>
+							<c:if test="${fn:length(remittanceList) == 0 }">
+	                             <tr>
+	                               <td colspan="7">没有任何可显示的结果</td>
+	                             </tr>
+							</c:if>
                            </tbody>
                        </table>
                        <ul class="pages">

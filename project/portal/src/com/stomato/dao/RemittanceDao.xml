@@ -37,7 +37,9 @@
 			now())
 	</insert>
 	<select id="getRemittance" parameterType="com.stomato.domain.Remittance" resultMap="remittance" >
-		select * from t_remittance where id=#{id}
+		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,last_update_time from t_remittance where id=#{id}
 	</select>
-	
+	<select id="getRemittanceList" parameterType="int" resultMap="remittance" >
+		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,last_update_time from t_remittance where uid=#{uid} order by id asc;
+	</select>
 </mapper>

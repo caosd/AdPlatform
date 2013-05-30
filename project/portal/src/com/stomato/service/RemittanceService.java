@@ -1,5 +1,7 @@
 package com.stomato.service;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,10 @@ public class RemittanceService {
 
 	public Remittance getRemittance(Remittance remittance) {
 		return this.remittanceDao.getRemittance(remittance);
+	}
+	
+	public List<Remittance> getRemittanceList(int uid){
+		return this.remittanceDao.getRemittanceList(uid);
 	}
 
 	public void updateRemittance(Remittance remittance) {

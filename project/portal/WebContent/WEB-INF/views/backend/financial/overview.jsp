@@ -46,7 +46,7 @@ margin-right: 20px;
 			<div id="content">
 			    <%@include file="../includes/accounts_sidebar.jsp"%>
 			    <div class="right_content">
-					<h2><fmt:message key="app_upload_title"/></h2>
+					<h2><fmt:message key="side.financial.overview"/></h2>
 					<c:if test="${param.failed}">
 	                <div class="protip error">
 	                    <strong><fmt:message key="tips"/></strong> <fmt:message key="app_upload_failed"/>

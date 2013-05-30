@@ -1,5 +1,7 @@
 package com.stomato.dao;
 
+import java.util.List;
+
 import com.stomato.domain.Remittance;
 
 /**
@@ -9,6 +11,8 @@ import com.stomato.domain.Remittance;
 public interface RemittanceDao {
 
 	Remittance getRemittance(Remittance remittance);
+	
+	List<Remittance> getRemittanceList(int uid);
 	
 	void updateRemittance(Remittance remittance);
 	

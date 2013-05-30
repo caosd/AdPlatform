@@ -58,7 +58,7 @@ margin: 0;
                         <ul class="form">
                             <li>
                                 <label> 账户余额 </label> 
-                                <span style="color:red;line-height: 35px;">0.0元（人民币）</span>
+                                <span style="color:red;line-height: 35px;">${userAccount.balance}元（人民币）</span>
                             </li>
                             <li>
                                 <label> 取款金额 </label> 
