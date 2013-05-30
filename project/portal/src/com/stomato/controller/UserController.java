@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.stomato.domain.User;
+import com.stomato.exception.ParameterException;
 import com.stomato.interceptor.LocaleInterceptor;
+import com.stomato.utils.StringUtils;
 
 public class UserController {
 	
@@ -71,5 +73,75 @@ public class UserController {
 			logger.error("write cookie exception: " + ex.getMessage());
 		}
 	}
-
+	/**
+	 * 取得整型参数的值
+	 * 
+	 * @param parameter
+	 *            参数
+	 * @return int 当前类别
+	 */
+	protected int getIntParameter(HttpServletRequest request,String name) {
+		String value = request.getParameter(name);
+		if (value != null) {
+			try {
+				return Integer.parseInt(value);
+			} catch (Exception e) {
+				return 0;
+			}
+		}
+		return 0;
+	}
+	/**
+	 * 取得整型参数的值
+	 * 
+	 * @param parameter
+	 *            参数
+	 * @return int 当前类别
+	 */
+	protected Double getDoubleParameter(HttpServletRequest request,String name) {
+		String value = request.getParameter(name);
+		if (value != null) {
+			try {
+				return Double.parseDouble(value);
+			} catch (Exception e) {
+				return 0.0;
+			}
+		}
+		return 0.0;
+	}
+	/**
+	 * 取得request中parameter的值
+	 * 
+	 * @param parameter
+	 *            参数
+	 * @return string 参数的值
+	 */
+	protected String[] getParameterValues(HttpServletRequest request,String name) {
+		String[] values = request.getParameterValues(name);
+		if (values != null) {
+			return values;
+		}
+		return new String[] {};
+	}
+	/**
+	 * 从request中获取String类型
+	 * 
+	 * @param parameter
+	 * @param isNull
+	 * @return
+	 * @throws ParameterException
+	 */
+	public String getStringParameter(HttpServletRequest request,String parameter, boolean isNull)
+			throws ParameterException {
+		String value = request.getParameter(parameter);
+		if (StringUtils.isEmpty(value)) {
+			if (!isNull) {
+				throw new ParameterException(parameter + " 参数不能为空");
+			} else {
+				return "";
+			}
+		} else {
+			return value;
+		}
+	}
 }

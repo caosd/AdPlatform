@@ -10,9 +10,9 @@ import java.sql.Timestamp;
 public class Remittance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Integer id;
 
-	private Long uid;
+	private Integer uid;
 
 	private Double money;
 
@@ -32,19 +32,19 @@ public class Remittance implements Serializable {
 
 	private Timestamp lastUpdateTime;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Long getUid() {
+	public int getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+	public void setUid(int uid) {
 		this.uid = uid;
 	}
 

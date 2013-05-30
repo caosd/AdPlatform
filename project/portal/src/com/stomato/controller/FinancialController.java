@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.domain.Credentials;
+import com.stomato.domain.Remittance;
 import com.stomato.domain.User;
 import com.stomato.form.CredentialForm;
 import com.stomato.service.CredentialsService;
@@ -90,7 +91,6 @@ public class FinancialController extends UserController{
 		model.addAttribute("credentials", credentials);
 		return "backend/financial/overview";
 	}
-
 	private String savePhoto(MultipartFile file,Model model,Integer uid,Integer credentialsType,String credentialsNo,String photoname){
 		try{
 			String suffix = CredentialValidation.IMG_SUFFIXS.get(file.getContentType());
@@ -113,8 +113,36 @@ public class FinancialController extends UserController{
 		return "backend/financial/accounts";
 	}
 	
-	@RequestMapping("/remittance")
-	public String remittance(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/remittance",method=RequestMethod.GET)
+	public String remittance(HttpServletRequest request, Model model) {
+		Credentials credentials = this.credentialsService.getCredentialsByUser(this.lookup(request));
+		if(	credentials != null ){
+			model.addAttribute("credentials", credentials);
+		}
+		return "backend/financial/remittance";
+	}
+	@RequestMapping(value="/remittance",method=RequestMethod.POST)
+	public String remittance(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		User user = this.lookup(request);
+		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
+		if(	credentials != null ){
+			model.addAttribute("credentials", credentials);
+		}
+		
+		double money = super.getDoubleParameter(request,"money");
+		if(money <= 0){
+			model.addAttribute("money","Amount shall not be less than 0.");
+			return "backend/financial/remittance"; 
+		}
+		Remittance remittance = new Remittance();
+		remittance.setUid(user.getUid());
+		remittance.setBankAccount(credentials.getBankAccount());
+		remittance.setBankCard(credentials.getBankCard());
+		remittance.setBankName(credentials.getBankName());
+		remittance.setMoney(money);
+		
+		remittanceService.addRemittance(remittance);
 		return "backend/financial/remittance";
 	}
 	

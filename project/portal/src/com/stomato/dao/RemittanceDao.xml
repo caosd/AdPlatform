@@ -17,33 +17,25 @@
 		<result property="lastUpdateTime" column="last_update_time"/>
 	</resultMap>
 
-	<select id="addRemittance" parameterType="com.stomato.domain.Remittance">
+	<insert id="addRemittance" parameterType="com.stomato.domain.Remittance">
 		INSERT INTO t_remittance (
 			uid,
 			money,
 			bank_account,
 			bank_name,
 			bank_card,
-			STATUS,
-			remark,
-			remittance_time,
 			create_time,
 			last_update_time
 		)
 		VALUES
-			(
-			#{uid}, 
+			(#{uid}, 
 			#{money}, 
 			#{bankAccount}, 
 			#{bankName}, 
-			#{bankCard}, 
-			#{status}, 
-			#{remark}, 
-			#{remittanceTime}, 
+			#{bankCard},
 			now(), 
 			now())
-	</select>
-	
+	</insert>
 	<select id="getRemittance" parameterType="com.stomato.domain.Remittance" resultMap="remittance" >
 		select * from t_remittance where id=#{id}
 	</select>

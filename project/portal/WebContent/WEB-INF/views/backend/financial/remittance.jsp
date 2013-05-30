@@ -62,18 +62,18 @@ margin: 0;
                             </li>
                             <li>
                                 <label> 取款金额 </label> 
-                                <input type="text" placeholder="金额最小单位为元"/>
+                                <input name="money" type="text" placeholder="金额最小单位为元"/>
                                 <span>元(人民币)</span>
                             </li>
                             <li>
                                 <label> 银行账户信息 </label> 
-                                <div style="color:red;padding-top: 7px;">中国工商银行：12*******3123</div>
+                                <div style="color:red;padding-top: 7px;">${credentials.bankName}：${credentials.bankCard}</div>
                             </li>
                             <li>
                                 <label> 产品合作<br/>责任协议 </label> 
                                 <iframe src="/html/RemittanceAgreement.html" frameborder="0" scrolling="no" style="width: 100%; height: 350px; border: 2px;"></iframe>
                                 <div class="agreementlbl">
-                                    <label for="yes"><input name="agree" id="yes" type="radio" value="1">&nbsp;已经阅读并同意</label>
+                                    <label for="yes"><input  name="agree" id="yes" type="radio" value="1">&nbsp;已经阅读并同意</label>
                                     <label for="no"><input name="agree" id="no" type="radio" value="2" checked="checked">&nbsp;我不同意</label>
                                 </div>
                             </li>
