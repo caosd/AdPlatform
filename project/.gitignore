@@ -1,0 +1,9 @@
+*.settings/
+*.classpath
+.classpath
+.settings/
+portal/build/
+portal/.classpath
+portal/.project
+.DS_Store
+
