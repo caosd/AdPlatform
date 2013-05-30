@@ -33,7 +33,7 @@ public class FinancialController extends UserController{
 	@Autowired
 	private RemittanceService remittanceService;
 	
-	private static final String uploadsDir = "D:/jiandong/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Test/";
+	private static final String uploadsDir = "F:/project/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/AdPlatform/";
 	private static final String fileSeparator = System.getProperty("file.separator");
 	
 	@RequestMapping(value="/overview",method=RequestMethod.GET)
