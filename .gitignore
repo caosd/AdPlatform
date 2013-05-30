@@ -2,8 +2,9 @@ classes/
 bin/
 build/
 dist/
-.settings/
-.classpath
+*.settings/
+*.classpath
+*.project
 .DS_Store
 *.log
 *.class
