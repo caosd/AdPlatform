@@ -20,15 +20,35 @@
 	</select>
 	
 	<select id="getSummaryReport" parameterType="map" resultType="map">
-		select 
-		sum(case when a.kpi_code = 'sm_user_amount' and a.idate = #{idate} then a.kpi_value else 0 end) as amounts,
-		sum(case when a.kpi_code = 'sm_user_new' and a.idate = #{idate} then a.kpi_value else 0 end) as new_today,
-		sum(case when a.kpi_code = 'sm_user_new' and a.idate = DATE_FORMAT(DATE_ADD(STR_TO_DATE(#{idate}, '%Y%m%d'), interval -1 day), '%Y%m%d') then a.kpi_value else 0 end) as new_yesterday,
-		sum(case when a.kpi_code = 'sm_user_online' and a.idate = #{idate} then a.kpi_value else 0 end) as online_today,
-		sum(case when a.kpi_code = 'sm_user_online' and a.idate = DATE_FORMAT(DATE_ADD(STR_TO_DATE(#{idate}, '%Y%m%d'), interval -1 day), '%Y%m%d') then a.kpi_value else 0 end) as online_yesterday,
-		sum(case when a.kpi_code = 'sm_earnings_amount' and a.idate = #{idate} then a.kpi_value else 0 end) as earnings,
-		b.app_key as app_key
+		select sum(case when a.kpi_code = 'sm_total_users' then a.kpi_value else 0 end) as totaLusers,
+			 sum(case when a.kpi_code = 'sm_push_times' then a.kpi_value else 0 end) as pushTimes,
+			 sum(case when a.kpi_code = 'sm_display_times' then a.kpi_value else 0 end) as displayTimes,
+			 sum(case when a.kpi_code = 'sm_new_users' then a.kpi_value else 0 end) as newUsers,
+			 sum(case when a.kpi_code = 'sm_online_users' then a.kpi_value else 0 end) as onlineUsers,
+			 sum(case when a.kpi_code = 'sm_conversion_rate' then a.kpi_value else 0 end) as conversionRate,
+			 sum(case when a.kpi_code = 'sm_fill_rate' then a.kpi_value else 0 end) as fillRate,
+			 sum(case when a.kpi_code = 'sm_money_pushes' then a.kpi_value else 0 end) as moneyPushes,
+			 sum(case when a.kpi_code = 'sm_money_advertising' then a.kpi_value else 0 end) as moneyAdvertising
 		from t_report_daily as a inner join t_apps as b on a.app_id = b.id 
-		where a.dev_id=#{uid} and a.idate between DATE_FORMAT(DATE_ADD(STR_TO_DATE(#{idate}, '%Y%m%d'), interval -1 day), '%Y%m%d') and #{idate} group by a.app_id
+		where a.uid=#{uid}
+		<choose>
+	    <when test="stime != null and etime != null">
+	      and a.idate between #{stime} and #{etime}
+	    </when>
+	    <when test="author != null and author.name != null">
+	      AND author_name like #{author.name}
+	    </when>
+	    <otherwise>
+	      AND featured = 1
+	    </otherwise>
+	  </choose>
+			<if test="stime != null">
+				<if test="etime != null">and a.idate between #{stime} and #{etime}</if>
+			</if>
+			<if test="stime != null">
+				<if test="etime != null">and a.idate between #{stime} and #{etime}</if>
+			</if>
+		</set>
+		 group by a.app_id
 	</select>
 </mapper>

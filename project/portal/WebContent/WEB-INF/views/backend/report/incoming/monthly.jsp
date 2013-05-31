@@ -35,26 +35,25 @@
 					<div class="box">
 					   <table class="data">
 					       <thead>
-					         <tr>
-					           <th>月份</th>
-					           <th>推送展示数</th>
-					           <th>推送收入</th>
-					           <th>视频展示数</th>
-                               <th>视频收入</th>
-                               <th>酷仔安装数</th>
-                               <th>酷仔收入</th>
-                               <th>广告条安装数</th>
-                               <th>广告条收入</th>
-                               <th>富媒体发送数</th>
-                               <th>富媒体收入</th>
-                               <th>总收入</th>
+                             <tr>
+                               <th width="12%">月份</th>
+                               <th>新增用户</th>
+                               <th>在线用户</th>
+                               <th>推送收入 (元)</th>
+                               <th>应用内广告收入 (元)</th>
+                               <th>总收入 (元)</th>
                              </tr>
-					       </thead>
-					       <tbody>
-					         <tr>
-					           <td colspan="12">没有任何可显示的结果</td>
-					         </tr>
-					       </tbody>
+                           </thead>
+                           <tbody>
+                             <tr>
+                               <td>7月份</td>
+                               <td>40</td>
+                               <td>2000</td>
+                               <td>10.000</td>
+                               <td>105.500</td>
+                               <td>205.500</td>
+                             </tr>
+                           </tbody>
 					   </table>
 					   <ul class="pages">
 	                        <li class="prev"><a href="javascript:void(0);" class="btn mini tertiary disabled" rel="prev">←</a></li>

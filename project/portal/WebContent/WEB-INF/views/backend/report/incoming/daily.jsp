@@ -36,11 +36,15 @@
                         </select>
                         <select class="mini">
                             <option>全部</option>
-                            <option>推送</option>
-                            <option>视频</option>
-                            <option>酷仔</option>
-                            <option>广告条</option>
-                            <option>富媒体</option>
+                            <option value="sm_total_users">总用户数</option>
+                            <option value="sm_push_times">推送次数</option>
+                            <option value="sm_display_times">展示次数</option>
+                            <option value="sm_new_users">新增用户</option>
+                            <option value="sm_online_users">在线用户</option>
+                            <option value="sm_conversion_rate">转化率</option>
+                            <option value="sm_fill_rate">填充率</option>
+                            <option value="sm_money_pushes">推送收入</option>
+                            <option value="sm_money_advertising">广告收入</option>
                         </select>
                         &nbsp;&nbsp;
                       </div>
@@ -50,47 +54,43 @@
                            <thead>
                              <tr>
                                <th width="12%">天数</th>
-                               <th>推送广告收入 (元)</th>
-                               <th>视频广告收入 (元)</th>
-                               <th>酷仔收入 (元)</th>
-                               <th>广告条收入 (元)</th>
-                               <th>富媒体收入 (元)</th>
+                               <th>新增用户</th>
+                               <th>在线用户</th>
+                               <th>推送收入 (元)</th>
+                               <th>应用内广告收入 (元)</th>
                                <th>总收入 (元)</th>
                              </tr>
                            </thead>
                            <tbody>
                              <tr>
                                <td>1</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
+                               <td>40</td>
+                               <td>2000</td>
+                               <td>10.000</td>
+                               <td>105.500</td>
+                               <td>205.500</td>
                              </tr>
                            </tbody>
                        </table>
                        <table class="data">
                            <thead>
                              <tr>
-                               <th width="12%">日期</th>
-                               <th>推送广告收入 (元)</th>
-                               <th>视频广告收入 (元)</th>
-                               <th>酷仔收入 (元)</th>
-                               <th>广告条收入 (元)</th>
-                               <th>富媒体收入 (元)</th>
+                               <th width="12%">天数</th>
+                               <th>新增用户</th>
+                               <th>在线用户</th>
+                               <th>推送收入 (元)</th>
+                               <th>应用内广告收入 (元)</th>
                                <th>总收入 (元)</th>
                              </tr>
                            </thead>
                            <tbody>
                              <tr>
                                <td>2013-05-27</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
-                               <td>0.000</td>
+                               <td>40</td>
+                               <td>2000</td>
+                               <td>10.000</td>
+                               <td>105.500</td>
+                               <td>205.500</td>
                              </tr>
                            </tbody>
                        </table>
