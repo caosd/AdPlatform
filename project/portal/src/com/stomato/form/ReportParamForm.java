@@ -1,10 +1,11 @@
 package com.stomato.form;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
+
 import com.google.gson.Gson;
-import com.stomato.enums.ReportTypeEnum;
+import com.stomato.domain.ReportParam;
 
 public class ReportParamForm {
 	
@@ -15,8 +16,6 @@ public class ReportParamForm {
 	private Date startDate;
 	
 	private Date endDate;
-	
-	private ReportTypeEnum reportType;
 	
 	private String code;
 	
@@ -64,24 +63,6 @@ public class ReportParamForm {
 		this.code = code;
 	}
 
-	public ReportTypeEnum getReportType() {
-		return reportType;
-	}
-
-	public void setReportType(ReportTypeEnum reportType) {
-		this.reportType = reportType;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		switch(this.reportType) {
-		case Monthly:
-			sdf = new SimpleDateFormat("yyyyMM");
-			break;
-		}
-		if (this.startDate != null)
-			this.istart = Integer.parseInt(sdf.format(this.startDate));
-		if (this.endDate != null)
-			this.iend = Integer.parseInt(sdf.format(this.endDate));
-	}
-
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -103,4 +84,9 @@ public class ReportParamForm {
 		return new Gson().toJson(this);
 	}
 	
+	public ReportParam asPojo() {
+		ReportParam reportParam = new ReportParam();
+		BeanUtils.copyProperties(this, reportParam);
+		return reportParam;
+	}
 }

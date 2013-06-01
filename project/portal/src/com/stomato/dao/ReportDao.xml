@@ -7,19 +7,61 @@
 		<result property="value" column="kpi_value"/>
 	</resultMap>
 	
-	<select id="getHourlyReport" parameterType="com.stomato.domain.ReportParam" resultMap="report">
+	<select id="getHourlyReport" parameterType="com.stomato.domain.ReportParam" resultType="list">
 		select UNIX_TIMESTAMP(concat(idate, lpad(ihour, 2, 0), '0000')) as idate, kpi_value from t_report_hourly where dev_id=#{uid} and kpi_code=#{code} and app_id=#{appId} and idate between #{istart} and #{iend} order by idate,ihour asc;
 	</select>
 	
-	<select id="getDailyReport" parameterType="com.stomato.domain.ReportParam" resultMap="report">
-		select UNIX_TIMESTAMP(concat(idate, '000000')) as idate, kpi_value from t_report_daily where dev_id=#{uid} and kpi_code=#{code} and app_id=#{appId} and idate between #{istart} and #{iend} order by idate asc;
+	<select id="getDailyReport" parameterType="com.stomato.domain.ReportParam" resultType="map">
+		select
+		     a.idate as idate,
+		     sum(case when a.kpi_code = 'sm_total_users' then a.kpi_value else 0 end) as totaLusers,
+			 sum(case when a.kpi_code = 'sm_push_times' then a.kpi_value else 0 end) as pushTimes,
+			 sum(case when a.kpi_code = 'sm_display_times' then a.kpi_value else 0 end) as displayTimes,
+			 sum(case when a.kpi_code = 'sm_new_users' then a.kpi_value else 0 end) as newUsers,
+			 sum(case when a.kpi_code = 'sm_online_users' then a.kpi_value else 0 end) as onlineUsers,
+			 sum(case when a.kpi_code = 'sm_conversion_rate' then a.kpi_value else 0 end) as conversionRate,
+			 sum(case when a.kpi_code = 'sm_fill_rate' then a.kpi_value else 0 end) as fillRate,
+			 sum(case when a.kpi_code = 'sm_money_pushes' then a.kpi_value else 0 end) as moneyPushes,
+			 sum(case when a.kpi_code = 'sm_money_advertising' then a.kpi_value else 0 end) as moneyAdvertising 
+		from t_report_daily as a inner join t_apps as b on a.app_id = b.id 
+		where a.uid=#{uid}
+		<choose>
+		    <when test="startDate != null and endDate != null">
+		      and a.idate between #{startDate} and #{endDate}
+		    </when>
+		    <when test="startDate != null">
+		      AND idate >= #{startDate}
+		    </when>
+	     </choose>
+	     group by a.idate,a.app_id order by idate asc;
 	</select>
 	
-	<select id="getMonthlyReport" parameterType="com.stomato.domain.ReportParam" resultMap="report">
-		select UNIX_TIMESTAMP(concat(mon, '01000000')) as idate, kpi_value from t_report_monthly where dev_id=#{uid} and kpi_code=#{code} and app_id=#{appId} and mon between #{istart} and #{iend} order by idate asc;
+	<select id="getMonthlyReport" parameterType="com.stomato.domain.ReportParam" resultType="map">
+		select
+		     a.idate as idate,
+		     sum(case when a.kpi_code = 'sm_total_users' then a.kpi_value else 0 end) as totaLusers,
+			 sum(case when a.kpi_code = 'sm_push_times' then a.kpi_value else 0 end) as pushTimes,
+			 sum(case when a.kpi_code = 'sm_display_times' then a.kpi_value else 0 end) as displayTimes,
+			 sum(case when a.kpi_code = 'sm_new_users' then a.kpi_value else 0 end) as newUsers,
+			 sum(case when a.kpi_code = 'sm_online_users' then a.kpi_value else 0 end) as onlineUsers,
+			 sum(case when a.kpi_code = 'sm_conversion_rate' then a.kpi_value else 0 end) as conversionRate,
+			 sum(case when a.kpi_code = 'sm_fill_rate' then a.kpi_value else 0 end) as fillRate,
+			 sum(case when a.kpi_code = 'sm_money_pushes' then a.kpi_value else 0 end) as moneyPushes,
+			 sum(case when a.kpi_code = 'sm_money_advertising' then a.kpi_value else 0 end) as moneyAdvertising 
+		from t_report_monthly as a inner join t_apps as b on a.app_id = b.id 
+		where a.uid=#{uid}
+		<choose>
+		    <when test="startDate != null and endDate != null">
+		      and a.idate between #{startDate} and #{endDate}
+		    </when>
+		    <when test="startDate != null">
+		      AND idate >= #{startDate}
+		    </when>
+	     </choose>
+	     group by a.idate,a.app_id order by idate asc;
 	</select>
 	
-	<select id="getSummaryReport" parameterType="map" resultType="map">
+	<select id="getSummaryReport" parameterType="com.stomato.domain.ReportParam" resultType="map">
 		select sum(case when a.kpi_code = 'sm_total_users' then a.kpi_value else 0 end) as totaLusers,
 			 sum(case when a.kpi_code = 'sm_push_times' then a.kpi_value else 0 end) as pushTimes,
 			 sum(case when a.kpi_code = 'sm_display_times' then a.kpi_value else 0 end) as displayTimes,
@@ -32,23 +74,13 @@
 		from t_report_daily as a inner join t_apps as b on a.app_id = b.id 
 		where a.uid=#{uid}
 		<choose>
-	    <when test="stime != null and etime != null">
-	      and a.idate between #{stime} and #{etime}
-	    </when>
-	    <when test="author != null and author.name != null">
-	      AND author_name like #{author.name}
-	    </when>
-	    <otherwise>
-	      AND featured = 1
-	    </otherwise>
-	  </choose>
-			<if test="stime != null">
-				<if test="etime != null">and a.idate between #{stime} and #{etime}</if>
-			</if>
-			<if test="stime != null">
-				<if test="etime != null">and a.idate between #{stime} and #{etime}</if>
-			</if>
-		</set>
-		 group by a.app_id
+		   <when test="startDate != null and endDate != null">
+		      and a.idate between #{startDate} and #{endDate}
+		    </when>
+		    <when test="startDate != null">
+		      AND idate >= #{startDate}
+		    </when>
+	     </choose>
+		 group by a.idate,a.app_id
 	</select>
 </mapper>

@@ -45,14 +45,21 @@
                              </tr>
                            </thead>
                            <tbody>
-                             <tr>
-                               <td>7月份</td>
-                               <td>40</td>
-                               <td>2000</td>
-                               <td>10.000</td>
-                               <td>105.500</td>
-                               <td>205.500</td>
-                             </tr>
+                             <c:forEach items="${monthlyList}" var="report" varStatus="stat">
+								<tr>
+								<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
+								<th>${report.newUsers }</th>
+								<td>${report.onlineUsers }</td>
+								<td>${report.moneyPushes }</td>
+								<td>${report.moneyAdvertising }</td>
+								<td>${report.moneyPushes+report.moneyAdvertising }</td>
+								</tr>
+							</c:forEach>
+							<c:if test="${fn:length(reportResultList) == 0 }">
+	                             <tr>
+	                               <td colspan="7">没有任何可显示的结果</td>
+	                             </tr>
+							</c:if>
                            </tbody>
 					   </table>
 					   <ul class="pages">
