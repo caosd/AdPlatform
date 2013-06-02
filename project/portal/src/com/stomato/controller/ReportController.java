@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.App;
 import com.stomato.domain.ReportParam;
@@ -82,7 +81,7 @@ public class ReportController extends UserController{
 	}
 
 	@RequestMapping(value="/advert/pushes")
-	public String daily_pushes_advert(@ModelAttribute("reportParamForm") ReportParamForm form,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String pushes_advert(@ModelAttribute("reportParamForm") ReportParamForm form,HttpServletRequest request, HttpServletResponse response,Model model) {
 		this.responseDaily(form.asPojo(), request, model);
 		return "backend/report/advert/pushes";
 	}
