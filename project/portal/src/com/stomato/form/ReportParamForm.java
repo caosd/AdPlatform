@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
 import com.stomato.domain.ReportParam;
+import com.stomato.utils.DateUtils;
 
 public class ReportParamForm {
 	
@@ -16,6 +17,10 @@ public class ReportParamForm {
 	private Date startDate;
 	
 	private Date endDate;
+	
+	private String startDatestr;
+	
+	private String endDatestr;
 	
 	private String code;
 	
@@ -64,6 +69,9 @@ public class ReportParamForm {
 	}
 
 	public Date getStartDate() {
+		if(startDate == null && startDatestr != null ){
+			startDate = DateUtils.getInstance().stringToDate(startDatestr);
+		}
 		return startDate;
 	}
 
@@ -72,6 +80,9 @@ public class ReportParamForm {
 	}
 
 	public Date getEndDate() {
+		if(endDate == null && endDatestr != null ){
+			endDate = DateUtils.getInstance().stringToDate(endDatestr);
+		}
 		return endDate;
 	}
 
@@ -79,6 +90,22 @@ public class ReportParamForm {
 		this.endDate = endDate;
 	}
 	
+	public String getStartDatestr() {
+		return startDatestr;
+	}
+
+	public void setStartDatestr(String startDatestr) {
+		this.startDatestr = startDatestr;
+	}
+
+	public String getEndDatestr() {
+		return endDatestr;
+	}
+
+	public void setEndDatestr(String endDatestr) {
+		this.endDatestr = endDatestr;
+	}
+
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

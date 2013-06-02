@@ -169,8 +169,8 @@ public class AppsController extends UserController {
 		App app = (App)request.getAttribute("app");
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		Date startDate = DateUtils.parseDate(start + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
-		Date endDate = DateUtils.parseDate(end + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
+		Date startDate = DateUtils.getInstance().stringToDate(start + " 00:00:00");
+		Date endDate = DateUtils.getInstance().stringToDate(end + " 00:00:00");
 		
 		if (startDate == null || endDate == null) {
 			return null;
@@ -197,7 +197,7 @@ public class AppsController extends UserController {
 		} else if ("/apps/earnings/".equals(url)) {
 			rptParam.setCode("sm_earnings");
 		}
-		rptData = ReportUtils.convert(appService.getReportData(rptParam));
+		//rptData = ReportUtils.convert(appService.getReportData(rptParam));
 		data.put(rptParam.getCode(), rptData);
 		return data;
 	}
@@ -326,13 +326,13 @@ public class AppsController extends UserController {
 		}
 		return errCode;
 	}
-	
+	/*
 	@ResponseBody
 	@RequestMapping(value="/ajax_summary", method=RequestMethod.GET)
 	public Object summary(HttpServletRequest request) {
 		User user = this.lookup(request);
 		return appService.getSummaryReport(user.getUid());
-	}
+	}*/
 	
 	private static final String uploadsDir = "/sm_uploads";
 	private static final String fileSeparator = System.getProperty("file.separator");

@@ -35,7 +35,15 @@
 								<td>${remittance.money }</td>
 								<td>${remittance.createTime }</td>
 								<td>${remittance.remittanceTime }</td>
-								<td>${remittance.status }</td>
+								<td>
+									<c:choose>
+										<c:when test="${remittance.status == 0}">
+										申请中
+										</c:when>
+										<c:otherwise>
+										汇款成功
+										</c:otherwise>
+									</c:choose>
 								<td>${remittance.remark }</td>
 								</tr>
 							</c:forEach>

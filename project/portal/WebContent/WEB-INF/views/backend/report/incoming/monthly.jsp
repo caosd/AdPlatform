@@ -15,22 +15,23 @@
 			    <div class="right_content">
 					<h2>每月统计</h2>
 					<div id="settings">
-                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">
-                        从&nbsp;
-                        <span id="start-date-container"><input type="text" name="start" id="start" class="shorter"></span>
-                        &nbsp;至&nbsp;
-                        <span id="end-date-container"><input type="text" name="end" id="end" class="shorter"></span>
-                        <span id="links" style="padding: 0 10px;">
-	                        <a class="first active" href="javascript:void(0);" title="概括" id="push_portal">概括</a>
-	                        <a class="last" href="javascript:void(0);" title="详情" id="push_api">详情</a>
-                        </span>
-                        &nbsp;请选择应用：
-                        <select class="mini">
-                            <option>全部应用</option>
-                        </select>
-                        &nbsp;&nbsp;
-                        <button class="mini">查询</button>
-                      </div>
+						<form:form commandName="reportParamForm" method="POST">
+		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">
+		                        从&nbsp;
+		                        <span id="start-date-container"><form:input type="text" path="startDatestr" class="shorter"/></span>
+		                        &nbsp;至&nbsp;
+		                        <span id="end-date-container"><form:input type="text" path="endDatestr" class="shorter"/></span>
+		                        &nbsp;请选择应用：
+		                        <form:select class="mini" path="appId">
+		                            <option value="0">全部应用</option>
+		                            <c:forEach items="${appList}" var="app" varStatus="stat">
+										<option value="${app.id}" ${reportParam.appId == app.id ? 'selected':'' }>${app.name }</option>
+									</c:forEach>
+		                        </form:select>
+		                        &nbsp;&nbsp;
+		                        <button class="mini">查询</button>
+		                      </div>
+		                </form:form>
                     </div>
 					<div class="box">
 					   <table class="data">
@@ -48,14 +49,14 @@
                              <c:forEach items="${monthlyList}" var="report" varStatus="stat">
 								<tr>
 								<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
-								<th>${report.newUsers }</th>
-								<td>${report.onlineUsers }</td>
+								<th><fmt:formatNumber value="${report.newUsers }"/></th>
+								<td><fmt:formatNumber value="${report.onlineUsers }"/></td>
 								<td>${report.moneyPushes }</td>
 								<td>${report.moneyAdvertising }</td>
 								<td>${report.moneyPushes+report.moneyAdvertising }</td>
 								</tr>
 							</c:forEach>
-							<c:if test="${fn:length(reportResultList) == 0 }">
+							<c:if test="${fn:length(monthlyList) == 0 }">
 	                             <tr>
 	                               <td colspan="7">没有任何可显示的结果</td>
 	                             </tr>

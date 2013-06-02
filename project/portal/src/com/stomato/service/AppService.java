@@ -57,7 +57,7 @@ public class AppService {
 		appDao.deleteApp(app);
 	}
 	
-	public List<java.util.Map<String, Object>> getSummaryReport(int uid) {
+	/*\\public List<java.util.Map<String, Object>> getSummaryReport(int uid) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("uid", uid);
 		param.put("idate", ReportUtils.getCurrentIDate());
@@ -182,5 +182,5 @@ public class AppService {
 
 		}, rptParam);
 	}
-	
+	*/
 }
