@@ -7,7 +7,9 @@ public interface Constant {
 		String filesDirPath = "files_path";
 		
 		String credentialsDirPath = "credentials";
-		
+
 		String appsDirPath = "apps";
+		
+		String tmpsDirPath = "tmps";
 	}
 }

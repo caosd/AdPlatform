@@ -26,15 +26,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.ReportParam;
+import com.stomato.domain.TempApp;
 import com.stomato.domain.User;
 import com.stomato.domain.UserImei;
 import com.stomato.enums.ReportTypeEnum;
 import com.stomato.form.AppForm;
+import com.stomato.helper.AirHelper;
 import com.stomato.helper.AppHelper;
 import com.stomato.service.AppService;
 import com.stomato.service.ConfigService;
+import com.stomato.service.TempAppService;
 import com.stomato.service.UserImeiService;
 import com.stomato.utils.DateUtils;
 import com.stomato.utils.ReportUtils;
@@ -50,6 +54,9 @@ public class AppsController extends UserController {
 	
 	@Autowired
 	private AppService appService;
+	
+	@Autowired
+	private TempAppService tempAppService;
 	
 	@Autowired
 	private UserImeiService userImeiService;
@@ -169,8 +176,8 @@ public class AppsController extends UserController {
 		App app = (App)request.getAttribute("app");
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		Date startDate = DateUtils.parseDate(start + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
-		Date endDate = DateUtils.parseDate(end + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
+		Date startDate = null;//DateUtils.parseDate(start + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
+		Date endDate = null;//DateUtils.parseDate(end + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
 		
 		if (startDate == null || endDate == null) {
 			return null;
@@ -197,7 +204,7 @@ public class AppsController extends UserController {
 		} else if ("/apps/earnings/".equals(url)) {
 			rptParam.setCode("sm_earnings");
 		}
-		rptData = ReportUtils.convert(appService.getReportData(rptParam));
+		//rptData = ReportUtils.convert(appService.getReportData(rptParam));
 		data.put(rptParam.getCode(), rptData);
 		return data;
 	}
@@ -388,13 +395,15 @@ public class AppsController extends UserController {
 		return "backend/apps/new_step" + step;
 	}
 	
-	/*@RequestMapping(value="/analyze_app", method=RequestMethod.GET)
-	public String analyze_app(@RequestParam MultipartFile file, HttpServletRequest request) {
+	@RequestMapping(value="/analyze_app", method=RequestMethod.POST)
+	public String analyze_app(@RequestParam MultipartFile file, HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
 		if (file.getSize() > 0) {
+			String appKey = AppHelper.generateAppKey(user.getUserName());
+			
 			String fileSeparator = System.getProperty("file.separator");
 			String tf = configService.loadConfig(Constant.Configs.filesDirPath);
-			tf += fileSeparator + user.getUid() + fileSeparator + Constant.Configs.appsDirPath + fileSeparator + file.getName() + apkSuffix;
+			tf += fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator + appKey + apkSuffix;
 			File targetFile = new File(tf);
 			if (!targetFile.exists()) {
 				boolean made = targetFile.mkdirs();
@@ -403,31 +412,29 @@ public class AppsController extends UserController {
 			try {
 				file.transferTo(targetFile);
 				
-				String appKey = AppHelper.generateAppKey(user.getUserName());
-				App app = new App();
-				app.setUid(user.getUid());
-				app.setKey(appKey);
-				ApkDecoder d = new ApkDecoder();
-				d.setApkFile(new File(tf));
-				try {
-					Set<ResPackage> p = d.getResTable().listMainPackages();
-					for(ResPackage r:p){
-						logger.info("反编译APK后包名：" + r.getName());
-						app.setPkg(r.getName());
-					}
-				} catch (AndrolibException e) {
-					e.printStackTrace();
+				String packageName = AirHelper.air(request.getServletContext().getRealPath("/"), tf);
+				if (null == packageName) {
+					model.addAttribute("unpackError", true);
+					return "redirect:/apps/create";
 				}
-				Unzip.getIcons(tf);
 				
-				appService.addApp(app);
+				String appName = request.getParameter("appName");
+				TempApp tempApp = new TempApp();
+				tempApp.setUid(user.getUid());
+				tempApp.setKey(appKey);
+				tempApp.setPkg(packageName);
+				tempApp.setName(appName);
+				
+				tempAppService.addApp(tempApp);
+				
+				return "";
 			} catch (Exception e) {
 				logger.error("[Upload Error] " + e.getMessage());
 			}
 			
 		}
 		return "";
-	}*/
+	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
 	public String pushtest(@PathVariable String appKey, HttpServletRequest request) {

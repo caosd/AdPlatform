@@ -12,15 +12,15 @@
 		<div class="container">
 			<div id="content">
 				<h2><fmt:message key="new_app_title"/></h2>
-				<c:if test="${failed}">
+				<c:if test="${unpackError}">
                 <div class="protip error">
-                    <strong><fmt:message key="tips"/></strong> <fmt:message key="new_app_failed"/>
+                    <strong><fmt:message key="tips"/></strong> 无法解析改应用包，请确认是不是合法的android包。
                 </div>
                 </c:if>
                 <div style="text-align:center;">
                     <img src="/images/step1.png" />
                 </div>
-                <form method="POST" class="blueform" enctype="multipart/form-data" style="margin-left: 95px;width: 812px;">
+                <form method="POST" class="blueform" action="/apps/analyze_app" enctype="multipart/form-data" style="margin-left: 95px;width: 812px;">
                   <ul class="form">
                       <li>
                         <label> 应用名称 </label> 
