@@ -104,6 +104,8 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-    <jsp:include page="../../includes/footer.jsp"></jsp:include>
+    <jsp:include page="../../includes/footer.jsp">
+        <jsp:param value="page/ad_report" name="loader"/>
+    </jsp:include>
 </body>
 </html>

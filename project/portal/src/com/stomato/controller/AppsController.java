@@ -36,12 +36,11 @@ import com.stomato.enums.ReportTypeEnum;
 import com.stomato.form.AppForm;
 import com.stomato.helper.AirHelper;
 import com.stomato.helper.AppHelper;
+import com.stomato.helper.FileHelper;
 import com.stomato.service.AppService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.TempAppService;
 import com.stomato.service.UserImeiService;
-import com.stomato.utils.DateUtils;
-import com.stomato.utils.ReportUtils;
 import com.stomato.validator.AppValidation;
 
 @Controller
@@ -402,8 +401,8 @@ public class AppsController extends UserController {
 			String appKey = AppHelper.generateAppKey(user.getUserName());
 			
 			String fileSeparator = System.getProperty("file.separator");
-			String tf = configService.loadConfig(Constant.Configs.filesDirPath);
-			tf += fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator + appKey + apkSuffix;
+			String diroot = Constant.Configs.filesDirPath + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
+			String tf = diroot + appKey + apkSuffix;
 			File targetFile = new File(tf);
 			if (!targetFile.exists()) {
 				boolean made = targetFile.mkdirs();
@@ -425,15 +424,30 @@ public class AppsController extends UserController {
 				tempApp.setPkg(packageName);
 				tempApp.setName(appName);
 				
-				tempAppService.addApp(tempApp);
+//				tempAppService.addApp(tempApp);
 				
-				return "";
+				App app = new App();
+				app.setPkg(packageName);
+				app.setName(appName);
+				app.setUid(user.getUid());
+				app.setKey(appKey);
+				app.setCreateTime(new Date());
+				appService.addApp(app);
+				
+				model.addAttribute("packageName", packageName);
+				model.addAttribute("appName", appName);
+				
+				List<String> icons = FileHelper.readFiles(diroot + appKey + Constant.Configs.appIconDirSuffix + fileSeparator + packageName);
+				model.addAttribute("icons", icons);
+				
+				return "backend/apps/new_step1";
 			} catch (Exception e) {
 				logger.error("[Upload Error] " + e.getMessage());
 			}
 			
 		}
-		return "";
+		model.addAttribute("unpackError", true);
+		return "redirect:/apps/create";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)

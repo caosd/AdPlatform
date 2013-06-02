@@ -24,8 +24,21 @@
                   <ul class="form">
                       <li>
                         <label> 应用名称 </label> 
-                        <input type="text" name="appName" />
+                        <input type="text" name="appName" value="${appName }" />
                       </li>
+                      <c:if test="${not empty packageName}">
+                      <li>
+                        <label> 包名 </label> 
+                        <input type="text" name="packageName" value="${packageName }" />
+                      </li>
+                      <li>
+                        <label> 应用图标 </label> 
+                        <c:forEach items="${icons}" var="icon">
+                            <img src="http://localhost:10000${icon }" />
+                        </c:forEach>
+                      </li>
+                      </c:if>
+                      <c:if test="${empty packageName}">
                       <li>
                         <label> 上传应用 </label> 
                         <a href="javascript:void(0);" class="file">
@@ -33,7 +46,9 @@
 	                        <input title="支持jpg,gif,png格式" size="3" name="file" type="file">
 	                    </a>
                       </li>
+                      </c:if>
                   </ul>
+                  <c:if test="${empty packageName}">
                   <ul class="form">
                       <li>
                           <button id="btn_sub" type="submit">
@@ -41,6 +56,8 @@
                           </button>
                       </li>
                   </ul>
+                  </c:if>
+                  <c:if test="${not empty packageName}">添加成功</c:if>
                 </form>
 			</div>
 			<div class="clear"></div>

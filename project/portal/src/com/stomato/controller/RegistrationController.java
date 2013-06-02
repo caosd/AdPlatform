@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.stomato.domain.User;
+import com.stomato.domain.UserAccount;
 import com.stomato.enums.AccountTypeEnum;
 import com.stomato.form.RegistrationForm;
 import com.stomato.service.AccountsService;
+import com.stomato.service.UserAccountsService;
 import com.stomato.validator.RegistrationValidation;
 
 @Controller
@@ -25,6 +27,9 @@ public class RegistrationController {
 	
 	@Autowired
 	private AccountsService accountsService;
+	
+	@Autowired
+	private UserAccountsService userAccountService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String showRegistration(@ModelAttribute("regForm") RegistrationForm form) {
@@ -57,6 +62,10 @@ public class RegistrationController {
 		accountsService.addUser(user);
 		
 		user = accountsService.getUser(user);
+		UserAccount userAccount = new UserAccount();
+		userAccount.setUid(user.getUid());
+		userAccount.setBalance(0d);
+		userAccountService.addUserAccount(userAccount);
 		if (user.getType() == AccountTypeEnum.Company.value()) {
 			
 		}

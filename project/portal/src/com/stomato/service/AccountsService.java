@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.PaymentDao;
 import com.stomato.dao.TransferDao;
+import com.stomato.dao.UserAccountDao;
 import com.stomato.dao.UserDao;
 import com.stomato.domain.Payment;
 import com.stomato.domain.Transfer;

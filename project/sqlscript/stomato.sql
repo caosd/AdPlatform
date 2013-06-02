@@ -409,6 +409,19 @@ CREATE TABLE IF NOT EXISTS `t_user_imei` (
   KEY `id_uid_appid` (`uid`,`app_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=13 ;
 
+DROP TABLE IF EXISTS `t_temp_apps`;
+CREATE TABLE `t_temp_apps` (
+  `app_key` varchar(45) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `pkg` varchar(255) NOT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `create_time` datetime DEFAULT NULL,
+  `last_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`app_key`),
+  KEY `ind_uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
