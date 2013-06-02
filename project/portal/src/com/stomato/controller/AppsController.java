@@ -338,7 +338,7 @@ public class AppsController extends UserController {
 	@RequestMapping(value="/ajax_summary", method=RequestMethod.GET)
 	public Object summary(HttpServletRequest request) {
 		User user = this.lookup(request);
-		return appService.getSummaryReport(user.getUid());
+		return null;//appService.getSummaryReport(user.getUid());
 	}
 	
 	private static final String uploadsDir = "/sm_uploads";

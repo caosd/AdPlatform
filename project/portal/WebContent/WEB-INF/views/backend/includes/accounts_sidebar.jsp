@@ -23,6 +23,9 @@ if (isFinancialRemittanceHistory) isFinancialRemittance = false;
 boolean isDailyIncomingReport = uri.indexOf("/report/incoming/daily") > 0;
 boolean isMonthlyIncomingReport = uri.indexOf("/report/incoming/monthly") > 0;
 boolean isHourlyIncomingReport = uri.indexOf("/report/incoming/hourly") > 0;
+
+boolean isPushesAdvertReport = uri.indexOf("/report/advert/pushes") > 0;
+boolean isAdvertisingReport = uri.indexOf("/report/advert/advertising") > 0;
 %>
 <div class="left_content">
 	<div class="sidebar">
@@ -68,6 +71,15 @@ boolean isHourlyIncomingReport = uri.indexOf("/report/incoming/hourly") > 0;
         <ul>
             <li class="<%=isMonthlyIncomingReport?"current":"" %>"><a href="/report/incoming/monthly"> <span> <fmt:message key="side.report.incoming.monthly"/> </span></a></li>
             <li class="<%=isDailyIncomingReport?"current":"" %>"><a href="/report/incoming/daily"> <span> <fmt:message key="side.report.incoming.daily"/> </span></a></li>
+        </ul>
+    </div>
+    <div id="advertiReport_sidebar" class="sidebar">
+        <h2>
+            <span><fmt:message key="side.report.advert"/></span>
+        </h2>
+        <ul>
+            <li class="<%=isPushesAdvertReport?"current":"" %>"><a href="/report/advert/pushes"> <span> <fmt:message key="side.report.advert.pushes"/> </span></a></li>
+            <li class="<%=isAdvertisingReport?"current":"" %>"><a href="/report/advert/advertising"> <span> <fmt:message key="side.report.advert.advertising"/> </span></a></li>
         </ul>
     </div>
 </div>

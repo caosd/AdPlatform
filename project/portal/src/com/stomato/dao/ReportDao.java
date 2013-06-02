@@ -13,5 +13,5 @@ public interface ReportDao {
 	
 	List<Map<String,Object>>  getMonthlyReport(ReportParam param);
 	
-	List<Map<String, Object>> getSummaryReport(Map<String, Object> param);
+	List<Map<String, Object>> getSummaryReport(ReportParam param);
 }

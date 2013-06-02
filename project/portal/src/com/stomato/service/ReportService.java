@@ -16,7 +16,7 @@ public class ReportService {
 	private ReportDao reportDao;
 	
 	public List<Map<String,Object>> getHourlyReport(ReportParam param) {
-		return this.reportDao.getHourlyReport(param);
+		return this.reportDao.getSummaryReport(param);
 	}
 	
 	public List<Map<String,Object>> getDailyReport(ReportParam param) {
@@ -27,7 +27,7 @@ public class ReportService {
 		return this.reportDao.getMonthlyReport(param);
 	}
 	
-	public List<Map<String, Object>> getSummaryReport(Map<String, Object> param) {
+	public List<Map<String, Object>> getSummaryReport(ReportParam param) {
 		return this.reportDao.getSummaryReport(param);
 	}
 }

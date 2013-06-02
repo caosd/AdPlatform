@@ -16,29 +16,23 @@
 			    <div class="right_content">
 					<h2 style="margin-bottom: 10px;">每日统计</h2>
 					<div id="settings">
-					<form:form commandName="reportParamForm" method="POST" class="blueform">
-                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;position: relative;">
-                        起始日期：
-                        <span id="start-date-container"><form:input type="text" path="startDate" class="shorter" value="2013-05-31"/></span>
-                        结束日期：
-                        <span id="end-date-container"><form:input type="text" path="endDate" class="shorter" value="2013-05-31"/></span>
-                        <button class="mini" type="submit">查询</button>
-                        <span id="links" style="padding: 0 10px;">
-                            <a class="first active" href="">今天(默认)</a>
-                            <a class="" href="">昨天</a>
-                            <a class="" href="">前天</a>
-                            <a class="" href="">最近7天</a>
-                            <a class="last" href="">最近30天</a>
-                        </span>
-                      </div>
-                      <div style="line-height: 27px;height: 40px;text-align: center;margin-top: 10px;">
-                        &nbsp;请选择要统计的应用：
-                        <select class="mini">
-                            <option>全部应用</option>
-                        </select>
-                        &nbsp;&nbsp;
-                      </div>
-                    </form:form>
+						<form:form commandName="reportParamForm" method="POST">
+		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">
+		                        从&nbsp;
+		                        <span id="start-date-container"><form:input type="text" path="startDatestr" class="shorter"/></span>
+		                        &nbsp;至&nbsp;
+		                        <span id="end-date-container"><form:input type="text" path="endDatestr" class="shorter"/></span>
+		                        &nbsp;请选择应用：
+		                        <form:select class="mini" path="appId">
+		                            <option value="0">全部应用</option>
+		                            <c:forEach items="${appList}" var="app" varStatus="stat">
+										<option value="${app.id}" ${reportParam.appId == app.id ? 'selected':'' }>${app.name }</option>
+									</c:forEach>
+		                        </form:select>
+		                        &nbsp;&nbsp;
+		                        <button class="mini">查询</button>
+		                      </div>
+		                </form:form>
                     </div>
                     <div class="box">
                        <table class="data">
@@ -55,15 +49,15 @@
                            <tbody>
                              <c:forEach items="${todayList}" var="report" varStatus="stat">
 								<tr>
-								<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
-								<th>${report.newUsers }</th>
-								<td>${report.onlineUsers }</td>
+								<th><fmt:formatDate value="${report.idate }" pattern="MM-dd" /></th>
+								<th><fmt:formatNumber value="${report.newUsers }"/></th>
+								<td><fmt:formatNumber value="${report.onlineUsers }"/></td>
 								<td>${report.moneyPushes }</td>
 								<td>${report.moneyAdvertising }</td>
 								<td>${report.moneyPushes+report.moneyAdvertising }</td>
 								</tr>
 							</c:forEach>
-							<c:if test="${fn:length(reportResultList) == 0 }">
+							<c:if test="${fn:length(todayList) == 0 }">
 	                             <tr>
 	                               <td colspan="7">没有任何可显示的结果</td>
 	                             </tr>
@@ -85,14 +79,14 @@
                              <c:forEach items="${dailyList}" var="report" varStatus="stat">
 								<tr>
 								<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
-								<th>${report.newUsers }</th>
-								<td>${report.onlineUsers }</td>
+								<th><fmt:formatNumber value="${report.newUsers }"/></th>
+								<td><fmt:formatNumber value="${report.onlineUsers }"/></td>
 								<td>${report.moneyPushes }</td>
 								<td>${report.moneyAdvertising }</td>
 								<td>${report.moneyPushes+report.moneyAdvertising }</td>
 								</tr>
 							</c:forEach>
-							<c:if test="${fn:length(reportResultList) == 0 }">
+							<c:if test="${fn:length(dailyList) == 0 }">
 	                             <tr>
 	                               <td colspan="7">没有任何可显示的结果</td>
 	                             </tr>
