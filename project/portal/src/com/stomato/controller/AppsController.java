@@ -1,6 +1,7 @@
 package com.stomato.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,6 +42,8 @@ import com.stomato.service.AppService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.TempAppService;
 import com.stomato.service.UserImeiService;
+import com.stomato.utils.FileUtils;
+import com.stomato.utils.StringUtils;
 import com.stomato.validator.AppValidation;
 
 @Controller
@@ -50,6 +53,12 @@ public class AppsController extends UserController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	private final Pattern imeiPattern = Pattern.compile("^.{10,24}$");
+	
+	private final String fileSeparator = System.getProperty("file.separator");
+	
+	private static final String uploadsDir = "/dev/null";
+	
+	private static final String apkSuffix = ".apk";
 	
 	@Autowired
 	private AppService appService;
@@ -340,10 +349,6 @@ public class AppsController extends UserController {
 		return null;//appService.getSummaryReport(user.getUid());
 	}
 	
-	private static final String uploadsDir = "/sm_uploads";
-	private static final String fileSeparator = System.getProperty("file.separator");
-	private static final String apkSuffix = ".apk";
-	
 	@RequestMapping(value="/{appKey}/uploads", method=RequestMethod.GET)
 	public String showUploadApp() {
 		return "backend/apps/uploads";
@@ -372,35 +377,17 @@ public class AppsController extends UserController {
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public String createApp(HttpServletRequest request) {
-		Object stepObj = request.getParameter("step");
-		int step = null == stepObj ? 1 : Integer.parseInt(stepObj.toString());
-		if (step >= 4 || step <= 0) {
-			step = 1;
-		}
-		
-		return "backend/apps/new_step" + step;
+	public String create1(HttpServletRequest request) {
+		return "backend/apps/new_step1";
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String postCreateApp(MultipartFile file, HttpServletRequest request) {
+	public String _create1(@RequestParam MultipartFile file, HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
-		Object stepObj = request.getParameter("step");
-		int step = null == stepObj ? 1 : Integer.parseInt(stepObj.toString());
-		if (step >= 4 || step <= 0) {
-			step = 1;
-		}
 		
-		return "backend/apps/new_step" + step;
-	}
-	
-	@RequestMapping(value="/analyze_app", method=RequestMethod.POST)
-	public String analyze_app(@RequestParam MultipartFile file, HttpServletRequest request, Model model) {
-		User user = this.lookup(request);
 		if (file.getSize() > 0) {
 			String appKey = AppHelper.generateAppKey(user.getUserName());
 			
-			String fileSeparator = System.getProperty("file.separator");
 			String diroot = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
 			String tf = diroot + appKey + apkSuffix;
 			File targetFile = new File(tf);
@@ -417,38 +404,125 @@ public class AppsController extends UserController {
 					return "redirect:/apps/create";
 				}
 				
+				App app = new App();
+				app.setUid(user.getUid());
+				app.setPkg(packageName);
+				boolean packageExisted = appService.checkAppPackage(app);
+				
+				if (packageExisted) {
+					model.addAttribute("packageExisted", true);
+					return "redirect:/apps/create";
+				}
+				
 				String appName = request.getParameter("appName");
 				TempApp tempApp = new TempApp();
 				tempApp.setUid(user.getUid());
 				tempApp.setKey(appKey);
 				tempApp.setPkg(packageName);
 				tempApp.setName(appName);
+				tempAppService.addApp(tempApp);
 				
-//				tempAppService.addApp(tempApp);
-				
-				App app = new App();
-				app.setPkg(packageName);
-				app.setName(appName);
-				app.setUid(user.getUid());
-				app.setKey(appKey);
-				app.setCreateTime(new Date());
-				appService.addApp(app);
-				
-				model.addAttribute("packageName", packageName);
-				model.addAttribute("appName", appName);
-				
-				List<String> icons = FileHelper.readFiles(diroot + appKey + Constant.Configs.appIconDirSuffix + fileSeparator + packageName);
-				model.addAttribute("icons", icons);
-				
-				return "backend/apps/new_step1";
+				return "redirect:/apps/create/" + appKey;
 			} catch (Exception e) {
 				logger.error("[Upload Error] " + e.getMessage());
 			}
-			
+			model.addAttribute("unpackError", true);
 		}
-		model.addAttribute("unpackError", true);
 		return "redirect:/apps/create";
 	}
+	
+	@RequestMapping(value="/create/{appKey}", method=RequestMethod.GET)
+	public String create2(@PathVariable String appKey, HttpServletRequest request, Model model) {
+		User user = this.lookup(request);
+		TempApp tempApp = new TempApp();
+		tempApp.setUid(user.getUid());
+		tempApp.setKey(appKey);
+		tempApp = tempAppService.getApp(tempApp);
+		
+		if (null == tempApp) {
+			return "redirect:/apps/create";
+		}
+		
+		String diroot = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
+		List<String> icons = new ArrayList<String>();
+		try {
+			icons = FileHelper.readFiles(diroot + appKey + Constant.Configs.appIconDirSuffix + fileSeparator + tempApp.getPkg());
+			model.addAttribute("icons", icons);
+		} catch (IOException e) {
+			logger.error(e);
+		}
+		
+		model.addAttribute("app", tempApp);
+		return "backend/apps/new_step2";
+	}
+	
+	@RequestMapping(value="/create/{appKey}", method=RequestMethod.POST)
+	public String _create2(@PathVariable String appKey, HttpServletRequest request, Model model) {
+		User user = this.lookup(request);
+		TempApp tempApp = new TempApp();
+		tempApp.setUid(user.getUid());
+		tempApp.setKey(appKey);
+		tempApp = tempAppService.getApp(tempApp);
+		
+		if (null == tempApp) {
+			model.addAttribute("appKeyError", true);
+			return "redirect:/apps/create";
+		}
+		
+		String icon = request.getParameter("appIcon");
+		if (StringUtils.isEmpty(icon)) {
+			logger.info("[APP ICON] No icon " + appKey);
+		}
+		icon = icon.replace("%23", "#");
+		File iconFile = new File(icon);
+		if (iconFile.exists() && iconFile.isFile()) {
+			icon = icon.substring(icon.lastIndexOf(fileSeparator) + 1, icon.length());
+			String targetFile = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator
+								+ Constant.Configs.appsDirPath + fileSeparator + appKey + fileSeparator + Constant.Configs.appIconDir
+								+ fileSeparator + icon;
+			FileUtils.copy(iconFile, new File(targetFile));
+			
+			logger.info("[APP ICON] Transfered " + appKey);
+		} else {
+			logger.info("[APP ICON] Not found " + appKey);
+		}
+
+		String appName = request.getParameter("appName");
+		App app = new App();
+		app.setPkg(tempApp.getPkg());
+		app.setName(appName);
+		app.setUid(user.getUid());
+		app.setKey(appKey);
+		app.setStatus(Constant.AppStatus.infoCompleted);
+		app.setIcon(icon);
+		app.setCreateTime(new Date());
+		appService.addApp(app);
+		
+		return "redirect:/apps/create/" + appKey + "/download_sdk";
+	}
+	
+	@RequestMapping(value="/create/{appKey}/download_sdk", method=RequestMethod.GET)
+	public String create3(@PathVariable String appKey, HttpServletRequest request, Model model) {
+		User user = this.lookup(request);
+		
+		App app = new App();
+		app.setUid(user.getUid());
+		app.setKey(appKey);
+		app = appService.getApp(app);
+		
+		if (null == app) {
+			return "redirect:/apps/create";
+		}
+		
+		model.addAttribute("app", app);
+		return "backend/apps/new_step3";
+	}
+	
+	@RequestMapping(value="/create/{appKey}/build_sdk", method=RequestMethod.GET)
+	public String _create3(@PathVariable String appKey, HttpServletRequest request, Model model) {
+		return "backend/apps/new_step3";
+	}
+	
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
 	public String pushtest(@PathVariable String appKey, HttpServletRequest request) {

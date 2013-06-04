@@ -61,7 +61,7 @@ public class AppValidationInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	private String getAppkey(String path) {
-		Pattern p = Pattern.compile("(/apps/)([0-9a-z]{24}(?=/))");
+		Pattern p = Pattern.compile("(/apps/)([0-9a-z]{32}(?=/))");
 		Matcher m = p.matcher(path);
 		if (m.find()) {
 			return m.group(2);
@@ -70,7 +70,7 @@ public class AppValidationInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	private boolean validateAppKey(String appKey) {
-		Pattern p = Pattern.compile("^[0-9a-z]{24}$");
+		Pattern p = Pattern.compile("^[0-9a-z]{32}$");
 		Matcher m = p.matcher(appKey);
 		
 		return m.find();

@@ -28,31 +28,19 @@ CREATE TABLE `t_apps` (
   `uid` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL COMMENT '应用名称',
   `pkg` varchar(255) DEFAULT NULL,
-  `sm_ad_installed` int(11) NOT NULL DEFAULT '0' COMMENT 'app installed',
+  `icon` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `is_del` tinyint(1) DEFAULT '0' COMMENT 'status:   0-normal,    1-delete',
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `create_time` datetime NOT NULL,
-  `rate` double DEFAULT '0.8',
-  `arp` double DEFAULT '0',
-  `status` tinyint(1) DEFAULT '0' COMMENT 'status:   0-normal,    1-delete',
-  `push_status` int(11) DEFAULT '2',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_appKey` (`app_key`),
   UNIQUE KEY `uq_uid_with_pkg` (`uid`,`pkg`),
   KEY `ind_appname` (`name`),
   KEY `ind_uid` (`uid`),
   KEY `ind_appKey` (`app_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=804 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_apps`
---
-
-LOCK TABLES `t_apps` WRITE;
-/*!40000 ALTER TABLE `t_apps` DISABLE KEYS */;
-INSERT INTO `t_apps` VALUES (214,'054ba7fd76bee3da704f3ffd',18,'ccc','com.baidu.',0,'2013-05-28 05:52:50','2013-05-28 13:52:50',0.8,0,0,2),(305,'fe74ec41aa2f4111a188f06eb8d4834e',20,'test','com.test',0,'2013-06-02 00:53:55','2013-06-02 08:48:33',0.8,0,0,2),(306,'1e5fc3c85c5b07bb7df563c726a28b82',20,'test2','com.test2',0,'2013-06-02 00:54:06','2013-06-02 08:48:48',0.8,0,0,2);
-/*!40000 ALTER TABLE `t_apps` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_config`

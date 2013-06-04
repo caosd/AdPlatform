@@ -17,4 +17,5 @@ public interface AppDao {
 	
 	void deleteApp(App app);
 	
+	int checkAppPackage(App app);
 }

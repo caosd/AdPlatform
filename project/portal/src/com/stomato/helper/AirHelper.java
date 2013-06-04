@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 public class AirHelper {
-	
+
 	static Logger logger = Logger.getLogger(AirHelper.class);
 	
 	public static String air(String contextPath, String apkPath) {

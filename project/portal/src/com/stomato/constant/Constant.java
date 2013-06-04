@@ -15,5 +15,16 @@ public interface Constant {
 		String appIconDirSuffix = "Icons";
 		
 		String appDirSuffix = "Dir";
+
+		String appIconDir = "icon";
+
+	}
+	
+	//App状态
+	interface AppStatus {
+		int infoCompleted = 1;
+		
+		int sdkInstalled = 2;
+		
 	}
 }

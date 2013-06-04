@@ -16,6 +16,10 @@ public class App {
 	
 	private String pkg;
 	
+	private String icon;
+	
+	private int status;
+
 	private Date lastUpdateTime;
 	
 	private Date createTime;
@@ -74,6 +78,22 @@ public class App {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	@Override
