@@ -68,10 +68,10 @@ function DatePicker(opts) {
     }
 
     this.inject();
-    this.bindTo.val(this.monthNames[this.currentMonth] + ' ' + this.currentDay + ', ' + this.currentYear);
+    /*this.bindTo.val(this.monthNames[this.currentMonth] + ' ' + this.currentDay + ', ' + this.currentYear);
     this.bindTo.val($.map([this.currentYear,
                            this.currentMonth+1,
-                           this.currentDay], this.padNum).join('-'));
+                           this.currentDay], this.padNum).join('-'));*/
     this.bindTo.get(0).hasPicker = true;
 };
 

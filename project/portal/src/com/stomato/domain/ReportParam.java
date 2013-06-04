@@ -20,6 +20,10 @@ public class ReportParam {
 	
 	private String code;
 	
+	private int slimt;
+	
+	private int rows = 2;
+	
 	private int istart;
 	
 	private int iend;
@@ -50,6 +54,22 @@ public class ReportParam {
 
 	public int getAppId() {
 		return appId;
+	}
+
+	public int getSlimt() {
+		return slimt;
+	}
+
+	public void setSlimt(int slimt) {
+		this.slimt = slimt;
+	}
+
+	public int getRows() {
+		return rows;
+	}
+
+	public void setRows(int rows) {
+		this.rows = rows;
 	}
 
 	public void setAppId(int appId) {

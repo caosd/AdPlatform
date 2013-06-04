@@ -23,6 +23,13 @@ public class ReportService {
 		return this.reportDao.getDailyReport(param);
 	}
 	
+	public int getDailyReportCount(ReportParam param) {
+		return this.reportDao.getDailyReportCount(param);
+	}
+	
+	public int getMonthlyReportCount(ReportParam param) {
+		return this.reportDao.getMonthlyReportCount(param);
+	}
 	public List<Map<String,Object>> getMonthlyReport(ReportParam param) {
 		return this.reportDao.getMonthlyReport(param);
 	}

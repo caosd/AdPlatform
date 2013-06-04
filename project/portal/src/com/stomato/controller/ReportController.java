@@ -23,6 +23,7 @@ import com.stomato.form.ReportParamForm;
 import com.stomato.service.AppService;
 import com.stomato.service.ReportService;
 import com.stomato.utils.DateUtils;
+import com.stomato.utils.Pager;
 
 @Controller
 @RequestMapping("/report")
@@ -35,9 +36,19 @@ public class ReportController extends UserController{
 	
 	private void responseDaily(ReportParam reportParam,HttpServletRequest request, Model model){
 		User user = this.lookup(request);
+		reportParam.setUid(user.getUid());
+		
 		List<App> appList = this.appService.getAppList(user.getUid());
+		int records = this.reportService.getDailyReportCount(reportParam);
+		int curPage = this.getIntParameter(request, "p");
+		if( curPage < 1) curPage = 1;
+		reportParam.setRows(3);
+		reportParam.setSlimt((curPage-1) * 3);
+		//分页
+		Pager pager = new Pager(reportParam.getRows(), curPage, records);
+		model.addAttribute("pager", pager);
+		
 		if( appList.size() > 0 ){
-			reportParam.setUid(user.getUid());
 			List<Map<String,Object>>  dailyList = this.reportService.getDailyReport(reportParam);
 			List<Map<String,Object>>  todayList = new ArrayList<Map<String,Object>>();
 			if( dailyList != null && dailyList.size() > 0){
@@ -49,6 +60,7 @@ public class ReportController extends UserController{
 						todayList.add(item);
 					}
 				}
+
 				model.addAttribute("todayList", todayList);
 				model.addAttribute("dailyList", dailyList);
 				model.addAttribute("reportParam", reportParam);
@@ -58,9 +70,19 @@ public class ReportController extends UserController{
 	}
 	private void responseMonthly(ReportParam reportParam,HttpServletRequest request,Model model){
 		User user = this.lookup(request);
+		reportParam.setUid(user.getUid());
 		List<App> appList = this.appService.getAppList(user.getUid());
+		
+		int records = this.reportService.getMonthlyReportCount(reportParam);
+		int curPage = this.getIntParameter(request, "p");
+		if( curPage < 1) curPage = 1;
+		reportParam.setRows(3);
+		reportParam.setSlimt((curPage-1) * 3);
+		//分页
+		Pager pager = new Pager(reportParam.getRows(), curPage, records);
+		model.addAttribute("pager", pager);
+		
 		if( appList.size() > 0 ){
-			reportParam.setUid(user.getUid());
 			List<Map<String,Object>>  reportList = this.reportService.getMonthlyReport(reportParam);
 			model.addAttribute("monthlyList", reportList);
 			model.addAttribute("appList", appList);
