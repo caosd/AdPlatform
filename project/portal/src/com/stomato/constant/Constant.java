@@ -10,7 +10,7 @@ public interface Constant {
 
 		String tmpsDirPath = "tmps";
 		
-		String filesDirPath = "/files";
+		String filesDirPath = "files_path";
 		
 		String appIconDirSuffix = "Icons";
 		

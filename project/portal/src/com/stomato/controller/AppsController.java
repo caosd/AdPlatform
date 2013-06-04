@@ -401,7 +401,7 @@ public class AppsController extends UserController {
 			String appKey = AppHelper.generateAppKey(user.getUserName());
 			
 			String fileSeparator = System.getProperty("file.separator");
-			String diroot = Constant.Configs.filesDirPath + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
+			String diroot = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
 			String tf = diroot + appKey + apkSuffix;
 			File targetFile = new File(tf);
 			if (!targetFile.exists()) {

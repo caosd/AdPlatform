@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.stomato.constant.Constant;
-
 public class FileHelper {
 
 	public static List<String> readFiles(String filepath) throws IOException {
@@ -20,7 +18,7 @@ public class FileHelper {
 					if (file[j].isDirectory()) {
 						readFiles(file[j].getAbsolutePath());
 					} else {
-						files.add(file[j].getAbsolutePath().replace(Constant.Configs.filesDirPath, "").replace("#", "%23"));
+						files.add(file[j].getAbsolutePath().replace("#", "%23"));
 					}
 				}
 			}
