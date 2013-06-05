@@ -27,7 +27,7 @@
 					</c:forEach>
 				</ul>
 				<div class="buttons">
-					<a href="/apps/new"><fmt:message key="head.create_app"/></a> <a href="/apps"><fmt:message key="head.view_all_app"/></a>
+					<a href="/apps/create"><fmt:message key="head.create_app"/></a> <a href="/apps"><fmt:message key="head.view_all_app"/></a>
 				</div>
 			</div>
 		</div>

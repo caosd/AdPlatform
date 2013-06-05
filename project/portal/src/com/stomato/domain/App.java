@@ -24,6 +24,12 @@ public class App {
 	
 	private Date createTime;
 	
+	private boolean allowPush;
+	
+	private boolean allowTrustee;
+	
+	private int delayPushInterval = -1;
+	
 	public int getId() {
 		return id;
 	}
@@ -96,6 +102,30 @@ public class App {
 		this.status = status;
 	}
 	
+	public boolean isAllowPush() {
+		return allowPush;
+	}
+
+	public void setAllowPush(boolean allowPush) {
+		this.allowPush = allowPush;
+	}
+
+	public boolean isAllowTrustee() {
+		return allowTrustee;
+	}
+
+	public void setAllowTrustee(boolean allowTrustee) {
+		this.allowTrustee = allowTrustee;
+	}
+
+	public int getDelayPushInterval() {
+		return delayPushInterval;
+	}
+
+	public void setDelayPushInterval(int delayPushInterval) {
+		this.delayPushInterval = delayPushInterval;
+	}
+
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

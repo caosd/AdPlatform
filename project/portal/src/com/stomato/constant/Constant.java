@@ -2,6 +2,8 @@ package com.stomato.constant;
 
 public interface Constant {
 	
+	public static final String BUILD_EXAMPLE_ANDROID_PACKAGE = "BUILD_EXAMPLE_ANDROID_PACKAGE";
+	
 	//系统配置
 	interface Configs {
 		String credentialsDirPath = "credentials";

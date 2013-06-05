@@ -14,7 +14,7 @@
 	<div class="container">
 		<div id="content">
 			<h2>
-				<span><fmt:message key="applist_title"/> <span style="font-size: 14px;padding-left: 30px;"><a href="/apps/new"><fmt:message key="applist_create_new"/></a></span></span>
+				<span><fmt:message key="applist_title"/> <span style="font-size: 14px;padding-left: 30px;"><a href="/apps/create"><fmt:message key="applist_create_new"/></a></span></span>
 			</h2>
 			<table class="tablesorter" border="0" cellpadding="0" cellspacing="0" width="100%">
 				<tr class="first_tr">

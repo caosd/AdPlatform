@@ -20,17 +20,22 @@
                 <div style="text-align:center;">
                     <img src="/images/step3.png" />
                 </div>
-                <form method="POST" class="blueform" action="" style="margin-left: 95px;width: 812px;">
+                <form method="GET" class="blueform" action="/apps/${app.key }/upload_app" style="margin-left: 95px;width: 812px;">
                   <ul class="form">
                       <li>
                         <label> 应用Key </label> 
-                        <input type="text" name="appKey" value="${app.key }" readonly="readonly" />
+                        <p style="padding-top: 8px;color: #F00;">${app.key }</p>
                       </li>
                       <li>
                         <label> SDK下载 </label> 
                         <div>
-                          <a href="/apps/${app.key}/build_sdk">自动生成</a>
+                          <a class="btn primary" href="/apps/${app.key}/build_sdk">自动生成</a>
                         </div>
+                      </li>
+                  </ul>
+                  <ul class="form" style="margin-top:30px;">
+                      <li>
+                          <button type="submit">下一步，上传集成了SDK后的应用</button>
                       </li>
                   </ul>
                 </form>

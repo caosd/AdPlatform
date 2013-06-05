@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -37,12 +38,14 @@ import com.stomato.enums.ReportTypeEnum;
 import com.stomato.form.AppForm;
 import com.stomato.helper.AirHelper;
 import com.stomato.helper.AppHelper;
+import com.stomato.helper.BuildExampleHelper;
 import com.stomato.helper.FileHelper;
 import com.stomato.service.AppService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.TempAppService;
 import com.stomato.service.UserImeiService;
 import com.stomato.utils.FileUtils;
+import com.stomato.utils.NumberUtils;
 import com.stomato.utils.StringUtils;
 import com.stomato.validator.AppValidation;
 
@@ -354,28 +357,6 @@ public class AppsController extends UserController {
 		return "backend/apps/uploads";
 	}
 	
-	@RequestMapping(value="/{appKey}/uploads", method=RequestMethod.POST)
-	public String uploadApp(@RequestParam MultipartFile file, @PathVariable String appKey, Model model, HttpServletRequest request) {
-		if (file.getSize() > 0) {
-			App app = (App)request.getAttribute("app");
-			File targetFile = new File(uploadsDir + fileSeparator + appKey + fileSeparator + app.getId() + apkSuffix);
-			if (!targetFile.exists()) {
-				boolean made = targetFile.mkdirs();
-				logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
-			}
-			try {
-				file.transferTo(targetFile);
-				model.addAttribute("success", true);
-			} catch (Exception e) {
-				logger.error("[Upload Error] " + e.getMessage());
-			}
-		}
-		if (!model.containsAttribute("success")) {
-			model.addAttribute("failed", true);
-		}
-		return "redirect:/apps/" + appKey + "/uploads";
-	}
-	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
 	public String create1(HttpServletRequest request) {
 		return "backend/apps/new_step1";
@@ -498,10 +479,10 @@ public class AppsController extends UserController {
 		app.setCreateTime(new Date());
 		appService.addApp(app);
 		
-		return "redirect:/apps/create/" + appKey + "/download_sdk";
+		return "redirect:/apps/" + appKey + "/download_sdk";
 	}
 	
-	@RequestMapping(value="/create/{appKey}/download_sdk", method=RequestMethod.GET)
+	@RequestMapping(value="/{appKey}/download_sdk", method=RequestMethod.GET)
 	public String create3(@PathVariable String appKey, HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
 		
@@ -518,11 +499,54 @@ public class AppsController extends UserController {
 		return "backend/apps/new_step3";
 	}
 	
-	@RequestMapping(value="/create/{appKey}/build_sdk", method=RequestMethod.GET)
-	public String _create3(@PathVariable String appKey, HttpServletRequest request, Model model) {
-		return "backend/apps/new_step3";
+	@RequestMapping(value="/{appKey}/build_sdk", method=RequestMethod.GET)
+	public String _create3(@PathVariable String appKey, HttpServletRequest request, HttpServletResponse response) {
+		App app = (App) request.getAttribute("app");
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		try {
+			String contextPath = request.getSession().getServletContext().getRealPath(request.getContextPath()) ;
+			if (!StringUtils.isEmpty(app.getPkg())) {
+				String examplePackageName = "src/com/example/jpushdemo/";
+				String examplePath = BuildExampleHelper.CreateExample(app, contextPath, false, examplePackageName);
+				if (!response.isCommitted()) {
+					return "redirect:" + examplePath;
+				}
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			responseMap.put("errmsg", "Build Example 异常");
+		}
+		return null;
 	}
 	
+	@RequestMapping(value="/{appKey}/upload_app", method=RequestMethod.GET)
+	public String _uploadApp() {
+		return "backend/apps/new_step4";
+	}
+	
+	@RequestMapping(value="/{appKey}/upload_app", method=RequestMethod.POST)
+	public String _uploadApp(@RequestParam MultipartFile file, @PathVariable String appKey, Model model, HttpServletRequest request) {
+		if (file.getSize() > 0) {
+			User user = this.lookup(request);
+			App app = (App)request.getAttribute("app");
+			String diroot = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.appsDirPath + fileSeparator + appKey + fileSeparator;
+			File targetFile = new File(diroot + app.getId() + apkSuffix);
+			if (!targetFile.exists()) {
+				boolean made = targetFile.mkdirs();
+				logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
+			}
+			try {
+				file.transferTo(targetFile);
+				model.addAttribute("success", true);
+			} catch (Exception e) {
+				logger.error("[Upload Error] " + e.getMessage());
+			}
+		}
+		if (!model.containsAttribute("success")) {
+			model.addAttribute("failed", true);
+		}
+		return "redirect:/apps/" + appKey + "/upload_app";
+	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
 	public String pushtest(@PathVariable String appKey, HttpServletRequest request) {
@@ -532,6 +556,29 @@ public class AppsController extends UserController {
 	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.GET)
 	public String pushsetting(@PathVariable String appKey, HttpServletRequest request) {
 		return "backend/apps/pushsetting";
+	}
+	
+	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.POST)
+	public String _pushsetting(@PathVariable String appKey,
+							   @RequestParam("allow-push") boolean allowPush,
+							   @RequestParam("allow-trustee") boolean allowTrustee, 
+							   HttpServletRequest request,
+							   Model model) {
+		User user = this.lookup(request);
+		
+		App app = new App();
+		app.setUid(user.getUid());
+		app.setKey(appKey);
+		app.setAllowPush(allowPush);
+		app.setAllowTrustee(allowTrustee);
+		
+		String delayPushInterval = request.getParameter("delay_push_interval");
+		if (NumberUtils.isNumberic(delayPushInterval)) {
+			app.setDelayPushInterval(Integer.parseInt(delayPushInterval));
+		}
+		
+		appService.updateApp(app);
+		return "redirect:/apps/"+appKey+"/push/setting";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/composer", method=RequestMethod.GET)

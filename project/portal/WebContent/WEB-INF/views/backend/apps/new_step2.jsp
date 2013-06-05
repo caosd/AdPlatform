@@ -31,6 +31,7 @@ display:block;
                     <strong><fmt:message key="tips"/></strong> appKey不存在
                 </div>
                 </c:if>
+                <div class="protip error" id="formerror" style="display: none;"></div>
                 <div style="text-align:center;">
                     <img src="/images/step2.png" />
                 </div>
@@ -68,5 +69,18 @@ display:block;
 		</div>
 	</div>
     <jsp:include page="../includes/footer.jsp"></jsp:include>
+    <script>
+    (function() {
+      $(".blueform").submit(function() {
+        var err = $("#formerror");
+        if ($("input[name=appIcon]:checked").length == 1) {
+          err.hide();
+          return true;
+        }
+        err.html("请选择一个图标").show();
+        return false;
+      });
+    })();
+    </script>
 </body>
 </html>
