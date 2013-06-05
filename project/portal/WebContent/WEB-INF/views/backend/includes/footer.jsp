@@ -18,6 +18,7 @@ public static void writeScript(JspWriter out, String path)
 </div>
 <%
 writeScript(out, "/js/thirdparty/jquery.js");
+writeScript(out, "/js/thirdparty/date-picker.js");
 writeScript(out, "/js/global.js");
 writeScript(out, "/js/js_versioning.js");
 String loader = request.getParameter("loader");

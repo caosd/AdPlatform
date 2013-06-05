@@ -63,9 +63,9 @@
 					<div id="settings">
                       <div id="date-range" class="ready" style="display: block; right: 130px; opacity: 1; top: 4px; z-index: 1000;">
                         从&nbsp;
-                        <span id="start-date-container"><input type="text" name="start" id="start" class="shorter"></span>
+                        <span id="start-date-container"><input type="text" name="start" id="startDatestr" class="shorter"></span>
                         &nbsp;至&nbsp;
-                        <span id="end-date-container"><input type="text" name="end" id="end" class="shorter"></span>
+                        <span id="end-date-container"><input type="text" name="end" id="endDatestr" class="shorter"></span>
                         <button class="mini">查询</button>
                       </div>
                     </div>
@@ -102,6 +102,8 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-    <jsp:include page="../includes/footer.jsp"></jsp:include>
+    <jsp:include page="../includes/footer.jsp">
+        <jsp:param value="page/ad_report" name="loader"/>
+    </jsp:include>
 </body>
 </html>

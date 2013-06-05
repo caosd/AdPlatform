@@ -1,0 +1,16 @@
+Change Log
+==========
+1:增加Stop/Resume service功能
+2:修改日志的Tag为Service
+3：so文件改名为libsysx.x.x.so
+升级提示
+=======
+建议升级！
+
+
+升级指南
+=======
+新加入 .jar 包：libs/jpush-sdk-release1.3.3.jar。同时删除原来各老版本的 jar 包。
+新加入 .so 包：libs/armeabi/libsys1.3.3.so。同时删除原来各老版本的 so 包。
+
+更多最近更新: http://docs.jpush.cn/pages/viewpage.action?pageId=3309737

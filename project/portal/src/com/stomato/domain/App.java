@@ -16,9 +16,19 @@ public class App {
 	
 	private String pkg;
 	
+	private String icon;
+	
+	private int status;
+
 	private Date lastUpdateTime;
 	
 	private Date createTime;
+	
+	private boolean allowPush;
+	
+	private boolean allowTrustee;
+	
+	private int delayPushInterval = -1;
 	
 	public int getId() {
 		return id;
@@ -76,6 +86,46 @@ public class App {
 		this.createTime = createTime;
 	}
 	
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	public boolean isAllowPush() {
+		return allowPush;
+	}
+
+	public void setAllowPush(boolean allowPush) {
+		this.allowPush = allowPush;
+	}
+
+	public boolean isAllowTrustee() {
+		return allowTrustee;
+	}
+
+	public void setAllowTrustee(boolean allowTrustee) {
+		this.allowTrustee = allowTrustee;
+	}
+
+	public int getDelayPushInterval() {
+		return delayPushInterval;
+	}
+
+	public void setDelayPushInterval(int delayPushInterval) {
+		this.delayPushInterval = delayPushInterval;
+	}
+
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

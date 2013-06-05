@@ -2,12 +2,31 @@ package com.stomato.constant;
 
 public interface Constant {
 	
+	public static final String BUILD_EXAMPLE_ANDROID_PACKAGE = "BUILD_EXAMPLE_ANDROID_PACKAGE";
+	
 	//系统配置
 	interface Configs {
+		String credentialsDirPath = "credentials";
+
+		String appsDirPath = "apps";
+
+		String tmpsDirPath = "tmps";
+		
 		String filesDirPath = "files_path";
 		
-		String credentialsDirPath = "credentials";
+		String appIconDirSuffix = "Icons";
 		
-		String appsDirPath = "apps";
+		String appDirSuffix = "Dir";
+
+		String appIconDir = "icon";
+
+	}
+	
+	//App状态
+	interface AppStatus {
+		int infoCompleted = 1;
+		
+		int sdkInstalled = 2;
+		
 	}
 }

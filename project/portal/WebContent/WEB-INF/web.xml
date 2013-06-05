@@ -43,6 +43,10 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>default</servlet-name>
+    <url-pattern>/sdkexample/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
     <url-pattern>/sina_verified_check.txt</url-pattern>
   </servlet-mapping>
   <servlet>

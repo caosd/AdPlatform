@@ -15,7 +15,7 @@
 			    <div class="right_content">
 					<h2>每月统计</h2>
 					<div id="settings">
-						<form:form commandName="reportParamForm" method="POST">
+						<form:form commandName="reportParamForm" method="POST" action="/report/incoming/monthly">
 		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">
 		                        从&nbsp;
 		                        <span id="start-date-container"><form:input type="text" path="startDatestr" class="shorter"/></span>
@@ -63,17 +63,15 @@
 							</c:if>
                            </tbody>
 					   </table>
-					   <ul class="pages">
-	                        <li class="prev"><a href="javascript:void(0);" class="btn mini tertiary disabled" rel="prev">←</a></li>
-	                        <li class="next"><a href="javascript:void(0);" class="btn mini tertiary disabled" rel="next">→</a></li>
-	                        <li><a href="javascript:void(0);" class="btn mini tertiary selected">1</a></li>
-	                    </ul>
+					   ${pager}
 					</div>
 				</div>
 			</div>
 			<div class="clear"></div>
 		</div>
 	</div>
-    <jsp:include page="../../includes/footer.jsp"></jsp:include>
+    <jsp:include page="../../includes/footer.jsp">
+        <jsp:param value="page/ad_report" name="loader"/>
+    </jsp:include>
 </body>
 </html>

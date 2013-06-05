@@ -4,7 +4,6 @@
 <mapper namespace="com.stomato.dao.UserAccountDao">
 
 	<resultMap type="com.stomato.domain.UserAccount" id="userAccount"> 
-		<result property="id" column="id" />
 		<result property="uid" column="uid" />
 		<result property="balance" column="balance"/>
 	</resultMap>
@@ -12,17 +11,14 @@
 	<insert id="addUserAccount" parameterType="com.stomato.domain.UserAccount">
 		INSERT INTO t_user_account (
 			uid,
-			balance,
-			lastUpdateTime
+			balance
 		)
 		VALUES
 			(#{uid}, 
-			#{balance},
-			now())
+			#{balance})
 	</insert>
 	<update id="updateUserAccount" parameterType="com.stomato.domain.UserAccount">
-		update t_user_account set balance=#{balance},
-								 last_update_time=now() 
+		update t_user_account set balance=#{balance}
 		where uid=#{uid}
 	</update>
 	<select id="getUserAccount" parameterType="com.stomato.domain.UserAccount" resultMap="userAccount" >

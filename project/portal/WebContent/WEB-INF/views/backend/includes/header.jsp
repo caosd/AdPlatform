@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="header">
 	<div class="container">
-		<!-- <a href="${not empty user.userName?"/apps":"/" }" title="Smile Tomato" class="logo"><span>Smile Tomato</span></a>  -->
+		<a href="${not empty user.userName?"/apps":"/" }" title="Smile Tomato" class="logo"><span>Smile Tomato</span></a>
 		<c:if test="${not empty user.userName }">
 		<div class="appselect">
 			<a href="" title="" class="appselect_button">
@@ -27,7 +27,7 @@
 					</c:forEach>
 				</ul>
 				<div class="buttons">
-					<a href="/apps/new"><fmt:message key="head.create_app"/></a> <a href="/apps"><fmt:message key="head.view_all_app"/></a>
+					<a href="/apps/create"><fmt:message key="head.create_app"/></a> <a href="/apps"><fmt:message key="head.view_all_app"/></a>
 				</div>
 			</div>
 		</div>

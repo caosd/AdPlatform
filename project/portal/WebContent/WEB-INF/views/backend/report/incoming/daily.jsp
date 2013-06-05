@@ -16,12 +16,12 @@
 			    <div class="right_content">
 					<h2 style="margin-bottom: 10px;">每日统计</h2>
 					<div id="settings">
-						<form:form commandName="reportParamForm" method="POST">
+						<form:form commandName="reportParamForm" method="POST" action="/report/incoming/daily">
 		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">
 		                        从&nbsp;
-		                        <span id="start-date-container"><form:input type="text" path="startDatestr" class="shorter"/></span>
+		                        <span id="start-date-container"><form:input type="text" path="startDatestr" class="shorter" value=""/></span>
 		                        &nbsp;至&nbsp;
-		                        <span id="end-date-container"><form:input type="text" path="endDatestr" class="shorter"/></span>
+		                        <span id="end-date-container"><form:input type="text" path="endDatestr" class="shorter" value=""/></span>
 		                        &nbsp;请选择应用：
 		                        <form:select class="mini" path="appId">
 		                            <option value="0">全部应用</option>
@@ -93,17 +93,15 @@
 							</c:if>
                            </tbody>
                        </table>
-                       <ul class="pages">
-                            <li class="prev"><a href="javascript:void(0);" class="btn mini tertiary disabled" rel="prev">←</a></li>
-                            <li class="next"><a href="javascript:void(0);" class="btn mini tertiary disabled" rel="next">→</a></li>
-                            <li><a href="javascript:void(0);" class="btn mini tertiary selected">1</a></li>
-                        </ul>
+                        ${pager}
                     </div>
 				</div>
 			</div>
 			<div class="clear"></div>
 		</div>
 	</div>
-    <jsp:include page="../../includes/footer.jsp"></jsp:include>
+    <jsp:include page="../../includes/footer.jsp">
+        <jsp:param value="page/ad_report" name="loader"/>
+    </jsp:include>
 </body>
 </html>

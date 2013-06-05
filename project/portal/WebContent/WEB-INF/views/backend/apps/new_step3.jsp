@@ -17,12 +17,28 @@
                     <strong><fmt:message key="tips"/></strong> <fmt:message key="new_app_failed"/>
                 </div>
                 </c:if>
-                <div class="bare-box">
-                    <a href="javascript:void(0);" class="file">
-                        <span><em>+</em>选择证件照片</span>
-                        <input title="支持jpg,gif,png格式" size="3" name="file1" type="file" id="fileCtrl1">
-                    </a>
+                <div style="text-align:center;">
+                    <img src="/images/step3.png" />
                 </div>
+                <form method="GET" class="blueform" action="/apps/${app.key }/upload_app" style="margin-left: 95px;width: 812px;">
+                  <ul class="form">
+                      <li>
+                        <label> 应用Key </label> 
+                        <p style="padding-top: 8px;color: #F00;">${app.key }</p>
+                      </li>
+                      <li>
+                        <label> SDK下载 </label> 
+                        <div>
+                          <a class="btn primary" href="/apps/${app.key}/build_sdk">自动生成</a>
+                        </div>
+                      </li>
+                  </ul>
+                  <ul class="form" style="margin-top:30px;">
+                      <li>
+                          <button type="submit">下一步，上传集成了SDK后的应用</button>
+                      </li>
+                  </ul>
+                </form>
             </div>
             <div class="clear"></div>
         </div>
