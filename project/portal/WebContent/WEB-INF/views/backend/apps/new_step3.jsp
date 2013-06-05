@@ -11,7 +11,7 @@
     <div class="inside">
         <div class="container">
             <div id="content">
-                <h2><fmt:message key="new_app_title"/></h2>
+                <h2>下载嵌入SDK</h2>
                 <c:if test="${failed}">
                 <div class="protip error">
                     <strong><fmt:message key="tips"/></strong> <fmt:message key="new_app_failed"/>
