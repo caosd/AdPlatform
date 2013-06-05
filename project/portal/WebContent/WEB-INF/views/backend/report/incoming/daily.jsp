@@ -50,7 +50,7 @@
                              <c:forEach items="${todayList}" var="report" varStatus="stat">
 								<tr>
 								<th><fmt:formatDate value="${report.idate }" pattern="MM-dd" /></th>
-								<th><fmt:formatNumber value="${report.newUsers }"/></th>
+								<td><fmt:formatNumber value="${report.newUsers }"/></td>
 								<td><fmt:formatNumber value="${report.onlineUsers }"/></td>
 								<td>${report.moneyPushes }</td>
 								<td>${report.moneyAdvertising }</td>
@@ -79,7 +79,7 @@
                              <c:forEach items="${dailyList}" var="report" varStatus="stat">
 								<tr>
 								<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
-								<th><fmt:formatNumber value="${report.newUsers }"/></th>
+								<td><fmt:formatNumber value="${report.newUsers }"/></td>
 								<td><fmt:formatNumber value="${report.onlineUsers }"/></td>
 								<td>${report.moneyPushes }</td>
 								<td>${report.moneyAdvertising }</td>

@@ -33,8 +33,8 @@
 								<th>${remittance.bankAccount }</th>
 								<td>${remittance.bankCard }</td>
 								<td>${remittance.money }</td>
-								<td>${remittance.createTime }</td>
-								<td>${remittance.remittanceTime }</td>
+								<td><fmt:formatDate value="${remittance.createTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								<td><fmt:formatDate value="${remittance.remittanceTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td>
 									<c:choose>
 										<c:when test="${remittance.status == 0}">
