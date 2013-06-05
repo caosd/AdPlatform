@@ -42,7 +42,7 @@
                                <th>应用打开次数</th>
                                <th>展示次数</th>
                                <th>填充率</th>
-                               <th>广告收入</th>
+                               <th>广告收入 (元)</th>
                              </tr>
                            </thead>
                            <tbody>

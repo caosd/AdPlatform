@@ -37,9 +37,25 @@
 			now())
 	</insert>
 	<select id="getRemittance" parameterType="com.stomato.domain.Remittance" resultMap="remittance" >
-		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,last_update_time from t_remittance where id=#{id}
+		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where id=#{id}
 	</select>
-	<select id="getRemittanceList" parameterType="int" resultMap="remittance" >
-		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,last_update_time from t_remittance where uid=#{uid} order by id asc;
+	<select id="getRemittanceListByUser" parameterType="com.stomato.domain.User" resultMap="remittance" >
+		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} order by id asc;
+	</select>
+	<select id="getRemittanceList" parameterType="com.stomato.domain.RemittanceParam" resultMap="remittance" >
+		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance 
+		where 1=1
+		<choose>
+		   <when test="startDate != null and endDate != null">
+		      AND create_time between #{startDate} and #{endDate}
+		    </when>
+		    <when test="startDate != null">
+		      AND create_time >= #{startDate}
+		    </when>
+		    <when test="endDate != null">
+		      AND #{endDate}  >=  create_time
+		    </when>
+	    </choose>
+	    order by status,create_time asc;
 	</select>
 </mapper>

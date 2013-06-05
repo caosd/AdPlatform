@@ -18,6 +18,10 @@ public class ReportService {
 	public List<Map<String,Object>> getHourlyReport(ReportParam param) {
 		return this.reportDao.getSummaryReport(param);
 	}
+
+	public List<Map<String,Object>>  getAccountsReport(ReportParam param) {
+		return this.reportDao.getAccountsReport(param);
+	}
 	
 	public List<Map<String,Object>> getDailyReport(ReportParam param) {
 		return this.reportDao.getDailyReport(param);

@@ -16,14 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.stomato.domain.App;
 import com.stomato.domain.Credentials;
 import com.stomato.domain.Remittance;
+import com.stomato.domain.ReportParam;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;
 import com.stomato.form.CredentialForm;
+import com.stomato.form.ReportParamForm;
+import com.stomato.service.AppService;
 import com.stomato.service.CredentialsService;
 import com.stomato.service.RemittanceService;
+import com.stomato.service.ReportService;
 import com.stomato.service.UserAccountsService;
+import com.stomato.utils.Pager;
 import com.stomato.validator.CredentialValidation;
 
 @Controller
@@ -38,6 +44,10 @@ public class FinancialController extends UserController{
 	private UserAccountsService userAccountsService;
 	@Autowired
 	private RemittanceService remittanceService;
+	@Autowired
+	private ReportService reportService;
+	@Autowired
+	private AppService appService;
 	
 	private static final String uploadsDir = "F:/project/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/AdPlatform/";
 	private static final String fileSeparator = System.getProperty("file.separator");
@@ -114,56 +124,86 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/accounts")
-	public String accounts(HttpServletRequest request, HttpServletResponse response) {
+	public String accounts(@ModelAttribute("reportParamForm") ReportParamForm reportParamForm,HttpServletRequest request,Model model) {
+		ReportParam param = reportParamForm.asPojo();
+		User user = this.lookup(request);
+		param.setUid(user.getUid());
+		
+		List<App> appList = this.appService.getAppList(user.getUid());
+		if( appList.size() > 0 ){
+			int records = this.reportService.getDailyReportCount(param);
+			int curPage = this.getIntParameter(request, "p");
+			if( curPage < 1) curPage = 1;
+			param.setRows(3);
+			param.setSlimt((curPage-1) * 3);
+			//分页
+			Pager pager = new Pager(param.getRows(), curPage, records);
+			model.addAttribute("pager", pager);
+			model.addAttribute("dailyList", this.reportService.getAccountsReport(param));
+		}
+		model.addAttribute("appList", appList);
+		model.addAttribute("reportParam", param);
 		return "backend/financial/accounts";
 	}
 	
 	@RequestMapping(value="/remittance",method=RequestMethod.GET)
 	public String remittance(HttpServletRequest request, Model model) {
+		String retPath = "backend/financial/remittance";
 		Credentials credentials = this.credentialsService.getCredentialsByUser(this.lookup(request));
-		if(	credentials != null ){
-			model.addAttribute("credentials", credentials);
+		if(	credentials == null ){
+			model.addAttribute("error", "side.financial.accounts_entry");
+			return retPath;
 		}
 		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(this.lookup(request));
-		if(	userAccount != null ){
-			model.addAttribute("userAccount", userAccount);
+		if(	userAccount == null ){
+			return retPath;
 		}
-		return "backend/financial/remittance";
+		model.addAttribute("userAccount", userAccount);
+		model.addAttribute("credentials", credentials);
+		return retPath;
 	}
 	@RequestMapping(value="/remittance",method=RequestMethod.POST)
 	public String remittance(HttpServletRequest request, HttpServletResponse response, Model model) {
-
+		String retPath = "backend/financial/remittance";
 		User user = this.lookup(request);
 		Credentials credentials = this.credentialsService.getCredentialsByUser(this.lookup(request));
-		if(	credentials != null ){
-			model.addAttribute("credentials", credentials);
+		if(	credentials == null ){
+			model.addAttribute("error", "side.financial.accounts_entry");
+			return retPath;
 		}
 		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(this.lookup(request));
-		if(	userAccount != null ){
-			model.addAttribute("userAccount", userAccount);
+		if(	userAccount == null ){
+			return retPath;
 		}
+		model.addAttribute("userAccount", userAccount);
+		model.addAttribute("credentials", credentials);
 		
 		double money = super.getDoubleParameter(request,"money");
-		if(money <= 0){
-			model.addAttribute("money","Amount shall not be less than 0.");
-			return "backend/financial/remittance"; 
+		if(money < 100){
+			model.addAttribute("error","side.financial.remittance_money_error");
+			return retPath; 
 		}
+		//验证金额是否足够
+		if(money > userAccount.getBalance()){
+			model.addAttribute("error","side.financial.accounts_balance_issu");
+			return retPath;
+		}
+		
 		Remittance remittance = new Remittance();
 		remittance.setUid(user.getUid());
 		remittance.setBankAccount(credentials.getBankAccount());
 		remittance.setBankCard(credentials.getBankCard());
 		remittance.setBankName(credentials.getBankName());
 		remittance.setMoney(money);
-		
 		remittanceService.addRemittance(remittance);
-		return "backend/financial/remittance";
+		
+		model.addAttribute("success", "side.financial.remittance_success");
+		return retPath;
 	}
 	
 	@RequestMapping("/remittance_history")
 	public String remittance_history(HttpServletRequest request, Model model) {
-		
-		User user = this.lookup(request);
-		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(user.getUid());
+		List<Remittance> remittanceList = this.remittanceService.getRemittanceListByUser(this.lookup(request));
 		model.addAttribute("remittanceList", remittanceList);
 		return "backend/financial/remittance_history";
 	}

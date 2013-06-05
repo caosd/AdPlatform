@@ -35,7 +35,7 @@
 		                </form:form>
                     </div>
                     <div class="box">
-                       <table class="data">
+                       <!--<table class="data">
                            <thead>
                              <tr>
                                <th width="12%">天数</th>
@@ -64,7 +64,7 @@
 							</c:if>
                            </tbody>
                        </table>
-                       <table class="data">
+                       --><table class="data">
                            <thead>
                              <tr>
                                <th width="12%">日期</th>

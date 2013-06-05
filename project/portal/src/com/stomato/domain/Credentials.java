@@ -21,9 +21,9 @@ public class Credentials implements Serializable {
 
 	private String credentialsNo;
 
-	private String credentialsPhoto1;
+	private String credentialsPhoto1="";
 
-	private String credentialsPhoto2;
+	private String credentialsPhoto2="";
 
 	private String bankName;
 

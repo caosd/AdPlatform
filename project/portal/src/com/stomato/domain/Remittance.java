@@ -1,7 +1,7 @@
 package com.stomato.domain;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 申请汇款信息表
@@ -26,11 +26,11 @@ public class Remittance implements Serializable {
 
 	private String remark;
 
-	private Timestamp remittanceTime;
+	private Date remittanceTime;
 
-	private Timestamp createTime;
+	private Date createTime;
 
-	private Timestamp lastUpdateTime;
+	private Date lastUpdateTime;
 
 	public Integer getId() {
 		return id;
@@ -72,11 +72,11 @@ public class Remittance implements Serializable {
 		this.remark = remark;
 	}
 
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -104,19 +104,19 @@ public class Remittance implements Serializable {
 		this.bankCard = bankCard;
 	}
 
-	public Timestamp getRemittanceTime() {
+	public Date getRemittanceTime() {
 		return remittanceTime;
 	}
 
-	public void setRemittanceTime(Timestamp remittanceTime) {
+	public void setRemittanceTime(Date remittanceTime) {
 		this.remittanceTime = remittanceTime;
 	}
 
-	public Timestamp getLastUpdateTime() {
+	public Date getLastUpdateTime() {
 		return lastUpdateTime;
 	}
 
-	public void setLastUpdateTime(Timestamp lastUpdateTime) {
+	public void setLastUpdateTime(Date lastUpdateTime) {
 		this.lastUpdateTime = lastUpdateTime;
 	}
 }
