@@ -23,9 +23,9 @@ public class Pager {
 	public String toString(){
 		String pagerHtml = "<ul class=\"pages\">";
 		if (curPage > 1){
-			pagerHtml+=("<li class=\"prev\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary\" rel=\"prev\" onclick=\"changePage("+(curPage - 1)+")\">Prev</a></li>");
+			pagerHtml+=("<li class=\"prev\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary\" rel=\"prev\" onclick=\"changePage("+(curPage - 1)+")\">←</a></li>");
 		}else{
-			pagerHtml+=("<li class=\"prev\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary disabled\" rel=\"prev\">Prev</a></li>");
+			pagerHtml+=("<li class=\"prev\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary disabled\" rel=\"prev\">←</a></li>");
 		}
 		int limit_s = 1;
 		int limit_e = 1;
@@ -48,9 +48,9 @@ public class Pager {
 	        	pagerHtml+=("<li ><a href=\"javascript:void(0);\" class=\"btn mini tertiary\" onclick=\"changePage("+(i)+")\">"+i+"</a></li>");
 	    }
 	    if (curPage < pageCount){
-	    	pagerHtml+=("<li class=\"next\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary\" rel=\"next\" onclick=\"changePage("+(curPage + 1)+")\">next</a></li>");
+	    	pagerHtml+=("<li class=\"next\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary\" rel=\"next\" onclick=\"changePage("+(curPage + 1)+")\">→</a></li>");
 	    }else{
-	    	pagerHtml+=("<li class=\"next\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary disabled\" rel=\"next\">next</a></li>");
+	    	pagerHtml+=("<li class=\"next\"><a href=\"javascript:void(0);\" class=\"btn mini tertiary disabled\" rel=\"next\">→</a></li>");
 	    }
 	    pagerHtml+="</ul>";
 	    pagerHtml+="<script>"+
@@ -66,10 +66,4 @@ public class Pager {
 				   "</script>";
 	    return pagerHtml;
 	};
-	
-	
-	
-	public static void main(String[] args) {
-		System.out.println(new Pager(10, 1, 50));
-	}
 }

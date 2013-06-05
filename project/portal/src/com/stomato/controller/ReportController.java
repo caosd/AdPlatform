@@ -60,13 +60,12 @@ public class ReportController extends UserController{
 						todayList.add(item);
 					}
 				}
-
 				model.addAttribute("todayList", todayList);
 				model.addAttribute("dailyList", dailyList);
-				model.addAttribute("reportParam", reportParam);
 			}
-			model.addAttribute("appList", appList);
 		}
+		model.addAttribute("appList", appList);
+		model.addAttribute("reportParam", reportParam);
 	}
 	private void responseMonthly(ReportParam reportParam,HttpServletRequest request,Model model){
 		User user = this.lookup(request);
@@ -85,9 +84,9 @@ public class ReportController extends UserController{
 		if( appList.size() > 0 ){
 			List<Map<String,Object>>  reportList = this.reportService.getMonthlyReport(reportParam);
 			model.addAttribute("monthlyList", reportList);
-			model.addAttribute("appList", appList);
-			model.addAttribute("reportParam", reportParam);
 		}
+		model.addAttribute("appList", appList);
+		model.addAttribute("reportParam", reportParam);
 	}
 	
 	@RequestMapping(value="/incoming/daily")

@@ -50,13 +50,13 @@
 								<tr>
 								<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
 								<td><fmt:formatNumber value="${report.totalUsers }"/></td>
-								<td><fmt:formatNumber value="${report.pushTimes }"/></td>
+								<td><fmt:formatNumber value="${report.appOpens }"/></td>
 								<td><fmt:formatNumber value="${report.displayTimes }"/></td>
 								<td><fmt:formatNumber value="${report.fillRate }" type="percent"/></td>
 								<td>${report.moneyAdvertising }</td>
 								</tr>
 							</c:forEach>
-							<c:if test="${fn:length(todayList) == 0 }">
+							<c:if test="${fn:length(dailyList) == 0 }">
 	                             <tr>
 	                               <td colspan="7">没有任何可显示的结果</td>
 	                             </tr>

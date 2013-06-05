@@ -56,7 +56,7 @@
 								<td>${report.moneyPushes }</td>
 								</tr>
 							</c:forEach>
-							<c:if test="${fn:length(todayList) == 0 }">
+							<c:if test="${fn:length(dailyList) == 0 }">
 	                             <tr>
 	                               <td colspan="7">没有任何可显示的结果</td>
 	                             </tr>

@@ -16,7 +16,8 @@
 			 sum(case when a.kpi_code = 'sm_conversion_rate' then a.kpi_value else 0 end) as conversionRate,
 			 sum(case when a.kpi_code = 'sm_fill_rate' then a.kpi_value else 0 end) as fillRate,
 			 sum(case when a.kpi_code = 'sm_money_pushes' then a.kpi_value else 0 end) as moneyPushes,
-			 sum(case when a.kpi_code = 'sm_money_advertising' then a.kpi_value else 0 end) as moneyAdvertising
+			 sum(case when a.kpi_code = 'sm_money_advertising' then a.kpi_value else 0 end) as moneyAdvertising,
+			 sum(case when a.kpi_code = 'sm_app_opens' then a.kpi_value else 0 end) as appOpens
 		from t_report_daily as a inner join t_apps as b on a.app_id = b.id 
 		where a.uid=#{uid}
 		<choose>
@@ -65,7 +66,8 @@
 			 sum(case when a.kpi_code = 'sm_conversion_rate' then a.kpi_value else 0 end) as conversionRate,
 			 sum(case when a.kpi_code = 'sm_fill_rate' then a.kpi_value else 0 end) as fillRate,
 			 sum(case when a.kpi_code = 'sm_money_pushes' then a.kpi_value else 0 end) as moneyPushes,
-			 sum(case when a.kpi_code = 'sm_money_advertising' then a.kpi_value else 0 end) as moneyAdvertising
+			 sum(case when a.kpi_code = 'sm_money_advertising' then a.kpi_value else 0 end) as moneyAdvertising,
+			 sum(case when a.kpi_code = 'sm_app_opens' then a.kpi_value else 0 end) as appOpens
 		from t_report_monthly as a inner join t_apps as b on a.app_id = b.id 
 		where a.uid=#{uid}
 		<choose>
