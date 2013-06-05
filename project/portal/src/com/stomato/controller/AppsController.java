@@ -537,15 +537,24 @@ public class AppsController extends UserController {
 			}
 			try {
 				file.transferTo(targetFile);
-				model.addAttribute("success", true);
+				return "redirect:/apps/"+appKey+"/create_done";
 			} catch (Exception e) {
 				logger.error("[Upload Error] " + e.getMessage());
 			}
 		}
-		if (!model.containsAttribute("success")) {
-			model.addAttribute("failed", true);
-		}
+		
+		model.addAttribute("failed", true);
 		return "redirect:/apps/" + appKey + "/upload_app";
+	}
+	
+	@RequestMapping(value="/{appKey}/create_done", method=RequestMethod.GET)
+	public String create_done(@PathVariable String appKey, Model model, HttpServletRequest request) {
+		User user = this.lookup(request);
+		String iconDir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
+						+ Constant.Configs.appsDirPath + fileSeparator + appKey + fileSeparator + Constant.Configs.appIconDir 
+						+ fileSeparator;
+		model.addAttribute("iconDir", iconDir);
+		return "backend/apps/new_step5";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)

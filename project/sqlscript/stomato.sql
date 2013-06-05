@@ -33,13 +33,16 @@ CREATE TABLE `t_apps` (
   `is_del` tinyint(1) DEFAULT '0' COMMENT 'status:   0-normal,    1-delete',
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `create_time` datetime NOT NULL,
+  `allow_push` bit(1) DEFAULT b'0' COMMENT '广告推送开关',
+  `allow_trustee` bit(1) DEFAULT b'0' COMMENT '托管开关',
+  `delay_push_interval` int(11) DEFAULT '0' COMMENT '广告关闭后推送延迟时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_appKey` (`app_key`),
   UNIQUE KEY `uq_uid_with_pkg` (`uid`,`pkg`),
   KEY `ind_appname` (`name`),
   KEY `ind_uid` (`uid`),
   KEY `ind_appKey` (`app_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
