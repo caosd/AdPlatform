@@ -14,7 +14,7 @@
 			<div id="content">
 			    <%@include file="../../includes/accounts_sidebar.jsp"%>
 			    <div class="right_content">
-					<h2 style="margin-bottom: 10px;">每日统计</h2>
+					<h2>每日统计</h2>
 					<div id="settings">
 						<form:form commandName="reportParamForm" method="POST" action="/report/incoming/daily">
 		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">

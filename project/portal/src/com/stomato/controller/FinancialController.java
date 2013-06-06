@@ -117,6 +117,15 @@ public class FinancialController extends UserController{
 			credentials.setCredentialsPhoto2(file2path);
 			this.credentialsService.updateCredentials(credentials);
 		}
+		String endDir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() 
+												+ fileSeparator + Constant.Configs.credentialsDirPath + fileSeparator;
+		if (!StringUtils.isEmpty(credentials.getCredentialsPhoto1())) {
+			credentials.setCredentialsPhoto1(endDir + credentials.getCredentialsPhoto1());
+		}
+		if (!StringUtils.isEmpty(credentials.getCredentialsPhoto2())) {
+			credentials.setCredentialsPhoto2(endDir + credentials.getCredentialsPhoto2());
+		}
+
 		model.addAttribute("credentials", credentials);
 		return "backend/financial/overview";
 	}

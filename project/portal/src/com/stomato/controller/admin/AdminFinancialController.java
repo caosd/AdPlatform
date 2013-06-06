@@ -40,7 +40,7 @@ public class AdminFinancialController extends UserController{
 			userAccount.setBalance(balance);
 			this.accountsService.updateUserAccount(userAccount);
 			this.remittanceService.remittanceComplete(remittance.getId());
-			model.addAttribute("error","side.admin.financial.remittance_success");
+			model.addAttribute("success","side.admin.financial.remittance_success");
 		}
 		return this.remittance_history(form, request, model);
 	}
