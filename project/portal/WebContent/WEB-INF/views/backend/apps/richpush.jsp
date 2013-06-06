@@ -74,7 +74,7 @@
 					                <div id="preview-scroller">
 					                  <div id="preview-android" class="preview">
 					                    <span style="display: block;"></span>
-					                      <h3>${empty app.name?"Your App Name":app.name }</h3>
+					                      <h3>${empty app.name?"你的应用":app.name }</h3>
 					                      <p></p>
 					                      <h6></h6>
 					                  </div>
@@ -130,7 +130,7 @@
 						      <div class="action">
 						        <img src="/images/circle-loader.gif" class="loader" />
 						        <button rel="back" type="button">返回</button>
-						        <button id="rp-step5-next" rel="later" type="submit">稍后保存</button>
+						        <button id="rp-step5-next" rel="later" type="button">保存</button>
 						      </div>
 						      <input type="hidden" name="payload" id="id_payload" value="" />
 						      <input type="hidden" name="rich_push_history_id" id="id_rich_push_history_id" value="" />
@@ -141,11 +141,10 @@
 						    </div>
 						  </form>
 						  <div class="step" id="step-5">
-						    <h2>Done <span class="sub message_title"></span></h2>
+						    <h2>Done</h2>
 						  </div>
 						</div>
 						</div>
-                    
                     
                     
 				</div>

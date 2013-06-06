@@ -64,7 +64,7 @@ var richPush = (function() {
         }
         $('#id_payload').val($.toJSON(payload));
         //Update title of message
-        $("div.step span.message_title").text(payload.title);
+        //$("div.step span.message_title").text(payload.title);
         //console.log('finished generating payload. it is: ',payload);
     }
 
@@ -524,7 +524,7 @@ var richPush = (function() {
                     }
                     var resizeTimer;
                     if (typeof template == 'undefined' || typeof template == null) template = 'default';
-                    var url = 'preview/?id=' + id + '&device=' + device + '&template=' + template + ' #rich-push-preview-body';
+                    var url = '/apps/' + location.pathname.split("/")[2] + '/preview/?id=' + id + '&device=' + device + '&template=' + template + ' #rich-push-preview-body';
                     preview = $(document.createElement('div')).addClass('rich-push-preview').attr({'id': 'rich-push-preview'}).load(url,
                     function() {
                         $(this).lightbox_me({
@@ -533,6 +533,8 @@ var richPush = (function() {
                             zIndex: 200001,
                             onLoad: function() {
                                 setPreviewControls();
+                                $("#preview_container").contents().find('head').append($("#display_message_ifr").contents().find("head").html());
+                                $("#preview_container").contents().find('body').html($("#display_message_ifr").contents().find("body").html());
                                 clearTimeout(resizeTimer);
                                 resizeTimer = setTimeout(setMessageHeight, 500);
                             },
@@ -543,6 +545,7 @@ var richPush = (function() {
                     });
                 }
 
+                /*
                 // check if this message has already been saved
                 if ($('#id_message').val() !== tinyMCE.get('display_message').getContent()) {
                     generatePayload();
@@ -567,7 +570,8 @@ var richPush = (function() {
                 } else {
                     //already saved so we can fire the preview
                     richPushPreview($('#id_rich_push_history_id').val(), device, $('#template').val());
-                }
+                }*/
+                richPushPreview($('#id_rich_push_history_id').val(), device, $('#template').val());
             });
 
             $('#step-2 input[name=send_alert]').bind('click',
@@ -607,7 +611,11 @@ var richPush = (function() {
                 function() {
                     $('#id_ready_to_deliver').val('');
                     $('#id_save_for_later').val('1');
-                    $('#rich-push-form').submit();
+                    //$('#rich-push-form').submit();
+                    //for test
+                    $("#rich-push-form").hide();
+                    $("#step-5").show();
+                    step(5);
                     return false;
                 });
             });

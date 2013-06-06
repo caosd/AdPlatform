@@ -602,6 +602,12 @@ public class AppsController extends UserController {
 		return "backend/apps/richpush";
 	}
 	
+	@RequestMapping(value="/{appKey}/rich-push", method=RequestMethod.POST)
+	public String _richpush(@PathVariable String appKey, HttpServletRequest request, Model model) {
+		model.addAttribute("success", true);
+		return "backend/apps/richpush";
+	}
+	
 	@RequestMapping(value="/{appKey}/preview", method=RequestMethod.GET)
 	public String preview(@PathVariable String appKey, HttpServletRequest request) {
 		return "redirect:/html/previews/rich.html";
