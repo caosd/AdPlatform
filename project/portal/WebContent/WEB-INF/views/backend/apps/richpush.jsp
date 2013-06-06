@@ -70,7 +70,7 @@
                               </fieldset>
                               <fieldset>
 							      <div class="module" id="previews">
-					                <a href="#" id="preview-scroller-prev">Previous</a>
+					                <a href="javascript:;" id="preview-scroller-prev">Previous</a>
 					                <div id="preview-scroller">
 					                  <div id="preview-android" class="preview">
 					                    <span style="display: block;"></span>
@@ -79,7 +79,7 @@
 					                      <h6></h6>
 					                  </div>
 					                </div>
-					                <a href="#" id="preview-scroller-next">Next</a>
+					                <a href="javascript:;" id="preview-scroller-next">Next</a>
 					                <div id="preview-position"><span class="active">•</span></div>
 					              </div>
 						      </fieldset>

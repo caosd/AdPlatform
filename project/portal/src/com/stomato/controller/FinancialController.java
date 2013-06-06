@@ -34,6 +34,7 @@ import com.stomato.service.RemittanceService;
 import com.stomato.service.ReportService;
 import com.stomato.service.UserAccountsService;
 import com.stomato.utils.Pager;
+import com.stomato.utils.StringUtils;
 import com.stomato.validator.CredentialValidation;
 
 @Controller
@@ -65,8 +66,12 @@ public class FinancialController extends UserController{
 		if(	credentials != null ){
 			String endDir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() 
 							+ fileSeparator + Constant.Configs.credentialsDirPath + fileSeparator;
-			credentials.setCredentialsPhoto1(endDir + credentials.getCredentialsPhoto1());
-			credentials.setCredentialsPhoto2(endDir + credentials.getCredentialsPhoto2());
+			if (!StringUtils.isEmpty(credentials.getCredentialsPhoto1())) {
+				credentials.setCredentialsPhoto1(endDir + credentials.getCredentialsPhoto1());
+			}
+			if (!StringUtils.isEmpty(credentials.getCredentialsPhoto2())) {
+				credentials.setCredentialsPhoto2(endDir + credentials.getCredentialsPhoto2());
+			}
 			model.addAttribute("credentials", credentials);
 		}
 		return "backend/financial/overview";
