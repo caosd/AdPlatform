@@ -36,11 +36,14 @@
 			now(), 
 			now())
 	</insert>
-	<update id="updateRemittanceStatus" parameterType="com.stomato.domain.Remittance">
-		update t_remittance set status=#{status} where id=#{id}
+	<update id="remittanceComplete" parameterType="int">
+		update t_remittance set status=1 where id=#{id}
 	</update>
-	<select id="getRemittance" parameterType="com.stomato.domain.Remittance" resultMap="remittance" >
+	<select id="getRemittance" parameterType="int" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where id=#{id}
+	</select>
+	<select id="getRemittanceListByApplyStatus" parameterType="int" resultMap="remittance" >
+		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid}
 	</select>
 	<select id="getRemittanceListByUser" parameterType="com.stomato.domain.RemittanceParam" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} 

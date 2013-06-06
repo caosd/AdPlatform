@@ -41,12 +41,13 @@ margin: 0;
 			    <%@include file="../includes/accounts_sidebar.jsp"%>
 			    <div class="right_content">
 					<h2>汇款申请</h2>
-                    <c:if test="${error != null }">
-                    <div class="protip error">
+
+                    <c:if test="${not empty error}">
+                    <div class="protip warn">
                       <strong>提示：</strong> <fmt:message key="${error}"></fmt:message>
                     </div>
                     </c:if>
-                    <c:if test="${success != null }">
+                    <c:if test="${not empty success}">
                     <div class="protip success">
                       <strong>提示：</strong> <fmt:message key="${success}"></fmt:message>
                     </div>

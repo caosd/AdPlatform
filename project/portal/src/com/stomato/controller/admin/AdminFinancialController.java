@@ -28,27 +28,20 @@ public class AdminFinancialController extends UserController{
 	@Autowired
 	private UserAccountsService accountsService;
 
-	@RequestMapping(value="/udpate_remittance")
-	public String updateRemittanceStatus(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
+	@RequestMapping(value="/remittance_complete")
+	public String remittanceComplete(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
 		int id = super.getIntParameter(request, "id");
-		Remittance remittance = new Remittance();
-		remittance.setId(id);
-		remittance = this.remittanceService.getRemittance(remittance);
+		Remittance remittance = this.remittanceService.getRemittance(id);
 		UserAccount userAccount = this.accountsService.getUserAccountByUser(this.lookup(request));
 		double balance = userAccount.getBalance()-remittance.getMoney();
 		if( balance < 0){
-			model.addAttribute("error","");
+			model.addAttribute("error","side.admin.financial.accounts_balance_issu1");
 		}else{
-			if(remittance.getStatus().intValue() == 0){
-				remittance.setStatus(1);
-			}else{
-				remittance.setStatus(0);
-			}
 			userAccount.setBalance(balance);
 			this.accountsService.updateUserAccount(userAccount);
-			this.remittanceService.updateRemittanceStatus(remittance);
+			this.remittanceService.remittanceComplete(remittance.getId());
+			model.addAttribute("error","side.admin.financial.remittance_success");
 		}
-		
 		return this.remittance_history(form, request, model);
 	}
 	
@@ -58,8 +51,7 @@ public class AdminFinancialController extends UserController{
 		int records = this.remittanceService.getRemittanceCount(remittanceParam);
 		int curPage = this.getIntParameter(request, "p");
 		if( curPage < 1) curPage = 1;
-		remittanceParam.setRows(3);
-		remittanceParam.setSlimt((curPage-1) * 3);
+		remittanceParam.setSlimt((curPage-1) * remittanceParam.getRows());
 		//分页
 		Pager pager = new Pager(remittanceParam.getRows(), curPage, records);
 		model.addAttribute("pager", pager);

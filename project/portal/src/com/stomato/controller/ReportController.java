@@ -38,8 +38,7 @@ public class ReportController extends UserController{
 		int records = this.reportService.getDailyReportCount(reportParam);
 		int curPage = this.getIntParameter(request, "p");
 		if( curPage < 1) curPage = 1;
-		reportParam.setRows(3);
-		reportParam.setSlimt((curPage-1) * 3);
+		reportParam.setSlimt((curPage-1) * reportParam.getRows());
 		//分页
 		Pager pager = new Pager(reportParam.getRows(), curPage, records);
 		model.addAttribute("pager", pager);

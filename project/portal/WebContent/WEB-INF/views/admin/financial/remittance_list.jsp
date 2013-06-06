@@ -15,6 +15,16 @@
                 <%@include file="../includes/accounts_sidebar.jsp"%>
                 <div class="right_content">
                     <h2>汇款记录</h2>
+                    <c:if test="${not empty error}">
+                    <div class="protip warn">
+                      <strong>提示：</strong> <fmt:message key="${error}"></fmt:message>
+                    </div>
+                    </c:if>
+                    <c:if test="${not empty success}">
+                    <div class="protip success">
+                      <strong>提示：</strong> <fmt:message key="${success}"></fmt:message>
+                    </div>
+                    </c:if>
             		<div id="settings">
 						<form:form commandName="remittanceParamForm" method="POST" action="/admin/financial/remittance_list">
 		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">

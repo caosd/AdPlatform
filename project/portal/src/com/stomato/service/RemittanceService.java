@@ -22,8 +22,12 @@ public class RemittanceService {
 	@Autowired
 	private RemittanceDao remittanceDao;
 
-	public Remittance getRemittance(Remittance remittance) {
-		return this.remittanceDao.getRemittance(remittance);
+	public Remittance getRemittance(int id) {
+		return this.remittanceDao.getRemittance(id);
+	}
+	
+	public List<Remittance> getRemittanceListByApplyStatus(int uid) {
+		return this.remittanceDao.getRemittanceListByApplyStatus(uid);
 	}
 	
 	public List<Remittance> getRemittanceList(RemittanceParam param){
@@ -42,8 +46,8 @@ public class RemittanceService {
 		this.remittanceDao.updateRemittance(remittance);
 	}
 	
-	public void updateRemittanceStatus(Remittance remittance) {
-		this.remittanceDao.updateRemittanceStatus(remittance);
+	public void remittanceComplete(int id) {
+		this.remittanceDao.remittanceComplete(id);
 	}
 
 	public void addRemittance(Remittance remittance) {
