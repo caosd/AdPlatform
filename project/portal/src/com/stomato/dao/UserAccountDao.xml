@@ -6,19 +6,22 @@
 	<resultMap type="com.stomato.domain.UserAccount" id="userAccount"> 
 		<result property="uid" column="uid" />
 		<result property="balance" column="balance"/>
+		<result property="lastUpdateTime" column="last_update_time"/>
 	</resultMap>
 
 	<insert id="addUserAccount" parameterType="com.stomato.domain.UserAccount">
 		INSERT INTO t_user_account (
 			uid,
-			balance
+			balance,
+			last_update_time
 		)
 		VALUES
 			(#{uid}, 
-			#{balance})
+			#{balance},
+			now())
 	</insert>
 	<update id="updateUserAccount" parameterType="com.stomato.domain.UserAccount">
-		update t_user_account set balance=#{balance}
+		update t_user_account set balance=#{balance},last_update_time=now()
 		where uid=#{uid}
 	</update>
 	<select id="getUserAccount" parameterType="com.stomato.domain.UserAccount" resultMap="userAccount" >

@@ -1,5 +1,7 @@
 package com.stomato.domain;
 
+import java.util.Date;
+
 import com.google.gson.Gson;
 
 /*
@@ -10,6 +12,8 @@ public class UserAccount {
 	private Integer uid;
 	
 	private Double balance;
+	
+	private Date lastUpdateTime;
 	
 	public Integer getUid() {
 		return uid;
@@ -27,6 +31,14 @@ public class UserAccount {
 		this.balance = balance;
 	}
 	
+	public Date getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Date lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
+	}
+
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);
