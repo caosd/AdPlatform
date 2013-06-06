@@ -99,7 +99,7 @@ margin: 0;
                         </ul>
                         <ul class="form">
                             <li>
-                                <button id="btn_sub" type="submit" ${empty credentials.bankCard?"disabled=\"disabled\"":"" }>
+                                <button id="btn_sub" type="submit" disabled="disabled">
                                      取款
                                 </button>
                             </li>
@@ -111,5 +111,10 @@ margin: 0;
 		</div>
 	</div>
     <jsp:include page="../includes/footer.jsp"></jsp:include>
+    <script type="text/javascript">
+    $('.agreementlbl input[type=radio]').click(function() {
+    	$('#btn_sub').attr("disabled",$(this).val() != 1);
+    });
+    </script>
 </body>
 </html>
