@@ -32,10 +32,14 @@ display:block;
                 </div>
                 </c:if>
                 <div class="protip error" id="formerror" style="display: none;"></div>
-                <div style="text-align:center;">
-                    <img src="/images/step2.png" />
-                </div>
-                <form method="POST" class="blueform" action="/apps/create/${app.key}" style="margin-left: 95px;width: 812px;">
+                <ul id="steps">
+                  <li style="z-index: 6;"><a href="javascript:;" id="step-nav-0" class="active">分析应用</a></li>
+                  <li style="z-index: 5;"><a href="javascript:;" id="step-nav-1" class="active">修改信息</a></li>
+                  <li style="z-index: 4;"><a href="javascript:;" id="step-nav-2">下载SDK</a></li>
+                  <li style="z-index: 3;"><a href="javascript:;" id="step-nav-3">上传应用</a></li>
+                  <li style="z-index: 2;"><a href="javascript:;" id="step-nav-4">添加成功</a></li>
+                </ul>
+                <form method="POST" class="blueform" action="/apps/create/${app.key}">
                   <ul class="form">
                       <li>
                         <label> 应用名称 </label> 

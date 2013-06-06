@@ -3856,3 +3856,97 @@ a.button-link {
 	cursor: pointer;
 	padding: 0 10px;
 }
+
+/* steps */
+ul#steps {
+    margin:0;
+}
+#steps li {
+    float: left;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    list-style: none;
+}
+#steps li a {
+    background: transparent url(../images/rich-push-steps.png) no-repeat -25px 0;
+    border-radius:5px 5px 0 0;
+    cursor: default;
+    display: block;
+    width: 95px;
+    height: 53px;
+    padding: 0 0 0 36px;
+    margin: 0;
+    line-height: 53px;
+    margin-left: -18px;
+    font-weight: bold;
+    text-shadow: white 0 1px 1px;
+    color: #939393;
+    border-left: 1px solid transparent;
+    text-decoration: none;
+}
+#steps li:first-child a {
+    border-radius:5px 0 0 0;
+}
+#steps li:last-child a {
+    border-radius:0 5px 0 0;
+}
+#steps li a#step-nav-0 {
+    padding: 0 10px 0 20px;
+    background-position: -30px 0;
+    border-left: 1px solid #777;
+}
+#steps li a#step-nav-0.active {
+    background-position: -30px -53px;
+}
+#steps li a#step-nav-1 {
+    padding-left: 40px;
+    background-position: -22px 0;
+}
+#steps li a#step-nav-1.active {
+    background-position: -22px -53px;
+}
+#steps li a#step-nav-2 {
+    padding-left: 37px;
+    background-position: -18px 0;
+    width: 100px;
+}
+#steps li a#step-nav-2.active {
+    background-position: -18px -53px;
+}
+#steps li a#step-nav-3 {
+    padding-left: 42px;
+    background-position: -13px 0;
+    width: 102px;
+}
+#steps li a#step-nav-3.active {
+    background-position: -13px -53px;
+}
+#steps li a#step-nav-4 {
+    padding-left: 42px;
+    background-position: -28px 0;
+    width: 86px;
+}
+#steps li a#step-nav-4.active {
+    background-position: -28px -53px;
+}
+#steps li:first-child a {
+    margin-left: 0;
+}
+#steps li a.active {
+    background-position: -25px -53px;
+    color: #FFF;
+    text-shadow: #5390b8 0 -1px 0;
+    cursor: pointer;
+}
+#steps li a#step-nav-5 {
+    width: 74px;
+    background-position: -41px -106px;
+    margin-right:-1px;
+    padding-left: 45px;
+    border-right: 1px solid #a3a3a3;
+}
+#steps li a#step-nav-5.active {
+    background-position: -41px -159px;
+    border-right: 1px solid #4c97bc;
+}

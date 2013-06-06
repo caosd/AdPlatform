@@ -6,19 +6,6 @@
 <head>
 <title><fmt:message key="new_app_title"/></title>
 <%@include file="../includes/style.jsp"%>
-<style>
-form.blueform ul.icons li {
-float: left;
-text-align:center;
-margin-right: 20px;
-}
-form.blueform ul.icons li img {
-width:45px;
-}
-form.blueform ul.icons li .desc {
-display:block;
-}
-</style>
 </head>
 <body>
 	<%@include file="../includes/header.jsp"%>
@@ -36,10 +23,14 @@ display:block;
                     <strong><fmt:message key="tips"/></strong> 无法解析改应用包，请确认是不是合法的android包。
                 </div>
                 </c:if>
-                <div style="text-align:center;">
-                    <img src="/images/step1.png" />
-                </div>
-                <form method="POST" class="blueform" action="/apps/create" enctype="multipart/form-data" style="margin-left: 95px;width: 812px;">
+                <ul id="steps">
+                  <li style="z-index: 6;"><a href="javascript:;" id="step-nav-0" class="active">分析应用</a></li>
+                  <li style="z-index: 5;"><a href="javascript:;" id="step-nav-1">修改信息</a></li>
+                  <li style="z-index: 4;"><a href="javascript:;" id="step-nav-2">下载SDK</a></li>
+                  <li style="z-index: 3;"><a href="javascript:;" id="step-nav-3">上传应用</a></li>
+                  <li style="z-index: 2;"><a href="javascript:;" id="step-nav-4">添加成功</a></li>
+                </ul>
+                <form method="POST" class="blueform" action="/apps/create" enctype="multipart/form-data">
                   <ul class="form">
                       <li>
                         <label> 应用名称 </label> 
@@ -67,5 +58,12 @@ display:block;
     <jsp:include page="../includes/footer.jsp">
        <jsp:param value="page/upload" name="loader"/>
     </jsp:include>
+    <script>
+    $(".blueform").submit(function() {
+      alert("注意：当上传成功后，我们需要花费15s的时间分析您的应用。");
+      $("button[type=submit]").attr("disabled", "disabled");
+      return true;
+    });
+    </script>
 </body>
 </html>

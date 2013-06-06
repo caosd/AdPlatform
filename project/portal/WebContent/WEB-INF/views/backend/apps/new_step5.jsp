@@ -18,9 +18,13 @@
                     <strong><fmt:message key="tips"/></strong> 应用创建成功。 
                 </div>
                 </c:if>
-                <div style="text-align:center;">
-                    <img src="/images/step4.png" />
-                </div>
+                <ul id="steps">
+                  <li style="z-index: 6;"><a href="javascript:;" id="step-nav-0" class="active">分析应用</a></li>
+                  <li style="z-index: 5;"><a href="javascript:;" id="step-nav-1" class="active">修改信息</a></li>
+                  <li style="z-index: 4;"><a href="javascript:;" id="step-nav-2" class="active">下载SDK</a></li>
+                  <li style="z-index: 3;"><a href="javascript:;" id="step-nav-3" class="active">上传应用</a></li>
+                  <li style="z-index: 2;"><a href="javascript:;" id="step-nav-4" class="active">添加成功</a></li>
+                </ul>
                 <div class="bluebox">
                   <dl class="app_info">
                     <dt>应用名称</dt>
@@ -28,7 +32,7 @@
                     <dt>应用Key</dt>
                     <dd>${app.key }</dd>
                     <dt>应用Icon</dt>
-                    <dd><img width="65" src="http://localhost:10000${iconDir}${fn:replace(app.icon, "#", "%23")}"/></dd>
+                    <dd><img width="65" src='http://localhost:10000${iconDir}${fn:replace(app.icon, "#", "%23")}'/></dd>
                   </dl>
                 </div>
 			</div>

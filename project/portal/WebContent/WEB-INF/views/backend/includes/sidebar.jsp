@@ -11,7 +11,7 @@
 
     boolean isPushAd = uri.indexOf("/apps/pushsetting") > 0;
     boolean isPushTest = uri.indexOf("/apps/pushtest") > 0;
-    boolean isPushComposer = uri.indexOf("/apps/pushcomposer") > 0;
+    boolean isRichPush = uri.indexOf("/apps/richpush") > 0;
 %>
 <div class="left_content">
 	<div id="premium_sidebar" class="sidebar">
@@ -29,8 +29,8 @@
                     <span class="icon push-composer"></span>推送设置
                 </a>
             </li>
-            <li id="premium_composer" class="<%=isPushComposer?"current":"" %>">
-                <a href="/apps/${app.key }/push/composer">
+            <li id="premium_composer" class="<%=isRichPush?"current":"" %>">
+                <a href="/apps/${app.key}/rich-push">
                     <span class="icon push-composer"></span>自定义内容
                 </a>
             </li>

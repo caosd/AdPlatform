@@ -479,6 +479,8 @@ public class AppsController extends UserController {
 		app.setCreateTime(new Date());
 		appService.addApp(app);
 		
+		//TODO  删除反编译资源
+		
 		return "redirect:/apps/" + appKey + "/download_sdk";
 	}
 	
@@ -590,9 +592,14 @@ public class AppsController extends UserController {
 		return "redirect:/apps/"+appKey+"/push/setting";
 	}
 	
-	@RequestMapping(value="/{appKey}/push/composer", method=RequestMethod.GET)
-	public String pushcomposer(@PathVariable String appKey, HttpServletRequest request) {
-		return "backend/apps/pushcomposer";
+	@RequestMapping(value="/{appKey}/rich-push", method=RequestMethod.GET)
+	public String richpush(@PathVariable String appKey, HttpServletRequest request) {
+		return "backend/apps/richpush";
+	}
+	
+	@RequestMapping(value="/{appKey}/preview", method=RequestMethod.GET)
+	public String preview(@PathVariable String appKey, HttpServletRequest request) {
+		return "redirect:/html/previews/rich.html";
 	}
 	
 }
