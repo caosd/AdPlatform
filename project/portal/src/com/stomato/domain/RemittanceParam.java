@@ -14,7 +14,7 @@ public class RemittanceParam {
 
 	private Integer slimt;
 	
-	private Integer rows = 2;
+	private Integer rows = 10;
 
 	public Date getStartDate() {
 		return startDate;

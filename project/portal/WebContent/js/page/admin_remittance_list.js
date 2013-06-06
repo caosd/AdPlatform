@@ -6,7 +6,7 @@ define(function(require) {
 		if(confirm("请确认已经成功汇款?")){
 			var cur_page = 1;
 			var $FORM = $("form:first");
-			var action = "/admin/financial/udpate_remittance?id="+$(this).attr("id")+"&p=" + cur_page;
+			var action = "/admin/financial/remittance_complete?id="+$(this).attr("id")+"&p=" + cur_page;
 			$FORM.attr("action", action).submit();
 			return false;
 		}

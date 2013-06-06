@@ -140,8 +140,7 @@ public class FinancialController extends UserController{
 			int records = this.reportService.getDailyReportCount(param);
 			int curPage = this.getIntParameter(request, "p");
 			if( curPage < 1) curPage = 1;
-			param.setRows(3);
-			param.setSlimt((curPage-1) * 3);
+			param.setSlimt((curPage-1) * param.getRows());
 			//分页
 			Pager pager = new Pager(param.getRows(), curPage, records);
 			model.addAttribute("pager", pager);
@@ -169,17 +168,13 @@ public class FinancialController extends UserController{
 		String retPath = "backend/financial/remittance";
 		User user = this.lookup(request);
 		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
+		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(user);		
+		model.addAttribute("userAccount", userAccount);
+		model.addAttribute("credentials", credentials);
 		if(	credentials == null ){
 			model.addAttribute("error", "side.financial.accounts_entry");
 			return retPath;
 		}
-		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(user);
-		if(	userAccount == null ){
-			return retPath;
-		}
-		model.addAttribute("userAccount", userAccount);
-		model.addAttribute("credentials", credentials);
-		
 		double money = super.getDoubleParameter(request,"money");
 		if(money < 100){
 			model.addAttribute("error","side.financial.remittance_money_error");
@@ -187,7 +182,17 @@ public class FinancialController extends UserController{
 		}
 		//验证金额是否足够
 		if(money > userAccount.getBalance()){
-			model.addAttribute("error","side.financial.accounts_balance_issu");
+			model.addAttribute("error","side.financial.accounts_balance_issu1");
+			return retPath;
+		}
+		//统计用户未处理申请汇款金额，验证账户余额是否足够此申请交易
+		List<Remittance> remiList = this.remittanceService.getRemittanceListByApplyStatus(user.getUid());
+		double totalApplyMoney = 0.0;
+		for (Remittance remittance : remiList) {
+			totalApplyMoney += remittance.getMoney();
+		}
+		if( (totalApplyMoney + money) > userAccount.getBalance()){
+			model.addAttribute("error","side.financial.accounts_balance_issu2");
 			return retPath;
 		}
 		
@@ -209,8 +214,7 @@ public class FinancialController extends UserController{
 		int records = this.remittanceService.getRemittanceCount(remittanceParam);
 		int curPage = this.getIntParameter(request, "p");
 		if( curPage < 1) curPage = 1;
-		remittanceParam.setRows(3);
-		remittanceParam.setSlimt((curPage-1) * 3);
+		remittanceParam.setSlimt((curPage-1) * remittanceParam.getRows());
 		remittanceParam.setUid(this.lookup(request).getUid());
 		//分页
 		Pager pager = new Pager(remittanceParam.getRows(), curPage, records);

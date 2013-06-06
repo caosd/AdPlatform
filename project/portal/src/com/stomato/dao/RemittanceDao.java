@@ -11,7 +11,9 @@ import com.stomato.domain.RemittanceParam;
  */
 public interface RemittanceDao {
 
-	Remittance getRemittance(Remittance remittance);
+	Remittance getRemittance(int id);
+	
+	List<Remittance> getRemittanceListByApplyStatus(int uid);
 	
 	List<Remittance> getRemittanceListByUser(RemittanceParam param);
 	
@@ -21,7 +23,7 @@ public interface RemittanceDao {
 	
 	void updateRemittance(Remittance remittance);
 	
-	void updateRemittanceStatus(Remittance remittance);
+	void remittanceComplete(int id);
 	
 	void addRemittance(Remittance remittance);
 }
