@@ -51,7 +51,7 @@
 								<td>
 									<c:choose>
 										<c:when test="${remittance.status == 0}">
-										申请中
+											<a href="javascript:void(0)" id="${remittance.id}" name="confirmRemittance_btn">确认汇款</a>
 										</c:when>
 										<c:otherwise>
 										汇款成功
@@ -74,6 +74,8 @@
             <div class="clear"></div>
         </div>
     </div>
-    <jsp:include page="../includes/footer.jsp"></jsp:include>
+    <jsp:include page="../includes/footer.jsp">
+    	<jsp:param value="page/admin_remittance_list" name="loader"/>
+    </jsp:include>
 </body>
 </html>

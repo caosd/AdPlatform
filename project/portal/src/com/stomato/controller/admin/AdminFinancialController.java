@@ -3,19 +3,21 @@ package com.stomato.controller.admin;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.controller.UserController;
 import com.stomato.domain.Remittance;
+import com.stomato.domain.RemittanceParam;
+import com.stomato.domain.UserAccount;
 import com.stomato.form.RemittanceParamForm;
 import com.stomato.service.RemittanceService;
+import com.stomato.service.UserAccountsService;
+import com.stomato.utils.Pager;
 
 @Controller
 @RequestMapping("/admin/financial")
@@ -23,15 +25,44 @@ public class AdminFinancialController extends UserController{
 
 	@Autowired
 	private RemittanceService remittanceService;
+	@Autowired
+	private UserAccountsService accountsService;
 
 	@RequestMapping(value="/udpate_remittance")
-	public String updateRemittanceStatus(@ModelAttribute("remittanceParamForm") RemittanceParamForm paramForm,HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "admin/financial/remittance_list";
+	public String updateRemittanceStatus(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
+		int id = super.getIntParameter(request, "id");
+		Remittance remittance = new Remittance();
+		remittance.setId(id);
+		remittance = this.remittanceService.getRemittance(remittance);
+		if(remittance.getStatus().intValue() == 0){
+			remittance.setStatus(1);
+		}else{
+			remittance.setStatus(0);
+		}
+		this.remittanceService.updateRemittanceStatus(remittance);
+		UserAccount userAccount = this.accountsService.getUserAccountByUser(this.lookup(request));
+		double balance = userAccount.getBalance();
+		if( balance < 100){
+			model.addAttribute("error","");
+		}
+		userAccount.setBalance(balance - remittance.getMoney());
+		this.accountsService.updateUserAccount(userAccount);
+		
+		return this.remittance_history(form, request, model);
 	}
 	
 	@RequestMapping("/remittance_list")
-	public String remittance_history(@ModelAttribute("remittanceParamForm") RemittanceParamForm paramForm,HttpServletRequest request, Model model) {
-		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(paramForm.asPojo());
+	public String remittance_history(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
+		RemittanceParam remittanceParam= form.asPojo();
+		int records = this.remittanceService.getRemittanceCount(remittanceParam);
+		int curPage = this.getIntParameter(request, "p");
+		if( curPage < 1) curPage = 1;
+		remittanceParam.setRows(3);
+		remittanceParam.setSlimt((curPage-1) * 3);
+		//分页
+		Pager pager = new Pager(remittanceParam.getRows(), curPage, records);
+		model.addAttribute("pager", pager);
+		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(remittanceParam);
 		model.addAttribute("remittanceList", remittanceList);
 		return "admin/financial/remittance_list";
 	}

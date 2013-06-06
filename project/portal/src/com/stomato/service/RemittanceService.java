@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.stomato.dao.RemittanceDao;
 import com.stomato.domain.Remittance;
 import com.stomato.domain.RemittanceParam;
-import com.stomato.domain.User;
 
 /**
  * 申请汇款Service实现类
@@ -31,12 +30,20 @@ public class RemittanceService {
 		return this.remittanceDao.getRemittanceList(param);
 	}
 	
-	public List<Remittance> getRemittanceListByUser(User user){
-		return this.remittanceDao.getRemittanceListByUser(user);
+	public List<Remittance> getRemittanceListByUser(RemittanceParam param){
+		return this.remittanceDao.getRemittanceListByUser(param);
 	}
-
+	
+	public int getRemittanceCount(RemittanceParam param){
+		return this.remittanceDao.getRemittanceCount(param);
+	}
+	
 	public void updateRemittance(Remittance remittance) {
 		this.remittanceDao.updateRemittance(remittance);
+	}
+	
+	public void updateRemittanceStatus(Remittance remittance) {
+		this.remittanceDao.updateRemittanceStatus(remittance);
 	}
 
 	public void addRemittance(Remittance remittance) {

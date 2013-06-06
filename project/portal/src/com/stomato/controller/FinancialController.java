@@ -19,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.stomato.domain.App;
 import com.stomato.domain.Credentials;
 import com.stomato.domain.Remittance;
+import com.stomato.domain.RemittanceParam;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;
 import com.stomato.form.CredentialForm;
+import com.stomato.form.RemittanceParamForm;
 import com.stomato.form.ReportParamForm;
 import com.stomato.service.AppService;
 import com.stomato.service.CredentialsService;
@@ -202,8 +204,18 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/remittance_history")
-	public String remittance_history(HttpServletRequest request, Model model) {
-		List<Remittance> remittanceList = this.remittanceService.getRemittanceListByUser(this.lookup(request));
+	public String remittance_history(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
+		RemittanceParam remittanceParam= form.asPojo();
+		int records = this.remittanceService.getRemittanceCount(remittanceParam);
+		int curPage = this.getIntParameter(request, "p");
+		if( curPage < 1) curPage = 1;
+		remittanceParam.setRows(3);
+		remittanceParam.setSlimt((curPage-1) * 3);
+		remittanceParam.setUid(this.lookup(request).getUid());
+		//分页
+		Pager pager = new Pager(remittanceParam.getRows(), curPage, records);
+		model.addAttribute("pager", pager);
+		List<Remittance> remittanceList = this.remittanceService.getRemittanceListByUser(remittanceParam);
 		model.addAttribute("remittanceList", remittanceList);
 		return "backend/financial/remittance_history";
 	}

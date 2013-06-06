@@ -6,13 +6,15 @@ import com.google.gson.Gson;
 
 public class RemittanceParam {
 
+	private Integer uid;
+	
 	private Date startDate;
 	
 	private Date endDate;
 
-	private int slimt;
+	private Integer slimt;
 	
-	private int rows = 2;
+	private Integer rows = 2;
 
 	public Date getStartDate() {
 		return startDate;
@@ -30,20 +32,28 @@ public class RemittanceParam {
 		this.endDate = endDate;
 	}
 
-	public int getSlimt() {
+	public Integer getSlimt() {
 		return slimt;
 	}
 
-	public void setSlimt(int slimt) {
+	public void setSlimt(Integer slimt) {
 		this.slimt = slimt;
 	}
 
-	public int getRows() {
+	public Integer getRows() {
 		return rows;
 	}
 
-	public void setRows(int rows) {
+	public void setRows(Integer rows) {
 		this.rows = rows;
+	}
+
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
 	}
 
 	@Override

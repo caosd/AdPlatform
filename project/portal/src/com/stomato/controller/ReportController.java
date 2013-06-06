@@ -53,18 +53,19 @@ public class ReportController extends UserController{
 	private void responseMonthly(ReportParam reportParam,HttpServletRequest request,Model model){
 		User user = this.lookup(request);
 		reportParam.setUid(user.getUid());
+		int records = this.reportService.getMonthlyReportCount(reportParam);
+		int curPage = this.getIntParameter(request, "p");
+		if( curPage < 1) curPage = 1;
+		reportParam.setRows(3);
+		reportParam.setSlimt((curPage-1) * 3);
+		//分页
+		Pager pager = new Pager(reportParam.getRows(), curPage, records);
+		
 		List<App> appList = this.appService.getAppList(user.getUid());
 		if( appList.size() > 0 ){
-			int records = this.reportService.getMonthlyReportCount(reportParam);
-			int curPage = this.getIntParameter(request, "p");
-			if( curPage < 1) curPage = 1;
-			reportParam.setRows(3);
-			reportParam.setSlimt((curPage-1) * 3);
-			//分页
-			Pager pager = new Pager(reportParam.getRows(), curPage, records);
-			model.addAttribute("pager", pager);
 			model.addAttribute("monthlyList", this.reportService.getMonthlyReport(reportParam));
 		}
+		model.addAttribute("pager", pager);
 		model.addAttribute("appList", appList);
 		model.addAttribute("reportParam", reportParam);
 	}

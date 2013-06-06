@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/html_attributes.jsp" %>
 <head>
-<title>汇款记录</title>
 <%@include file="../includes/style.jsp"%>
+<link rel="stylesheet" type="text/css" href="/css/tablereport.css" media="screen">
 </head>
 <body>
     <%@include file="../includes/header.jsp"%>
@@ -14,7 +15,19 @@
                 <%@include file="../includes/accounts_sidebar.jsp"%>
                 <div class="right_content">
                     <h2>汇款记录</h2>
-                    <div class="box">
+            		<div id="settings">
+						<form:form commandName="remittanceParamForm" method="POST" action="/financial/remittance_history">
+		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">
+		                        从&nbsp;
+		                        <span id="start-date-container"><form:input type="text" path="startDatestr" class="shorter" value=""/></span>
+		                        &nbsp;至&nbsp;
+		                        <span id="end-date-container"><form:input type="text" path="endDatestr" class="shorter" value=""/></span>
+		                        &nbsp;&nbsp;
+		                        <button class="mini">查询</button>
+		                      </div>
+		                </form:form>
+                     </div>
+                     <div class="box">
                        <table class="data">
                            <thead>
                              <tr>
@@ -54,17 +67,15 @@
 							</c:if>
                            </tbody>
                        </table>
-                       <ul class="pages">
-                            <li class="prev"><a href="javascript:void(0);" class="btn mini tertiary disabled" rel="prev">←</a></li>
-                            <li class="next"><a href="javascript:void(0);" class="btn mini tertiary disabled" rel="next">→</a></li>
-                            <li><a href="javascript:void(0);" class="btn mini tertiary selected">1</a></li>
-                        </ul>
+                       ${pager}
                     </div>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
     </div>
-    <jsp:include page="../includes/footer.jsp"></jsp:include>
+    <jsp:include page="../includes/footer.jsp">
+    	<jsp:param value="page/ad_report" name="loader"/>
+    </jsp:include>
 </body>
 </html>

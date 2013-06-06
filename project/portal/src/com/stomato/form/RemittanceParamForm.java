@@ -27,7 +27,7 @@ public class RemittanceParamForm implements Serializable {
 
 	private int slimt;
 	
-	private int rows = 2;
+	private int rows =10;
 
 	public Date getStartDate() {
 		if(startDate == null && startDatestr != null ){

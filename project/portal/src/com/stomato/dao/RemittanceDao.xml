@@ -36,15 +36,49 @@
 			now(), 
 			now())
 	</insert>
+	<update id="updateRemittanceStatus" parameterType="com.stomato.domain.Remittance">
+		update t_remittance set status=#{status} where id=#{id}
+	</update>
 	<select id="getRemittance" parameterType="com.stomato.domain.Remittance" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where id=#{id}
 	</select>
-	<select id="getRemittanceListByUser" parameterType="com.stomato.domain.User" resultMap="remittance" >
-		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} order by id asc;
+	<select id="getRemittanceListByUser" parameterType="com.stomato.domain.RemittanceParam" resultMap="remittance" >
+		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} 
+		<choose>
+		   <when test="startDate != null and endDate != null">
+		      AND create_time between #{startDate} and #{endDate}
+		    </when>
+		    <when test="startDate != null">
+		      AND create_time >= #{startDate}
+		    </when>
+		    <when test="endDate != null">
+		      AND #{endDate}  >=  create_time
+		    </when>
+	    </choose>
+		order by id asc limit #{slimt},#{rows};
 	</select>
 	<select id="getRemittanceList" parameterType="com.stomato.domain.RemittanceParam" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance 
 		where 1=1
+		<choose>
+		   <when test="startDate != null and endDate != null">
+		      AND create_time between #{startDate} and #{endDate}
+		    </when>
+		    <when test="startDate != null">
+		      AND create_time >= #{startDate}
+		    </when>
+		    <when test="endDate != null">
+		      AND #{endDate}  >=  create_time
+		    </when>
+	    </choose>
+	    order by status,create_time asc limit #{slimt},#{rows};
+	</select>
+		<select id="getRemittanceCount" parameterType="com.stomato.domain.RemittanceParam" resultType="int" >
+		select count(1) from t_remittance 
+		where 1=1
+		<if test="uid != null">
+			AND uid=#{uid}
+		</if>
 		<choose>
 		   <when test="startDate != null and endDate != null">
 		      AND create_time between #{startDate} and #{endDate}
