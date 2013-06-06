@@ -32,6 +32,7 @@ color: #999;
 .identity_tile {
 width: 240px;
 margin-right: 20px;
+max-height: 320px;
 }
 form.blueform a.file {
 width: 238px;
@@ -95,19 +96,23 @@ margin-right: 20px;
                             <li>
                                 <label> 证件上传 </label>
                                 <div>
-                                    <img src="${empty credentials.credentialsPhoto1? '/images/identity_front.gif':credentials.credentialsPhoto1 }" class="identity_tile"/>
-                                    <img src="${empty credentials.credentialsPhoto2? '/images/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
+                                    <img src="${empty credentials.credentialsPhoto1?"":imgServer}${empty credentials.credentialsPhoto1? '/images/identity_front.gif':credentials.credentialsPhoto1 }" class="identity_tile"/>
+                                    <img src="${empty credentials.credentialsPhoto1?"":imgServer}${empty credentials.credentialsPhoto2? '/images/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
                                     <div>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
-                                            <input title="支持jpg,gif,png格式" size="3" name="file1" type="file" id="fileCtrl1" value="${credentials.credentialsPhoto1 }"/>
+                                            <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file1" type="file" id="fileCtrl1" value=""/>
 		                                    <form:errors path="file1" cssClass="error"/>
                                         </a>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
-                                            <input title="支持jpg,gif,png格式" size="3" name="file2" type="file" id="fileCtrl2" value="${credentials.credentialsPhoto2 }"/>
+                                            <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file2" type="file" id="fileCtrl2" value=""/>
                                             <form:errors path="file2" cssClass="error"/>
                                         </a>
+                                    </div>
+                                    <div>
+                                        <div id="fileCtrlVal1" style="float: left;width: 240px;text-align: center;"></div>
+                                        <div id="fileCtrlVal2" style="float: left;width: 240px;margin-left: 25px;text-align: center;"></div>
                                     </div>
                                 </div>
                             </li>
@@ -177,5 +182,23 @@ margin-right: 20px;
 		</div>
 	</div>
     <jsp:include page="../includes/footer.jsp"></jsp:include>
+    <script>
+    $('#fileCtrl1').change(function() {
+    	checkFile($(this), $("#fileCtrlVal1"));
+    });
+    $('#fileCtrl2').change(function() {
+        checkFile($(this), $("#fileCtrlVal2"));
+    });
+    function checkFile(el, tipCtrl) {
+    	var filePath = el.val();
+        var surfix = filePath.substring(filePath.indexOf("."));
+        if (".jpg" != surfix && ".gif" != surfix && ".png" != surfix && ".jpeg" != surfix) {
+          tipCtrl.html('<span style="color:red">' + el.attr('title') + '</span>');
+          el.val('');
+        } else {
+          tipCtrl.html(filePath);
+        }
+    }
+    </script>
 </body>
 </html>

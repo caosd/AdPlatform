@@ -14,7 +14,12 @@
 				<div class="right_content">
 					<h2><fmt:message key="app_overview_title"/></h2>
 					<h2>
+					    <c:if test="${empty app.icon }">
 						<div class="app_icon" style="background-image: url(/images/default_app_icon_57x57.png);"></div>
+						</c:if>
+						<c:if test="${not empty app.icon }">
+                        <div class="app_icon" style="background-image: url(${imgServer}${app.icon});background-size: 100% 100%;"></div>
+                        </c:if>
 						<span>${app.name }</span>
 					</h2>
 					<div class="bluebox">

@@ -60,7 +60,7 @@ var richPush = (function() {
             payload.tags = escaped_string.split(',');
             $('#display-recipients').html('<strong>Only users tagged:</strong> ' + payload.tags.join(', '));
         } else {
-            $('#display-recipients').html('<strong>All users registered</strong> with this Application.');
+            $('#display-recipients').html('这个应用的<strong>所有的注册用户</strong>。');
         }
         $('#id_payload').val($.toJSON(payload));
         //Update title of message
@@ -139,6 +139,10 @@ var richPush = (function() {
         }
 
         previewChars.text(bytesRemaining)
+    }
+    
+    var previewNotifications = function() {
+      $("#preview-android > span,#preview-android > p").html($("#id_title").val());
     }
 
     var steps = (function() {
@@ -267,8 +271,8 @@ var richPush = (function() {
         }
 
         var stepErrors = {
-            NOT_EMPTY: "Please fill in all required fields",
-            NO_TITLE: "Please give the message a Title",
+            NOT_EMPTY: "字段不允许为空",
+            NO_TITLE: "请给推送通知设置一个标题",
             NOT_EMPTY_TOO_MANY_BYTES: "Please fill in all required fields, use " +
                 MAX_BYTES + " or fewer bytes"
         };
@@ -964,6 +968,7 @@ var richPush = (function() {
         $("#push_key1").bind("keyup", calculateRemainingPushBytes);
         $("#push_value1").bind("keyup", calculateRemainingPushBytes);
         $("#id_title").bind("keyup", calculateRemainingTitleBytes);
+        $("#id_title").bind("keyup", previewNotifications);
         calculateRemainingTitleBytes();
         calculateRemainingPushBytes();
     }

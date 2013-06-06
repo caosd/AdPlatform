@@ -63,6 +63,10 @@ public class FinancialController extends UserController{
 		User user = this.lookup(request);
 		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
 		if(	credentials != null ){
+			String endDir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() 
+							+ fileSeparator + Constant.Configs.credentialsDirPath + fileSeparator;
+			credentials.setCredentialsPhoto1(endDir + credentials.getCredentialsPhoto1());
+			credentials.setCredentialsPhoto2(endDir + credentials.getCredentialsPhoto2());
 			model.addAttribute("credentials", credentials);
 		}
 		return "backend/financial/overview";
@@ -70,9 +74,9 @@ public class FinancialController extends UserController{
 	
 	@RequestMapping(value="/overview", method=RequestMethod.POST)
 	public String updateCredentials(@Valid @ModelAttribute("credentialForm") CredentialForm form, BindingResult result, HttpServletRequest request, Model model) {
-
+		User user = this.lookup(request);
 		if (result.hasErrors()) {
-			Credentials credentials = this.credentialsService.getCredentialsByUser(this.lookup(request));
+			Credentials credentials = this.credentialsService.getCredentialsByUser(user);
 			if(	credentials != null ){
 				model.addAttribute("credentials", credentials);
 			}
@@ -84,8 +88,7 @@ public class FinancialController extends UserController{
 		String file1path = "";
 		String file2path = "";
 		MultipartFile file1 = form.getFile1();
-		MultipartFile file2 = form.getFile2();		
-		User user = this.lookup(request);
+		MultipartFile file2 = form.getFile2();
 		if( file1.getSize() > 0 ){
 			file1path = savePhoto(file1, model, user.getUid(), form.getCredentialsType(), form.getCredentialsNo(), "photo1");
 		}
@@ -122,7 +125,7 @@ public class FinancialController extends UserController{
 				logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
 			}
 			file.transferTo(targetFile);
-			return savefilepath;
+			return String.format("%s_%s_%s.%s", credentialsType,credentialsNo,photoname,suffix);
 		}catch(Exception error){
 			logger.error("[Upload Error] " + error.getMessage());
 		}

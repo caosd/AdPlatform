@@ -133,6 +133,13 @@ public class AppsController extends UserController {
 
 	@RequestMapping(value="/{appKey}/detail", method=RequestMethod.GET)
 	public String getApp(@PathVariable String appKey, HttpServletRequest request, Model model) {
+		App app = (App) request.getAttribute("app");
+		User user = this.lookup(request);
+		if (app.getIcon() != null) {
+			String dir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
+					+ Constant.Configs.appsDirPath + fileSeparator + appKey + fileSeparator + Constant.Configs.appIconDir + fileSeparator;
+			app.setIcon(dir + app.getIcon().replace("#", "%23"));
+		}
 		return "backend/apps/detail";
 	}
 	
@@ -151,15 +158,10 @@ public class AppsController extends UserController {
 			return "redirect:/apps/" + appKey + "/detail";
 		}
 		app.setName(form.getName());
-		int appId = AppHelper.syncApp(app);
-		if (appId > 0) {
-			app.setPkg(null);//不允许修改包名
-			appService.updateApp(app);
-			form = null;
-			return "redirect:detail";
-		}
-		request.setAttribute("failed", true);
-		return "backend/apps/editForm";
+		app.setPkg(null);//不允许修改包名
+		appService.updateApp(app);
+		form = null;
+		return "redirect:detail";
 	}
 	
 	@RequestMapping(value="/{appKey}/delete", method=RequestMethod.GET)
@@ -422,7 +424,8 @@ public class AppsController extends UserController {
 			return "redirect:/apps/create";
 		}
 		
-		String diroot = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
+		String diroot = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
+						+ Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
 		List<String> icons = new ArrayList<String>();
 		try {
 			icons = FileHelper.readFiles(diroot + appKey + Constant.Configs.appIconDirSuffix + fileSeparator + tempApp.getPkg());
@@ -477,7 +480,11 @@ public class AppsController extends UserController {
 		app.setCreateTime(new Date());
 		appService.addApp(app);
 		
-		//TODO  删除反编译资源
+		//删除反编译资源
+		String rmFolder = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
+				+ Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
+		FileUtils.delete(new File(rmFolder));
+		tempAppService.deleteApp(tempApp);
 		
 		return "redirect:/apps/" + appKey + "/download_sdk";
 	}

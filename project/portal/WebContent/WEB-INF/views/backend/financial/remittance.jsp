@@ -83,7 +83,7 @@ margin: 0;
                                   ${credentials.bankName}：${credentials.bankCard}
                                 </c:if>
                                 <c:if test="${empty credentials.bankCard }">
-                                  您还未填写财务信息, <a href="/financial/overview">现在就去填写。</a>
+                                  您还未设置账户信息, <a href="/financial/overview">现在就去填写。</a>
                                 </c:if>
                                 </div>
                             </li>

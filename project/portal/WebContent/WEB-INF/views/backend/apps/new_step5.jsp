@@ -32,7 +32,7 @@
                     <dt>应用Key</dt>
                     <dd>${app.key }</dd>
                     <dt>应用Icon</dt>
-                    <dd><img width="65" src='http://localhost:10000${iconDir}${fn:replace(app.icon, "#", "%23")}'/></dd>
+                    <dd><img width="65" src='${imgServer }${iconDir}${fn:replace(app.icon, "#", "%23")}'/></dd>
                   </dl>
                 </div>
 			</div>

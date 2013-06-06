@@ -906,7 +906,7 @@ table.data thead tr th {
     color:#333;
     font:bold 12px/15px Arial, sans-serif;
     padding:8px 10px 7px;
-    text-align:left;
+    text-align:center;
     text-shadow:0 1px 0 rgba(255,255,255,.5);
     vertical-align:baseline;
 }

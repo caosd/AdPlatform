@@ -45,7 +45,7 @@
 						      <fieldset>
 						        <textarea name="display_message" id="display_message" rows="10" cols="100" class="editor"></textarea>
 						        <div class="preview">
-						          <h4>Preview on</h4>
+						          <h4>预览</h4>
 						          <ul>
 						              <li><a href="#" class="iphone">iPhone</a></li>
 						              <!-- <li><a href="#" class="ipad">iPad</a></li> -->
@@ -55,7 +55,7 @@
 						      <div class="action">
 						        <span class="alert"></span>
 						        <img src="/images/circle-loader.gif" class="loader" />
-						        <button rel="back" type="button">Back</button>
+						        <button rel="back" type="button">返回</button>
 						        <button id="rp-step2-next" rel="next" type="button">保存并继续<span class="next"></span></button>
 						      </div>
 						    </div>
@@ -65,7 +65,7 @@
                                 <div class="module">
                                     <label for="title">给您的通知一个标题<span class="red">*</span></label>
                                     <input type="text" name="title" id="id_title" value="" placeholder="输入通知标题" maxlength="255" />
-                                    还剩下 <span id="title-preview-chars"></span> 个字可以输入。
+                                    <p style="font-size: 12px;font-style: italic;color: #8A8A8A;margin: 10px 0 0 5px">还剩下 <span id="title-preview-chars"></span> 个字可以输入。</p>
                                 </div>
                               </fieldset>
                               <fieldset>
@@ -74,7 +74,7 @@
 					                <div id="preview-scroller">
 					                  <div id="preview-android" class="preview">
 					                    <span style="display: block;"></span>
-					                      <h3>Your App Name</h3>
+					                      <h3>${empty app.name?"Your App Name":app.name }</h3>
 					                      <p></p>
 					                      <h6></h6>
 					                  </div>
@@ -86,44 +86,31 @@
 						      <div class="action">
 						        <span class="alert"></span>
 						        <img src="/images/circle-loader.gif" class="loader" />
-						        <button rel="back" type="button">Back</button>
+						        <button rel="back" type="button">返回</button>
 						        <button id="rp-step3-next" rel="next" type="button">保存并继续<span class="next"></span></button>
 						      </div>
 						    </div>
 						    <div class="step" id="step-3">
-						      <h2>Select Recipients <span class="sub message_title"></span></h2>
+						      <h2>选择接收者</h2>
 						      <div class="selection">
-						        <h3><input type="radio" name="is_broadcast" value="1" id="select-recipient-all"checked="checked" /> <label for="select-recipient-all">All Users (Broadcast)</label></h3>
-						        <p class="note">All users registered with this application will receive this message.</p>
-						        <h3><input type="radio" name="is_broadcast" value="0" id="select-recipient-some" /> <label for="select-recipient-some">Some Users (By Tag)</label></h3>
-						        <div class="module disabled" id="recipient-some">
-						          <fieldset id="tag-search-box">
-						            <input type="text" name="tag_search" id="tag_search" placeholder="Enter tag" disabled="disabled" />
-						            <span id="tag_loader">
-						             <span class="spinner"></span>
-						            </span>
-						            <ul id="tag-list">
-						            </ul>
-						          </fieldset>
-						          <input type="hidden" name="tags" id="id_tags" value="" />
-						          <div id="selected-tags"></div>
-						        </div>
+						        <h3><input type="radio" name="is_broadcast" value="1" id="select-recipient-all"checked="checked" /> <label for="select-recipient-all">所有用户 (广播)</label></h3>
+						        <p class="note">所有的注册广告的用户都会接收到。</p>
 						      </div>
 						      <div class="action">
 						        <span class="alert"></span>
 						        <img src="/images/circle-loader.gif" class="loader" />
-						        <button rel="back" type="button">Back</button>
-						        <button id="rp-step4-next" rel="next" type="button">Save and Review <span class="next"></span></button>
+						        <button rel="back" type="button">返回</button>
+						        <button id="rp-step4-next" rel="next" type="button">保存并预览<span class="next"></span></button>
 						      </div>
 						    </div>
 						    <div class="step" id="step-4">
-						      <h2>Review <span class="sub message_title"></span></h2>
+						      <h2>预览</h2>
 						      <div class="review-item">
-						        <button rel="change" type="button">Change</button>
-						        <h3>Rich Push</h3>
-						        <p><strong>Title:</strong> <span id="display-title"></span></p>
+						        <button rel="change" type="button">修改</button>
+						        <h3>富广告推送</h3>
+						        <p><strong>通知标题:</strong> <span id="display-title"></span></p>
 						        <div class="preview">
-						        <h4>Preview on</h4>
+						        <h4>预览</h4>
 						            <ul>
 						                <li><a href="#" class="iphone">iPhone</a></li>
 						                <!-- <li><a href="#" class="ipad">iPad</a></li> -->
@@ -131,20 +118,19 @@
 						        </div>
 						      </div>
 						      <div class="review-item">
-						        <button rel="change" type="button">Change</button>
-						        <h3>Push Notification</h3>
-						        <p>Push Notifications are Disabled</p>
+						        <button rel="change" type="button">修改</button>
+						        <h3>推送</h3>
+						        <p>推送已经关闭</p>
 						      </div>
 						      <div class="review-item">
-						        <button rel="change" type="button">Change</button>
-						        <h3>Recipients</h3>
+						        <button rel="change" type="button">修改</button>
+						        <h3>接收者</h3>
 						        <p id="display-recipients"></p>
-						        <p class="static error"><strong>Note</strong>: This application does not have any rich push users.</p>
 						      </div>
 						      <div class="action">
 						        <img src="/images/circle-loader.gif" class="loader" />
-						        <button rel="back" type="button">Back</button>
-						        <button id="rp-step5-next" rel="later" type="submit">Save For Later</button>
+						        <button rel="back" type="button">返回</button>
+						        <button id="rp-step5-next" rel="later" type="submit">稍后保存</button>
 						      </div>
 						      <input type="hidden" name="payload" id="id_payload" value="" />
 						      <input type="hidden" name="rich_push_history_id" id="id_rich_push_history_id" value="" />

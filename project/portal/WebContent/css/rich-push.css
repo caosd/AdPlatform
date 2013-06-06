@@ -185,7 +185,6 @@ div.step h3 {
 }
 div.step div.preview {
     background: #f0f0f0;
-    border: 1px solid #CCC;
     border-radius: 0 0 5px 5px;
     border-top: none;
     padding: 5px 0;
@@ -474,7 +473,6 @@ div.char-preview {
     padding:10px;
 }
 #step-2 fieldset div {
-    border-top:1px solid #DFDFDF;
     margin:10px -10px 0;
     padding:10px 15px 0;
 }
@@ -1050,7 +1048,7 @@ ul.module li.submit {margin:0 0 15px;}
     content:'iOS Rolldown';
 }
 #preview-android h6:after {
-    content:'Android';
+    content:'';
 }
 #preview-win-helium h6:after {
     content:'Helium for Windows';
@@ -1344,7 +1342,7 @@ ul.module li.submit {margin:0 0 15px;}
     color: #fff;
     position: absolute;
     top: 90px;
-    left: 235px;
+    left: 200px;
     font:11px/16px "droid-sans", sans-serif;
     overflow: hidden;
     height: 16px;
@@ -1356,7 +1354,7 @@ ul.module li.submit {margin:0 0 15px;}
 #preview-android h3 {
     position: absolute;
     top: 150px;
-    left: 230px;
+    left: 232px;
     color: #fff;
     font-family: "droid-sans", sans-serif;
     font-size: 14px;
@@ -1371,11 +1369,12 @@ ul.module li.submit {margin:0 0 15px;}
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
+    text-shadow: #FFF 0 0 0;
 }
 #preview-android p {
     position: absolute;
     top: 170px;
-    left: 230px;
+    left: 232px;
     color: #979797;
     font:11px/20px "droid-sans", sans-serif;
     width: 200px;

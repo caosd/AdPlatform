@@ -52,7 +52,7 @@
 		<ul>
 			<li id="app_details" class="<%=isAppDetail?"current":"" %>"><a href="/apps/${app.key }/detail"> <span> <fmt:message key="side.app.overview"/> </span></a></li>
             <li id="edit_app" class="<%=isAppEdit?"current":"" %>"><a href="/apps/${app.key }/edit"> <span> <fmt:message key="side.app.edit"/> </span></a></li>
-            <li id="app_uploads" class="<%=isUploads?"current":"" %>"><a href="/apps/${app.key }/uploads"> <span> <fmt:message key="side.app.upload"/> </span></a></li>
+            <!-- <li id="app_uploads" class="<%=isUploads?"current":"" %>"><a href="/apps/${app.key }/uploads"> <span> <fmt:message key="side.app.upload"/> </span></a></li> -->
             <li id="sdk_integration"><a href="/docs/<fmt:message key="docs_alias"/>"> <span> <fmt:message key="side.app.doc"/> </span></a></li>
             <li id="sdk_download"><a href="/sdk/download"> <span> <fmt:message key="side.app.downsdk"/> </span></a></li>
 		</ul>

@@ -54,7 +54,7 @@ display:block;
                         <ul class="icons">
                         <c:forEach items="${icons}" var="icon">
                             <li>
-                              <img src="http://localhost:10000${icon }" />
+                              <img src="${imgServer }${icon }" />
                               <span class="desc">${fn:replace(fn:split(icon, "/")[fn:length(fn:split(icon, "/"))-1], "%23", "/") }</span>
                               <input type="radio" name="appIcon" value="${icon }" />
                             </li>
