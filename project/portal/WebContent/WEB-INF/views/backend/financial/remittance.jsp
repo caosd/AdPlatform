@@ -41,22 +41,21 @@ margin: 0;
 			    <%@include file="../includes/accounts_sidebar.jsp"%>
 			    <div class="right_content">
 					<h2>汇款申请</h2>
-					<div class="protip warn">
-					  <a href="javascript:;" class="close" data-dismiss="alert">&times;</a>
-					  <c:choose>
-					  	<c:when test="${error != null}">
-					  		<fmt:message key="${error}"></fmt:message>
-					  	</c:when>
-					  	<c:when test="${success != null}">
-					  		<fmt:message key="${success}"></fmt:message>
-					  	</c:when>
-					  	<c:otherwise>
-					  		<strong>好消息!</strong> 2012年全年由酷果代交税款 ( 包括0.5%的手续费 )
-					  	</c:otherwise>
-					  </c:choose>
-					  <c:if test="${error}">
-					  </c:if>
-					</div>
+                    <c:if test="${error != null }">
+                    <div class="protip error">
+                      <strong>提示：</strong> <fmt:message key="${error}"></fmt:message>
+                    </div>
+                    </c:if>
+                    <c:if test="${success != null }">
+                    <div class="protip success">
+                      <strong>提示：</strong> <fmt:message key="${success}"></fmt:message>
+                    </div>
+                    </c:if>
+                    <div class="protip warn">
+                      <a href="javascript:;" class="close" data-dismiss="alert">&times;</a>
+                      <strong>好消息!</strong> 2012年全年由酷果代交税款 ( 包括0.5%的手续费 )
+                    </div>
+					
 					<div class="bare-box">
                        <h3>公告: </h3>
                        <ul>
@@ -79,7 +78,14 @@ margin: 0;
                             </li>
                             <li>
                                 <label> 银行账户信息 </label> 
-                                <div style="color:red;padding-top: 7px;">${credentials.bankName}：${credentials.bankCard}</div>
+                                <div style="color:red;padding-top: 7px;">
+                                <c:if test="${not empty credentials.bankCard }">
+                                  ${credentials.bankName}：${credentials.bankCard}
+                                </c:if>
+                                <c:if test="${empty credentials.bankCard }">
+                                  您还未填写财务信息, <a href="/financial/overview">现在就去填写。</a>
+                                </c:if>
+                                </div>
                             </li>
                             <li>
                                 <label> 产品合作<br/>责任协议 </label> 
@@ -92,7 +98,7 @@ margin: 0;
                         </ul>
                         <ul class="form">
                             <li>
-                                <button id="btn_sub" type="submit">
+                                <button id="btn_sub" type="submit" ${empty credentials.bankCard?"disabled=\"disabled\"":"" }>
                                      取款
                                 </button>
                             </li>
