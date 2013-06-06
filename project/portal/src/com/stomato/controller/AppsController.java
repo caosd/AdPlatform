@@ -379,7 +379,7 @@ public class AppsController extends UserController {
 			try {
 				file.transferTo(targetFile);
 				
-				String packageName = AirHelper.air(request.getServletContext().getRealPath("/"), tf);
+				String packageName = AirHelper.air(request.getSession().getServletContext().getRealPath("/"), tf);
 				if (null == packageName) {
 					model.addAttribute("unpackError", true);
 					return "redirect:/apps/create";

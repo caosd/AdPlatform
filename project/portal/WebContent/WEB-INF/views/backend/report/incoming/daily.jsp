@@ -35,7 +35,7 @@
 		                </form:form>
                     </div>
                     <div class="box">
-                       <table class="data">
+                       <!--<table class="data">
                            <thead>
                              <tr>
                                <th width="12%">天数</th>
@@ -50,7 +50,7 @@
                              <c:forEach items="${todayList}" var="report" varStatus="stat">
 								<tr>
 								<th><fmt:formatDate value="${report.idate }" pattern="MM-dd" /></th>
-								<th><fmt:formatNumber value="${report.newUsers }"/></th>
+								<td><fmt:formatNumber value="${report.newUsers }"/></td>
 								<td><fmt:formatNumber value="${report.onlineUsers }"/></td>
 								<td>${report.moneyPushes }</td>
 								<td>${report.moneyAdvertising }</td>
@@ -64,7 +64,7 @@
 							</c:if>
                            </tbody>
                        </table>
-                       <table class="data">
+                       --><table class="data">
                            <thead>
                              <tr>
                                <th width="12%">日期</th>
@@ -79,7 +79,7 @@
                              <c:forEach items="${dailyList}" var="report" varStatus="stat">
 								<tr>
 								<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
-								<th><fmt:formatNumber value="${report.newUsers }"/></th>
+								<td><fmt:formatNumber value="${report.newUsers }"/></td>
 								<td><fmt:formatNumber value="${report.onlineUsers }"/></td>
 								<td>${report.moneyPushes }</td>
 								<td>${report.moneyAdvertising }</td>

@@ -42,7 +42,7 @@
                                <th>推送次数</th>
                                <th>展示次数</th>
                                <th>转化率</th>
-                               <th>推送收入</th>
+                               <th>推送收入 (元)</th>
                              </tr>
                            </thead>
                            <tbody>

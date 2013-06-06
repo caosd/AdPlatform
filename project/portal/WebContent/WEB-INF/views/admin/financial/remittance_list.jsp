@@ -16,7 +16,7 @@
                 <div class="right_content">
                     <h2>汇款记录</h2>
             		<div id="settings">
-						<form:form commandName="remittanceParamForm" method="POST" action="/financial/remittance_history">
+						<form:form commandName="remittanceParamForm" method="POST" action="/admin/financial/remittance_list">
 		                      <div id="date-range" class="ready" style="display: block; opacity: 1; top: 4px; z-index: 1000;">
 		                        从&nbsp;
 		                        <span id="start-date-container"><form:input type="text" path="startDatestr" class="shorter" value=""/></span>
@@ -26,8 +26,8 @@
 		                        <button class="mini">查询</button>
 		                      </div>
 		                </form:form>
-                     </div>
-                     <div class="box">
+                    </div>
+                    <div class="box">
                        <table class="data">
                            <thead>
                              <tr>
@@ -51,7 +51,7 @@
 								<td>
 									<c:choose>
 										<c:when test="${remittance.status == 0}">
-										申请中
+											<a href="javascript:void(0)" id="${remittance.id}" name="confirmRemittance_btn">确认汇款</a>
 										</c:when>
 										<c:otherwise>
 										汇款成功
@@ -75,7 +75,7 @@
         </div>
     </div>
     <jsp:include page="../includes/footer.jsp">
-    	<jsp:param value="page/ad_report" name="loader"/>
+    	<jsp:param value="page/admin_remittance_list" name="loader"/>
     </jsp:include>
 </body>
 </html>

@@ -9,6 +9,8 @@ public interface ReportDao {
 	
 	List<Map<String,Object>>  getHourlyReport(ReportParam param);
 	
+	List<Map<String,Object>>  getAccountsReport(ReportParam param);
+	
 	List<Map<String,Object>>  getDailyReport(ReportParam param);
 	
 	Integer getDailyReportCount(ReportParam param);

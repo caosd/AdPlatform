@@ -43,7 +43,19 @@ margin: 0;
 					<h2>汇款申请</h2>
 					<div class="protip warn">
 					  <a href="javascript:;" class="close" data-dismiss="alert">&times;</a>
-					  <strong>好消息!</strong> 2012年全年由酷果代交税款 ( 包括0.5%的手续费 )
+					  <c:choose>
+					  	<c:when test="${error != null}">
+					  		<fmt:message key="${error}"></fmt:message>
+					  	</c:when>
+					  	<c:when test="${success != null}">
+					  		<fmt:message key="${success}"></fmt:message>
+					  	</c:when>
+					  	<c:otherwise>
+					  		<strong>好消息!</strong> 2012年全年由酷果代交税款 ( 包括0.5%的手续费 )
+					  	</c:otherwise>
+					  </c:choose>
+					  <c:if test="${error}">
+					  </c:if>
 					</div>
 					<div class="bare-box">
                        <h3>公告: </h3>
