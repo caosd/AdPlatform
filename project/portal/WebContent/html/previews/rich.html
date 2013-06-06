@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title> Rich Push Composer Preview</title>
+    <link rel="stylesheet" href="/css/rich-push.css" type="text/css">
+    <style>
+        ::-webkit-scrollbar {
+            display:none;
+        }
+    </style>
+    <script type="text/javascript" src="/js/thirdparty/jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            var preview_container = $('#preview_container');
+            var preview_content = $('#preview_content');
+            function setMessageHeight() {
+                var message_body_height = $(preview_container).contents().find('body').height();
+                if (message_body_height>preview_container.height()) {
+                    $(preview_container).attr({'height':message_body_height});
+                } else {
+                    $(preview_container).attr({'height':'100%'});
+                }
+            }
+            var resizeTimer;
+            $(preview_container).load(function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(setMessageHeight, 500);
+            });
+            $('#ipad-preview').each(function() {
+                $(document.createElement('button'))
+                .addClass('ipad-rotate')
+                .attr({
+                    'id': 'ipad-rotate-button',
+                    'title': 'Rotate iPad Preview'
+                })
+                .bind('click',
+                function(e) {
+                    e.preventDefault();
+                    e.preventDefault();
+                    // handle som edge cases first
+                    if ($('#ipad-preview').hasClass('portrait') && $('#preview_container').contents().find('body').height() < 706) {
+                        // carry on
+                    } else if ($('#ipad-preview').hasClass('landscape') && $('#preview_container').contents().find('body').height() < 960) {
+                        // carry on
+                    } else {
+                        $('#preview_container').attr({'height':'0'});
+                    }
+                    // rotate the ipad
+                    $('#ipad-preview').toggleClass('portrait').toggleClass('landscape');
+                    // resize the iframe
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(setMessageHeight, 500);
+                })
+                .prependTo('#email-links');
+            });
+        });
+    </script>
+</head>
+<body id="public_preview" class="iphone">
+    <div id="rich-push-preview-body">
+        <div id="iphone-preview" class="preview portrait">
+            <div class="rich-push-wrapper">
+                <div class="message-title"> <span class="time">3:45 AM</span></div>
+                <div class="preview-content"><iframe src="/html/templates/rich.html" height="667" width="100%" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" seamless="seamless" id="preview_container" style="margin:0 0 -5px;"></iframe></div>
+            </div>
+        </div>
+        <!-- 
+        <input type="hidden" id="new_rich_push_history_id" value="20501">
+        <div id="email-links">
+            <input type="text" name="email" value="" placeholder="Enter an email address"> <button id="send-email-links">Send A Preview Email</button> <div><span class="alert"></span></div>
+        </div>
+         -->
+    </div>
+
+
+</body></html>
