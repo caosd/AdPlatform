@@ -245,6 +245,7 @@ var richPush = (function() {
         }
 
         function saveAndContinue(num) {
+        	step(num + 1);
 //            var d = $('#rich-push-form').serialize();
 //            // console.log('saving: ', d);
 //            $.ajax({

@@ -14,8 +14,6 @@
 			<div id="content">
 				<%@include file="../includes/sidebar.jsp"%>
 				<div class="right_content">
-					<h2><fmt:message key="push_title"/></h2>
-                    
                     
                     
                     
@@ -65,12 +63,26 @@
 						      <h2>创建通知<span class="sub message_title"></span></h2>
                               <fieldset>
                                 <div class="module">
-                                    <label for="title">Give Your Message a Title <span class="red">*</span></label>
+                                    <label for="title">给您的通知一个标题<span class="red">*</span></label>
                                     <input type="text" name="title" id="id_title" value="" placeholder="输入通知标题" maxlength="255" />
-                                    You have <span id="title-preview-chars"></span> bytes left.
+                                    还剩下 <span id="title-preview-chars"></span> 个字可以输入。
                                 </div>
                               </fieldset>
-						      
+                              <fieldset>
+							      <div class="module" id="previews">
+					                <a href="#" id="preview-scroller-prev">Previous</a>
+					                <div id="preview-scroller">
+					                  <div id="preview-android" class="preview">
+					                    <span style="display: block;"></span>
+					                      <h3>Your App Name</h3>
+					                      <p></p>
+					                      <h6></h6>
+					                  </div>
+					                </div>
+					                <a href="#" id="preview-scroller-next">Next</a>
+					                <div id="preview-position"><span class="active">•</span></div>
+					              </div>
+						      </fieldset>
 						      <div class="action">
 						        <span class="alert"></span>
 						        <img src="/images/circle-loader.gif" class="loader" />

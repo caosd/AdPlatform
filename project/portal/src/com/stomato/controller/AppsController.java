@@ -59,8 +59,6 @@ public class AppsController extends UserController {
 	
 	private final String fileSeparator = System.getProperty("file.separator");
 	
-	private static final String uploadsDir = "/dev/null";
-	
 	private static final String apkSuffix = ".apk";
 	
 	@Autowired

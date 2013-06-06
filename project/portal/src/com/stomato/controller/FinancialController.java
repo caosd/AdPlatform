@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.Credentials;
 import com.stomato.domain.Remittance;
@@ -27,6 +28,7 @@ import com.stomato.form.CredentialForm;
 import com.stomato.form.RemittanceParamForm;
 import com.stomato.form.ReportParamForm;
 import com.stomato.service.AppService;
+import com.stomato.service.ConfigService;
 import com.stomato.service.CredentialsService;
 import com.stomato.service.RemittanceService;
 import com.stomato.service.ReportService;
@@ -50,8 +52,10 @@ public class FinancialController extends UserController{
 	private ReportService reportService;
 	@Autowired
 	private AppService appService;
+	@Autowired
+	private ConfigService configService;
 	
-	private static final String uploadsDir = "F:/project/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/AdPlatform/";
+//	private static final String uploadsDir = "F:/project/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/AdPlatform/";
 	private static final String fileSeparator = System.getProperty("file.separator");
 	
 	@RequestMapping(value="/overview",method=RequestMethod.GET)
@@ -111,8 +115,8 @@ public class FinancialController extends UserController{
 	private String savePhoto(MultipartFile file,Model model,Integer uid,Integer credentialsType,String credentialsNo,String photoname){
 		try{
 			String suffix = CredentialValidation.IMG_SUFFIXS.get(file.getContentType());
-			String savefilepath = String.format("/files/%s/credentials/%s_%s_%s.%s", uid,credentialsType,credentialsNo,photoname,suffix);
-			File targetFile = new File((uploadsDir+savefilepath).replace("/", fileSeparator));
+			String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", uid,Constant.Configs.credentialsDirPath,credentialsType,credentialsNo,photoname,suffix);
+			File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", fileSeparator));
 			if (!targetFile.exists()) {
 				boolean made = targetFile.mkdirs();
 				logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
@@ -150,30 +154,26 @@ public class FinancialController extends UserController{
 	
 	@RequestMapping(value="/remittance",method=RequestMethod.GET)
 	public String remittance(HttpServletRequest request, Model model) {
-		String retPath = "backend/financial/remittance";
-		Credentials credentials = this.credentialsService.getCredentialsByUser(this.lookup(request));
+		User user = this.lookup(request);
+		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
 		if(	credentials == null ){
 			model.addAttribute("error", "side.financial.accounts_entry");
-			return retPath;
 		}
-		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(this.lookup(request));
-		if(	userAccount == null ){
-			return retPath;
-		}
+		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(user);
 		model.addAttribute("userAccount", userAccount);
 		model.addAttribute("credentials", credentials);
-		return retPath;
+		return "backend/financial/remittance";
 	}
 	@RequestMapping(value="/remittance",method=RequestMethod.POST)
 	public String remittance(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String retPath = "backend/financial/remittance";
 		User user = this.lookup(request);
-		Credentials credentials = this.credentialsService.getCredentialsByUser(this.lookup(request));
+		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
 		if(	credentials == null ){
 			model.addAttribute("error", "side.financial.accounts_entry");
 			return retPath;
 		}
-		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(this.lookup(request));
+		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(user);
 		if(	userAccount == null ){
 			return retPath;
 		}

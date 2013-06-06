@@ -42,8 +42,7 @@ CREATE TABLE `t_apps` (
   KEY `ind_appname` (`name`),
   KEY `ind_uid` (`uid`),
   KEY `ind_appKey` (`app_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `t_config`
@@ -58,7 +57,6 @@ CREATE TABLE `t_config` (
   `last_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cmd_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_config`
@@ -94,16 +92,6 @@ CREATE TABLE `t_credentials` (
   KEY `id_uid` (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_credentials`
---
-
-LOCK TABLES `t_credentials` WRITE;
-/*!40000 ALTER TABLE `t_credentials` DISABLE KEYS */;
-INSERT INTO `t_credentials` VALUES (1,20,1,'452124199012230077','/files/20/credentials/1_452124199012230077_photo1.png','/files/20/credentials/1_452124199012230077_photo2.png','华夏银行','425202520014225852','覃建栋','深圳南山支行','2013-06-02 04:05:25','2013-05-29 14:48:23'),(2,18,1,'123456789','','','中国工商银行','123567','aaa','com','2013-06-02 07:25:40','2013-06-02 07:25:40');
-/*!40000 ALTER TABLE `t_credentials` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_extra_applist`
@@ -163,14 +151,6 @@ CREATE TABLE `t_payment` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t_payment`
---
-
-LOCK TABLES `t_payment` WRITE;
-/*!40000 ALTER TABLE `t_payment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_payment` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `t_remittance`
 --
@@ -196,16 +176,6 @@ CREATE TABLE `t_remittance` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t_remittance`
---
-
-LOCK TABLES `t_remittance` WRITE;
-/*!40000 ALTER TABLE `t_remittance` DISABLE KEYS */;
-INSERT INTO `t_remittance` VALUES (1,20,10,'zzz','华夏银行','425202520014225852',0,NULL,NULL,'2013-06-02 02:41:37','2013-06-02 02:41:37'),(2,18,12,'aaa','中国工商银行','123567',0,NULL,NULL,'2013-06-02 07:26:12','2013-06-02 07:26:12'),(3,20,12,'覃建栋','华夏银行','425202520014225852',0,NULL,NULL,'2013-06-02 07:35:20','2013-06-02 07:35:20');
-/*!40000 ALTER TABLE `t_remittance` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `t_report_daily`
 --
 
@@ -225,16 +195,6 @@ CREATE TABLE `t_report_daily` (
   KEY `ind_devId_code_appId` (`uid`,`kpi_code`,`app_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_report_daily`
---
-
-LOCK TABLES `t_report_daily` WRITE;
-/*!40000 ALTER TABLE `t_report_daily` DISABLE KEYS */;
-INSERT INTO `t_report_daily` VALUES (1,'2013-06-02','20','305','sm_total_users',20,'2013-06-02 08:47:25'),(2,'2013-06-02','20','305','sm_total_users',5,'2013-06-02 08:47:25'),(3,'2013-06-02','20','305','sm_push_times',1,'2013-06-02 08:47:25'),(4,'2013-06-02','20','305','sm_display_times',7,'2013-06-02 08:47:25'),(5,'2013-06-02','20','305','sm_new_users',6,'2013-06-02 08:47:25'),(6,'2013-06-02','20','305','sm_online_users',44,'2013-06-02 08:47:25'),(7,'2013-06-02','20','305','sm_conversion_rate',30,'2013-06-02 08:47:25'),(8,'2013-06-02','20','305','sm_fill_rate',20,'2013-06-02 08:47:25'),(9,'2013-06-02','20','305','sm_money_pushes',30,'2013-06-02 08:47:25'),(10,'2013-06-02','20','305','sm_money_advertising',70,'2013-06-02 08:47:25'),(11,'2013-06-02','20','306','sm_total_users',20,'2013-06-02 09:01:26'),(12,'2013-06-02','20','306','sm_push_times',110,'2013-06-02 09:01:26'),(13,'2013-06-02','20','306','sm_display_times',650,'2013-06-02 09:01:26'),(14,'2013-06-02','20','306','sm_new_users',440,'2013-06-02 09:01:26'),(15,'2013-06-02','20','306','sm_online_users',320,'2013-06-02 09:01:26'),(16,'2013-06-02','20','306','sm_conversion_rate',20,'2013-06-02 09:01:26'),(17,'2013-06-02','20','306','sm_fill_rate',70,'2013-06-02 09:01:26'),(18,'2013-06-02','20','306','sm_money_pushes',234.9,'2013-06-02 09:01:26'),(19,'2013-06-02','20','306','sm_money_advertising',220,'2013-06-02 09:01:26'),(20,'2013-06-02','20','306','sm_total_users',20,'2013-06-02 09:07:29'),(21,'2013-06-02','20','306','sm_push_times',110,'2013-06-02 09:07:29'),(22,'2013-06-02','20','306','sm_display_times',650,'2013-06-02 09:07:29'),(23,'2013-06-02','20','306','sm_new_users',440,'2013-06-02 09:07:29'),(24,'2013-06-02','20','306','sm_online_users',320,'2013-06-02 09:07:29'),(25,'2013-06-02','20','306','sm_conversion_rate',320,'2013-06-02 09:07:29'),(26,'2013-06-02','20','306','sm_fill_rate',10,'2013-06-02 09:07:29'),(27,'2013-06-02','20','306','sm_money_pushes',56.9,'2013-06-02 09:07:29'),(28,'2013-06-02','20','306','sm_money_advertising',35,'2013-06-02 09:07:29');
-/*!40000 ALTER TABLE `t_report_daily` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_report_hourly`
@@ -260,15 +220,6 @@ CREATE TABLE `t_report_hourly` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t_report_hourly`
---
-
-LOCK TABLES `t_report_hourly` WRITE;
-/*!40000 ALTER TABLE `t_report_hourly` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_report_hourly` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `t_report_monthly`
 --
 
@@ -290,16 +241,6 @@ CREATE TABLE `t_report_monthly` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t_report_monthly`
---
-
-LOCK TABLES `t_report_monthly` WRITE;
-/*!40000 ALTER TABLE `t_report_monthly` DISABLE KEYS */;
-INSERT INTO `t_report_monthly` VALUES (1,'2013-06-02',20,306,'sm_total_users',20,'2013-06-02 09:08:36'),(2,'2013-06-02',20,306,'sm_push_times',110,'2013-06-02 09:08:36'),(3,'2013-06-02',20,306,'sm_display_times',650,'2013-06-02 09:08:36'),(4,'2013-06-02',20,306,'sm_new_users',440,'2013-06-02 09:08:36'),(5,'2013-06-02',20,306,'sm_online_users',320,'2013-06-02 09:08:36'),(6,'2013-06-02',20,306,'sm_conversion_rate',20,'2013-06-02 09:08:36'),(7,'2013-06-02',20,306,'sm_fill_rate',70,'2013-06-02 09:08:36'),(8,'2013-06-02',20,306,'sm_money_pushes',234.9,'2013-06-02 09:08:36'),(9,'2013-06-02',20,306,'sm_money_advertising',220,'2013-06-02 09:08:36');
-/*!40000 ALTER TABLE `t_report_monthly` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `t_reset_pwd`
 --
 
@@ -315,15 +256,6 @@ CREATE TABLE `t_reset_pwd` (
   UNIQUE KEY `id_token` (`token`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_reset_pwd`
---
-
-LOCK TABLES `t_reset_pwd` WRITE;
-/*!40000 ALTER TABLE `t_reset_pwd` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_reset_pwd` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_temp_apps`
@@ -346,16 +278,6 @@ CREATE TABLE `t_temp_apps` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t_temp_apps`
---
-
-LOCK TABLES `t_temp_apps` WRITE;
-/*!40000 ALTER TABLE `t_temp_apps` DISABLE KEYS */;
-INSERT INTO `t_temp_apps` VALUES ('6f13b74bb9482c5e56f748242eb15fe3',23,'hello','com.appspot.swisscodemonkeys.camerafx',0,'2013-06-02 17:51:50','2013-06-02 09:51:50');
-/*!40000 ALTER TABLE `t_temp_apps` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `t_transfer_history`
 --
 
@@ -375,15 +297,6 @@ CREATE TABLE `t_transfer_history` (
   KEY `id_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_transfer_history`
---
-
-LOCK TABLES `t_transfer_history` WRITE;
-/*!40000 ALTER TABLE `t_transfer_history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_transfer_history` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_user`
@@ -413,16 +326,6 @@ CREATE TABLE `t_user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t_user`
---
-
-LOCK TABLES `t_user` WRITE;
-/*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
-INSERT INTO `t_user` VALUES (22,'admin','4297F44B13955235245B2497399D7A93','144@qq.com',1,'asdfa','kjhk','jhkj','hkh','www.baidu.com','2013-06-02 17:43:46',NULL,NULL),(23,'admin2','4297F44B13955235245B2497399D7A93','1234@qq.com',1,'','','','','','2013-06-02 17:47:41','289358011e9b4636b6bc37d26b08f569','2013-06-02 17:48:16'),(19,'demo01','4297F44B13955235245B2497399D7A93','1243@qq.com',1,'','hello','123123123','1312312','www.baidu.com','2013-05-28 16:51:03',NULL,NULL),(20,'jiandong','E10ADC3949BA59ABBE56E057F20F883E','jiandong@powerallnetworks.com',1,'powerall','覃建栋','13631661621','63559854','http://localhost:8081/','2013-05-29 22:42:25','cd9b2ed2e18d4cd39e628ca397f802c3','2013-06-02 15:26:46'),(18,'kewiyi','4297F44B13955235245B2497399D7A93','123@qq.com',1,'',NULL,NULL,NULL,NULL,'2013-05-28 13:25:56','386ccead18eb4840abf00d7a67191cb2','2013-06-02 15:46:28');
-/*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `t_user_account`
 --
 
@@ -436,16 +339,6 @@ CREATE TABLE `t_user_account` (
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_user_account`
---
-
-LOCK TABLES `t_user_account` WRITE;
-/*!40000 ALTER TABLE `t_user_account` DISABLE KEYS */;
-INSERT INTO `t_user_account` VALUES ('20',400,'2013-06-02 02:41:21'),('23',0,'2013-06-02 09:47:41');
-/*!40000 ALTER TABLE `t_user_account` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_user_imei`
@@ -468,16 +361,6 @@ CREATE TABLE `t_user_imei` (
   KEY `id_uid_appid` (`uid`,`app_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_user_imei`
---
-
-LOCK TABLES `t_user_imei` WRITE;
-/*!40000 ALTER TABLE `t_user_imei` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_user_imei` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
