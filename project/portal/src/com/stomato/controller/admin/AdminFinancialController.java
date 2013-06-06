@@ -34,19 +34,20 @@ public class AdminFinancialController extends UserController{
 		Remittance remittance = new Remittance();
 		remittance.setId(id);
 		remittance = this.remittanceService.getRemittance(remittance);
-		if(remittance.getStatus().intValue() == 0){
-			remittance.setStatus(1);
-		}else{
-			remittance.setStatus(0);
-		}
-		this.remittanceService.updateRemittanceStatus(remittance);
 		UserAccount userAccount = this.accountsService.getUserAccountByUser(this.lookup(request));
-		double balance = userAccount.getBalance();
-		if( balance < 100){
+		double balance = userAccount.getBalance()-remittance.getMoney();
+		if( balance < 0){
 			model.addAttribute("error","");
+		}else{
+			if(remittance.getStatus().intValue() == 0){
+				remittance.setStatus(1);
+			}else{
+				remittance.setStatus(0);
+			}
+			userAccount.setBalance(balance);
+			this.accountsService.updateUserAccount(userAccount);
+			this.remittanceService.updateRemittanceStatus(remittance);
 		}
-		userAccount.setBalance(balance - remittance.getMoney());
-		this.accountsService.updateUserAccount(userAccount);
 		
 		return this.remittance_history(form, request, model);
 	}
