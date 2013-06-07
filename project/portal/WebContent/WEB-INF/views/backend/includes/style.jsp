@@ -6,5 +6,5 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=1024,maximum-scale=1">
 <link rel="shortcut icon" href="/images/fav.ico" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="/css/reset.css" media="screen">
-<link rel="stylesheet" type="text/css" href="/css/stylesheet.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/css/reset.css?139885534" media="screen">
+<link rel="stylesheet" type="text/css" href="/css/stylesheet.css?139885534" media="screen">

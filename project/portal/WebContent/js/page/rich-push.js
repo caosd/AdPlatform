@@ -458,8 +458,8 @@ var richPush = (function() {
                     function setMessageHeight() {
                         var preview_container = $('#preview_container');
                         var message_body_height = $(preview_container).contents().find('body').height();
-                        if (message_body_height>preview_container.height()) {
-                            $(preview_container).attr({'height':Math.round(message_body_height+50)});
+                        if (message_body_height>$(".preview-content").height()) {
+                            $(preview_container).attr({'height':Math.round(message_body_height)});
                         } else {
                             $(preview_container).attr({'height':'100%'});
                         }
@@ -533,8 +533,10 @@ var richPush = (function() {
                             zIndex: 200001,
                             onLoad: function() {
                                 setPreviewControls();
-                                $("#preview_container").contents().find('head').append($("#display_message_ifr").contents().find("head").html());
-                                $("#preview_container").contents().find('body').html($("#display_message_ifr").contents().find("body").html());
+                            	var preview_container = $('#preview_container');
+                                var display_message_ifr = $("#display_message_ifr");
+                                $(preview_container).contents().find('head').append($(display_message_ifr).contents().find("head").html());
+                                $(preview_container).contents().find('body').html($(display_message_ifr).contents().find("body").html());
                                 clearTimeout(resizeTimer);
                                 resizeTimer = setTimeout(setMessageHeight, 500);
                             },

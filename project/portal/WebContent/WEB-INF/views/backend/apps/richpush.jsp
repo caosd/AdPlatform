@@ -5,7 +5,7 @@
 <head>
 <title> ... </title>
 <%@include file="../includes/style.jsp"%>
-<link rel="stylesheet" type="text/css" href="/css/rich-push.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/css/rich-push.css?139885534" media="screen" />
 </head>
 <body>
 	<%@include file="../includes/header.jsp"%>
@@ -154,6 +154,6 @@
 	</div>
 	<jsp:include page="../includes/footer.jsp"></jsp:include>
     <script type="text/javascript" src="/js/tiny_mce/tiny_mce.js"></script>
-    <script type="text/javascript" src="/js/page/rich-push.js"></script>
+    <script type="text/javascript" src="/js/page/rich-push.js?139885534"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <%!
 public static void writeScript(JspWriter out, String path) 
 		throws java.io.IOException {
-	out.print("<script type=\"text/javascript\" src=\"" + path + "?135787879\"></script>");
+	out.print("<script type=\"text/javascript\" src=\"" + path + "?135786439\"></script>");
 }
 %>
 <div class="footer">

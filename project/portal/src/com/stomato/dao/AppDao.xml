@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="checkAppPackage" parameterType="com.stomato.domain.App" resultType="int">
-	    select count(*) from t_apps where uid=#{uid} and pkg=#{pkg}
+	    select count(*) from t_apps where uid=#{uid} and pkg=#{pkg} and is_del=0
 	</select>
 	
 	<update id="updateApp" parameterType="com.stomato.domain.App">

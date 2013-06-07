@@ -97,22 +97,20 @@ margin-right: 20px;
                                 <label> 证件上传 </label>
                                 <div>
                                     <img src="${empty credentials.credentialsPhoto1?"":imgServer}${empty credentials.credentialsPhoto1? '/images/identity_front.gif':credentials.credentialsPhoto1 }" class="identity_tile"/>
-                                    <img src="${empty credentials.credentialsPhoto1?"":imgServer}${empty credentials.credentialsPhoto2? '/images/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
+                                    <img src="${empty credentials.credentialsPhoto2?"":imgServer}${empty credentials.credentialsPhoto2? '/images/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
                                     <div>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
                                             <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file1" type="file" id="fileCtrl1" value=""/>
-		                                    <form:errors path="file1" cssClass="error"/>
                                         </a>
                                         <a href="javascript:void(0);" class="file">
                                             <span><em>+</em>选择证件照片</span>
                                             <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file2" type="file" id="fileCtrl2" value=""/>
-                                            <form:errors path="file2" cssClass="error"/>
                                         </a>
                                     </div>
                                     <div>
-                                        <div id="fileCtrlVal1" style="float: left;width: 240px;text-align: center;"></div>
-                                        <div id="fileCtrlVal2" style="float: left;width: 240px;margin-left: 25px;text-align: center;"></div>
+                                        <div id="fileCtrlVal1" style="float: left;width: 240px;text-align: center;height: 20px;"><form:errors path="file1" cssClass="error"/></div>
+                                        <div id="fileCtrlVal2" style="float: left;width: 240px;margin-left: 25px;text-align: center;height: 20px;"><form:errors path="file2" cssClass="error"/></div>
                                     </div>
                                 </div>
                             </li>
