@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.PushTestDao">
+
+	<resultMap type="com.stomato.domain.PushTest" id="pushTest"> 
+		<result property="id" column="id" />
+		<result property="uid" column="uid"/>
+		<result property="appkey" column="app_key"/>
+        <result property="testKey" column="test_key"/>
+        <result property="desc" column="desc"/>
+        <result property="lastUpdateTime" column="last_update_time"/>
+	</resultMap>
+	<insert id="addPushTest" parameterType="com.stomato.domain.PushTest">
+		insert into t_push_test(uid, app_key, test_key, desc, last_update_time) values(#{uid}, #{appKey}, #{testKey}, #{desc}, now())
+	</insert>
+	<select id="getPushTest" resultMap="pushTest" >
+		select id,uid,app_key,test_key,desc,last_update_time from t_push_test where uid=#{uid} and app_key=#{appKey}
+	</select>
+	<update id="updatePushTest" parameterType="com.stomato.domain.PushTest">
+        update t_push_test set test_key=#{testKey},desc=#{desc},last_update_time=now() where uid=#{uid} and app_key=#{appKey}
+	</update>
+	
+</mapper>

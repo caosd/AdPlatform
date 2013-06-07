@@ -18,8 +18,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for `t_advert_test`
 -- ----------------------------
-DROP TABLE IF EXISTS `t_push_test`;
-CREATE TABLE `t_push_test` (
+DROP TABLE IF EXISTS `t_advert_test`;
+CREATE TABLE `t_advert_test` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `appid` int(11) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `t_push_test` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of t_push_test
+-- Records of t_advert_test
 -- ----------------------------
 
 -- ----------------------------
