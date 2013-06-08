@@ -18,15 +18,15 @@
 					<h2>
 						<fmt:message key="push_title" />
 					</h2>
-					<form class="blueform">
+					<form class="blueform" method="post">
 						<ul>
-							<li><label>test key:</label><input type="text" name="testKey"></li>
-							<li><label>描述:</label><input type="text" name="desc"></li>
+							<li><label>test key:</label><input type="text" name="testKey" id="testKey" value="${pushTest.testKey }"><span class="error" id="testKey_error"></li>
+							<li><label>描述:</label><input type="text" name="desc" id="desc" value="${pushTest.desc }"></li>
 						</ul>
 						<ul>
-							<li><button type="button" class="add">测试广告</button>
+							<li><button type="submit" class="add">测试广告</button>
 								&nbsp;&nbsp; <a href="javascript:void(0)" class="cancel">取消</a></li>
-							<li><span class="error"></span></li>
+							<li><span class="error">${error}</span></li>
 						</ul>
 					</form>
 				</div>
@@ -34,6 +34,8 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../includes/footer.jsp"></jsp:include>
+	<jsp:include page="../includes/footer.jsp">
+		<jsp:param value="page/push_test" name="loader"/>
+	</jsp:include>
 </body>
 </html>

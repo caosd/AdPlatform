@@ -17,6 +17,7 @@ public class CredentialValidation {
         IMG_SUFFIXS.put("image/jpg", "jpg");
         IMG_SUFFIXS.put("image/jpeg", "jpeg");
         IMG_SUFFIXS.put("image/png", "png");
+        IMG_SUFFIXS.put("image/bmp", "bmp");
 	}
 	
 	public void validate(Object target, Errors errors) {

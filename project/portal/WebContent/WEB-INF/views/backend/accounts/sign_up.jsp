@@ -48,8 +48,8 @@ display: inline;
 				        <li id="contactTelGroup"><label for="contactTel"><fmt:message key="label.contact_tel"/></label> <form:input path="contactTel" /> <form:errors path="contactTel" cssClass="error"/></li>
 				        <li id="qqGroup"><label for="qq"><fmt:message key="label.qq"/></label> <form:input path="qq" /> <form:errors path="qq" cssClass="error"/></li>
 				        <li id="websiteGroup"><label for="website"><fmt:message key="label.website"/></label> <form:input path="website" /> <form:errors path="website" cssClass="error"/></li>
-				        <li id="ExtrasGroup1" style="display: none;"><label for="credentialsNo"><fmt:message key="label.credentials_no"/></label> <input type="text" name="credentialsNo"/></li>
-				        <li id="ExtrasGroup2" style="display: none;"><label for="credentialsPhoto"><fmt:message key="label.credentials_photo"/></label> <input type="file" multiple name="credentialsPhoto"/></li>
+				        <li id="ExtrasGroup1" style="${userType==2 ? '':'display: none;'}"><label for="credentialsNo"><fmt:message key="label.credentials_no"/></label> <input type="text" name="credentialsNo"/></li>
+				        <li id="ExtrasGroup2" style="${userType==2 ? '':'display: none;'}"><label for="credentialsPhoto"><fmt:message key="label.credentials_photo"/></label> <input type="file" multiple name="credentialsPhoto"/></li>
 				        <li>
 				            <button type="submit"><fmt:message key="sign_up_submit"/></button>
 				        </li>
@@ -61,7 +61,7 @@ display: inline;
 	<%@include file="../includes/footer.jsp"%>
 	<script type="text/javascript">
 	$("#type2").click(function() {
-        //$("#ExtrasGroup1,#ExtrasGroup2").show();
+        $("#ExtrasGroup1,#ExtrasGroup2").show();
     });
 	$("#type1").click(function() {
         $("#ExtrasGroup1,#ExtrasGroup2").hide();

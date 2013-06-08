@@ -571,7 +571,7 @@ public class AppsController extends UserController {
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
-	public String pushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
+	public String showPushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
 		int uid = this.lookup(request).getUid();
 		PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
 		model.addAttribute("pushTest", pushTest);
@@ -579,13 +579,13 @@ public class AppsController extends UserController {
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.POST)
-	public String pushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
+	public String processPushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
+		int uid = this.lookup(request).getUid();
+		PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
 		try{
 			String testKey = this.getStringParameter(request, "testKey", false);
 			String desc = this.getStringParameter(request, "desc", true);
-			int uid = this.lookup(request).getUid();
 			
-			PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
 			if(pushTest == null){
 				pushTest = new PushTest();
 				pushTest.setAppKey(appKey);
@@ -598,10 +598,11 @@ public class AppsController extends UserController {
 				pushTest.setTestKey(testKey);
 				this.pushTestService.updatePushTest(pushTest);
 			}
-			model.addAttribute("pushTest", pushTest);
 		}catch (ParameterException error) {
 			model.addAttribute("error", error.getMessage());
+			logger.error(error.getMessage());
 		}
+		model.addAttribute("pushTest", pushTest);
 		return "backend/apps/pushtest";
 	}
 	
