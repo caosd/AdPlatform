@@ -20,8 +20,8 @@
 					</h2>
 					<form class="blueform">
 						<ul>
-							<li><label>test key:</label><input type="text" name="imei"></li>
-							<li><label>描述:</label><input type="text" name="description"></li>
+							<li><label>test key:</label><input type="text" name="testKey"></li>
+							<li><label>描述:</label><input type="text" name="desc"></li>
 						</ul>
 						<ul>
 							<li><button type="button" class="add">测试广告</button>

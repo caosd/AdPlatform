@@ -30,11 +30,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
 import com.stomato.domain.App;
+import com.stomato.domain.PushTest;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.TempApp;
 import com.stomato.domain.User;
 import com.stomato.domain.UserImei;
 import com.stomato.enums.ReportTypeEnum;
+import com.stomato.exception.ParameterException;
 import com.stomato.form.AppForm;
 import com.stomato.helper.AirHelper;
 import com.stomato.helper.AppHelper;
@@ -42,6 +44,7 @@ import com.stomato.helper.BuildExampleHelper;
 import com.stomato.helper.FileHelper;
 import com.stomato.service.AppService;
 import com.stomato.service.ConfigService;
+import com.stomato.service.PushTestService;
 import com.stomato.service.TempAppService;
 import com.stomato.service.UserImeiService;
 import com.stomato.utils.FileUtils;
@@ -75,6 +78,9 @@ public class AppsController extends UserController {
 	
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private PushTestService pushTestService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
@@ -565,7 +571,37 @@ public class AppsController extends UserController {
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
-	public String pushtest(@PathVariable String appKey, HttpServletRequest request) {
+	public String pushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
+		int uid = this.lookup(request).getUid();
+		PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
+		model.addAttribute("pushTest", pushTest);
+		return "backend/apps/pushtest";
+	}
+	
+	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.POST)
+	public String pushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
+		try{
+			String testKey = this.getStringParameter(request, "testKey", false);
+			String desc = this.getStringParameter(request, "desc", true);
+			int uid = this.lookup(request).getUid();
+			
+			PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
+			if(pushTest == null){
+				pushTest = new PushTest();
+				pushTest.setAppKey(appKey);
+				pushTest.setUid(uid);
+				pushTest.setDesc(desc);
+				pushTest.setTestKey(testKey);
+				this.pushTestService.addPushTest(pushTest);
+			}else{
+				pushTest.setDesc(desc);
+				pushTest.setTestKey(testKey);
+				this.pushTestService.updatePushTest(pushTest);
+			}
+			model.addAttribute("pushTest", pushTest);
+		}catch (ParameterException error) {
+			model.addAttribute("error", error.getMessage());
+		}
 		return "backend/apps/pushtest";
 	}
 	

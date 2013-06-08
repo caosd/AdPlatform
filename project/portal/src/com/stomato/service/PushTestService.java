@@ -12,8 +12,8 @@ public class PushTestService {
 	@Autowired
 	private PushTestDao pushTestDao;
 	
-	public PushTest getPushTest(int uid, int appid) {
-		return this.pushTestDao.getPushTest(uid, appid);
+	public PushTest getPushTest(int uid, String appKey) {
+		return this.pushTestDao.getPushTest(uid, appKey);
 	}
 
 	public void updatePushTest(PushTest pushTest) {

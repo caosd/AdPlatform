@@ -8,7 +8,7 @@ public class PushTest {
 	
 	private int uid;
 	
-	private int appKey;
+	private String appKey;
 	
 	private String testKey;
 	
@@ -31,11 +31,11 @@ public class PushTest {
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
-	public int getAppKey() {
+	public String getAppKey() {
 		return appKey;
 	}
 
-	public void setAppKey(int appKey) {
+	public void setAppKey(String appKey) {
 		this.appKey = appKey;
 	}
 
