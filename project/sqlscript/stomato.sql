@@ -15,6 +15,22 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- ----------------------------
+-- Table structure for `t_push_test`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_push_test`;
+CREATE TABLE `t_push_test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `app_key` varchar(32) NOT NULL,
+  `test_key` varchar(32) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `last_update_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_key` (`app_key`) USING BTREE,
+  KEY `app_key_uid` (`app_key`,`uid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
 --
 -- Table structure for table `t_apps`
 --

@@ -10,28 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2013-06-07 18:48:38
+Date: 2013-06-13 11:43:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for `t_advert_test`
--- ----------------------------
-DROP TABLE IF EXISTS `t_push_test`;
-CREATE TABLE `t_push_test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `appid` int(11) NOT NULL,
-  `test_key` varchar(50) NOT NULL,
-  `desc` varchar(500) DEFAULT NULL,
-  `last_update_time` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_push_test
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `t_apps`
@@ -63,7 +45,7 @@ CREATE TABLE `t_apps` (
 -- Records of t_apps
 -- ----------------------------
 INSERT INTO `t_apps` VALUES ('1', 'fd62421b5824f4af33887e79462b75bb', '23', '大白菜', 'com.skycall.oem', 'drawable-mdpi#icon.png', '1', '0', '2013-06-07 00:07:20', '2013-06-05 17:58:17', '', '', '0');
-INSERT INTO `t_apps` VALUES ('2', '9a3b327c837794a67e854a2c24d32b46', '23', '小青菜', 'com.elevenbitstudios.FunkySmugglers', 'drawable-xxhdpi#icon.png', '1', '0', '2013-06-05 18:04:03', '2013-06-05 18:04:03', '', '', '0');
+INSERT INTO `t_apps` VALUES ('2', '9a3b327c837794a67e854a2c24d32b46', '23', '小青菜', 'com.elevenbitstudios.FunkySmugglers', 'drawable-xxhdpi#icon.png', '1', '0', '2013-06-08 09:37:36', '2013-06-05 18:04:03', '', '', '1');
 INSERT INTO `t_apps` VALUES ('3', '678f1cfeaf2cfe14207d90c998acc70b', '23', '红萝卜', 'com.appspot.swisscodemonkeys.camerafx', 'drawable-ldpi#ic_launcher_camera2.png', '1', '1', '2013-06-07 00:07:10', '2013-06-07 00:06:15', '', '', '0');
 
 -- ----------------------------
@@ -102,7 +84,7 @@ CREATE TABLE `t_credentials` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `id_uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_credentials
@@ -110,6 +92,8 @@ CREATE TABLE `t_credentials` (
 INSERT INTO `t_credentials` VALUES ('1', '20', '1', '452124199012230077', '/files/20/credentials/1_452124199012230077_photo1.png', '/files/20/credentials/1_452124199012230077_photo2.png', '华夏银行', '425202520014225852', '覃建栋', '深圳南山支行', '2013-06-02 12:05:25', '2013-05-29 22:48:23');
 INSERT INTO `t_credentials` VALUES ('2', '18', '1', '123456789', '', '', '中国工商银行', '123567', 'aaa', 'com', '2013-06-02 15:25:40', '2013-06-02 15:25:40');
 INSERT INTO `t_credentials` VALUES ('3', '23', '1', '123456789', '1_123456789_photo1.png', '1_123456789_photo2.jpeg', '中国工商银行', '622655555555', '张三', '深圳', '2013-06-06 23:05:45', '2013-06-06 23:05:45');
+INSERT INTO `t_credentials` VALUES ('4', '27', '2', '452124199012230077', '2_452124199012230077_photo1.jpeg', '', null, null, null, null, '2013-06-08 13:21:28', '2013-06-08 13:21:28');
+INSERT INTO `t_credentials` VALUES ('5', '28', '2', '', '2__photo1.null', '', null, null, null, null, '2013-06-08 13:23:58', '2013-06-08 13:23:58');
 
 -- ----------------------------
 -- Table structure for `t_extra_applist`
@@ -163,6 +147,28 @@ CREATE TABLE `t_payment` (
 -- ----------------------------
 -- Records of t_payment
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_push_test`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_push_test`;
+CREATE TABLE `t_push_test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `app_key` varchar(32) NOT NULL,
+  `test_key` varchar(32) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `last_update_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_key` (`app_key`) USING BTREE,
+  KEY `app_key_uid` (`app_key`,`uid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_push_test
+-- ----------------------------
+INSERT INTO `t_push_test` VALUES ('3', '23', '9a3b327c837794a67e854a2c24d32b46', '   test ', 'test key', '2013-06-08 10:00:11');
+INSERT INTO `t_push_test` VALUES ('4', '23', 'fd62421b5824f4af33887e79462b75bb', 'test', 'test', '2013-06-08 10:00:44');
 
 -- ----------------------------
 -- Table structure for `t_remittance`
@@ -386,17 +392,21 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`account_name`),
   UNIQUE KEY `id_UNIQUE` (`uid`),
   UNIQUE KEY `id_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
 INSERT INTO `t_user` VALUES ('22', 'admin', '4297F44B13955235245B2497399D7A93', '144@qq.com', '1', 'asdfa', 'kjhk', 'jhkj', 'hkh', 'www.baidu.com', '2013-06-02 17:43:46', '28a79df11ac8460abb419dfd363c40ff', '2013-06-07 01:00:18');
 INSERT INTO `t_user` VALUES ('23', 'admin2', '4297F44B13955235245B2497399D7A93', 'www@qq.com', '1', null, '', '', '', '', '2013-06-02 17:47:41', '33cbc4b5a96f42f5b6a668551ee9ed3d', '2013-06-07 18:33:44');
+INSERT INTO `t_user` VALUES ('28', 'ageage', '4297F44B13955235245B2497399D7A93', 'jiandong2@powerallnetworks.com', '2', '', '', '', '', '', '2013-06-08 13:23:58', null, null);
 INSERT INTO `t_user` VALUES ('24', 'baidu', '4297F44B13955235245B2497399D7A93', '142224@qq.com', '1', '', '', '', '', '', '2013-06-07 00:57:00', '8e96e54364e74c55bb2d285e5d0662ae', '2013-06-07 00:57:08');
 INSERT INTO `t_user` VALUES ('19', 'demo01', '4297F44B13955235245B2497399D7A93', '1243@qq.com', '1', '', 'hello', '123123123', '1312312', 'www.baidu.com', '2013-05-28 16:51:03', 'c320decbc978488fbd1abf1cba3e4aa9', '2013-06-07 01:00:38');
 INSERT INTO `t_user` VALUES ('20', 'jiandong', 'E10ADC3949BA59ABBE56E057F20F883E', 'jiandong@powerallnetworks.com', '1', 'powerall', '覃建栋', '13631661621', '63559854', 'http://localhost:8081/', '2013-05-29 22:42:25', 'd2a441840fcc4f26b99d6907362e9c89', '2013-06-07 18:32:46');
+INSERT INTO `t_user` VALUES ('25', 'jiandong1', 'E10ADC3949BA59ABBE56E057F20F883E', 'qinjiandong2010@gmail.com', '2', 'Powerall networks', '覃建栋', '13631661621', '63559854', '深圳市南山区振业国际大厦10楼1001', '2013-06-08 10:30:27', null, null);
 INSERT INTO `t_user` VALUES ('18', 'kewiyi', '4297F44B13955235245B2497399D7A93', '123@qq.com', '1', '', null, null, null, null, '2013-05-28 13:25:56', 'e2a042d3920049b8b6304d455f0dc0cf', '2013-06-07 01:00:27');
+INSERT INTO `t_user` VALUES ('26', 'test11', '4297F44B13955235245B2497399D7A93', 'jiandong4@powerallnetworks.com', '2', 'Powerall networks', '覃建栋', '13631661621', '63559854', '深圳市南山区振业国际大厦10楼1001', '2013-06-08 10:58:14', null, null);
+INSERT INTO `t_user` VALUES ('27', 'test334346', '4297F44B13955235245B2497399D7A93', 'jiandong5@powerallnetworks.com', '2', 'Powerall networks', '覃建栋', '13631661621', '63559854', '深圳市南山区振业国际大厦10楼1001', '2013-06-08 13:20:36', '71e8632d9d4d482eba074507030cdf7e', '2013-06-08 13:22:33');
 
 -- ----------------------------
 -- Table structure for `t_user_account`
@@ -415,6 +425,10 @@ CREATE TABLE `t_user_account` (
 INSERT INTO `t_user_account` VALUES ('20', '400', '2013-06-02 10:41:21');
 INSERT INTO `t_user_account` VALUES ('23', '0', '2013-06-02 17:47:41');
 INSERT INTO `t_user_account` VALUES ('24', '0', '2013-06-07 00:57:00');
+INSERT INTO `t_user_account` VALUES ('25', '0', '2013-06-08 10:30:27');
+INSERT INTO `t_user_account` VALUES ('26', '0', '2013-06-08 10:58:14');
+INSERT INTO `t_user_account` VALUES ('27', '0', '2013-06-08 13:20:36');
+INSERT INTO `t_user_account` VALUES ('28', '0', '2013-06-08 13:23:58');
 
 -- ----------------------------
 -- Table structure for `t_user_imei`
