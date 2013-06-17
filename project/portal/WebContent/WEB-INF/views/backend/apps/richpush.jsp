@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="../includes/html_attributes.jsp" %>
 <head>
-<title> ... </title>
+<title> 富广告推送 </title>
 <%@include file="../includes/style.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/rich-push.css?139885534" media="screen" />
 </head>

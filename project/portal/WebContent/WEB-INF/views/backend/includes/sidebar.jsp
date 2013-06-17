@@ -31,7 +31,7 @@
             </li>
             <li id="premium_composer" class="<%=isRichPush?"current":"" %>">
                 <a href="/apps/${app.key}/rich-push">
-                    <span class="icon push-composer"></span>自定义内容
+                    <span class="icon push-composer"></span>富广告推送
                 </a>
             </li>
 			<li id="premium_reports" class="<%=(isReport||isEarnings)?"current":"" %>">
