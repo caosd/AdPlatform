@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.stomato.domain.Role">
+<mapper namespace="com.stomato.dao.RoleDao">
 
 	<resultMap type="com.stomato.domain.Role" id="role"> 
 		<result property="id" column="id" />
@@ -21,7 +21,6 @@
 	<select id="getAllRoleList" resultMap="role" >
 		select id,role_name, status, create_date from t_role
 	</select>
-	<!--
 	<update id="updateRole" parameterType="com.stomato.domain.Role">
 		update t_role
         <set>
@@ -35,6 +34,6 @@
 	
 	<update id="deleteRole" parameterType="com.stomato.domain.Role">
         update t_role set is_del=1 where id=#{id}
-	</update> -->
+	</update>
 	
 </mapper>
