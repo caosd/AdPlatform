@@ -1,4 +1,5 @@
 package com.stomato.dao;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.stomato.domain.Part;
+import com.stomato.domain.PublicParam;
 import com.stomato.domain.Role;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,10 +28,36 @@ public class RoleDaoTest extends AbstractJUnit4SpringContextTests{
 		roleDao.addRole(role);
 	}
 	@Test
-	public void getAllRoleList(){
-		List<Role> roleList = roleDao.getAllRoleList();
-		for (Role role : roleList) {
-			System.out.println("roleName:" + role.getRoleName());
-		}
+	public void listRole(){
+		List<Role> roleList = roleDao.listRole(new PublicParam());
+		assert roleList.size() > 0;
+	}
+	@Test
+	public void getRole(){
+		Role role = roleDao.getRole(2);
+		assert role.getId() == 2;
+	}
+	@Test
+	public void updateRole(){
+		Role role = roleDao.getRole(6);
+		role.setRoleName("admin");
+		roleDao.updateRole(role);
+		assert role.getRoleName().equals("admin");
+	}
+	@Test
+	public void deleteRole(){
+		Role role = roleDao.getRole(6);
+		roleDao.deleteRole(role);
+		role = roleDao.getRole(6);
+		assert role == null;
+	}
+	@Test
+	public void listTotal(){
+		PublicParam publicParam = new PublicParam();
+		List<Part<String, Object>> paramList = new ArrayList<Part<String,Object>>();
+		paramList.add(new Part<String,Object>("role_name", "Admin"));
+		publicParam.setParams(paramList);
+		int total = roleDao.listTotal(publicParam);
+		assert total > -1;
 	}
 }

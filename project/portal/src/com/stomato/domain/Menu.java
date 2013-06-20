@@ -36,6 +36,7 @@ public class Menu{
 	 */
 	private int visible ;
 	
+	private int status;
 	/**
 	 * 排序标识
 	 */
@@ -45,12 +46,13 @@ public class Menu{
 		
 	}
 
-	public Menu(String name , String path , int parent , int visible,String orderNo){
+	public Menu(String name , String path , int parent , int visible,int status,String orderNo){
 		this.name = name ;
 		this.path = path ;
 		this.parent = parent ;
 		this.visible = visible ;
 		this.orderNo = orderNo ;
+		this.status = status;
 	}
 	
 	public int getId() {
@@ -67,6 +69,14 @@ public class Menu{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getPath() {
