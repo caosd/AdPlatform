@@ -1,4 +1,5 @@
 package com.stomato.dao;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.stomato.domain.Part;
-import com.stomato.domain.PublicParam;
+import com.stomato.domain.BaseParam;
 import com.stomato.domain.Role;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +30,7 @@ public class RoleDaoTest extends AbstractJUnit4SpringContextTests{
 	}
 	@Test
 	public void listRole(){
-		List<Role> roleList = roleDao.listRole(new PublicParam());
+		List<Role> roleList = roleDao.listRole(new BaseParam());
 		assert roleList.size() > 0;
 	}
 	@Test
@@ -53,7 +54,7 @@ public class RoleDaoTest extends AbstractJUnit4SpringContextTests{
 	}
 	@Test
 	public void listTotal(){
-		PublicParam publicParam = new PublicParam();
+		BaseParam publicParam = new BaseParam();
 		List<Part<String, Object>> paramList = new ArrayList<Part<String,Object>>();
 		paramList.add(new Part<String,Object>("role_name", "Admin"));
 		publicParam.setParams(paramList);

@@ -3,7 +3,7 @@ package com.stomato.domain;
 import java.util.Date;
 import java.util.List;
 
-public class PublicParam {
+public class BaseParam {
 
 	private Date startDate;
 	private Date endDate;

@@ -3,7 +3,7 @@ package com.stomato.dao;
 import java.util.List;
 
 import com.stomato.domain.Menu;
-import com.stomato.domain.PublicParam;
+import com.stomato.domain.BaseParam;
 
 
 public interface MenuDao {
@@ -14,7 +14,7 @@ public interface MenuDao {
 	
 	void addMenu(Menu menu);
 	
-	int listTotal(PublicParam param);
+	int listTotal(BaseParam param);
 	
-	List<Menu> listMenu(PublicParam param);
+	List<Menu> listMenu(BaseParam param);
 }

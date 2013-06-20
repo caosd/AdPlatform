@@ -2,16 +2,17 @@ package com.stomato.domain;
 
 /**
  * 角色 菜单
+ * 
  * @author zyf
- *
+ * 
  */
 public class RoleMenu {
 
-	private int id ;
-	
-	private int roleId ;
-	
-	private int menuId ;
+	private int id;
+
+	private int roleId;
+
+	private int menuId;
 
 	public int getId() {
 		return id;
@@ -36,6 +37,4 @@ public class RoleMenu {
 	public void setMenuId(int menuId) {
 		this.menuId = menuId;
 	}
-	
-	
 }

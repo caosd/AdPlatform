@@ -28,7 +28,7 @@ public class MenuDaoTest extends AbstractJUnit4SpringContextTests{
 		menu.setOrderNo(1);
 		menu.setParent(0);
 		menu.setPath("/testMenu.action");
-		menu.setVisible(1)
+		menu.setVisible(1);
 		menu.setMenuName("Admin");
 		menuDao.addMenu(Menu);
 	}
