@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jpush-sdk-release1.3.3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WebContent/tempexample/Jpush-Android-sdk/example/libs/jpush-sdk-release1.3.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

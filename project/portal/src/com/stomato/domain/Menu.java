@@ -7,7 +7,7 @@ import java.util.List;
  * @author zyf
  *
  */
-public class Menu{
+public class Menu extends PublicModel{
 
 	private int id ;
 	

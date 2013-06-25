@@ -1,4 +1,4 @@
-package com.cn.web;
+package com.stomato.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cn.dto.AdResourceDTO;
-import com.cn.model.AdResource;
-import com.cn.service.AdResourceService;
-import com.cn.util.CustomizedPropertyPlaceholderConfigurer;
-import com.cn.util.DateUtil;
-import com.cn.util.StringUtil;
-import com.cn.vo.SysConfig;
+import com.stomato.domain.AdResource;
+import com.stomato.service.AdResourceService;
+import com.stomato.utils.DateUtils;
+import com.stomato.vo.SysConfig;
+
+import freemarker.template.utility.StringUtil;
 
 @Controller
 @RequestMapping(value="/adResource")
@@ -51,7 +50,7 @@ public class AdResourceController {
 	 */
 	@RequestMapping(value="/getAdResource.html")
 	public String getAdResource(int id,HttpServletRequest request){
-		AdResource adResource = adResourceService.getAdResource(AdResourceDTO.getSql, new Object[]{id});
+		AdResource adResource = adResourceService.getAdResource(id);
 		request.setAttribute("adResource", adResource);
 		return "adResourceUpdate";
 	}
@@ -64,7 +63,7 @@ public class AdResourceController {
 	 */
 	@RequestMapping(value="/showAdResource.html")
 	public String showAdResource(int id,HttpServletRequest request){
-		AdResource adResource = adResourceService.getAdResource(AdResourceDTO.getSql, new Object[]{id});
+		AdResource adResource = adResourceService.getAdResource(id);
 		request.setAttribute("adResource", adResource);
 		return "adResourceShow";
 	}
@@ -78,30 +77,17 @@ public class AdResourceController {
 	 */
 	@RequestMapping(value="/adResourceList.html")
 	public String adResourceList(AdResource adResource,HttpServletRequest request) throws ParseException{
-		
-		List<Object> listSqlParams = new ArrayList<Object>();
-		
-		List<Integer> paramTypes = new ArrayList<Integer>();
-		
-		String listTotalSql = AdResourceDTO.getListSql(AdResourceDTO.listTotalSql,adResource,0,true,listSqlParams,paramTypes);
-		
-		int total = adResourceService.listTotal(listTotalSql,listSqlParams.toArray(), SysConfig.list2int(paramTypes));
-		
+		int total = adResourceService.listTotal(adResource);
 		int pageTotal = SysConfig.getPageTotal(total, adResource.getPageSize());
-		
 		if(pageTotal<adResource.getPageNum()){
 			adResource.setPageNum(1);
 		}
-		
 		int start = (adResource.getPageNum()-1)*adResource.getPageSize();
-		String listsql = AdResourceDTO.getListSql(AdResourceDTO.listSql,adResource,start,false,listSqlParams,paramTypes);
-		
-		List<AdResource> adResourceList = adResourceService.listAdResource(listsql, listSqlParams.toArray(),SysConfig.list2int(paramTypes),start);
-		
+		adResource.setSlimt(start);
+		List<AdResource> adResourceList = adResourceService.listAdResource(adResource);
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("adResource", adResource);
 		request.setAttribute("adResourceList", adResourceList);
-		
 		return "adResourceList";
 	}
 	
@@ -132,7 +118,7 @@ public class AdResourceController {
 		 * 有效日期
 		 */
 		if(adResource.getStartTime()==0){
-			adResource.setStartTime(DateUtil.getDateInt(null));
+			adResource.setStartTime(DateUtils.getDateUTC().getTime());
 		}
 		if(adResource.getEndTime()==0){
 			adResource.setEndTime(DateUtil.getDateInt(DateUtil.getMonth(1)));

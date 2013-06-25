@@ -2,7 +2,7 @@ package com.stomato.dao;
 
 import java.util.List;
 
-import com.stomato.domain.BaseParam;
+import com.stomato.domain.PublicModel;
 import com.stomato.domain.Role;
 
 public interface RoleDao {
@@ -11,9 +11,9 @@ public interface RoleDao {
 	
 	Role getRole(int id);
 	
-	List<Role> listRole(BaseParam param);
+	List<Role> listRole(PublicModel param);
 	
-	int listTotal(BaseParam param);
+	int listTotal(PublicModel param);
 	
 	void updateRole(Role role);
 	

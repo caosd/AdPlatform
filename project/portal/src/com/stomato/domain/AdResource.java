@@ -6,14 +6,15 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import freemarker.template.utility.StringUtil;
+import com.stomato.utils.StringUtils;
+import com.stomato.vo.SysConfig;
 
 /**
  * 下载资源录入
  * @author zyf
  *
  */
-public class AdResource{
+public class AdResource extends PublicModel{
 
 	private int id ;
 	
@@ -316,7 +317,7 @@ public class AdResource{
 
 	public List<String> getAdImagesList() {
 		List<String> list = new ArrayList<String>();
-		if(StringUtil.isEmpty(this.adImages)){
+		if(StringUtils.isEmpty(this.adImages)){
 			adImagesList = null;
 		}else{
 			String[] strs = this.adImages.split(",");

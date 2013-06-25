@@ -8,7 +8,7 @@ import java.util.List;
  * @author zyf
  *
  */
-public class Role{
+public class Role extends PublicModel{
 
 	private int id ;
 	

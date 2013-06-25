@@ -10,6 +10,8 @@ public class User implements Serializable {
 	
 	private int uid;
 
+	private int roleId;
+	
 	private String userName;
 	
 	private String password;
@@ -40,6 +42,14 @@ public class User implements Serializable {
 
 	public void setUid(int uid) {
 		this.uid = uid;
+	}
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getUserName() {

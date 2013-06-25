@@ -1,6 +1,5 @@
 package com.stomato.controller;
 
-import java.sql.Types;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.Role;
 import com.stomato.service.RoleMenuService;
 import com.stomato.service.RoleService;
 import com.stomato.utils.StringUtils;
-
-import freemarker.template.utility.StringUtil;
+import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping(value="/role")
@@ -65,14 +62,14 @@ public class RoleController {
 	 */
 	@RequestMapping(value="/listRole.html")
 	public String listRole(Role role,HttpServletRequest request){
-		BaseParam param = new BaseParam();
-		int total = roleService.listTotal(param);
+		int total = roleService.listTotal(role);
 		int pageTotal = SysConfig.getPageTotal(total, role.getPageSize());
 		if(pageTotal<role.getPageNum()){
 			role.setPageNum(1);
 		}
 		int start = (role.getPageNum()-1)*role.getPageSize();
-		List<Role> list = roleService.listRole(RoleDTO.listSql, new Object[]{start,role.getPageSize()}, new int[]{Types.INTEGER,Types.INTEGER}, start);
+		role.setSlimt(start);
+		List<Role> list = roleService.listRole(role);
 		
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("role", role);
@@ -89,14 +86,14 @@ public class RoleController {
 	 */
 	@RequestMapping(value="/roleFormpage.html")
 	public String roleMenuPage(int id,HttpServletRequest request){
-		Role role = roleService.selectRole(RoleDTO.selectSql, new Object[]{id}, new int[]{Types.INTEGER});
-		if(role == null || StringUtil.isEmpty(role.getRoleName())){
+		Role role = roleService.getRole(id);
+		if(role == null || StringUtils.isEmpty(role.getRoleName())){
 			request.setAttribute("content", "角色不存在！");
 			logger.error("角色不存在！id="+id);
 			return "msg/error";
 		}
 		
-		List<Integer> roleMenuIdList = roleMenuService.listRoleMenu(RoleMenuDTO.listRoleMenuIdSql, new Object[]{id}, new int[]{Types.INTEGER});
+		List<Integer> roleMenuIdList = roleMenuService.listRoleMenu(role.getId());
 		request.setAttribute("roleMenuIdList", roleMenuIdList);
 		request.setAttribute("role", role);
 		return "role/roleMenu" ;
