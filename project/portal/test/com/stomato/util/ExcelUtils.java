@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
+import com.stomato.domain.Part;
+
 import net.sf.jxls.exception.ParsePropertyException;
 import net.sf.jxls.transformer.XLSTransformer;
 
@@ -26,7 +28,7 @@ public class ExcelUtils {
 	public static void main(String[] args) {
 		List<Object> resultList = new ArrayList<Object>();
 		for (int i = 0; i < 20; i++) {
-			resultList.add(i);
+			resultList.add(new Part<String, String>(""+i,"str"+i));
 		}
 		Map<String,Object> beans = new HashMap<String, Object>();
 		beans.put("result", resultList);
