@@ -13,7 +13,7 @@ import com.stomato.domain.Menu;
 import com.stomato.domain.PublicModel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:MET-AINF/applicationContext.xml")
+@ContextConfiguration(locations = "classpath:META-INF/applicationContext.xml")
 public class MenuDaoTest extends AbstractJUnit4SpringContextTests{
 
 	@Resource
