@@ -49,7 +49,6 @@ public class RoleController {
 			return "msg/error";
 		}
 		roleService.addRole(role);
-		initRoleMsg();
 		request.setAttribute("content", "添加角色信息成功！");
 		return "/msg/success";
 	}
@@ -110,16 +109,5 @@ public class RoleController {
 		roleMenuService.editRoleMenu(id, menuIdArr);
 		request.setAttribute("content", "修改角色权限成功");
 		return "msg/success";
-	}
-	
-	/**
-	 * 初始化 角色信息
-	 */
-	private void initRoleMsg(){
-		SysConfig.clearRoleList();
-		SysConfig.getRoleList();
-		
-		SysConfig.clearRoleMap();
-		SysConfig.getRoleMap();
 	}
 }
