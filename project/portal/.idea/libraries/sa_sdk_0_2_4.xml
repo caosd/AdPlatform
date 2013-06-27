@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="sa_sdk_0.2.4">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/download/sa_sdk_0.2.4.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
