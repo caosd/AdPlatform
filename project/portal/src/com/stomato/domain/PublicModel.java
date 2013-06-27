@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class PublicModel {
 
+	/**
+	 * 0,有效，1无效
+	 */
+	int status = -1;
 	//开始时间
 	private Date startDate;
 	//结束时间
@@ -52,5 +56,11 @@ public class PublicModel {
 	}
 	public void setSlimt(int slimt) {
 		this.slimt = slimt;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }

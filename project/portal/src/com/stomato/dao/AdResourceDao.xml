@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stomato.dao.AdResourceDao">
 
-	<resultMap type="com.stomato.domain.AdResource" id="adResource"> 
+	<!-- <resultMap type="com.stomato.domain.AdResource" id="adResource"> 
 		<result property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="desc" column="desc" />
@@ -58,7 +58,7 @@
 				from ad_list where id=? 
 	</select>
 	 
-	<select id="listAdResource" parameterType="com.stomato.domain.PublicParam" resultMap="com.stomato.domain.AdResource" >
+	<select id="listAdResource" parameterType="com.stomato.domain.PublicModel" resultMap="com.stomato.domain.AdResource" >
 		select  id,
 				ad_name,
 				ad_text,
@@ -78,7 +78,7 @@
 				status
 		from ad_list where 1=1 
 	</select>
-	<select id="listTotal" parameterType="com.stomato.domain.PublicParam" resultType="int">
+	<select id="listTotal" parameterType="com.stomato.domain.PublicModel" resultType="int">
 		select count(1) from ad_list
 		<if test="paramList != null">
 		 	where 1=1
@@ -105,5 +105,5 @@
                            end_time = ?,
                            status = ?
         where id = ?
-	</update>
+	</update> -->
 </mapper>

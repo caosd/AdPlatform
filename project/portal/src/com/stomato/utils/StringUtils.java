@@ -70,4 +70,12 @@ public class StringUtils {
 		}
 		return sb.toString();
     }
+	/**
+	 * 获取文件后缀 包含. exp: .apk
+	 * @param str
+	 * @return
+	 */
+	public static String getSuffix(String str){
+		return str.substring(str.lastIndexOf("."), str.length());
+	}
 }

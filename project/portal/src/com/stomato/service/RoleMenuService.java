@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.RoleMenuDao;
+import com.stomato.domain.RoleMenu;
 
 @Service
 public class RoleMenuService {
@@ -17,7 +18,10 @@ public class RoleMenuService {
 		roleMenuDao.deleteRoleMenu(role_id);
 		if(menuIdArr != null){
 			for(Integer menuId:menuIdArr){
-				roleMenuDao.addRoleMenu(role_id,menuId);
+				RoleMenu roleMenu = new RoleMenu();
+				roleMenu.setRoleId(role_id);
+				roleMenu.setMenuId(menuId);
+				roleMenuDao.addRoleMenu(roleMenu);
 			}
 		}
 	}

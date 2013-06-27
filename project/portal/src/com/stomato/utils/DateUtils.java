@@ -412,6 +412,37 @@ public class DateUtils {
 	public Date getMonthFirstDay(Date date){
 		return getDate(getDateYear(date), getDateMonth(date), 1);
 	}
+    public static int getDateInt(Date date){
+    	if(date == null){
+    		date = new Date();
+    	}
+    	DateFormat df = new SimpleDateFormat(patternB);
+    	return Integer.parseInt(df.format(date));
+    }
+    /**
+     * 获得当期日期 前/后 n 个月的日期
+     * @param i
+     * @return
+     */
+    public static Date getMonth(int n){
+    	Calendar calendar = Calendar.getInstance(); 
+    	calendar.add(Calendar.MONTH, n);
+    	return calendar.getTime();
+    }
+    /**
+     * 获取对应日期格式的 字符串
+     * @param style
+     * @return
+     */
+    public static String getDateStr(String pattern){
+    	Date date = new Date();
+    	DateFormat df = new SimpleDateFormat(pattern);
+    	return df.format(date);
+    }
+    public static String getDateStr(String style,Date date){
+    	DateFormat df = new SimpleDateFormat(style);
+    	return df.format(date);
+    }
 	public void main(String[] args) {
 		//System.out.println(DateUtil.dateToString(DateUtil.getDate(), pattern6));
 		System.out.println(DateUtils.getInstance().dateToString(getMonthFirstDay(new Date()), patternC));
