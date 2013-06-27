@@ -1,6 +1,5 @@
 package com.stomato.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.stomato.domain.Part;
 import com.stomato.domain.PublicModel;
 import com.stomato.domain.Role;
 
@@ -54,11 +52,7 @@ public class RoleDaoTest extends AbstractJUnit4SpringContextTests{
 	}
 	@Test
 	public void listTotal(){
-		PublicModel publicParam = new PublicModel();
-		List<Part<String, Object>> paramList = new ArrayList<Part<String,Object>>();
-		paramList.add(new Part<String,Object>("role_name", "Admin"));
-		publicParam.setParams(paramList);
-		int total = roleDao.listTotal(publicParam);
+		int total = roleDao.listTotal(new PublicModel());
 		assert total > -1;
 	}
 }

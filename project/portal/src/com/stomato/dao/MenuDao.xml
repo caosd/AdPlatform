@@ -46,7 +46,7 @@
 		where id=#{id}
 	</update>
 	
-	<delete id="deleteMenu" parameterType="com.stomato.domain.Menu">
+	<delete id="deleteMenu" parameterType="id">
         delete from t_menu where id=#{id}
 	</delete>
 	
