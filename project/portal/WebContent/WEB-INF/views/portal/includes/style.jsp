@@ -6,9 +6,9 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" media="screen">
-<link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.min.css" media="screen">
-<link type="text/css" rel="stylesheet" href="css/font-awesome.css" media="screen">
-<link type="text/css" rel="stylesheet" href="css/style.css" media="screen">
-<link type="text/css" rel="stylesheet" href="css/style_responsive.css" media="screen">
-<link type="text/css" rel="stylesheet" href="css/style_default.css" media="screen">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap-responsive.min.css" media="screen">
+<link type="text/css" rel="stylesheet" href="/css/font-awesome.css" media="screen">
+<link type="text/css" rel="stylesheet" href="/css/style.css" media="screen">
+<link type="text/css" rel="stylesheet" href="/css/style_responsive.css" media="screen">
+<link type="text/css" rel="stylesheet" href="/css/style_default.css" media="screen">

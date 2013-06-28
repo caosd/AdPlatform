@@ -17,7 +17,8 @@
         <property name="dataSource" ref="dataSource" />
         <property name="typeAliasesPackage" value="com.stomato.dao" />
     </bean>
-
+	<bean id="springContextUtil" class="com.stomato.utils.SpringContextUtil"></bean>
+	
     <!-- config mybatis -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.stomato.dao" />
@@ -56,6 +57,8 @@
 	        <mvc:mapping path="/apps/**" />
             <mvc:mapping path="/financial/**"/>
             <mvc:mapping path="/report/**"/>
+            <mvc:mapping path="/menu/**"/>
+            <mvc:mapping path="/role/**"/>
             <mvc:mapping path="/dashboard.html"/>
 			<bean class="com.stomato.interceptor.UserInterceptor" />
 		</mvc:interceptor>

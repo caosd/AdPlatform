@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Menu extends PublicModel{
 
-	private int id ;
+	private Integer id ;
 	
 	/**
 	 * 菜单名称
@@ -29,14 +29,13 @@ public class Menu extends PublicModel{
 	/**
 	 * 父菜单ID 0表示没有父菜单
 	 */
-	private int parent ;
+	private Integer parent ;
 	
 	/**
 	 * 是否可见：0-不可见，1-可见
 	 */
-	private int visible ;
-	
-	private int status;
+	private Integer visible ;
+
 	/**
 	 * 排序标识
 	 */
@@ -55,11 +54,11 @@ public class Menu extends PublicModel{
 		this.status = status;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -71,12 +70,12 @@ public class Menu extends PublicModel{
 		this.name = name;
 	}
 
-	public int getStatus() {
-		return status;
+	public String getDesc() {
+		return desc;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public String getPath() {
@@ -87,20 +86,19 @@ public class Menu extends PublicModel{
 		this.path = path;
 	}
 
-	public int getParent() {
+	public Integer getParent() {
 		return parent;
 	}
 
-	public void setParent(int parent) {
+	public void setParent(Integer parent) {
 		this.parent = parent;
 	}
 
-	public int getVisible() {
-		return visible;
-	}
-
-	public void setVisible(int visible) {
+	public void setVisible(Integer visible) {
 		this.visible = visible;
+	}
+	public Integer getVisible() {
+		return visible;
 	}
 
 	public String getOrderNo() {
@@ -110,18 +108,7 @@ public class Menu extends PublicModel{
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-	
-	public String getDesc() {
-		if(desc == null){
-			desc = "" ;
-		}
-		return desc;
-	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-	
 	/**
 	 * 非持久化对象
 	 */

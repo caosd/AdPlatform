@@ -5,6 +5,7 @@
 
 	<resultMap type="com.stomato.domain.User" id="user"> 
 		<result property="uid" column="uid" />
+		<result property="roleId" column="role_id" />
 		<result property="userName" column="account_name" />
 		<result property="email" column="email"/>
         <result property="type" column="type"/>

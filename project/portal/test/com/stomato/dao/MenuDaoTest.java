@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.stomato.domain.Menu;
-import com.stomato.domain.PublicModel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:META-INF/applicationContext.xml")
@@ -19,7 +18,7 @@ public class MenuDaoTest extends AbstractJUnit4SpringContextTests{
 	@Resource
 	private MenuDao menuDao;
 	
-	@Test
+	/*@Test
 	public void saveMenu(){
 		Menu menu = new Menu();
 		menu.setName("testMenu");
@@ -29,11 +28,6 @@ public class MenuDaoTest extends AbstractJUnit4SpringContextTests{
 		menu.setVisible(1);
 		menu.setName("Admin");
 		menuDao.addMenu(menu);
-	}
-	@Test
-	public void listMenu(){
-		List<Menu> MenuList = menuDao.listMenu(new PublicModel());
-		assert MenuList.size() > 0;
 	}
 	@Test
 	public void getMenu(){
@@ -56,7 +50,19 @@ public class MenuDaoTest extends AbstractJUnit4SpringContextTests{
 	}
 	@Test
 	public void listTotal(){
-		int total = menuDao.listTotal(new PublicModel());
+		int total = menuDao.listTotal(new Menu());
 		assert total > -1;
+	}*/
+	@Test
+	public void listParentMenuByRole(){
+		List<Menu> menuList = menuDao.listParentMenuByRole(2);
+		assert menuList.size() > 0;
+	}
+	@Test
+	public void listMenu(){
+		Menu menu = new Menu();
+		menu.setParent(2);
+		List<Menu> MenuList = menuDao.listMenu(menu);
+		assert MenuList.size() > 0;
 	}
 }

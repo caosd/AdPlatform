@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.MenuDao;
 import com.stomato.domain.Menu;
-import com.stomato.domain.PublicModel;
+import com.stomato.domain.User;
 
 @Service
 public class MenuService {
 
 	@Autowired
-	private MenuDao menuDao ;
+	private MenuDao menuDao;
 
 	public void addMenu(Menu menu){
 		menuDao.addMenu(menu);
@@ -27,24 +27,24 @@ public class MenuService {
 		return menuDao.getMenu(id);
 	}
 	
-	public int listTotal(PublicModel param){
+	public int listTotal(Menu param){
 		return menuDao.listTotal(param);
 	}
 	
-	public List<Menu> listMenu(PublicModel param){
+	public List<Menu> listMenu(Menu param){
 		return menuDao.listMenu(param);
 	}
 	
-	public List<Menu> getMenuSys(){
-		List<Menu> menuSys = menuDao.listMenu(new PublicModel());
-		if(menuSys != null){
-			for(Menu menu:menuSys){
+	public List<Menu> listMenuByUser(User user){
+		List<Menu> parentMenus =  menuDao.listParentMenuByRole(user.getRoleId());
+		if( parentMenus != null ){
+			for (Menu menu : parentMenus) {
 				Menu parent = new Menu();
-				parent.setParent(menu.getParent());
+				parent.setParent(menu.getId());
 				List<Menu> sunMenuList = menuDao.listMenu(parent);
 				menu.setSunMenu(sunMenuList);
 			}
 		}
-		return menuSys;
+		return parentMenus;
 	}
 }

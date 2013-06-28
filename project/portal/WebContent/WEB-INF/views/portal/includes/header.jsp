@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <!-- BEGIN LOGO -->
             <a class="brand" href="/">
-                <img src="img/logo.png" alt="Admin Lab">
+                <img src="/img/logo.png" alt="Admin Lab">
             </a>
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -38,7 +38,7 @@
                             </li>
                             <li>
                                 <a href="http://thevectorlab.net/adminlab/#">
-                                    <span class="photo"><img src="img/avatar-mini.png" alt="avatar"></span>
+                                    <span class="photo"><img src="/img/avatar-mini.png" alt="avatar"></span>
                                 <span class="subject">
                                 <span class="from">Dulal Khan</span>
                                 <span class="time">Just now</span>
@@ -50,7 +50,7 @@
                             </li>
                             <li>
                                 <a href="http://thevectorlab.net/adminlab/#">
-                                    <span class="photo"><img src="img/avatar-mini.png" alt="avatar"></span>
+                                    <span class="photo"><img src="/img/avatar-mini.png" alt="avatar"></span>
                                 <span class="subject">
                                 <span class="from">Rafiqul Islam</span>
                                 <span class="time">10 mins</span>
@@ -62,7 +62,7 @@
                             </li>
                             <li>
                                 <a href="http://thevectorlab.net/adminlab/#">
-                                    <span class="photo"><img src="img/avatar-mini.png" alt="avatar"></span>
+                                    <span class="photo"><img src="/img/avatar-mini.png" alt="avatar"></span>
                                 <span class="subject">
                                 <span class="from">Sumon Ahmed</span>
                                 <span class="time">3 hrs</span>
@@ -74,7 +74,7 @@
                             </li>
                             <li>
                                 <a href="http://thevectorlab.net/adminlab/#">
-                                    <span class="photo"><img src="img/avatar-mini.png" alt="avatar"></span>
+                                    <span class="photo"><img src="/img/avatar-mini.png" alt="avatar"></span>
                                 <span class="subject">
                                 <span class="from">Dulal Khan</span>
                                 <span class="time">Just now</span>
@@ -164,7 +164,7 @@
                     <!-- BEGIN USER LOGIN DROPDOWN -->
                     <li class="dropdown">
                         <a href="http://thevectorlab.net/adminlab/#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="img/avatar1_small.jpg" alt="">
+                        <img src="/img/avatar1_small.jpg" alt="">
                             <span class="username">${user.userName }</span>
                         <b class="caret"></b>
                         </a>

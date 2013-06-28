@@ -12,7 +12,7 @@
 		<description></description>
 		<tag>
 			<name>menu</name>
-			<tag-class>com.cn.tag.MenuTag</tag-class>
+			<tag-class>com.stomato.tag.MenuTag</tag-class>
 			<body-content>jsp</body-content>
 			<small-icon></small-icon>
 			<large-icon></large-icon>
