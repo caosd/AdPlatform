@@ -28,7 +28,7 @@ import com.stomato.validator.CredentialValidation;
 import com.stomato.validator.RegistrationValidation;
 
 @Controller
-@RequestMapping("/accounts/sign-up")
+@RequestMapping("/signup")
 public class RegistrationController {
 	
 	Logger logger = Logger.getLogger(this.getClass().getName());

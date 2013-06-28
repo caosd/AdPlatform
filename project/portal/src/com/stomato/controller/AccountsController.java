@@ -51,17 +51,6 @@ public class AccountsController extends UserController {
 		return "backend/accounts/overview";
 	}
 	
-	@RequestMapping("/sign-out")
-	public String signOut(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		if (session != null) {
-			this.clearUserCookie(request, response);
-			session.invalidate();
-		}
-		
-		return "backend/accounts/sign_out";
-	}
-	
 	@RequestMapping(value="/change_pwd", method=RequestMethod.GET)
 	public String updatePwd(@ModelAttribute("pwdForm") PasswordForm form) {
 		return "backend/accounts/change_pwd";

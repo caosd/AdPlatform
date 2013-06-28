@@ -14,21 +14,22 @@ import com.stomato.utils.StringUtils;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/accounts/sign-in")
-public class LoginController extends UserController {
+@RequestMapping("/")
+public class PortalController extends UserController {
 	
 	@Autowired
 	private AccountsService accountsService;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="login", method = RequestMethod.GET)
 	public String showForm(@ModelAttribute LoginForm loginForm, Map<String, Object> model, HttpServletRequest request) {
-		return "backend/accounts/sign_in";
+		return "portal/login";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="login", method = RequestMethod.POST)
 	public String processForm(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
 		if (result.hasErrors()) {
 			if (StringUtils.isEmpty(loginForm.getUserName())) {
@@ -38,13 +39,13 @@ public class LoginController extends UserController {
 			} else {
 				model.addAttribute("accountErr", true);
 			}
-			return "backend/accounts/sign_in";
+			return "portal/login";
 		}
 		User user = loginForm.asPojo();
 		user = accountsService.getUser(user);
 		if (user == null) {
 			model.addAttribute("accountErr", true);
-			return "backend/accounts/sign_in";
+			return "portal/login";
 		}
 		
 		if (loginForm.getRemember()) {
@@ -59,7 +60,22 @@ public class LoginController extends UserController {
 		if (!StringUtils.isEmpty(nextUrl)) {
 			return "redirect:" + nextUrl;
 		}
-		return "redirect:/apps";
+		return "redirect:/dashboard.html";
 	}
-
+	
+	@RequestMapping("/logout")
+	public String signOut(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		if (session != null) {
+			this.clearUserCookie(request, response);
+			session.invalidate();
+		}
+		
+		return "portal/logout";
+	}
+	
+	@RequestMapping("/dashboard.html")
+	public String dashboard() {
+		return "portal/dashboard";
+	}
 }

@@ -38,10 +38,11 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
         p:cacheManager-ref="cacheManagerFactory"/>
     
-    <mvc:resources mapping="/css/**" location="/css/" />
-    <mvc:resources mapping="/js/**" location="/js/" />
-    <mvc:resources mapping="/images/**" location="/images/" />
-    <mvc:resources mapping="/html/**" location="/images/" />
+    <mvc:resources mapping="/css/**" location="/media/css/" />
+    <mvc:resources mapping="/js/**" location="/media/js/" />
+    <mvc:resources mapping="/img/**" location="/media/img/" />
+    <mvc:resources mapping="/font/**" location="/media/font/" />
+    <mvc:resources mapping="/html/**" location="/html/" />
     <mvc:resources mapping="/files/**" location="/files/" />
     <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 
@@ -55,6 +56,7 @@
 	        <mvc:mapping path="/apps/**" />
             <mvc:mapping path="/financial/**"/>
             <mvc:mapping path="/report/**"/>
+            <mvc:mapping path="/dashboard.html"/>
 			<bean class="com.stomato.interceptor.UserInterceptor" />
 		</mvc:interceptor>
         <mvc:interceptor>
