@@ -7,8 +7,15 @@
     <file path="$PROJECT_DIR$/../pytest/hell.py" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1371895980351" ignored="false" />
     <file path="/hell.py" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1371895979677" ignored="false" />
     <file path="$PROJECT_DIR$/../pytest/.idea/workspace.xml" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1371896084157" ignored="false" />
+<<<<<<< HEAD
     <file path="/fragment.java" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1372382711904" ignored="false" />
     <file path="/Dummy.txt" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1372382711904" ignored="false" />
+=======
+    <file path="/Channel.java" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1372376299664" ignored="false" />
+    <file path="/a.dummy" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1372376589211" ignored="false" />
+    <file path="/fragment.java" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1372376449805" ignored="false" />
+    <file path="/ChannelUser.java" changelist="1e445eae-78f2-4bf3-a5ac-907e62deaa8d" time="1372376525907" ignored="false" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +67,23 @@
       </breakpoint>
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints>
+      <breakpoint url="file://$PROJECT_DIR$/test/com/stomato/dao/MenuDaoTest.java" line="1" class="MenuDaoTest.java" package="">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -75,6 +99,19 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+<<<<<<< HEAD
+=======
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/stomato/dao/MenuDao.xml" />
+        <option value="$PROJECT_DIR$/src/com/stomato/domain/Channel.java" />
+        <option value="$PROJECT_DIR$/src/com/stomato/domain/ChannelUser.java" />
+        <option value="$PROJECT_DIR$/test/com/stomato/dao/MenuDaoTest.java" />
+      </list>
+    </option>
+  </component>
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -83,6 +120,7 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
+<<<<<<< HEAD
     <option name="x" value="6" />
     <option name="width" value="1580" />
     <option name="height" value="890" />
@@ -133,6 +171,12 @@
         </expanded-state>
       </profile-state>
     </entry>
+=======
+    <option name="x" value="-165" />
+    <option name="y" value="29" />
+    <option name="width" value="1346" />
+    <option name="height" value="739" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -162,6 +206,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -170,6 +215,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+<<<<<<< HEAD
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="portal" />
@@ -212,6 +258,8 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
+=======
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -220,9 +268,14 @@
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+<<<<<<< HEAD
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Java" />
+=======
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/WebContent" />
@@ -234,6 +287,7 @@
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
+<<<<<<< HEAD
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
@@ -253,6 +307,17 @@
   </component>
   <component name="RunManager" selected="Tomcat Server.AdPlatform">
     <configuration default="false" name="RoleDaoTest.listRole" type="JUnit" factoryName="JUnit" temporary="true">
+=======
+    <property name="dynamic.classpath" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.stomato.domain" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.MenuDaoTest">
+    <configuration default="false" name="MenuDaoTest.updateMenu" type="JUnit" factoryName="JUnit" temporary="true">
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.stomato.dao.*" />
@@ -261,6 +326,7 @@
       </extension>
       <module name="AdPlatform" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+<<<<<<< HEAD
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="PACKAGE_NAME" value="com.stomato.dao" />
       <option name="MAIN_CLASS_NAME" value="com.stomato.dao.RoleDaoTest" />
@@ -269,6 +335,44 @@
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+=======
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.stomato.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.stomato.dao.MenuDaoTest" />
+      <option name="METHOD_NAME" value="updateMenu" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="MenuDaoTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.stomato.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="AdPlatform" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.stomato.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.stomato.dao.MenuDaoTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
@@ -371,8 +475,12 @@
       <patterns />
       <method />
     </configuration>
+<<<<<<< HEAD
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0">
       <option name="UPDATING_POLICY" value="restart-server" />
+=======
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
       <deployment />
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="_portal" />
@@ -385,7 +493,11 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <RunnerSettings RunnerId="Cover" />
       <RunnerSettings RunnerId="Debug">
+<<<<<<< HEAD
         <option name="DEBUG_PORT" value="28141" />
+=======
+        <option name="DEBUG_PORT" value="51771" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -437,7 +549,11 @@
       </ConfigurationWrapper>
       <method />
     </configuration>
+<<<<<<< HEAD
     <configuration default="false" name="AdPlatform" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0">
+=======
+    <configuration default="false" name="portal" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0">
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <file path="$PROJECT_DIR$/WebContent">
@@ -457,7 +573,11 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <RunnerSettings RunnerId="Cover" />
       <RunnerSettings RunnerId="Debug">
+<<<<<<< HEAD
         <option name="DEBUG_PORT" value="28141" />
+=======
+        <option name="DEBUG_PORT" value="51771" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -509,6 +629,7 @@
       </ConfigurationWrapper>
       <method />
     </configuration>
+<<<<<<< HEAD
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="JUnit.RoleDaoTest.listRole" />
       <item index="1" class="java.lang.String" itemvalue="Tomcat Server.AdPlatform" />
@@ -516,6 +637,17 @@
     <recent_temporary>
       <list size="1">
         <item index="0" class="java.lang.String" itemvalue="JUnit.RoleDaoTest.listRole" />
+=======
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.portal" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.MenuDaoTest.updateMenu" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.MenuDaoTest" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.MenuDaoTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.MenuDaoTest.updateMenu" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -549,21 +681,47 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="2">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="6" y="0" width="1580" height="890" extended-state="0" />
+=======
+    <frame x="-165" y="29" width="1346" height="739" extended-state="0" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.82564104" sideWeight="0.18560606" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24090908" sideWeight="0.2871795" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -574,9 +732,20 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24769433" sideWeight="0.6657572" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33424285" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.7287879" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24766356" sideWeight="0.6034483" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.74529916" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39655173" sideWeight="0.81439394" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24318182" sideWeight="0.50085473" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -646,6 +815,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/test/com/stomato/util/ExcelUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="17" selection-start="172" selection-end="172" vertical-scroll-proportion="-0.12842713" />
@@ -674,14 +844,63 @@
     <entry file="file://$PROJECT_DIR$/test/com/stomato/dao/MenuDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="13" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0">
+=======
+    <entry file="file://$PROJECT_DIR$/src/com/stomato/vo/SysConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="47" selection-start="320" selection-end="320" vertical-scroll-proportion="0.33633092">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/stomato/dao/RoleDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="57" selection-start="457" selection-end="457" vertical-scroll-proportion="0.33633092">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/stomato/dao/MenuDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="33" selection-start="780" selection-end="780" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/stomato/dao/MenuDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="33" selection-start="150" selection-end="150" vertical-scroll-proportion="0.30538923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/stomato/domain/ChannelUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="32" selection-start="143" selection-end="178" vertical-scroll-proportion="0.30425057">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/stomato/domain/Channel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="41" selection-start="349" selection-end="349" vertical-scroll-proportion="0.7225951">
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/test/com/stomato/dao/RoleDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="28" selection-start="885" selection-end="885" vertical-scroll-proportion="0.1904762">
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/test/com/stomato/dao/MenuDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="45" selection-start="513" selection-end="513" vertical-scroll-proportion="-2.337037">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
         </state>
       </provider>
     </entry>
@@ -691,7 +910,11 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+<<<<<<< HEAD
           <last-edited>ad</last-edited>
+=======
+          <last-edited>portal</last-edited>
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -716,7 +939,11 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
+<<<<<<< HEAD
           <last-edited>Python 2.7 (C:/Python27/python.exe) interpreter library</last-edited>
+=======
+          <last-edited>Python 2.7.5 (D:/jiandong/Python27/python.exe) interpreter library</last-edited>
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -728,7 +955,11 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
+<<<<<<< HEAD
           <last-edited>1.7</last-edited>
+=======
+          <last-edited>1.6</last-edited>
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -752,7 +983,11 @@
       </state>
       <state key="ProjectJDKs.UI">
         <settings>
+<<<<<<< HEAD
           <last-edited>1.7</last-edited>
+=======
+          <last-edited>1.6</last-edited>
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
           <splitter-proportions>
             <option name="proportions">
               <list>

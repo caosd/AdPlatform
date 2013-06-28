@@ -27,8 +27,13 @@
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
     <orderEntry type="library" name="Tomcat 7.0" level="application_server_libraries" />
     <orderEntry type="library" name="lib" level="project" />
+=======
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0" level="application_server_libraries" />
+>>>>>>> 3944409b9d46ee4a801e0a2640b02bb91075c0ff
   </component>
 </module>
 
