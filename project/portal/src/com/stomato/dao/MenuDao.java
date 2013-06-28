@@ -10,6 +10,8 @@ public interface MenuDao {
 
 	Menu getMenu(int id);
 	
+	void deleteMenu(int id);
+	
 	void updateMenu(Menu menu);
 	
 	void addMenu(Menu menu);

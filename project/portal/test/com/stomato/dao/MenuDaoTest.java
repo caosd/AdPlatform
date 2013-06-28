@@ -1,5 +1,4 @@
 package com.stomato.dao;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,9 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.stomato.domain.Part;
-import com.stomato.domain.PublicParam;
 import com.stomato.domain.Menu;
+import com.stomato.domain.PublicModel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:META-INF/applicationContext.xml")
@@ -25,16 +23,16 @@ public class MenuDaoTest extends AbstractJUnit4SpringContextTests{
 	public void saveMenu(){
 		Menu menu = new Menu();
 		menu.setName("testMenu");
-		menu.setOrderNo(1);
+		menu.setOrderNo("1");
 		menu.setParent(0);
 		menu.setPath("/testMenu.action");
 		menu.setVisible(1);
-		menu.setMenuName("Admin");
-		menuDao.addMenu(Menu);
+		menu.setName("Admin");
+		menuDao.addMenu(menu);
 	}
 	@Test
 	public void listMenu(){
-		List<Menu> MenuList = menuDao.listMenu(new PublicParam());
+		List<Menu> MenuList = menuDao.listMenu(new PublicModel());
 		assert MenuList.size() > 0;
 	}
 	@Test
@@ -45,24 +43,20 @@ public class MenuDaoTest extends AbstractJUnit4SpringContextTests{
 	@Test
 	public void updateMenu(){
 		Menu Menu = menuDao.getMenu(6);
-		Menu.setMenuName("admin");
+		Menu.setName("admin");
 		menuDao.updateMenu(Menu);
-		assert Menu.getMenuName().equals("admin");
+		assert Menu.getName().equals("admin");
 	}
 	@Test
 	public void deleteMenu(){
-		Menu Menu = menuDao.getMenu(6);
-		menuDao.deleteMenu(Menu);
-		Menu = menuDao.getMenu(6);
-		assert Menu == null;
+		Menu menu = menuDao.getMenu(6);
+		menuDao.deleteMenu(menu.getId());
+		menu = menuDao.getMenu(6);
+		assert menu == null;
 	}
 	@Test
 	public void listTotal(){
-		PublicParam publicParam = new PublicParam();
-		List<Part<String, Object>> paramList = new ArrayList<Part<String,Object>>();
-		paramList.add(new Part<String,Object>("Menu_name", "Admin"));
-		publicParam.setParams(paramList);
-		int total = menuDao.listTotal(publicParam);
+		int total = menuDao.listTotal(new PublicModel());
 		assert total > -1;
 	}
 }

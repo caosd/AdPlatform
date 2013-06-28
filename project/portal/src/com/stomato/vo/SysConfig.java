@@ -1,37 +1,14 @@
 package com.stomato.vo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.stomato.domain.PublicModel;
-import com.stomato.domain.Menu;
-import com.stomato.domain.Role;
-import com.stomato.service.MenuService;
-import com.stomato.service.RoleService;
-import com.stomato.utils.SpringContextUtil;
 
 public class SysConfig {
 	
 	private static Map<Integer,String> statusMap = new HashMap<Integer,String>();
 	
 	private static Map<Integer,String> adTypeMap = new HashMap<Integer,String>();
-	
-	/**
-	 * 角色 id -- name map
-	 */
-	private static Map<Integer,String> roleMap = new HashMap<Integer,String>();
-	
-	/**
-	 * 角色列表
-	 */
-	private static List<Role> roleList = new ArrayList<Role>();
-	
-	/**
-	 * 菜单 列表
-	 */
-	private static List<Menu> menuSys = new ArrayList<Menu>();
 	
 	static{
 		statusMap.put(0, "有效");
@@ -67,48 +44,5 @@ public class SysConfig {
 			return pageTotal+1 ;
 		}
 		return pageTotal ;
-	}
-	
-	
-	public static void clearMenuSys(){
-		menuSys.clear();
-	}
-	
-	public static List<Menu> getMenuSys(){
-		if(menuSys.isEmpty()){
-			MenuService menuService = (MenuService)SpringContextUtil.getBean("menuService");
-			menuSys = menuService.getMenuSys(); ;
-		}
-		return menuSys;
-	}
-	
-	public static void clearRoleMap(){
-		roleMap.clear();
-	}
-	
-	public static Map<Integer,String> getRoleMap(){
-		if(roleMap.isEmpty()){
-			RoleService roleService = (RoleService)SpringContextUtil.getBean("roleService");
-			putRoleMap(roleService.listRole(new PublicModel()));
-		}
-		return roleMap;
-	}
-	
-	public static void clearRoleList(){
-		roleList.clear();
-	}
-
-	public static List<Role> getRoleList(){
-		if(roleList.isEmpty()){
-			RoleService roleService = (RoleService)SpringContextUtil.getBean("roleService");
-			roleList = roleService.listRole(new PublicModel());
-		}
-		return roleList;
-	}
-	
-	private static void putRoleMap(List<Role> roleList){
-		for(Role role:roleList){
-			roleMap.put(role.getId(), role.getRoleName());
-		}
 	}
 }

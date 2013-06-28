@@ -13,7 +13,6 @@ import com.stomato.domain.Menu;
 import com.stomato.domain.PublicModel;
 import com.stomato.service.MenuService;
 import com.stomato.utils.StringUtils;
-import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping(value="/menu")
@@ -51,7 +50,6 @@ public class MenuController {
 		menuService.addMenu(menu);
 		
 		request.setAttribute("content", "添加菜单项成功！");
-		initMenuSys();
 		return "msg/success";
 	}
 	
@@ -89,7 +87,6 @@ public class MenuController {
 		}
 		menuService.updateMenu(menu);
 		request.setAttribute("content", "修改菜单信息成功！");
-		initMenuSys();
 		return "msg/success";
 	}
 	
@@ -116,13 +113,5 @@ public class MenuController {
 		request.setAttribute("menuList", list);
 		
 		return "menu/menuList" ;
-	}
-	
-	/**
-	 * 初始化 菜单信息
-	 */
-	private void initMenuSys(){
-		SysConfig.clearMenuSys();
-		SysConfig.getMenuSys();
 	}
 }

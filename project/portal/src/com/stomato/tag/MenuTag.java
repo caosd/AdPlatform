@@ -9,11 +9,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.apache.log4j.Logger;
 
-import com.stomato.domain.Menu;
 import com.stomato.domain.User;
 import com.stomato.service.RoleMenuService;
 import com.stomato.utils.SpringContextUtil;
-import com.stomato.vo.SysConfig;
 
 public class MenuTag extends BodyTagSupport{
 	
@@ -34,9 +32,8 @@ public class MenuTag extends BodyTagSupport{
 		
 		JspWriter out=pageContext.getOut();
 		try {
-			logger.debug(SysConfig.getMenuSys().size());
 			StringBuffer sb = new StringBuffer();
-			for(Menu menu:SysConfig.getMenuSys()){
+			/*for(Menu menu:SysConfig.getMenuSys()){
 				if(menuIdList.contains(menu.getId()) && menu.getVisible() != 0){
 					sb.append("<dl class='bitem'>");
 					sb.append("<dt onClick='showHide(\"items_"+menu.getId()+"\")'><b>"+menu.getName()+"</b></dt>");
@@ -53,7 +50,7 @@ public class MenuTag extends BodyTagSupport{
 					sb.append("</dd>");
 					sb.append("</dl>");
 				}
-			}
+			}*/
 			logger.debug(sb.toString());
 			out.println(sb.toString());
 		} catch (Exception e) {
