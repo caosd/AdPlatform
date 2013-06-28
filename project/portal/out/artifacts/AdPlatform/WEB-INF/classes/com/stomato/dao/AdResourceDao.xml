@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.AdResourceDao">
+
+	<!-- <resultMap type="com.stomato.domain.AdResource" id="adResource"> 
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="desc" column="desc" />
+		<result property="path" column="path"/>
+		<result property="parent" column="parent"/>
+		<result property="issible" column="issible"/>
+		<result property="orderNo" column="order_no"/>
+	</resultMap>
+	
+	<insert id="addAdResource" parameterType="com.stomato.domain.AdResource">
+		insert into ad_list (ad_name,
+							ad_text,
+							ad_icon,
+							ad_point,
+							description,
+							version,
+							file_size,
+							ad_package,
+							ad_images,
+							modify_date,
+							itime,
+							ad_type,
+							apk_url,
+							start_time,
+							end_time,
+							status) 
+		values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	</insert>
+	
+	<select id="hasPackage" parameterType="string" resultMap="int" >
+		select count(1) from ad_list where ad_package = #{}
+	</select>
+	
+	<select id="getAdResource" parameterType="int" resultMap="com.stomato.domain.AdResource" >
+		select id,
+				ad_name,
+				ad_text,
+				ad_icon,
+				ad_point,
+				description,
+				version,
+				file_size,
+				ad_package,
+				ad_images,
+				modify_date,
+				itime,
+				ad_type,
+				apk_url,
+				start_time,
+				end_time,
+				status 
+				from ad_list where id=? 
+	</select>
+	 
+	<select id="listAdResource" parameterType="com.stomato.domain.PublicModel" resultMap="com.stomato.domain.AdResource" >
+		select  id,
+				ad_name,
+				ad_text,
+				ad_icon,
+				ad_point,
+				description,
+				version,
+				file_size,
+				ad_package,
+				ad_images,
+				modify_date,
+				itime,
+				ad_type,
+				apk_url,
+				start_time,
+				end_time,
+				status
+		from ad_list where 1=1 
+	</select>
+	<select id="listTotal" parameterType="com.stomato.domain.PublicModel" resultType="int">
+		select count(1) from ad_list
+		<if test="paramList != null">
+		 	where 1=1
+			<foreach item="item" collection="paramList" open=" and " separator=" and ">
+				#{item.first}=#{item.second}
+			</foreach>
+		</if>
+	</select>
+	<update id="updateAdResource" parameterType="com.stomato.domain.AdResource">
+		update ad_list set ad_name = ? ,
+                           ad_text = ? ,
+                           ad_icon = ? ,
+                           ad_point = ? ,
+                           description = ?,
+                           version = ?,
+                           file_size = ?,
+                           ad_package = ?,
+                           ad_images = ?,
+                           modify_date = ?,
+                           itime = ?,
+                           ad_type = ?,
+                           apk_url = ?,
+                           start_time = ?,
+                           end_time = ?,
+                           status = ?
+        where id = ?
+	</update> -->
+</mapper>

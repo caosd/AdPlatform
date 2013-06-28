@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.UserAccountDao">
+
+	<resultMap type="com.stomato.domain.UserAccount" id="userAccount"> 
+		<result property="uid" column="uid" />
+		<result property="balance" column="balance"/>
+		<result property="lastUpdateTime" column="last_update_time"/>
+	</resultMap>
+
+	<insert id="addUserAccount" parameterType="com.stomato.domain.UserAccount">
+		INSERT INTO t_user_account (
+			uid,
+			balance,
+			last_update_time
+		)
+		VALUES
+			(#{uid}, 
+			#{balance},
+			now())
+	</insert>
+	<update id="updateUserAccount" parameterType="com.stomato.domain.UserAccount">
+		update t_user_account set balance=#{balance},last_update_time=now()
+		where uid=#{uid}
+	</update>
+	<select id="getUserAccount" parameterType="com.stomato.domain.UserAccount" resultMap="userAccount" >
+		select * from t_user_account where id=#{id}
+	</select>
+	<select id="getUserAccountByUser" parameterType="com.stomato.domain.User" resultMap="userAccount" >
+		select * from t_user_account where uid=#{uid}
+	</select>
+</mapper>
