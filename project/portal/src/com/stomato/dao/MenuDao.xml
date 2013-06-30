@@ -72,38 +72,14 @@
 		WHERE
 			tb2.role_id = #{roleId} and tb1._status = 0 and tb1.visible = 1 and tb1.parent = 0 order by tb1.order_no asc
 	</select>
-	<!--<select id="listParentMenu" parameterType="" resultMap="menu" >
-		SELECT
-			id,
-			menuname,
-			description,
-			path,
-			parent,
-			visible,
-			order_no
-		FROM
-			t_menu
-		WHERE
-			_status = 0 and parent = 0 order by order_no asc
-	</select>
-	 
-	<insert id="addMenu" parameterType="com.stomato.domain.Menu">
-		insert into t_menu(menuname,description,path,parent,visible,order_no) values(#{name}, #{desc}, #{path},#{parent},#{visible},#{orderNo})
-	</insert>
 	<select id="getMenu" parameterType="int" resultMap="menu" >
 		select id,menuname,description,path,parent,visible,order_no from t_menu where id=#{id}
-	</select>
-	<select id="listTotal" parameterType="com.stomato.domain.Menu" resultType="int" >
-		select count(1) from t_menu where _status = 0
-		<if test="name != null">
-			and menuname = #{name}
-		</if>
 	</select>
 	<update id="updateMenu" parameterType="com.stomato.domain.Menu">
 		update t_menu
         <set>
-            <if test="name != null">name=#{name},</if>
-            <if test="desc != null">desc=#{desc},</if>
+            <if test="name != null">menuname=#{name},</if>
+            <if test="desc != null">description=#{desc},</if>
             <if test="path != null">path=#{path},</if>
             <if test="parent != null">parent=#{parent},</if>
             <if test="visible != null">visible=#{visible},</if>
@@ -111,60 +87,7 @@
         </set>
 		where id=#{id}
 	</update>
-	
-	<delete id="deleteMenu" parameterType="id">
-        delete from t_menu where id=#{id} 
-	</delete>
-	<select id="listMenu" parameterType="com.stomato.domain.Menu" resultMap="menu" >
-		SELECT
-			id,
-			menuname,
-			description,
-			path,
-			parent,
-			visible,
-			order_no
-		FROM
-			t_menu
-		where _status = 0
-		<if test="parent != null">
-			and parent = #{parent}
-		</if>
-		<if test="name != null">
-			and menuname like %#{name}%
-		</if>
-		order by order_no asc
-		<if test="slimt != null">
-			limit #{slimt},#{pageSize}
-		</if>
-	</select>
-	<select id="listParentMenu" parameterType="" resultMap="menu" >
-		SELECT
-			id,
-			menuname,
-			description,
-			path,
-			parent,
-			visible,
-			order_no
-		FROM
-			t_menu
-		WHERE
-			_status = 0 and parent = 0 order by order_no asc
-	</select>
-	<select id="listParentMenuByRole" parameterType="int" resultMap="menu" >
-		SELECT
-			tb1.id,
-			menuname,
-			description,
-			path,
-			parent,
-			visible,
-			order_no
-		FROM
-			t_menu tb1
-		INNER JOIN t_role_menu AS tb2 ON tb1.id = tb2.menu_id
-		WHERE
-			tb2.role_id = #{roleId} and tb1._status = 0 and tb1.parent = 0 order by tb1.order_no asc
-	</select> -->
+	<!-- <delete id="deleteMenu" parameterType="id">
+        delete from t_menu where id=#{id}
+	</delete> -->
 </mapper>

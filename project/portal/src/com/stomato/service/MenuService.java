@@ -15,6 +15,10 @@ public class MenuService {
 
 	@Autowired
 	private MenuDao menuDao;
+	
+	public void deleteMenu(int id){
+		menuDao.deleteMenu(id);
+	}
 
 	public void addMenu(Menu menu){
 		menuDao.addMenu(menu);

@@ -64,16 +64,16 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/getMenu.html")
-	public String getEditMenu(int id, HttpServletRequest request) {
+	@RequestMapping(value = "/editMenu.html", method=RequestMethod.GET)
+	public String getEditMenu(int id,@ModelAttribute("menuForm") MenuForm menuForm, HttpServletRequest request) {
 		Menu menu = menuService.getMenu(id);
 		if (StringUtils.isEmpty(menu.getName())) {
 			logger.debug("菜单项不存在！");
 			request.setAttribute("content", "菜单项不存在！");
-			return "msg/error";
+			return "portal/menu/menuUpdate";
 		}
+		request.setAttribute("parentMenus",menuService.listParentMenu());
 		request.setAttribute("menu", menu);
-		// request.setAttribute("menuSys",menuService.getMenuSys());
 		return "portal/menu/menuUpdate";
 	}
 
@@ -84,16 +84,17 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/updateMenu.html")
-	public String updateMenu(Menu menu, HttpServletRequest request) {
-		if (StringUtils.isEmpty(menu.getName())) {
-			logger.debug("菜单名称不能为空！");
-			request.setAttribute("content", "菜单名称不能为空！");
-			return "msg/error";
+	@RequestMapping(value = "/editMenu.html",method=RequestMethod.POST)
+	public String updateMenu(@Valid @ModelAttribute("menuForm") MenuForm menuForm, HttpServletRequest request) {
+		Menu menu = menuForm.asPojo();
+		if( menu.getVisible() == null){
+			menu.setVisible(0);
 		}
 		menuService.updateMenu(menu);
 		request.setAttribute("content", "修改菜单信息成功！");
-		return "msg/success";
+		request.setAttribute("parentMenus",menuService.listParentMenu());
+		request.setAttribute("menu", menu);
+		return "portal/menu/menuUpdate";
 	}
 
 	/**
@@ -119,5 +120,17 @@ public class MenuController {
 		request.setAttribute("pageNum", menuParam.getPageNum());
 		request.setAttribute("menuList", list);
 		return "portal/menu/menuList";
+	}
+	/**
+	 * 删除菜单
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/delMenu.html")
+	public String delMenu(int id,HttpServletRequest request){
+		menuService.deleteMenu(id);
+		request.setAttribute("content", "删除菜单成功！");
+		return "portal/msg/success";
 	}
 }

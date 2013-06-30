@@ -47,7 +47,7 @@ public class Menu{
 		
 	}
 
-	public Menu(String name , String path , int parent , int visible,int status,String orderNo){
+	public Menu(String name , String path , int parent , Integer visible,int status,String orderNo){
 		this.name = name ;
 		this.path = path ;
 		this.parent = parent ;

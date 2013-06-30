@@ -87,7 +87,10 @@
 		                        <td class=" ">${item.name }</td>
 		                        <td class="sorting_1">${item.visible }</td>
 		                        <td class=" sorting_1"><span class="label ${item.status==1?'label-success':'label-error' }">${item.status }</span></td>
-		                        <td class=" "><a href="/role/roleFormpage.html?id=${item.id }">编辑</a></td>
+		                        <td class=" ">
+		                        	<a href="/menu/editMenu.html?id=${item.id }">编辑</a>
+		                        	<!--<a href="javascript:void(0)" onclick="deleteData('/menu/editMenu.html?id=${item.id }')">删除</a>
+		                        --></td>
 		                    </tr>
 		           </c:forEach>
                 </tbody>
