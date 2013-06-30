@@ -76,7 +76,7 @@
 	    </choose>
 	    order by status,create_time asc limit #{slimt},#{rows};
 	</select>
-		<select id="getRemittanceCount" parameterType="com.stomato.domain.RemittanceParam" resultType="int" >
+	<select id="getRemittanceCount" parameterType="com.stomato.domain.RemittanceParam" resultType="int" >
 		select count(1) from t_remittance 
 		where 1=1
 		<if test="uid != null">

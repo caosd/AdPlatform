@@ -15,7 +15,7 @@
 		<!-- GRID基础配置 -->
 		<tag>
 			<name>page</name>
-			<tag-class>com.cn.tag.PageTag</tag-class>
+			<tag-class>com.stomato.tag.PageTag</tag-class>
 			<body-content>jsp</body-content>
 			<description>分页基础配置</description>
 			

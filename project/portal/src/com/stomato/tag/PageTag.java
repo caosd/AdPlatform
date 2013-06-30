@@ -33,36 +33,29 @@ public class PageTag extends BodyTagSupport{
 	@Override
 	public int doEndTag() throws JspException {
 	    try {
-			JspWriter out=pageContext.getOut();
-			StringBuffer sb = new StringBuffer();
-			sb.append("<tr align='right' bgcolor='#EEF4EA'>");
-			sb.append("<td height='36' colspan='12' align='right'>");
-			sb.append("<div class='pageLabel'>");
-			
+	    	JspWriter out=pageContext.getOut();
+			StringBuilder sb = new StringBuilder();
 			if(pageTotal == 0){
 				sb.append("<span style='float: right;'>没有记录</span>");
 			}else{
-				sb.append("<span>第").append(pageNum).append("/").append(pageTotal).append("页</span>");
-			    
+				sb.append("<div class='span6'><div class='dataTables_info' id='sample_1_info'><span>第").append(pageNum).append("/").append(pageTotal).append("页</span></div></div>");
+				sb.append("<div class='span6'><div class='dataTables_paginate paging_bootstrap pagination'><ul>");
 				
 				if(pageNum == 1){
-			    	sb.append("<span style='color: #8D8D8D;'>[上一页]</span>");
+			    	sb.append("<li class='prev disabled'><a href='javascript:void(0)'>← Prev</a></li>");
 			    }else{
-			    	sb.append("[<a href='javascript:void(0);' onclick='perPage();'>上一页</a>]");
+			    	sb.append("<li class='prev active'><a href='javascript:void(0)' onclick='perPage();'>← Prev</a></li>");
 			    } 
 				
-				
 				if(pageNum == pageTotal){
-					sb.append("<span style='color: #8D8D8D;'>[下一页]</span>");
+					sb.append("<li class='next disabled'><a href='javascript:void(0)'>Next → </a></li>");
 				}else{
-					sb.append("[<a href='javascript:void(0);' onclick='nextPage();'>下一页</a>]");
+					sb.append("<li class='next active'><a href='javascript:void(0)' onclick='nextPage();'>Next → </a></li>");
 				}
+				sb.append("</ul></div></div>");
 			}
-			sb.append("</div>");
-			sb.append("</td>");
-			sb.append("</tr>");
 			
-			out.println(sb.toString());
+			out.println(sb);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

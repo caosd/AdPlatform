@@ -11,6 +11,7 @@ import com.stomato.dao.UserDao;
 import com.stomato.domain.Payment;
 import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
+import com.stomato.domain.UserParam;
 
 @Service
 public class AccountsService {
@@ -24,6 +25,14 @@ public class AccountsService {
 	@Autowired
 	private TransferDao transferDao;
 	
+	public int listTotal(UserParam param){
+		return userDao.listTotal(param);
+	}
+	
+	public List<User> listUser(UserParam param ){
+		return userDao.listUser(param);
+	}
+	
 	public void addUser(User user) {
 		userDao.addUser(user);
 	}
@@ -35,7 +44,9 @@ public class AccountsService {
 	public User getUser(User user) {
 		return userDao.getUser(user);
 	}
-	
+	public User getUserByUid(int uid) {
+		return userDao.getUserByUid(uid);
+	}
 	public int updatePassword(User user) {
 		return userDao.updatePassword(user);
 	}

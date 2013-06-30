@@ -43,11 +43,11 @@
 	    </span>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
-	  	<div class="protip success">
-	         <strong><c:out value="content"></c:out></strong>
+	  	<div class="alert alert-success">
+	         <strong>${content}</strong>
 	    </div>
 	    <!-- BEGIN FORM-->
-	    <form:form commandName="menuForm" action="/menu/addMenu.html" class="form-horizontal">
+	    <form:form commandName="menuForm" action="/menu/formpage.html" method="POST" class="form-horizontal">
 	       <div class="control-group">
 	          <label class="control-label" for="name">菜单名称:</label>
 	          <div class="controls">
@@ -70,12 +70,22 @@
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" for="parent">父级菜单:</label>
-	          <div class="controls">
-	             <form:input path="parent" type="text" class="span6" id="parent"/>
-	             <span class="help-inline">*必须项</span>
-	          </div>
-	       </div>
+              <label class="control-label" for="">父级菜单:</label>
+              <div class="controls">
+                 <form:select path="parent" id="parent" class="span6 " data-placeholder="父级菜单:" tabindex="1">
+                    <option value="0">Select...</option>
+                    <c:forEach items="${parentMenus}" var="item" varStatus="stat">
+                    	<option value="${item.id}">${item.name}</option>
+                    </c:forEach>
+                 </form:select>
+              </div>
+           </div>
+	       <div class="control-group">
+              <label class="control-label">是否可见:</label>
+              <div class="controls">
+                 <form:checkbox path="visible" value="1"/>
+              </div>
+           </div>
 	       <div class="control-group">
 	          <label class="control-label" for="orderNo">排序标识:</label>
 	          <div class="controls">

@@ -1,20 +1,13 @@
-package com.stomato.form;
+package com.stomato.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.BeanUtils;
 
-import com.google.gson.Gson;
-import com.stomato.domain.BaseParam;
-import com.stomato.domain.Menu;
-
-public class MenuForm extends BaseParam{
+public class MenuParam extends BaseParam{
 	
 private Integer id ;
 	
 	/**
 	 * 菜单名称
 	 */
-	@NotEmpty
 	private String name ;
 	
 	/**
@@ -25,7 +18,6 @@ private Integer id ;
 	/**
 	 * 菜单路径
 	 */
-	@NotEmpty
 	private String path ;
 	
 	/**
@@ -99,16 +91,4 @@ private Integer id ;
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-
-	@Override
-	public String toString() {
-		return new Gson().toJson(this);
-	}
-	
-	public Menu asPojo() {
-		Menu menu = new Menu();
-		BeanUtils.copyProperties(this, menu);
-		return menu;
-	}
-
 }

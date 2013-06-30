@@ -3,8 +3,6 @@ package com.stomato.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -17,16 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.Payment;
+import com.stomato.domain.Role;
 import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
+import com.stomato.domain.UserAccount;
+import com.stomato.domain.UserParam;
+import com.stomato.enums.AccountTypeEnum;
 import com.stomato.enums.PaymentEnum;
 import com.stomato.form.EmailForm;
 import com.stomato.form.PasswordForm;
 import com.stomato.form.PaymentForm;
 import com.stomato.form.ProfileForm;
+import com.stomato.form.UserForm;
+import com.stomato.form.UserParamForm;
 import com.stomato.service.AccountsService;
+import com.stomato.service.RoleService;
+import com.stomato.service.UserAccountsService;
 import com.stomato.validator.PasswordValidation;
 import com.stomato.validator.PaymentValidation;
+import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping("/accounts")
@@ -39,7 +46,13 @@ public class AccountsController extends UserController {
 	private AccountsService accountsService;
 	
 	@Autowired
+	private UserAccountsService userAccountService;
+	
+	@Autowired
 	private PaymentValidation paymentValidation;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@RequestMapping("")
 	public String rootPath() {
@@ -182,4 +195,112 @@ public class AccountsController extends UserController {
 		return "redirect:/accounts/overview";
 	}
 	
+	/**
+	 * goto 添加用户页面
+	 * @return
+	 */
+	@RequestMapping(value="/formpage.html",method=RequestMethod.GET)
+	public String userFormPage(@ModelAttribute("userForm")UserForm userForm,BindingResult result,HttpServletRequest request){
+		request.setAttribute("roleList", roleService.listRole(null));
+		return "portal/user/userForm";
+	}
+	
+	/**
+	 * 添加用户
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
+	public String addUser(@ModelAttribute("userForm")UserForm userForm,BindingResult result,HttpServletRequest request){ 
+		User verifier = new User();
+		verifier.setEmail(userForm.getEmail());
+		verifier.setUserName(userForm.getUserName());
+		verifier = accountsService.verify(verifier);
+		request.setAttribute("roleList", roleService.listRole(null));
+		if (verifier != null) {
+			if (userForm.getEmail().equals(verifier.getEmail())) {
+				request.setAttribute("content", "This email address has been registered.");
+				return "portal/user/userForm";
+			}
+			if (userForm.getUserName().equals(verifier.getUserName())) {
+				request.setAttribute("content", "This username has been registered.");
+				return "portal/user/userForm";
+			}
+		}
+		
+		User user = userForm.asPojo();
+		accountsService.addUser(user);
+		
+		user = accountsService.getUser(user);
+		UserAccount userAccount = new UserAccount();
+		userAccount.setUid(user.getUid());
+		userAccount.setBalance(0d);
+		userAccountService.addUserAccount(userAccount);
+		if (user.getType() == AccountTypeEnum.Company.value()) {
+			/*Credentials credentials = new Credentials();
+			credentials.setUid(user.getUid());
+			credentials.setCredentialsType(Constant.CredentialsType.businessLicense);
+			credentials.setCredentialsNo(credentialsNo);
+			try{
+				String suffix = CredentialValidation.IMG_SUFFIXS.get(credentialsPhoto.getContentType());
+				String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", user.getUid(),Constant.Configs.credentialsDirPath,credentials.getCredentialsType(),credentialsNo,"photo1",suffix);
+				File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", Constant.fileSeparator));
+				if (!targetFile.exists()) {
+					boolean made = targetFile.mkdirs();
+					logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
+				}
+				credentialsPhoto.transferTo(targetFile);
+				credentials.setCredentialsPhoto1(String.format("%s_%s_%s.%s", credentials.getCredentialsType(),credentialsNo,"photo1",suffix));
+			}catch(Exception error){
+				logger.error("[Upload Error] " + error.getMessage());
+			}
+			this.credentialsService.addCredentials(credentials);*/
+		}
+		request.setAttribute("content", "添加用户成功！");
+		return "portal/user/userForm";
+	}
+	@RequestMapping(value="/listUser.html")
+	public String list(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,HttpServletRequest request){
+		/*if(flag == 1){
+			user.setRoleId(5);
+		}*/
+		UserParam param = paramForm.asPojo();
+		int total = accountsService.listTotal(param);
+		
+		int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
+		
+		if(pageTotal<param.getPageNum()){
+			param.setPageNum(1);
+		}
+		int start = (param.getPageNum()-1)*param.getPageSize();
+		param.setSlimt(start);
+		List<User> userList = accountsService.listUser(param);
+		
+		logger.debug("userList size:"+userList.size());
+
+		request.setAttribute("pageTotal", pageTotal);
+		request.setAttribute("totalcount", total);
+		request.setAttribute("pageNum", param.getPageNum());
+		request.setAttribute("userList", userList);
+		return "portal/user/userList";
+	}
+	@RequestMapping(value="/editUser.html",method=RequestMethod.GET)
+	public String updateUser(@ModelAttribute("userForm")UserForm userForm,int id,HttpServletRequest request){
+		User user = accountsService.getUserByUid(id);
+		request.setAttribute("user", user);
+		request.setAttribute("role", roleService.getRole(user.getType()));
+		request.setAttribute("roleList", roleService.listRole(null));
+		return "portal/user/userUpdate";
+	}
+	@RequestMapping(value="/editUser.html",method=RequestMethod.POST)
+	public String updateUser(@ModelAttribute("userForm")UserForm userForm,BindingResult result,HttpServletRequest request){
+		User user = userForm.asPojo();
+		accountsService.updateUser(user);
+		request.setAttribute("user", user);
+		request.setAttribute("role", roleService.getRole(user.getType()));
+		request.setAttribute("roleList", roleService.listRole(null));
+		request.setAttribute("content", "编辑用户成功！");
+		return "portal/user/userUpdate";
+	}
 }

@@ -3,7 +3,7 @@ package com.stomato.dao;
 import java.util.List;
 
 import com.stomato.domain.AdResource;
-import com.stomato.domain.PublicModel;
+import com.stomato.domain.BaseParam;
 
 public interface AdResourceDao {
 
@@ -13,9 +13,9 @@ public interface AdResourceDao {
 
 	public void updateAdResource(AdResource adResource);
 
-	public List<AdResource> listAdResource(PublicModel param);
+	public List<AdResource> listAdResource(BaseParam param);
 
-	public int listTotal(PublicModel param);
+	public int listTotal(BaseParam param);
 
 	public AdResource getAdResource(int id);
 }

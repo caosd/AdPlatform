@@ -7,7 +7,7 @@ import java.util.List;
  * @author zyf
  *
  */
-public class Menu extends PublicModel{
+public class Menu{
 
 	private Integer id ;
 	
@@ -41,6 +41,8 @@ public class Menu extends PublicModel{
 	 */
 	private String orderNo ;
 	
+	private Integer status;
+	
 	public Menu(){
 		
 	}
@@ -54,6 +56,14 @@ public class Menu extends PublicModel{
 		this.status = status;
 	}
 	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public Integer getId() {
 		return id;
 	}

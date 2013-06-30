@@ -5,7 +5,6 @@
 
 	<resultMap type="com.stomato.domain.User" id="user"> 
 		<result property="uid" column="uid" />
-		<result property="roleId" column="role_id" />
 		<result property="userName" column="account_name" />
 		<result property="email" column="email"/>
         <result property="type" column="type"/>
@@ -16,13 +15,16 @@
 		<result property="website" column="website" />
 		<result property="createtime" column="createtime" />
         <result property="loginTokenTime" column="login_token_time" />
+        <result property="status" column="_status" />
 	</resultMap>
 	
 	<insert id="addUser" parameterType="com.stomato.domain.User">
 		insert into t_user(account_name, account_pwd, type, email, company, contact_name, contact_tel, qq, website, createtime)
-					values(#{userName}, upper(md5(#{password})), #{type}, #{email}, #{company}, #{contactName}, #{contactTel}, #{qq}, #{website}, now())
+					values(#{userName}, upper(md5(#{password})), #{type}, #{email},#{company}, #{contactName}, #{contactTel}, #{qq}, #{website}, now())
 	</insert>
-	
+	<select id="getUserByUid" parameterType="int" resultMap="user" >
+		select * from t_user where uid=#{uid}
+	</select>
 	<select id="getUser" parameterType="com.stomato.domain.User" resultMap="user" >
 		select * from t_user where account_name=#{userName} and (account_pwd=upper(md5(#{password})) or login_token=#{loginToken})
 	</select>
@@ -51,5 +53,26 @@
 	<select id="getUserByEmail" parameterType="String" resultMap="user">
         select * from t_user where email=#{email}
     </select>
-    
+    <select id="listTotal" parameterType="com.stomato.domain.UserParam" resultType="int">
+		select count(1) from t_user where 1=1
+		<!-- 这里判断是否为空，需要优化下和支持模糊查询 -->
+		<if test="userName != null">
+			<if test="userName != ''">
+				and account_name = #{userName}
+			</if>
+		</if>
+	</select>
+	<select id="listUser" parameterType="com.stomato.domain.UserParam" resultMap="user" >
+		select * from t_user where 1=1
+		<!-- 这里判断是否为空，需要优化下和支持模糊查询 -->
+		<if test="userName != null">
+			<if test="userName != ''">
+				and account_name = #{userName}
+			</if>
+		</if>
+		order by login_token_time desc
+		<if test="slimt != null">
+			limit #{slimt},#{pageSize}
+		</if>
+	</select>
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.MenuDao;
 import com.stomato.domain.Menu;
+import com.stomato.domain.MenuParam;
 import com.stomato.domain.User;
 
 @Service
@@ -27,20 +28,25 @@ public class MenuService {
 		return menuDao.getMenu(id);
 	}
 	
-	public int listTotal(Menu param){
-		return menuDao.listTotal(param);
+	public int listTotal(MenuParam menuParam){
+		return menuDao.listTotal(menuParam);
 	}
 	
-	public List<Menu> listMenu(Menu param){
-		return menuDao.listMenu(param);
+	public List<Menu> listMenu(MenuParam menuParam ){
+		return menuDao.listMenu(menuParam);
+	}
+	
+	public List<Menu> listParentMenu(){
+		return menuDao.listParentMenu();
 	}
 	
 	public List<Menu> listMenuByUser(User user){
-		List<Menu> parentMenus =  menuDao.listParentMenuByRole(user.getRoleId());
+		List<Menu> parentMenus =  menuDao.listParentMenuByRole(user.getType());
 		if( parentMenus != null ){
 			for (Menu menu : parentMenus) {
-				Menu parent = new Menu();
+				MenuParam parent = new MenuParam();
 				parent.setParent(menu.getId());
+				parent.setVisible(1);
 				List<Menu> sunMenuList = menuDao.listMenu(parent);
 				menu.setSunMenu(sunMenuList);
 			}

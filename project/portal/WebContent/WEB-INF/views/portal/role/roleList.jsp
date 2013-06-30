@@ -1,64 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
-<%@ taglib uri="/page" prefix="page" %> 
-<html>
-  <head>
-  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  	<link rel="stylesheet" type="text/css" href="${ctx}/iframe/skin/css/base.css"/>
-  	<link rel="stylesheet" type="text/css" href="${ctx}/css/adResourceList.css"/>
-  	<script type="text/javascript" src="${ctx }/Js/calendar/WdatePicker.js"></script>
-  	<script type="text/javascript" src="${ctx }/Js/jquery-1.9.0.min.js"></script>
-  	<script type="text/javascript" src="${ctx }/Js/jquery.json-2.2.min.js"></script>
-	<script type="text/javascript" src="${ctx }/Js/verify/common.js"></script>
-	<script type="text/javascript" src="${ctx }/Js/verify/list.js"></script>
-  </head>
-  
-  <body leftmargin="8" topmargin="8" background='${ctx}/iframe/skin/images/allbg.gif'>
-	<!--  搜索表单  -->
-	<form name="searchForm" id="searchForm" action="${ctx }/role/listRole.html" method="post">
-		<input type="hidden" value="${role.pageNum }" name="pageNum" id="pageNum">
-	</form>
-	
-	<!--  内容列表   -->
-	<form name="form2">
-	
-	<table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" align="center" style="margin-top:8px">
-	<tr bgcolor="#E7E7E7">
-		<td height="24" colspan="5" background="${ctx}/iframe/skin/images/tbg.gif">&nbsp;角色列表&nbsp;</td>
-	</tr>
-	<tr align="center" bgcolor="#FAFAF1" height="22">
-		<td width="8%">INDEX</td>
-		<td width="15%">角色</td>
-		<td width="17%">录入时间</td>
-		<td width="8%">状态</td>
-		<td width="17%">操作</td>
-	</tr>
-	
-	<c:forEach var="rl" items="${roleList}">
-	<tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='#FCFDEE';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22" >
-		<td>${rl.index }</td>
-		<td >${rl.roleName }</td>
-		<td>${rl.createDate }</td>
-		<td>
-			<c:choose>
-				<c:when test="${rl.status==0}">
-					${rl.statusStr }
-				</c:when>
-				<c:otherwise>
-					<font color="red">${rl.statusStr }</font>
-				</c:otherwise>
-			</c:choose>
-		</td>
-		<td>
-		  <a href="${ctx }/role/roleFormpage.html?id=${rl.id }">修改权限</a>
-		</td>
-	</tr>	
-	</c:forEach>
-	<page:page pageNum="${role.pageNum }" pageTotal="${pageTotal }"></page:page>
-	</table>
-	
-	</form>
-	
-  </body>
-</html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/page" prefix="p" %>
+<body>
+<div class="row-fluid">
+   <div class="span12">
+       <!-- BEGIN THEME CUSTOMIZER-->
+       <div id="theme-change" class="hidden-phone">
+           <i class="icon-cogs"></i>
+            <span class="settings">
+                <span class="text">Theme:</span>
+                <span class="colors">
+                    <span class="color-default" data-style="default"></span>
+                    <span class="color-gray" data-style="gray"></span>
+                    <span class="color-purple" data-style="purple"></span>
+                    <span class="color-navy-blue" data-style="navy-blue"></span>
+                </span>
+            </span>
+       </div>
+       <!-- END THEME CUSTOMIZER-->
+       <ul class="breadcrumb">
+           <li>
+               <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
+           </li>
+           <li>
+               <a href="#">角色管理</a> <span class="divider">&nbsp;</span>
+           </li>
+           <li><a href="#">角色列表</a><span class="divider-last">&nbsp;</span></li>
+       </ul>
+   </div>
+</div>
+<!-- BEGIN ADVANCED TABLE widget-->
+<div class="row-fluid">
+    <div class="span12">
+        <!-- BEGIN EXAMPLE TABLE widget-->
+        <div class="widget">
+            <div class="widget-title">
+                <h4><i class="icon-reorder"></i>角色列表</h4>
+                <span class="tools">
+                    <a href="javascript:;" class="icon-chevron-down"></a>
+                    <a href="javascript:;" class="icon-remove"></a>
+                </span>
+            </div>
+            <div class="widget-body">
+            	<div class="row-fluid">
+            		<form:form id="searchForm" commandName="roleParamForm" action="/role/listRole.html" method="post">
+	            		<div class="span6">
+	            			<div id="table_length" class="dataTables_length">
+	            				<label>
+	            					<select size="1" name="pageSize" aria-controls="role_table" class="input-mini">
+	            						<option value="10" selected="selected">10</option>
+	            						<option value="25">25</option>
+	            						<option value="50">50</option>
+	            						<option value="100">100</option>
+	            					</select> 
+	            					records per page
+	            				</label>
+	            				</div>
+	            			</div>
+						<div class="span6">
+							<div class="dataTables_filter" id="search_filter">
+								<label>搜索: <form:input path="roleName" type="text" aria-controls="role_table" class="input-medium"/>
+            								   <form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
+								</label>
+							</div>
+						</div>
+					</form:form>
+				</div>
+                <table class="table table-striped table-bordered" id="role_table">
+                <thead>
+                    <tr>
+                        <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                        <th>#</th>
+                        <th>角色名称</th>
+                        <th>录入时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<c:forEach items="${roleList}" var="item" varStatus="stat">
+		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
+		            			<td class="  sorting_1"><input type="checkbox" class="checkboxes" value="${item.id }"></td>
+		            			<td class="sorting_1">${stat.index}</td>
+		                        <td class=" ">${item.roleName }</td>
+		                        <td class=" "><fmt:formatDate value="${item.createDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		                        <td class=" sorting_1"><span class="label ${item.status==1?'label-success':'label-error' }">${item.status }</span></td>
+		                        <td class=" "><a href="/role/roleFormpage.html?id=${item.id }">修改权限</a></td>
+		                    </tr>
+		           </c:forEach>
+                </tbody>
+            </table>
+            <div class="row-fluid">
+            	<p:page pageNum="${pageNum}" pageTotal="${pageTotal}"></p:page>
+            </div>
+          </div>
+        </div>
+        <!-- END EXAMPLE TABLE widget-->
+    </div>
+</div>
+</body>

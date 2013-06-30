@@ -6,35 +6,44 @@
 	<resultMap type="com.stomato.domain.Role" id="role"> 
 		<result property="id" column="id" />
 		<result property="roleName" column="role_name" />
-		<result property="status" column="status" />
+		<result property="status" column="_status" />
 		<result property="createDate" column="create_date"/>
 	</resultMap>
 	
 	<insert id="addRole" parameterType="com.stomato.domain.Role">
-		insert into t_role(role_name, status, create_date) values(#{roleName}, #{status}, now())
+		insert into t_role(role_name, _status, create_date) values(#{roleName}, 0, now())
 	</insert>
 	
 	<select id="getRole" parameterType="int" resultMap="role" >
-		select id,role_name, status, create_date from t_role where id=#{id}
+		select id,role_name, _status, create_date from t_role where id=#{id}
 	</select>
 	 
-	<select id="listRole" parameterType="com.stomato.domain.PublicModel" resultMap="role" >
-		select id,role_name, status, create_date from t_role
+	<select id="listRole" parameterType="com.stomato.domain.RoleParam" resultMap="role" >
+		select id,role_name, _status, create_date from t_role where _status = 0
+		<!-- 这里判断是否为空，需要优化下和支持模糊查询 -->
+		<if test="roleName != null">
+			<if test="roleName != ''">
+				and role_name = #{roleName}
+			</if>
+		</if>
+		<if test="slimt != null">
+			limit #{slimt},#{pageSize}
+		</if>
 	</select>
-	<select id="listTotal" parameterType="com.stomato.domain.PublicModel" resultType="int">
-		select count(1) from t_role
-		<if test="paramList != null">
-		 	where 1=1
-			<foreach item="item" collection="paramList" open=" and " separator=" and ">
-				#{item.first}=#{item.second}
-			</foreach>
+	<select id="listTotal" parameterType="com.stomato.domain.RoleParam" resultType="int">
+		select count(1) from t_role where _status = 0
+		<!-- 这里判断是否为空，需要优化下和支持模糊查询 -->
+		<if test="roleName != null">
+			<if test="roleName != ''">
+				and role_name = #{roleName}
+			</if>
 		</if>
 	</select>
 	<update id="updateRole" parameterType="com.stomato.domain.Role">
 		update t_role
         <set>
             <if test="roleName != null">role_name=#{roleName},</if>
-            <if test="status != status">status=#{status},</if>
+            <if test="status != status">_status=#{status},</if>
             create_date=now()
         </set>
         

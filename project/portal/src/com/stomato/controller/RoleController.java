@@ -7,9 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.stomato.domain.Menu;
+import com.stomato.domain.MenuParam;
 import com.stomato.domain.Role;
+import com.stomato.domain.RoleParam;
+import com.stomato.form.RoleForm;
+import com.stomato.form.RoleParamForm;
+import com.stomato.service.MenuService;
 import com.stomato.service.RoleMenuService;
 import com.stomato.service.RoleService;
 import com.stomato.utils.StringUtils;
@@ -25,14 +33,16 @@ public class RoleController {
 	
 	@Autowired
 	private RoleMenuService roleMenuService;
+	@Autowired
+	private MenuService menuService;
 	
 	/**
 	 * goto 添加角色页面
 	 * @return
 	 */
-	@RequestMapping(value="/formpage.html")
-	public String roleFormPage(){
-		return "role/roleForm" ;
+	@RequestMapping(value="/formpage.html",method=RequestMethod.GET)
+	public String formPage(@ModelAttribute("roleForm") RoleForm roleForm){
+		return "portal/role/roleForm" ;
 	}
 
 	/**
@@ -41,16 +51,11 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/addRole.html")
-	public String addRole(Role role,HttpServletRequest request){
-		if(StringUtils.isEmpty(role.getRoleName())){
-			request.setAttribute("content", "角色名不能为空！");
-			logger.error("角色名不能为空！");
-			return "msg/error";
-		}
-		roleService.addRole(role);
-		request.setAttribute("content", "添加角色信息成功！");
-		return "/msg/success";
+	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
+	public String addRole(@ModelAttribute("roleForm") RoleForm roleForm,HttpServletRequest request){
+		roleService.addRole(roleForm.asPojo());
+		request.setAttribute("content", "添加角色信息成功");
+		return "portal/role/roleForm";
 	}
 	
 	/**
@@ -60,21 +65,23 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="/listRole.html")
-	public String listRole(Role role,HttpServletRequest request){
-		int total = roleService.listTotal(role);
-		int pageTotal = SysConfig.getPageTotal(total, role.getPageSize());
-		if(pageTotal<role.getPageNum()){
-			role.setPageNum(1);
+	public String listRole(@ModelAttribute("roleParamForm") RoleParamForm paramForm,HttpServletRequest request){
+		RoleParam roleForm = paramForm.asPojo();
+		int total = roleService.listTotal(roleForm);
+		int pageTotal = SysConfig.getPageTotal(total, roleForm.getPageSize());
+		if(pageTotal<roleForm.getPageNum()){
+			roleForm.setPageNum(1);
 		}
-		int start = (role.getPageNum()-1)*role.getPageSize();
-		role.setSlimt(start);
-		List<Role> list = roleService.listRole(role);
+		int start = (roleForm.getPageNum()-1)*roleForm.getPageSize();
+		roleForm.setSlimt(start);
+		List<Role> list = roleService.listRole(roleForm);
 		
 		request.setAttribute("pageTotal", pageTotal);
-		request.setAttribute("role", role);
+		request.setAttribute("totalcount", total);
+		request.setAttribute("pageNum", roleForm.getPageNum());
 		request.setAttribute("roleList", list);
 		
-		return "/role/roleList";
+		return "portal/role/roleList";
 	}
 	
 	/**
@@ -93,9 +100,19 @@ public class RoleController {
 		}
 		
 		List<Integer> roleMenuIdList = roleMenuService.listRoleMenu(role.getId());
+		List<Menu> menuList = menuService.listParentMenu();
+		if(menuList != null){
+			for (Menu menu : menuList) {
+				MenuParam parent = new MenuParam();
+				parent.setParent(menu.getId());
+				List<Menu> sunMenuList = menuService.listMenu(parent);
+				menu.setSunMenu(sunMenuList);
+			}
+		}
 		request.setAttribute("roleMenuIdList", roleMenuIdList);
+		request.setAttribute("menuList", menuList);
 		request.setAttribute("role", role);
-		return "role/roleMenu" ;
+		return "portal/role/roleMenu" ;
 	}
 	
 	/**

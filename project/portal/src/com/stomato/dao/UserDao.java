@@ -1,10 +1,15 @@
 package com.stomato.dao;
 
+import java.util.List;
+
 import com.stomato.domain.User;
+import com.stomato.domain.UserParam;
 
 public interface UserDao {
 	
 	User getUser(User user);
+	
+	User getUserByUid(int uid);
 	
 	void updateUser(User user);
 	
@@ -19,4 +24,8 @@ public interface UserDao {
 	int updateEmail(User user);
 	
 	User verify(User user);
+	
+	int listTotal(UserParam param);
+	
+	List<User> listUser(UserParam param );
 }

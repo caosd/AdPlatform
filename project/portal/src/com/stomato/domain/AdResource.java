@@ -14,7 +14,7 @@ import com.stomato.vo.SysConfig;
  * @author zyf
  *
  */
-public class AdResource extends PublicModel{
+public class AdResource extends BaseParam{
 
 	private int id ;
 	

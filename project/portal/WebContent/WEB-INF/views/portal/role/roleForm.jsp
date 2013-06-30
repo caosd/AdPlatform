@@ -1,58 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
-<html>
-  <head>
-  	<title>${Title }</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script type="text/javascript" src="${ctx }/Js/jquery-1.9.0.min.js"></script>
-	<script type="text/javascript" src="${ctx }/Js/verify/common.js"></script>
-	<script type="text/javascript" src="${ctx }/Js/verify/roleForm.js"></script>
-    <link rel="stylesheet" type="text/css" href="${ctx}/iframe/skin/css/base.css"/>
-    <style>
-    	textarea { border: 1px solid #ababab; }
-        .div1{
-        	font-size: 15px;
-        	margin-left: 12px;   
-        }
-    	.font1{
-    		margin-right: 5px;
-    		width: 90px;
-    	}
-    </style>
-  </head>
-  
-  <body> 
-  <div class="div1">
-  >>新增角色
-  </div>
-  <div style="">
-  	<form action="${ctx }/role/addRole.html" method="post" onsubmit="return checkForm();">
-  		<table width='98%'  border='0' cellpadding='1' cellspacing='1' bgcolor='#CBD8AC' style="margin-top:8px;margin-left: 10px;">
-  			<!-- 用户名 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	用户名：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type='text' name='roleName' id="roleName" value='' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<tr bgcolor='#EEF4EA'  height="30px;">
-  				<td>
-  					<div style="width: 300px;text-align: right;float: left;">
-  						<input type="reset" name="reset" value="重置" style="cursor: pointer;background-color: #F1F8B4;">
-  					</div>
-  					<div style="width: 250px;text-align: center;float: left;">
-  						<input type="submit" name="submit" id="submit" value="提交" style="cursor: pointer;background-color: #F1F8B4;">
-  					</div>
-  				</td>
-  			</tr>
-  		</table>
-  	</form>
-  </div>  
-  </body>
-</html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<body>
+<div class="row-fluid">
+   <div class="span12">
+       <!-- BEGIN THEME CUSTOMIZER-->
+       <div id="theme-change" class="hidden-phone">
+           <i class="icon-cogs"></i>
+            <span class="settings">
+                <span class="text">Theme:</span>
+                <span class="colors">
+                    <span class="color-default" data-style="default"></span>
+                    <span class="color-gray" data-style="gray"></span>
+                    <span class="color-purple" data-style="purple"></span>
+                    <span class="color-navy-blue" data-style="navy-blue"></span>
+                </span>
+            </span>
+       </div>
+       <!-- END THEME CUSTOMIZER-->
+      <h3 class="page-title">
+           	添加角色
+         <small>表单</small>
+      </h3>
+       <ul class="breadcrumb">
+           <li>
+               <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
+           </li>
+           <li>
+               <a href="#">系统管理</a> <span class="divider">&nbsp;</span>
+           </li>
+           <li><a href="#">添加角色</a><span class="divider-last">&nbsp;</span></li>
+       </ul>
+   </div>
+</div>
+<div class="widget">
+	 <div class="widget-title">
+	    <h4><i class="icon-reorder"></i>添加角色</h4>
+	    <span class="tools">
+	       <a href="javascript:;" class="icon-chevron-down"></a>
+	       <a href="javascript:;" class="icon-remove"></a>
+	    </span>
+	 </div>
+	  <div class="widget-body form" style="display: block;">
+	  	<div class="alert alert-success">
+	         <strong>${content}</strong>
+	    </div>
+	    <!-- BEGIN FORM-->
+	    <form:form commandName="roleForm" action="/role/formpage.html" method="POST" class="form-horizontal">
+	       <div class="control-group">
+	          <label class="control-label" for="roleName">角色名称:</label>
+	          <div class="controls">
+	             <form:input path="roleName" type="text" class="span6" id="roleName"/>
+	             <span class="help-inline">*必须项</span>
+	          </div>
+	       </div>
+	       <div class="form-actions">
+	          <button type="submit" class="btn btn-success">Save</button>
+	          <button type="button" class="btn">Cancel</button>
+	       </div>
+	    </form:form>
+	    <!-- END FORM-->
+	 </div>
+</div>
+ </body>

@@ -1,5 +1,7 @@
 package com.stomato.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -9,11 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.Menu;
+import com.stomato.domain.MenuParam;
 import com.stomato.form.MenuForm;
+import com.stomato.form.MenuParamForm;
 import com.stomato.service.MenuService;
 import com.stomato.utils.StringUtils;
+import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping(value = "/menu")
@@ -29,9 +35,9 @@ public class MenuController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/formpage.html")
+	@RequestMapping(value = "/formpage.html",method=RequestMethod.GET)
 	public String formpage(@ModelAttribute("menuForm") MenuForm menuForm,HttpServletRequest request) {
-		// request.setAttribute("menuSys",menuService.getMenuSys());
+		request.setAttribute("parentMenus",menuService.listParentMenu());
 		return "portal/menu/menuForm";
 	}
 
@@ -42,11 +48,12 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/addMenu.html")
+	@RequestMapping(value = "/formpage.html",method=RequestMethod.POST)
 	public String addMenu(@Valid @ModelAttribute("menuForm") MenuForm menuForm, BindingResult result, HttpServletRequest request) {
 		menuService.addMenu(menuForm.asPojo());
 		request.setAttribute("content", "添加菜单项成功！");
-		return "msg/success";
+		request.setAttribute("parentMenus",menuService.listParentMenu());
+		return "portal/menu/menuForm";
 	}
 
 	/**
@@ -97,21 +104,20 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "/listMenu.html")
-	public String listMenu(HttpServletRequest request) {
+	public String listMenu(@Valid @ModelAttribute("menuParamForm") MenuParamForm paramForm, BindingResult result,HttpServletRequest request) {
+		MenuParam menuParam = paramForm.asPojo();
+		int total = menuService.listTotal(menuParam);
+		int pageTotal = SysConfig.getPageTotal(total, menuParam.getPageSize());
+		if(pageTotal<menuParam.getPageNum()){ menuParam.setPageNum(1); } 
+		int start = (menuParam.getPageNum()-1)*menuParam.getPageSize();
+		menuParam.setSlimt(start);
 
-		/*
-		 * int total = menuService.listTotal(MenuDTO.listTotalSql, null, null);
-		 * int pageTotal = SysConfig.getPageTotal(total, menu.getPageSize());
-		 * if(pageTotal<menu.getPageNum()){ menu.setPageNum(1); } int start =
-		 * (menu.getPageNum()-1)*menu.getPageSize();
-		 */
+		List<Menu> list = menuService.listMenu(menuParam);
 
-		// List<Menu> list = menuService.listMenu(new PublicModel());
-
-		// request.setAttribute("pageTotal", pageTotal);
-		// request.setAttribute("menu", menu);
-		// request.setAttribute("menuList", list);
-
+		request.setAttribute("pageTotal", pageTotal);
+		request.setAttribute("totalcount", total);
+		request.setAttribute("pageNum", menuParam.getPageNum());
+		request.setAttribute("menuList", list);
 		return "portal/menu/menuList";
 	}
 }

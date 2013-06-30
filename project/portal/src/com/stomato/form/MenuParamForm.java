@@ -5,45 +5,44 @@ import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
 import com.stomato.domain.BaseParam;
-import com.stomato.domain.Menu;
+import com.stomato.domain.MenuParam;
 
-public class MenuForm extends BaseParam{
-	
-private Integer id ;
-	
+public class MenuParamForm extends BaseParam {
+
+	private Integer id;
+
 	/**
 	 * 菜单名称
 	 */
 	@NotEmpty
-	private String name ;
-	
+	private String name;
+
 	/**
 	 * 描述
 	 */
-	private String desc ;
-	
+	private String desc;
+
 	/**
 	 * 菜单路径
 	 */
 	@NotEmpty
-	private String path ;
-	
+	private String path;
+
 	/**
 	 * 父菜单ID 0表示没有父菜单
 	 */
-	private Integer parent ;
-	
+	private Integer parent;
+
 	/**
 	 * 是否可见：0-不可见，1-可见
 	 */
-	private Integer visible ;
+	private Integer visible;
 
 	/**
 	 * 排序标识
 	 */
-	private String orderNo ;
-	
-	
+	private String orderNo;
+
 	public Integer getId() {
 		return id;
 	}
@@ -104,11 +103,11 @@ private Integer id ;
 	public String toString() {
 		return new Gson().toJson(this);
 	}
-	
-	public Menu asPojo() {
-		Menu menu = new Menu();
-		BeanUtils.copyProperties(this, menu);
-		return menu;
+
+	public MenuParam asPojo() {
+		MenuParam menuParam = new MenuParam();
+		BeanUtils.copyProperties(this, menuParam);
+		return menuParam;
 	}
 
 }

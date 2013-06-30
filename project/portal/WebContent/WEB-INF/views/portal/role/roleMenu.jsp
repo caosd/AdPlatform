@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
-<%@ page import="java.util.List,com.cn.model.Menu,com.cn.vo.SysConfig"%>
+<%@page import="java.util.List"%>
+<%@page import="com.stomato.domain.Menu"%>
 <html>
   <head>
 	<title>${Title }</title>
@@ -11,7 +11,7 @@
     <script>
        <%
 	  	List<Integer> roleMenuIdList = (List<Integer>)request.getAttribute("roleMenuIdList");
-	  	List<Menu> menuSys = SysConfig.getMenuSys();
+	  	List<Menu> menuList = (List<Menu>)request.getAttribute("menuList");
 	  	int length = roleMenuIdList.size();
 	   %>
        function init(){
@@ -38,7 +38,7 @@
 		<tr bgcolor="#E7E7E7">
 			<td height="24" colspan="5" background="${ctx}/iframe/skin/images/tbg.gif">&nbsp;给<font color="red">${role.roleName }</font>设置菜单权限&nbsp;</td>
 		</tr>
-		<!--  
+		<!--
 	    <c:forEach var="ms" items="${menuSys}">
 	    <tr>
 	    	<td>+ ---- <input type="checkbox" id="${ms.id }" value="${ms.id }" name="menuIdArr" />&nbsp;&nbsp;${ms.name }</td>
@@ -50,15 +50,15 @@
 		    </c:forEach>
 	    </c:forEach>
 	    -->
-	    <%for(Menu menu:menuSys){ %>
+	    <%for(Menu menu:menuList){ %>
 	    <tr>
 	    	<td>+ ---- <input type="checkbox" id="<%=menu.getId() %>" value="<%=menu.getId() %>" name="menuIdArr" />&nbsp;&nbsp;<%=menu.getName() %></td>
 	    </tr>
 	    	<%for(Menu sunMenu:menu.getSunMenu()){%>
 	    	<tr>
-		    	<td>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <input type="checkbox" id="<%=sunMenu.getId() %>" value="<%=sunMenu.getId() %>" name="menuIdArr"/>&nbsp;&nbsp;<%=sunMenu.getName() %><% if(!"".equals(sunMenu.getDesc().trim())){ %><font color="blue">(<%=sunMenu.getDesc() %>)</font><%} %></td>
+		    	<td>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <input type="checkbox" id="<%=sunMenu.getId() %>" value="<%=sunMenu.getId() %>" name="menuIdArr"/>&nbsp;&nbsp;<%=sunMenu.getName() %><% if(sunMenu.getDesc()!= null && !"".equals(sunMenu.getDesc().trim())){ %><font color="blue">(<%=sunMenu.getDesc() %>)</font><%} %></td>
 		    </tr>
-	    <%    } 
+	    <%    }
 	    }
 	    %>
 	    <tr>

@@ -1,42 +1,45 @@
-package com.stomato.domain;
+package com.stomato.form;
 
-import java.io.Serializable;
-import java.util.Date;
+import javax.validation.constraints.*;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
+import com.stomato.domain.User;
 
-public class User implements Serializable {
-
-	private static final long serialVersionUID = -1486031757640904209L;
-
+public class UserForm {
+	
 	private int uid;
-
+	
+	@Size (min=5, max=20)
 	private String userName;
-
+	
+	@Size (min=6, max=20)
 	private String password;
-
+	
+	private String confirmPassword;
+	@NotEmpty
+	private int roleId;
+	@NotEmpty
+	@Email
 	private String email;
-
-	private Integer type;
-
+	
+	@Min(1)
+	@Max(2)
+	private int type;
+	
 	private String company;
-
+	
 	private String contactName;
 
 	private String contactTel;
-
-	private String qq;
-
-	private String website;
-
-	private Date createtime;
-
-	private String loginToken;
-
-	private Date loginTokenTime;
 	
-	private Integer status;
-
+	private String qq;
+	
+	private String website;
+	
 	public int getUid() {
 		return uid;
 	}
@@ -53,20 +56,28 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getEmail() {
@@ -77,11 +88,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public Integer getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
@@ -125,32 +136,14 @@ public class User implements Serializable {
 		this.website = website;
 	}
 
-	public Date getCreatetime() {
-		return createtime;
-	}
-
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-
-	public String getLoginToken() {
-		return loginToken;
-	}
-
-	public void setLoginToken(String loginToken) {
-		this.loginToken = loginToken;
-	}
-
-	public Date getLoginTokenTime() {
-		return loginTokenTime;
-	}
-
-	public void setLoginTokenTime(Date loginTokenTime) {
-		this.loginTokenTime = loginTokenTime;
-	}
-
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);
+	}
+	
+	public User asPojo() {
+		User user = new User();
+		BeanUtils.copyProperties(this, user);
+		return user;
 	}
 }

@@ -1,134 +1,114 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
-<html>
-  <head>
-  	<title>${Title }</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script type="text/javascript" src="${ctx }/Js/jquery-1.9.0.min.js"></script>
-    <script type="text/javascript" src="${ctx }/Js/jquery.json-2.4.min.js"></script>
-	<script type="text/javascript" src="${ctx }/Js/verify/common.js"></script>
-	<script type="text/javascript" src="${ctx }/Js/verify/userForm.js"></script>
-    <link rel="stylesheet" type="text/css" href="${ctx}/iframe/skin/css/base.css"/>
-    <style>
-    	textarea { border: 1px solid #ababab; }
-        .div1{
-        	font-size: 15px;
-        	margin-left: 12px;   
-        }
-    	.font1{
-    		margin-right: 5px;
-    		width: 90px;
-    	}
-    </style>
-  </head>
-  
-  <body> 
-  <div class="div1">
-  >>新增用户
-  </div>
-  <div style="">
-  	<form action="${ctx }/user/addUser.html" method="post" onsubmit="return checkForm('${ctx }/hasUser.html');">
-  		<table width='98%'  border='0' cellpadding='1' cellspacing='1' bgcolor='#CBD8AC' style="margin-top:8px;margin-left: 10px;">
-  			<!-- 用户名 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	用户名：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type='text' name='username' id="username" value='' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 密码 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	密码：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="password" name='password' id="password" value='' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 确认密码 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	确认密码：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type='password' name='confirmPw' id="confirmPw" value='' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 角色 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	角色：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<select name="roleId" id="roleId" style="width: 80px;" onchange="changeRole(this);">
-  				    	<c:forEach var="rl" items="${roleList}">
-  				    	<option value="${rl.id }" >${rl.roleName }</option>
-  				    	</c:forEach>
-  				    </select>
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 渠道用户 渠道号 渠道名称 折扣 -->
-  			
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;" id='channelNoTr'>
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	渠道号：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type='text' name='channelNo' id='channelNo' value='' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;" id='channelNameTr'>
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	渠道名称：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type='text' name='channelName' id="channelName" value='' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;" id='disTr'>
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	折扣：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type='text' name='discount' id="discount" value='1.0' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<tr bgcolor='#EEF4EA'  height="30px;">
-  				<td>
-  					<div style="width: 300px;text-align: right;float: left;">
-  						<input type="reset" name="reset" value="重置" style="cursor: pointer;background-color: #F1F8B4;">
-  					</div>
-  					<div style="width: 250px;text-align: center;float: left;">
-  						<input type="submit" name="submit" id="submit" value="提交" style="cursor: pointer;background-color: #F1F8B4;">
-  					</div>
-  				</td>
-  			</tr>
-  		</table>
-  	</form>
-  </div>  
-  </body>
-</html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<body>
+<div class="row-fluid">
+   <div class="span12">
+       <!-- BEGIN THEME CUSTOMIZER-->
+       <div id="theme-change" class="hidden-phone">
+           <i class="icon-cogs"></i>
+            <span class="settings">
+                <span class="text">Theme:</span>
+                <span class="colors">
+                    <span class="color-default" data-style="default"></span>
+                    <span class="color-gray" data-style="gray"></span>
+                    <span class="color-purple" data-style="purple"></span>
+                    <span class="color-navy-blue" data-style="navy-blue"></span>
+                </span>
+            </span>
+       </div>
+       <!-- END THEME CUSTOMIZER-->
+       <ul class="breadcrumb">
+           <li>
+               <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
+           </li>
+           <li>
+               <a href="#">用户管理</a> <span class="divider">&nbsp;</span>
+           </li>
+           <li><a href="#">添加用户</a><span class="divider-last">&nbsp;</span></li>
+       </ul>
+   </div>
+</div>
+<div class="widget">
+	 <div class="widget-title">
+	    <h4><i class="icon-reorder"></i>添加用户</h4>
+	    <span class="tools">
+	       <a href="javascript:;" class="icon-chevron-down"></a>
+	       <a href="javascript:;" class="icon-remove"></a>
+	    </span>
+	 </div>
+	  <div class="widget-body form" style="display: block;">
+	  	<div class="alert alert-success">
+	         <strong>${content}</strong>
+	    </div>
+	    <!-- BEGIN FORM-->
+	    <form:form commandName="userForm" action="/accounts/formpage.html" method="POST" class="form-horizontal">
+	       <div class="control-group">
+	          <label class="control-label" for="userName">用户名:</label>
+	          <div class="controls">
+	             <form:input path="userName" type="text" class="span6" id="userName"/>
+	             <form:errors path="userName" cssClass="error"/>
+	          </div>
+	       </div>
+	       <div class="control-group">
+	          <label class="control-label" for="password">密码:</label>
+	          <div class="controls">
+	             <form:password path="password" class="span6" id="password"/>
+	             <form:errors path="password" cssClass="error"/>
+	          </div>
+	       </div>
+	       <div class="control-group">
+	          <label class="control-label" for="confirmPassword">确认密码:</label>
+	          <div class="controls">
+	             <form:password path="confirmPassword" class="span6" id="confirmPassword"/>
+	             <form:errors path="confirmPassword" cssClass="error"/>
+	          </div>
+	       </div>
+	       <div class="control-group">
+	          <label class="control-label" for="email">E-Mail:</label>
+	          <div class="controls">
+	             <form:input path="email" type="text" class="span6" id="email"/>
+	             <form:errors path="email" cssClass="error"/>
+	          </div>
+	       </div>
+	       <div class="control-group">
+	          <label class="control-label" for="roleId">角色:</label>
+	          <div class="controls">
+	             <form:select path="roleId" id="roleId" class="span6 " data-placeholder="角色:" tabindex="1">
+                    <c:forEach items="${roleList}" var="item" varStatus="stat">
+                    	<option value="${item.id}">${item.roleName}</option>
+                    </c:forEach>
+                 </form:select>
+	          </div>
+	       </div>
+	       <div class="control-group">
+	          <label class="control-label" for="contactName">contactName:</label>
+	          <div class="controls">
+	             <form:input path="contactName" type="text" class="span6" id="contactName"/>
+	             <form:errors path="contactName" cssClass="error"/>
+	          </div>
+	       </div>
+	       <div class="control-group">
+	          <label class="control-label" for="contactTel">contactTel:</label>
+	          <div class="controls">
+	             <form:input path="contactTel" type="text" class="span6" id="contactTel"/>
+	             <form:errors path="contactTel" cssClass="error"/>
+	          </div>
+	       </div>
+	       <div class="control-group">
+	          <label class="control-label" for="website">website:</label>
+	          <div class="controls">
+	             <form:input path="website" type="text" class="span6" id="website"/>
+	             <form:errors path="website" cssClass="error"/>
+	          </div>
+	       </div>
+	       <div class="form-actions">
+	          <button type="submit" class="btn btn-success">保存</button>
+	          <button type="button" class="btn">取消</button>
+	       </div>
+	    </form:form>
+	    <!-- END FORM-->
+	 </div>
+</div>
+ </body>

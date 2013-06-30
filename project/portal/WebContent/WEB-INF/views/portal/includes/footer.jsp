@@ -18,4 +18,5 @@
 <script src="js/respond.js"></script>
 <![endif]-->
 <script src="/js/main.js"></script>
+<script src="/js/list.js"></script>
 <!-- END JAVASCRIPTS -->

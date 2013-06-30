@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.RoleDao;
-import com.stomato.domain.PublicModel;
 import com.stomato.domain.Role;
+import com.stomato.domain.RoleParam;
 
 @Service
 public class RoleService {
@@ -23,11 +23,11 @@ public class RoleService {
 		return roleDao.getRole(id);
 	}
 	
-	public int listTotal(PublicModel param){
+	public int listTotal(RoleParam param){
 		return roleDao.listTotal(param);
 	}
 	
-	public List<Role> listRole(PublicModel param){
+	public List<Role> listRole(RoleParam param){
 		return roleDao.listRole(param);
 	}
 	

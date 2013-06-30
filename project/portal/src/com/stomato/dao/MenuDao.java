@@ -3,6 +3,7 @@ package com.stomato.dao;
 import java.util.List;
 
 import com.stomato.domain.Menu;
+import com.stomato.domain.MenuParam;
 
 
 public interface MenuDao {
@@ -15,9 +16,11 @@ public interface MenuDao {
 	
 	void addMenu(Menu menu);
 	
-	int listTotal(Menu param);
+	int listTotal(MenuParam menuParam);
 	
-	List<Menu> listMenu(Menu param);
+	List<Menu> listMenu(MenuParam menuParam);
+	
+	List<Menu> listParentMenu();
 	
 	List<Menu> listParentMenuByRole(int roleId);
 }
