@@ -18,6 +18,8 @@ public interface MenuDao {
 	
 	int listTotal(MenuParam menuParam);
 	
+	List<Menu> listMenuByIds(List<Integer> list);
+	
 	List<Menu> listMenu(MenuParam menuParam);
 	
 	List<Menu> listParentMenu();

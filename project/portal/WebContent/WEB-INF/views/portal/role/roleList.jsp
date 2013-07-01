@@ -88,7 +88,9 @@
 		                        <td class=" ">${item.roleName }</td>
 		                        <td class=" "><fmt:formatDate value="${item.createDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 		                        <td class=" sorting_1"><span class="label ${item.status==1?'label-success':'label-error' }">${item.status }</span></td>
-		                        <td class=" "><a href="/role/roleFormpage.html?id=${item.id }">修改权限</a></td>
+		                        <td class=" ">
+			                        <a href="/role/roleFormpage.html?id=${item.id }">修改权限</a>
+		                        </td>
 		                    </tr>
 		           </c:forEach>
                 </tbody>

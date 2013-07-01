@@ -89,8 +89,7 @@
 		                        <td class=" sorting_1"><span class="label ${item.status==1?'label-success':'label-error' }">${item.status }</span></td>
 		                        <td class=" ">
 		                        	<a href="/menu/editMenu.html?id=${item.id }">编辑</a>
-		                        	<!--<a href="javascript:void(0)" onclick="deleteData('/menu/editMenu.html?id=${item.id }')">删除</a>
-		                        --></td>
+		                        </td>
 		                    </tr>
 		           </c:forEach>
                 </tbody>

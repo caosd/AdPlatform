@@ -39,9 +39,11 @@
 	    </span>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
-	  	<div class="alert alert-success">
-	         <strong>${content}</strong>
-	    </div>
+	  	<c:if test="${content != null}">
+		  	<div class="alert alert-success">
+		         <strong>${content}</strong>
+		    </div>
+	    </c:if>
 	    <!-- BEGIN FORM-->
 	    <form:form commandName="userForm" action="/accounts/formpage.html" method="POST" class="form-horizontal">
 	       <div class="control-group">

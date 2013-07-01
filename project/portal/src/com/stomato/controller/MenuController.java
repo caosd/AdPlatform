@@ -121,16 +121,4 @@ public class MenuController {
 		request.setAttribute("menuList", list);
 		return "portal/menu/menuList";
 	}
-	/**
-	 * 删除菜单
-	 * @param id
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/delMenu.html")
-	public String delMenu(int id,HttpServletRequest request){
-		menuService.deleteMenu(id);
-		request.setAttribute("content", "删除菜单成功！");
-		return "portal/msg/success";
-	}
 }

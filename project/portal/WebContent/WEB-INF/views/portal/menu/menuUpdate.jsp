@@ -32,16 +32,18 @@
 </div>
 <div class="widget">
 	 <div class="widget-title">
-	    <h4><i class="icon-reorder"></i>添加菜单</h4>
+	    <h4><i class="icon-reorder"></i>编辑菜单</h4>
 	    <span class="tools">
 	       <a href="javascript:;" class="icon-chevron-down"></a>
 	       <a href="javascript:;" class="icon-remove"></a>
 	    </span>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
-	  	<div class="alert alert-success">
-	         <strong>${content}</strong>
-	    </div>
+	  	<c:if test="${content != null}">
+		  	<div class="alert alert-success">
+		         <strong>${content}</strong>
+		    </div>
+	    </c:if>
 	    <!-- BEGIN FORM-->
 	    <form:form commandName="menuForm" action="/menu/editMenu.html?id=${menu.id}" method="POST" class="form-horizontal">
 	       <div class="control-group">

@@ -15,9 +15,7 @@
 	<select id="listTotal" parameterType="com.stomato.domain.Menu" resultType="int" >
 		select count(1) from t_menu where _status = 0
 		<if test="name != null">
-			<if test="name != ''">
-				and menuname = #{name}
-			</if>
+				and menuname like '%${name}%'
 		</if>
 		<if test="visible != null">and visible = #{visible}</if>
 	</select>
@@ -35,9 +33,7 @@
 		where _status = 0
 		<if test="parent != null">and parent = #{parent}</if>
 		<if test="name != null">
-			<if test="name != ''">
-				and menuname = #{name}
-			</if>
+				and menuname like '%${name}%'
 		</if>
 		<if test="visible != null">and visible = #{visible}</if>
 		order by order_no asc
@@ -56,6 +52,24 @@
 			t_menu
 		WHERE
 			_status = 0 and parent = 0 order by order_no asc
+	</select>
+	<select id="listMenuByIds" resultMap="menu" >
+		SELECT
+			id,
+			menuname,
+			description,
+			path,
+			parent,
+			visible,
+			order_no
+		FROM
+			t_menu
+		WHERE
+			_status = 0 and id in
+		  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		        #{item}
+		  </foreach>
+		order by order_no asc
 	</select>
 	<select id="listParentMenuByRole" parameterType="int" resultMap="menu" >
 		SELECT
@@ -87,7 +101,7 @@
         </set>
 		where id=#{id}
 	</update>
-	<!-- <delete id="deleteMenu" parameterType="id">
+	<delete id="deleteMenu" parameterType="int">
         delete from t_menu where id=#{id}
-	</delete> -->
+	</delete>
 </mapper>

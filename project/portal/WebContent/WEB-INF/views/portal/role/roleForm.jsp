@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <body>
 <div class="row-fluid">
    <div class="span12">
@@ -42,9 +43,11 @@
 	    </span>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
-	  	<div class="alert alert-success">
-	         <strong>${content}</strong>
-	    </div>
+	  	<c:if test="${content != null}">
+		  	<div class="alert alert-success">
+		         <strong>${content}</strong>
+		    </div>
+	    </c:if>
 	    <!-- BEGIN FORM-->
 	    <form:form commandName="roleForm" action="/role/formpage.html" method="POST" class="form-horizontal">
 	       <div class="control-group">

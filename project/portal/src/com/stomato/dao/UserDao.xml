@@ -55,20 +55,14 @@
     </select>
     <select id="listTotal" parameterType="com.stomato.domain.UserParam" resultType="int">
 		select count(1) from t_user where 1=1
-		<!-- 这里判断是否为空，需要优化下和支持模糊查询 -->
 		<if test="userName != null">
-			<if test="userName != ''">
-				and account_name = #{userName}
-			</if>
+			and account_name like '%${userName}%'
 		</if>
 	</select>
 	<select id="listUser" parameterType="com.stomato.domain.UserParam" resultMap="user" >
 		select * from t_user where 1=1
-		<!-- 这里判断是否为空，需要优化下和支持模糊查询 -->
 		<if test="userName != null">
-			<if test="userName != ''">
-				and account_name = #{userName}
-			</if>
+			and account_name like'%${userName}%'
 		</if>
 		order by login_token_time desc
 		<if test="slimt != null">

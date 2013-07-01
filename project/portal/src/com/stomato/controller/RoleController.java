@@ -90,7 +90,7 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/roleFormpage.html")
+	@RequestMapping(value="/roleFormpage.html",method=RequestMethod.GET)
 	public String roleMenuPage(int id,HttpServletRequest request){
 		Role role = roleService.getRole(id);
 		if(role == null || StringUtils.isEmpty(role.getRoleName())){
@@ -121,10 +121,10 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/setRoleMenu.html")
+	@RequestMapping(value="/roleFormpage.html",method=RequestMethod.POST)
 	public String setRoleMenu(int id,Integer[] menuIdArr,HttpServletRequest request){
 		roleMenuService.editRoleMenu(id, menuIdArr);
 		request.setAttribute("content", "修改角色权限成功");
-		return "msg/success";
+		return roleMenuPage(id, request);
 	}
 }

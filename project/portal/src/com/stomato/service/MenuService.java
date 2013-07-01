@@ -1,5 +1,6 @@
 package com.stomato.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class MenuService {
 
 	@Autowired
 	private MenuDao menuDao;
+	@Autowired
+	private RoleMenuService roleMenuService;
 	
 	public void deleteMenu(int id){
 		menuDao.deleteMenu(id);
@@ -44,8 +47,29 @@ public class MenuService {
 		return menuDao.listParentMenu();
 	}
 	
+	public List<Menu> listMenuByIds(List<Integer> list){
+		return menuDao.listMenuByIds(list);
+	}
+	
 	public List<Menu> listMenuByUser(User user){
-		List<Menu> parentMenus =  menuDao.listParentMenuByRole(user.getType());
+		List<Integer> idList = roleMenuService.listRoleMenu(user.getType());
+		List<Menu> menuList = listMenuByIds(idList);
+		List<Menu> levelMenuList = new ArrayList<Menu>();
+		for (Menu menu : menuList) {
+			if(menu.getParent().intValue() == 0 && menu.getVisible().intValue() == 1){
+				levelMenuList.add(menu);
+			}
+		}
+		for (Menu levelMenu : levelMenuList) {
+			List<Menu> sunMenu = new ArrayList<Menu>();
+			for (Menu menu : menuList) {
+				if(levelMenu.getId().intValue() == menu.getParent().intValue() && menu.getVisible().intValue() == 1){
+					sunMenu.add(menu);
+				}
+			}
+			levelMenu.setSunMenu(sunMenu);
+		}
+		/*List<Menu> parentMenus =  menuDao.listParentMenuByRole(user.getType());
 		if( parentMenus != null ){
 			for (Menu menu : parentMenus) {
 				MenuParam parent = new MenuParam();
@@ -54,7 +78,7 @@ public class MenuService {
 				List<Menu> sunMenuList = menuDao.listMenu(parent);
 				menu.setSunMenu(sunMenuList);
 			}
-		}
-		return parentMenus;
+		}*/
+		return levelMenuList;
 	}
 }
