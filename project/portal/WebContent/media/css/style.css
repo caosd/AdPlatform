@@ -3838,3 +3838,25 @@ jQuery UI Datepicker(new in v1.2.2)
     padding: 6px 10px;
 }
 
+ul.errorlist {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    color: #FF2828;
+    background: #FFF9E0;
+    border: 2px solid #FFD11A;
+    border-radius: 0 0 5px 5px;
+    color: #332900;
+    margin: -1px 10px 0;
+    padding: 5px 0;
+}
+ul.errorlist li {
+    background: none;
+    display: block;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 10px;
+    position: relative;
+    font-size: 12px;
+    color:#6B6B6B;
+}
