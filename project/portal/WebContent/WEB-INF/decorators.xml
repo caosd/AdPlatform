@@ -21,7 +21,11 @@
         <pattern>/admin/*</pattern>
         <pattern>/menu/*</pattern>
         <pattern>/role/*</pattern>
+<<<<<<< HEAD
+        <pattern>/financial/*</pattern>
+=======
         <pattern>/errors/*</pattern>
+>>>>>>> 77dede02062ce878a2e6d9b6d673ec03a4c43cad
     </decorator>
 
 </decorators>
