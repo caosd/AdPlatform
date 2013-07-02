@@ -9,6 +9,7 @@
 <body>
     <!-- BEGIN FORGOT PASSWORD FORM -->
     <form:form commandName="resetForm" id="forgotform" method="POST" class="form-vertical no-padding no-margin">
+        <form:hidden path="lang" id="lang" value="zh_cn" />
         <p class="center">输入邮箱地址来接收我们发送给您的重置密码链接。</p>
         <div class="control-group">
             <div class="controls">

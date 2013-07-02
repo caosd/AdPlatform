@@ -124,7 +124,9 @@ public class PortalController extends UserController {
 		passwordService.setToken(pwd);
 		
 		String link = "/recover/reset_pwd_confirm/" + token;
-		MailHelper.sendResetPwdEmail(email, user.getUserName(), link, form.getLang());
+		MailHelper.sendResetPwdEmail(email, user.getUserName(), link, "zh_cn");
+		
+		model.addAttribute("email", email);
 		
 		return "portal/recover/reset_pwd_done";
 	}
