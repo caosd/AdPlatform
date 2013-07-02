@@ -36,7 +36,8 @@ public class MenuTag extends BodyTagSupport{
 			sb.append("<ul class=\"sidebar-menu\">");
 	   	 	for(int i = 0,j=menuList.size(); i < j; i++){
 		   	 	Menu menu = menuList.get(i);
-		   	 	sb.append("<li class=\"has-sub "+(i==0 ? "active open":"")+"\">");
+		   	 	
+		   	 	sb.append("<li class=\"has-sub "+(i==0 || basePath.indexOf(menu.) ? "active open":"")+"\">");
 			   	sb.append("<a href=\"javascript:void(0);\" class=\"\">");
 			   	sb.append("<span class=\"icon-box\"><i class=\"icon-file-alt\"></i></span>"+menu.getName());
 			   	sb.append("<span class=\"arrow\"></span>");

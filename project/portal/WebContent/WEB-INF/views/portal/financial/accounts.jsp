@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/page" prefix="p" %>
 <body>
@@ -25,9 +25,9 @@
                <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
            </li>
            <li>
-               <a href="#">系统管理</a> <span class="divider">&nbsp;</span>
+               <a href="#">财务中心</a> <span class="divider">&nbsp;</span>
            </li>
-           <li><a href="#">菜单列表</a><span class="divider-last">&nbsp;</span></li>
+           <li><a href="#">账户信息</a><span class="divider-last">&nbsp;</span></li>
        </ul>
    </div>
 </div>
@@ -37,7 +37,7 @@
         <!-- BEGIN EXAMPLE TABLE widget-->
         <div class="widget">
             <div class="widget-title">
-                <h4><i class="icon-reorder"></i>菜单列表</h4>
+                <h4><i class="icon-reorder"></i>账户信息</h4>
                 <span class="tools">
                     <a href="javascript:;" class="icon-chevron-down"></a>
                     <a href="javascript:;" class="icon-remove"></a>
@@ -45,8 +45,8 @@
             </div>
             <div class="widget-body">
             	<div class="row-fluid">
-            		<form:form id="searchForm" commandName="menuParamForm" method="post">
-	            		<div class="span6">
+            		<form:form id="searchForm" commandName="reportParamForm"  method="post">
+	            		<div class="span3">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
 	            					<select size="1" name="pageSize" aria-controls="role_table" class="input-mini">
@@ -57,14 +57,23 @@
 	            					</select> 
 	            					records per page
 	            				</label>
-	            				</div>
 	            			</div>
-						<div class="span6">
-							<div class="dataTables_filter" id="search_filter">
-								<label>搜索: <form:input path="name" type="text" aria-controls="role_table" class="input-medium"/>
-            								   <form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
-								</label>
-							</div>
+	            		</div>
+	            		<div class="span6">
+			                                从&nbsp;
+	                        <span id="start-date-container"><form:input type="text" path="startDatestr" style="width:80px"/></span>
+	                        &nbsp;至&nbsp;
+	                        <span id="end-date-container"><form:input type="text" path="endDatestr" style="width:80px"/></span>
+	                        &nbsp;请选择应用：
+	                        <form:select class="mini" path="appId" style="width:80px">
+	                            <option value="0">全部应用</option>
+	                            <c:forEach items="${appList}" var="app" varStatus="stat">
+									<option value="${app.id}" ${reportParam.appId == app.id ? 'selected':'' }>${app.name }</option>
+								</c:forEach>
+	                        </form:select>
+	                    </div>
+						<div class="span3">
+							<button class="mini">查询</button>
 						</div>
 					</form:form>
 				</div>
@@ -73,23 +82,23 @@
                     <tr>
                         <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
                         <th>#</th>
-                        <th>菜单名称</th>
-                        <th>是否可见</th>
-                        <th>操作</th>
+                         <th width="12%">日期</th>
+                         <th>应用</th>
+                         <th>推送收入 (元)</th>
+                         <th>广告收入 (元)</th>
+                         <th>总收入 (元)</th>
                     </tr>
                 </thead>
                 <tbody>
-                	<c:forEach items="${menuList}" var="item" varStatus="stat">
-		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.id }"></td>
-		            			<td class="sorting_1">${stat.index}</td>
-		                        <td class=" ">${item.name }</td>
-		                        <td class="sorting_1">${item.visible }</td>
-		                        <td class=" ">
-		                        	<a href="/menu/editMenu.html?id=${item.id }">编辑</a>
-		                        </td>
-		                    </tr>
-		           </c:forEach>
+                	<c:forEach items="${dailyList}" var="report" varStatus="stat">
+						<tr>
+						<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
+						<td>${report.name }</td>
+						<td>${report.moneyPushes}</td>
+						<td>${report.moneyAdvertising }</td>
+						<td>${report.moneyPushes+report.moneyAdvertising }</td>
+						</tr>
+					</c:forEach>
                 </tbody>
             </table>
             <div class="row-fluid">

@@ -10,8 +10,12 @@
 		<result property="path" column="path"/>
 		<result property="parent" column="parent"/>
 		<result property="visible" column="visible"/>
+		<result property="status" column="_status"/>
 		<result property="orderNo" column="order_no"/>
 	</resultMap>
+	<insert id="addMenu" parameterType="com.stomato.domain.Menu">
+		insert into t_menu(menuname, description, path,parent,visible,order_no) values(#{name}, #{desc}, #{path},#{parent},#{visible},#{orderNo})
+	</insert>
 	<select id="listTotal" parameterType="com.stomato.domain.Menu" resultType="int" >
 		select count(1) from t_menu where _status = 0
 		<if test="name != null">

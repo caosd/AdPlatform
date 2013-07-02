@@ -74,7 +74,7 @@ public class FinancialController extends UserController{
 			}
 			model.addAttribute("credentials", credentials);
 		}
-		return "backend/financial/overview";
+		return "portal/financial/overview";
 	}
 	
 	@RequestMapping(value="/overview", method=RequestMethod.POST)
@@ -85,7 +85,7 @@ public class FinancialController extends UserController{
 			if(	credentials != null ){
 				model.addAttribute("credentials", credentials);
 			}
-			return "backend/financial/overview";
+			return "portal/financial/overview";
 		}
 		//这里验证图片，如果图片验证失败不影响处理表单
 		credentialValidation.validate(form, result);
@@ -127,7 +127,7 @@ public class FinancialController extends UserController{
 		}
 
 		model.addAttribute("credentials", credentials);
-		return "backend/financial/overview";
+		return "portal/financial/overview";
 	}
 	private String savePhoto(MultipartFile file,Model model,Integer uid,Integer credentialsType,String credentialsNo,String photoname){
 		try{
@@ -165,7 +165,7 @@ public class FinancialController extends UserController{
 		}
 		model.addAttribute("appList", appList);
 		model.addAttribute("reportParam", param);
-		return "backend/financial/accounts";
+		return "portal/financial/accounts";
 	}
 	
 	@RequestMapping(value="/remittance",method=RequestMethod.GET)
@@ -178,11 +178,11 @@ public class FinancialController extends UserController{
 		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(user);
 		model.addAttribute("userAccount", userAccount);
 		model.addAttribute("credentials", credentials);
-		return "backend/financial/remittance";
+		return "portal/financial/remittance";
 	}
 	@RequestMapping(value="/remittance",method=RequestMethod.POST)
 	public String remittance(HttpServletRequest request, HttpServletResponse response, Model model) {
-		String retPath = "backend/financial/remittance";
+		String retPath = "portal/financial/remittance";
 		User user = this.lookup(request);
 		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
 		UserAccount userAccount = this.userAccountsService.getUserAccountByUser(user);		
@@ -238,6 +238,6 @@ public class FinancialController extends UserController{
 		model.addAttribute("pager", pager);
 		List<Remittance> remittanceList = this.remittanceService.getRemittanceListByUser(remittanceParam);
 		model.addAttribute("remittanceList", remittanceList);
-		return "backend/financial/remittance_history";
+		return "portal/financial/remittance_history";
 	}
 }
