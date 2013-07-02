@@ -9,11 +9,21 @@ public class ErrorPageController {
 	
 	@RequestMapping("/404")
 	public String pageNotFound() {
-		return "errors/404";
+		return "redirect:/errors/404.html";
+	}
+	
+	@RequestMapping("/404.html")
+	public String pageNotFound2() {
+		return "portal/errors/404";
 	}
 	
 	@RequestMapping("/500")
 	public String serverError() {
-		return "errors/500";
+		return "portal/errors/500";
+	}
+	
+	@RequestMapping("/500.html")
+	public String serverError2() {
+		return "redirect:/errors/500.html";
 	}
 }

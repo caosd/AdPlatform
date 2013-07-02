@@ -173,7 +173,7 @@
                             <li><a href="http://thevectorlab.net/adminlab/#"><i class="icon-tasks"></i> My Tasks</a></li>
                             <li><a href="http://thevectorlab.net/adminlab/#"><i class="icon-calendar"></i> Calendar</a></li>
                             <li class="divider"></li>
-                            <li><a href="/logout"><i class="icon-key"></i> Log Out</a></li>
+                            <li><a href="/logout.html"><i class="icon-key"></i> Log Out</a></li>
                         </ul>
                     </li>
                     <!-- END USER LOGIN DROPDOWN -->
