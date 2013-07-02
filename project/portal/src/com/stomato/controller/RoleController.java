@@ -3,10 +3,12 @@ package com.stomato.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,7 +54,10 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
-	public String addRole(@ModelAttribute("roleForm") RoleForm roleForm,HttpServletRequest request){
+	public String addRole(@Valid @ModelAttribute("roleForm") RoleForm roleForm,BindingResult result,HttpServletRequest request){
+		if (result.hasErrors()) {
+			return "portal/role/roleForm";
+		}
 		roleService.addRole(roleForm.asPojo());
 		request.setAttribute("content", "添加角色信息成功");
 		return "portal/role/roleForm";

@@ -91,7 +91,9 @@
                 </thead>
                 <tbody>
                 	<c:forEach items="${dailyList}" var="report" varStatus="stat">
-						<tr>
+						<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
+						<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${report.id }"></td>
+						<td>${stat.index}</td>
 						<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
 						<td>${report.name }</td>
 						<td>${report.moneyPushes}</td>

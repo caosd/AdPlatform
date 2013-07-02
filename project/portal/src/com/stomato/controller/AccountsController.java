@@ -60,12 +60,12 @@ public class AccountsController extends UserController {
 	
 	@RequestMapping("/overview")
 	public String main() {
-		return "backend/accounts/overview";
+		return "portal/accounts/overview";
 	}
 	
 	@RequestMapping(value="/change_pwd", method=RequestMethod.GET)
 	public String updatePwd(@ModelAttribute("pwdForm") PasswordForm form) {
-		return "backend/accounts/change_pwd";
+		return "portal/accounts/change_pwd";
 	}
 	
 	@RequestMapping(value="/change_pwd", method=RequestMethod.POST)
@@ -90,7 +90,7 @@ public class AccountsController extends UserController {
 		}
 		form = null;
 		
-		return "backend/accounts/change_pwd";
+		return "portal/accounts/change_pwd";
 	}
 	
 	@RequestMapping(value="/change_profile", method=RequestMethod.GET)
@@ -98,13 +98,13 @@ public class AccountsController extends UserController {
 		User user = this.lookup(request);
 		model.addAttribute(user);
 		
-		return "backend/accounts/change_profile";
+		return "portal/accounts/change_profile";
 	}
 	
 	@RequestMapping(value="/change_profile", method=RequestMethod.POST)
 	public String updateProfile(@Valid @ModelAttribute("profileForm") ProfileForm form, BindingResult result, HttpServletRequest request, Model model) {
 		if (result.hasErrors()) {
-			return "backend/accounts/change_profile";
+			return "portal/accounts/change_profile";
 		}
 		User user = this.lookup(request);
 		User formUser = form.asPojo();
@@ -129,7 +129,7 @@ public class AccountsController extends UserController {
 		List<Transfer> transfers = accountsService.selectAllStatements(user.getUid());
 		model.addAttribute("statements", transfers);
 
-		return "backend/accounts/statements";
+		return "portal/accounts/statements";
 	}
 	
 	@RequestMapping(value="/payment", method=RequestMethod.GET)
@@ -147,14 +147,14 @@ public class AccountsController extends UserController {
 			//default to via wire
 			form.setPayType(PaymentEnum.Wire.value());
 		}
-		return "backend/accounts/paymentForm";
+		return "portal/accounts/paymentForm";
 	}
 	
 	@RequestMapping(value="/payment", method=RequestMethod.POST)
 	public String processForm(@Valid @ModelAttribute PaymentForm form, BindingResult result, Model model, HttpServletRequest request) {
 		paymentValidation.validate(form, result);
 		if (result.hasErrors()) {
-			return "backend/accounts/paymentForm";
+			return "portal/accounts/paymentForm";
 		}
 		User user = this.lookup(request);
 		Payment payment = form.asPojo();
@@ -167,24 +167,24 @@ public class AccountsController extends UserController {
 	
 	@RequestMapping(value="/change_email", method=RequestMethod.GET)
 	public String changeEmail(@ModelAttribute("emailForm") EmailForm emailForm) {
-		return "backend/accounts/change_email";
+		return "portal/accounts/change_email";
 	}
 	
 	@RequestMapping(value="/change_email", method=RequestMethod.POST)
 	public String changeEmail(@Valid @ModelAttribute("emailForm") EmailForm emailForm, BindingResult results, Model model, HttpServletRequest request) {
 		if (results.hasErrors()) {
-			return "backend/accounts/change_email";
+			return "portal/accounts/change_email";
 		}
 		
 		User user = this.lookup(request);
 		if (emailForm.getEmail().equals(user.getEmail())) {
 			results.rejectValue("email", "error.email_is_currently", "This email address is you are using now.");
-			return "backend/accounts/change_email";
+			return "portal/accounts/change_email";
 		}
 		
 		if (accountsService.getUserByEmail(emailForm.getEmail()) != null) {
 			results.rejectValue("email", "error.email_is_exist", "This email address has been registered.");
-			return "backend/accounts/change_email";
+			return "portal/accounts/change_email";
 		}
 		
 		user.setEmail(emailForm.getEmail());
@@ -294,6 +294,9 @@ public class AccountsController extends UserController {
 	}
 	@RequestMapping(value="/editUser.html",method=RequestMethod.POST)
 	public String updateUser(@ModelAttribute("userForm")UserForm userForm,BindingResult result,HttpServletRequest request){
+		if(result.hasErrors()){
+			return "portal/user/userUpdate"; 
+		}
 		User user = userForm.asPojo();
 		accountsService.updateUser(user);
 		request.setAttribute("user", user);

@@ -72,24 +72,24 @@ public class ReportController extends UserController{
 	@RequestMapping(value="/incoming/daily")
 	public String daily_incoming(@ModelAttribute("reportParamForm") ReportParamForm form,HttpServletRequest request, Model model) {
 		this.responseDaily(form.asPojo(), request, model);
-		return "backend/report/incoming/daily";
+		return "portal/report/incoming/daily";
 	}
 	
 	@RequestMapping(value="/incoming/monthly")
 	public String monthly_incoming(@ModelAttribute("reportParamForm") ReportParamForm form,HttpServletRequest request, HttpServletResponse response,Model model) {
 		this.responseMonthly(form.asPojo(), request, model);
-		return "backend/report/incoming/monthly";
+		return "portal/report/incoming/monthly";
 	}
 
 	@RequestMapping(value="/advert/pushes")
 	public String pushes_advert(@ModelAttribute("reportParamForm") ReportParamForm form,HttpServletRequest request, HttpServletResponse response,Model model) {
 		this.responseDaily(form.asPojo(), request, model);
-		return "backend/report/advert/pushes";
+		return "portal/report/advert/pushes";
 	}
 	
 	@RequestMapping(value="/advert/advertising")
 	public String advertising(@Valid @ModelAttribute("reportParamForm") ReportParamForm form, BindingResult result, HttpServletRequest request, Model model) {
 		this.responseDaily(form.asPojo(), request, model);
-		return "backend/report/advert/advertising";
+		return "portal/report/advert/advertising";
 	}
 }

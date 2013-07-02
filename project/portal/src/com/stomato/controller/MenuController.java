@@ -50,6 +50,9 @@ public class MenuController {
 	 */
 	@RequestMapping(value = "/formpage.html",method=RequestMethod.POST)
 	public String addMenu(@Valid @ModelAttribute("menuForm") MenuForm menuForm, BindingResult result, HttpServletRequest request) {
+		if (result.hasErrors()) {
+			return "portal/menu/menuForm";
+		}
 		menuService.addMenu(menuForm.asPojo());
 		request.setAttribute("content", "添加菜单项成功！");
 		request.setAttribute("parentMenus",menuService.listParentMenu());
@@ -85,7 +88,10 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "/editMenu.html",method=RequestMethod.POST)
-	public String updateMenu(@Valid @ModelAttribute("menuForm") MenuForm menuForm, HttpServletRequest request) {
+	public String updateMenu(@Valid @ModelAttribute("menuForm") MenuForm menuForm,BindingResult result, HttpServletRequest request) {
+		if (result.hasErrors()) {
+			return "portal/menu/menuUpdate";
+		}
 		Menu menu = menuForm.asPojo();
 		if( menu.getVisible() == null){
 			menu.setVisible(0);

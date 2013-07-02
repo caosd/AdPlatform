@@ -22,6 +22,7 @@
         <pattern>/menu/*</pattern>
         <pattern>/role/*</pattern>
         <pattern>/financial/*</pattern>
+        <pattern>/report/*</pattern>
         <pattern>/errors/*</pattern>
     </decorator>
 

@@ -25,7 +25,6 @@ private Integer id ;
 	/**
 	 * 菜单路径
 	 */
-	@NotEmpty
 	private String path ;
 	
 	/**
