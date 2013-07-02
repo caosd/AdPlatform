@@ -10,7 +10,7 @@
     </excludes>
 
     <decorator name="login" page="portal_login.jsp">
-        <pattern>/login</pattern>
+        <pattern>/login.html</pattern>
     </decorator>
     
     <decorator name="portal" page="portal.jsp">
@@ -21,6 +21,7 @@
         <pattern>/admin/*</pattern>
         <pattern>/menu/*</pattern>
         <pattern>/role/*</pattern>
+        <pattern>/errors/*</pattern>
     </decorator>
 
 </decorators>

@@ -24,12 +24,12 @@ public class PortalController extends UserController {
 	@Autowired
 	private AccountsService accountsService;
 	
-	@RequestMapping(value="login", method = RequestMethod.GET)
+	@RequestMapping(value="login.html", method = RequestMethod.GET)
 	public String showForm(@ModelAttribute LoginForm loginForm, Map<String, Object> model, HttpServletRequest request) {
 		return "portal/login";
 	}
 
-	@RequestMapping(value="login", method = RequestMethod.POST)
+	@RequestMapping(value="login.html", method = RequestMethod.POST)
 	public String processForm(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
 		if (result.hasErrors()) {
 			if (StringUtils.isEmpty(loginForm.getUserName())) {
@@ -63,7 +63,7 @@ public class PortalController extends UserController {
 		return "redirect:/dashboard.html";
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping("/logout.html")
 	public String signOut(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		if (session != null) {
@@ -71,7 +71,7 @@ public class PortalController extends UserController {
 			session.invalidate();
 		}
 		
-		return "portal/logout";
+		return "redirect:/login.html";
 	}
 	
 	@RequestMapping("/dashboard.html")

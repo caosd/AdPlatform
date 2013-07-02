@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.Payment;
-import com.stomato.domain.Role;
 import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;

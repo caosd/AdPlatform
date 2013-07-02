@@ -24,7 +24,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		if (session != null) {
 			if (session.getAttribute("user") != null) {
-				if (servletPath.indexOf("/login") >= 0) {
+				if (servletPath.indexOf("/login.html") >= 0) {
 					response.sendRedirect("/dashboard.html");
 				}
 				return true;
@@ -54,7 +54,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 				user = userService.getUser(user);
 				if (user != null) {
 					session.setAttribute("user", user);
-					if (servletPath.indexOf("/login") >= 0) {
+					if (servletPath.indexOf("/login.html") >= 0) {
 						response.sendRedirect("/dashboard.html");
 					}
 					return true;
@@ -62,14 +62,14 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		
-		if (servletPath.indexOf("/login") >= 0 || 
-				servletPath.indexOf("/logout") >= 0 || 
-				servletPath.indexOf("/signup") >= 0) {
+		if (servletPath.indexOf("/login.html") >= 0 || 
+				servletPath.indexOf("/logout.html") >= 0 || 
+				servletPath.indexOf("/signup.html") >= 0) {
 			return true;
 		}
 		
 		String url = request.getRequestURI();
-		response.sendRedirect("/login?nextUrl=" + url);
+		response.sendRedirect("/login.html?nextUrl=" + url);
 		return false;
 	}
 	

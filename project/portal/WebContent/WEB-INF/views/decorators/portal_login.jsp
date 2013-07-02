@@ -30,18 +30,13 @@
                 <i class="icon-lock"></i>
             </div>
             <div class="control-wrap">
-                <h4>用户登录</h4>
-                <div style="color:red">
-                <c:if test="${accountErr }">
-                <fmt:message key="error.not_found_account"/>
-                </c:if>
-                <c:if test="${usernameEmpty }">
-                <fmt:message key="error.field_required"/>
-                </c:if>
-                <c:if test="${passwordEmpty }">
-                <fmt:message key="error.field_required"/>
-                </c:if>
-                </div>
+                <h4>用户登录
+	                <span style="color:red;font-size:12px;float:right;">
+	                <c:if test="${accountErr }">请输入正确的账户名。</c:if>
+	                <c:if test="${usernameEmpty }">请输入用户名。</c:if>
+	                <c:if test="${passwordEmpty }">请输入密码。</c:if>
+	                </span>
+                </h4>
                 <div class="control-group">
                     <div class="controls">
                         <div class="input-prepend">
