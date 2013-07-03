@@ -8,8 +8,9 @@
 </head>
 <body>
     <!-- BEGIN FORGOT PASSWORD FORM -->
-    <form:form commandName="resetForm" id="forgotform" method="POST" class="form-vertical no-padding no-margin">
+    <form:form commandName="resetForm" id="forgotform" method="POST" class="form-vertical no-padding no-margin" onsubmit="return subform()">
         <form:hidden path="lang" id="lang" value="zh_cn" />
+        <h4>找回您的密码</h4>
         <p class="center">输入邮箱地址来接收我们发送给您的重置密码链接。</p>
         <div class="control-group">
             <div class="controls">
@@ -31,5 +32,11 @@
         </div>
         <input type="submit" id="forget-btn" class="btn btn-block login-btn" value="确认发送邮件">
     </form:form>
+    <script>
+    function subform() {
+    	$("#forget-btn").attr("disabled", "disabled");
+    	return true;
+    }
+    </script>
     <!-- END FORGOT PASSWORD FORM -->
 </body>

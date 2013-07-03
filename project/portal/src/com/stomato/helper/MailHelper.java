@@ -21,13 +21,13 @@ public class MailHelper {
 	private MimeMessage mimeMsg; // MIME邮件对象
 	private Session session; // 邮件会话对象
 	private Properties props; // 系统属性
-	private static final String smtp = "smtp.ym.163.com";
-	private static final String username = "support@stomato.com.cn"; // smtp认证用户名和密码
-	private static final String password = "1234qwer";
+	private static final String smtp = "smtp.163.com";
+	private static final String username = "extranotgood2@163.com"; // smtp认证用户名和密码
+	private static final String password = "abc123";
 	private int port = 25;
 	private Multipart mp; // Multipart对象,邮件内容,标题,附件等内容均添加到其中后再生成MimeMessage对象
 	
-	private static final String domain = "www.stomato.com.cn";
+	private static final String domain = "localhost:8090";
 	
 	private static Logger logger = Logger.getLogger(MailHelper.class.getName());
 
@@ -175,18 +175,18 @@ public class MailHelper {
 			sb.append("<br/><br/>");
 			sb.append("如果您没有提交重置密码请求而收到此邮件，我们非常抱歉打扰您，请忽略本邮件。");
 			sb.append("<br/><br/>");
-			sb.append("要重置您在Smile Tomato上的用户密码，请点击以下链接。该链接会在浏览器上打开一个页面，让您来重设密码。");
+			sb.append("要重置您的用户密码，请点击以下链接。该链接会在浏览器上打开一个页面，让您来重设密码。");
 			sb.append("<br/>");
 			sb.append("<a target=\"_blank\" href=\"http://" + domain + link + "\">http://" + domain + link + "</a>");
 			sb.append("<br/><br/>");
-			sb.append("您当前邮箱在Smile Tomato上关联的用户名为: " + username);
+			sb.append("您当前邮箱关联的用户名为: " + username);
 			sb.append("<br/><br/>");
 			sb.append("上述重设密码链接，在您发出重置密码请求后一小时内有效。感谢您浏览我们的网站！");
 			sb.append("<br/><br/>");
-			sb.append("Smile Tomato 开发团队");
+			sb.append("xxxx 开发团队");
 			sb.append("</pre>");
 			
-			mailInfo.setSubject("重置您在Smile Tomato上的密码");
+			mailInfo.setSubject("重置您的密码");
 		} else {
 			sb.append("<pre style=\"word-wrap:break-word;\" wrap=\"soft\">");
 			sb.append("<br/>");
@@ -200,7 +200,7 @@ public class MailHelper {
 			sb.append("<br/><br/>");
 			sb.append("Thanks for using our site!");
 			sb.append("<br/><br/>");
-			sb.append("The Smile-Tomato Team");
+			sb.append("The xxxx Team");
 			sb.append("</pre>");
 			
 			mailInfo.setSubject("Password reset on " + domain);

@@ -6,10 +6,6 @@ import com.stomato.form.ResetPasswordForm;
 
 @Component
 public class ResetPasswordValidation {
-	public boolean supports(Class<?> klass) {
-		return ResetPasswordForm.class.isAssignableFrom(klass);
-	}
-
 	public void validate(Object target, Errors errors) {
 		ResetPasswordForm form = (ResetPasswordForm) target;
 		if (!form.getNew_password1().equals(form.getNew_password2())) {

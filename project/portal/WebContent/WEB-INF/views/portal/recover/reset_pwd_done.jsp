@@ -12,7 +12,7 @@
         <p class="center">我们已经成功发送邮件到您的邮箱<a href="javascript:;" >${email }</a>, 请登录邮箱按着我们提示的步骤重置您的密码。</p>
         <div class="control-group">
             <div class="space20"></div>
-            <input type="button" id="forget-btn" class="btn btn-block login-btn" value="关闭页面">
+            <input type="button" id="forget-btn" class="btn btn-block login-btn" value="关闭页面" onclick="self.close();">
         </div>
     </form>
     <!-- END FORGOT PASSWORD FORM -->

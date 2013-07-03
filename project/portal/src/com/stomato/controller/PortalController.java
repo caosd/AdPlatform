@@ -39,12 +39,12 @@ public class PortalController extends UserController {
 	@Autowired
 	private ResetPasswordValidation resetPasswordValidation;
 	
-	@RequestMapping(value="login.html", method = RequestMethod.GET)
+	@RequestMapping(value="/login.html", method = RequestMethod.GET)
 	public String showForm(@ModelAttribute LoginForm loginForm, Map<String, Object> model, HttpServletRequest request) {
 		return "portal/login";
 	}
 
-	@RequestMapping(value="login.html", method = RequestMethod.POST)
+	@RequestMapping(value="/login.html", method = RequestMethod.POST)
 	public String processForm(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
 		if (result.hasErrors()) {
 			if (StringUtils.isEmpty(loginForm.getUserName())) {
@@ -78,7 +78,7 @@ public class PortalController extends UserController {
 		return "redirect:/dashboard.html";
 	}
 	
-	@RequestMapping("logout.html")
+	@RequestMapping("/logout.html")
 	public String signOut(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		if (session != null) {
@@ -89,17 +89,17 @@ public class PortalController extends UserController {
 		return "redirect:/login.html";
 	}
 	
-	@RequestMapping("dashboard.html")
+	@RequestMapping("/dashboard.html")
 	public String dashboard() {
 		return "portal/dashboard";
 	}
 	
-	@RequestMapping(value="recover/reset_pwd.html", method=RequestMethod.GET)
+	@RequestMapping(value="/recover/reset_pwd.html", method=RequestMethod.GET)
 	public String showResetPwd(@ModelAttribute("resetForm") ResetByEmailForm form) {
 		return "portal/recover/reset_pwd";
 	}
 	
-	@RequestMapping(value="recover/reset_pwd.html", method=RequestMethod.POST)
+	@RequestMapping(value="/recover/reset_pwd.html", method=RequestMethod.POST)
 	public String processResetPwd(@Valid @ModelAttribute("resetForm") ResetByEmailForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			if (StringUtils.isEmpty(form.getEmail())) {
@@ -126,19 +126,22 @@ public class PortalController extends UserController {
 		String link = "/recover/reset_pwd_confirm/" + token;
 		MailHelper.sendResetPwdEmail(email, user.getUserName(), link, "zh_cn");
 		
-		model.addAttribute("email", email);
-		
+		return "redirect:/recover/reset_pwd_done.html";
+	}
+	
+	@RequestMapping(value="/recover/reset_pwd_done.html", method=RequestMethod.GET)
+	public String reset_pwd_done() {
 		return "portal/recover/reset_pwd_done";
 	}
 	
-	@RequestMapping(value="recover/reset_pwd_confirm/{token}", method=RequestMethod.GET)
+	@RequestMapping(value="/recover/reset_pwd_confirm/{token}", method=RequestMethod.GET)
 	public String showResetPwdCofirm(@ModelAttribute("confirmForm") ResetPasswordForm form, @PathVariable String token) {
 		if (StringUtils.isEmpty(token)) {
-			return "portal/recover/reset_pwd_unsuccess";
+			return "redirect:/recover/reset_pwd_unsuccess.html";
 		}
 		Password password = passwordService.getToken(token);
 		if (password == null) {
-			return "portal/recover/reset_pwd_unsuccess";
+			return "redirect:/recover/reset_pwd_unsuccess.html";
 		}
 		return "portal/recover/reset_pwd_confirm";
 	}
@@ -146,7 +149,7 @@ public class PortalController extends UserController {
 	@RequestMapping(value="/recover/reset_pwd_confirm/{token}", method=RequestMethod.POST)
 	public String processResetPwdCofirm(@Valid @ModelAttribute("confirmForm") ResetPasswordForm form, BindingResult result, @PathVariable String token) {
 		if (StringUtils.isEmpty(token)) {
-			return "portal/recover/reset_pwd_unsuccess";
+			return "redirect:/recover/reset_pwd_unsuccess.html";
 		}
 		resetPasswordValidation.validate(form, result);
 		if (result.hasErrors()) {
@@ -155,7 +158,7 @@ public class PortalController extends UserController {
 		
 		Password password = passwordService.getToken(token);
 		if (password == null) {
-			return "portal/recover/reset_pwd_unsuccess";
+			return "redirect:/recover/reset_pwd_unsuccess.html";
 		}
 		
 		User user = accountsService.getUserByEmail(password.getEmail());
@@ -163,6 +166,17 @@ public class PortalController extends UserController {
 		passwordService.removeToken(password.getEmail());
 		accountsService.updatePassword(user);
 		
+		return "redirect:/recover/reset_pwd_success.html";
+	}
+	
+	@RequestMapping(value="/recover/reset_pwd_success.html", method=RequestMethod.GET)
+	public String reset_pwd_success() {
 		return "portal/recover/reset_pwd_success";
 	}
+	
+	@RequestMapping(value="/recover/reset_pwd_unsuccess.html", method=RequestMethod.GET)
+	public String reset_pwd_unsuccess() {
+		return "portal/recover/reset_pwd_unsuccess";
+	}
+	
 }
