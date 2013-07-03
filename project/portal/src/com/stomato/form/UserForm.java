@@ -1,6 +1,6 @@
 package com.stomato.form;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,14 +20,12 @@ public class UserForm {
 	private String password;
 	
 	private String confirmPassword;
-	@NotEmpty
+	
 	private int roleId;
 	@NotEmpty
 	@Email
 	private String email;
-	
-	@Min(1)
-	@Max(2)
+
 	private int type;
 	
 	private String company;
@@ -39,7 +37,7 @@ public class UserForm {
 	private String qq;
 	
 	private String website;
-	
+
 	public int getUid() {
 		return uid;
 	}

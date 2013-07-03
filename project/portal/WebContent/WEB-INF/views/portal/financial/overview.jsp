@@ -155,7 +155,7 @@
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" for="contactName"> 开户人姓名 </label>
+	          <label class="control-label" for="bankAccount"> 开户人姓名 </label>
 	          <div class="controls">
 	             <form:input type="text" path="bankAccount" style="width:200px" value="${credentials.bankAccount }"/>
                  <span class="info2">办理此银行卡时所用真实姓名，请与身份证保持一致!</span>
@@ -163,7 +163,7 @@
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" for="contactTel"> 银行地址 </label>
+	          <label class="control-label" for="bankAddress"> 银行地址 </label>
 	          <div class="controls">
 	             <form:input type="text" path="bankAddress" style="width:200px" value="${credentials.bankAddress }"/>
                  <span class="info">格式为：xx省,xx市/县,xx支行/分行　　　请认真核对<br/>为确保结算安全，该项信息不能修改，如需变更，请联系客服!</span>

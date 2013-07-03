@@ -19,7 +19,6 @@ import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;
 import com.stomato.domain.UserParam;
-import com.stomato.enums.AccountTypeEnum;
 import com.stomato.enums.PaymentEnum;
 import com.stomato.form.EmailForm;
 import com.stomato.form.PasswordForm;
@@ -199,8 +198,8 @@ public class AccountsController extends UserController {
 	 * @return
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.GET)
-	public String userFormPage(@ModelAttribute("userForm")UserForm userForm,BindingResult result,HttpServletRequest request){
-		request.setAttribute("roleList", roleService.listRole(null));
+	public String userFormPage(@ModelAttribute("userForm")UserForm userForm,BindingResult result,Model model){
+		model.addAttribute("roleList", roleService.listRole(null));
 		return "portal/user/userForm";
 	}
 	
@@ -211,56 +210,40 @@ public class AccountsController extends UserController {
 	 * @return
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
-	public String addUser(@ModelAttribute("userForm")UserForm userForm,BindingResult result,HttpServletRequest request){ 
-		User verifier = new User();
-		verifier.setEmail(userForm.getEmail());
-		verifier.setUserName(userForm.getUserName());
-		verifier = accountsService.verify(verifier);
-		request.setAttribute("roleList", roleService.listRole(null));
-		if (verifier != null) {
-			if (userForm.getEmail().equals(verifier.getEmail())) {
-				request.setAttribute("content", "This email address has been registered.");
-				return "portal/user/userForm";
-			}
-			if (userForm.getUserName().equals(verifier.getUserName())) {
-				request.setAttribute("content", "This username has been registered.");
-				return "portal/user/userForm";
-			}
+	public String addUser(@Valid @ModelAttribute("userForm")UserForm userForm,BindingResult result,Model model){
+
+		model.addAttribute("roleList", roleService.listRole(null));
+		if( !userForm.getPassword().equals(userForm.getConfirmPassword()) ){
+			result.rejectValue("confirmPassword", "error.password_not_match","Password and Confirm Password Not match.");
 		}
-		
-		User user = userForm.asPojo();
-		accountsService.addUser(user);
-		
-		user = accountsService.getUser(user);
-		UserAccount userAccount = new UserAccount();
-		userAccount.setUid(user.getUid());
-		userAccount.setBalance(0d);
-		userAccountService.addUserAccount(userAccount);
-		if (user.getType() == AccountTypeEnum.Company.value()) {
-			/*Credentials credentials = new Credentials();
-			credentials.setUid(user.getUid());
-			credentials.setCredentialsType(Constant.CredentialsType.businessLicense);
-			credentials.setCredentialsNo(credentialsNo);
-			try{
-				String suffix = CredentialValidation.IMG_SUFFIXS.get(credentialsPhoto.getContentType());
-				String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", user.getUid(),Constant.Configs.credentialsDirPath,credentials.getCredentialsType(),credentialsNo,"photo1",suffix);
-				File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", Constant.fileSeparator));
-				if (!targetFile.exists()) {
-					boolean made = targetFile.mkdirs();
-					logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
+		if( !result.hasErrors() ){
+			User verifier = new User();
+			verifier.setEmail(userForm.getEmail());
+			verifier.setUserName(userForm.getUserName());
+			verifier = accountsService.verify(verifier);
+			if (verifier != null) {
+				if (userForm.getEmail().equals(verifier.getEmail())) {
+					result.rejectValue("email", "error.email_is_exist","This email address has been registered.");
+					return "portal/user/userForm";
 				}
-				credentialsPhoto.transferTo(targetFile);
-				credentials.setCredentialsPhoto1(String.format("%s_%s_%s.%s", credentials.getCredentialsType(),credentialsNo,"photo1",suffix));
-			}catch(Exception error){
-				logger.error("[Upload Error] " + error.getMessage());
+				if (userForm.getUserName().equals(verifier.getUserName())) {
+					result.rejectValue("username", "error.username_is_exist","This username has been registered.");
+					return "portal/user/userForm";
+				}
 			}
-			this.credentialsService.addCredentials(credentials);*/
+			User user = userForm.asPojo();
+			accountsService.addUser(user);
+			user = accountsService.getUser(user);
+			UserAccount userAccount = new UserAccount();
+			userAccount.setUid(user.getUid());
+			userAccount.setBalance(0d);
+			userAccountService.addUserAccount(userAccount);
+			model.addAttribute("content", "添加用户成功！");
 		}
-		request.setAttribute("content", "添加用户成功！");
 		return "portal/user/userForm";
 	}
 	@RequestMapping(value="/listUser.html")
-	public String list(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,HttpServletRequest request){
+	public String list(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,Model model){
 		/*if(flag == 1){
 			user.setRoleId(5);
 		}*/
@@ -278,31 +261,46 @@ public class AccountsController extends UserController {
 		
 		logger.debug("userList size:"+userList.size());
 
-		request.setAttribute("pageTotal", pageTotal);
-		request.setAttribute("totalcount", total);
-		request.setAttribute("pageNum", param.getPageNum());
-		request.setAttribute("userList", userList);
+		model.addAttribute("pageTotal", pageTotal);
+		model.addAttribute("totalcount", total);
+		model.addAttribute("pageNum", param.getPageNum());
+		model.addAttribute("userList", userList);
 		return "portal/user/userList";
 	}
 	@RequestMapping(value="/editUser.html",method=RequestMethod.GET)
-	public String updateUser(@ModelAttribute("userForm")UserForm userForm,int id,HttpServletRequest request){
+	public String updateUser(@ModelAttribute("userForm")UserForm userForm,int id,Model model){
 		User user = accountsService.getUserByUid(id);
-		request.setAttribute("user", user);
-		request.setAttribute("role", roleService.getRole(user.getType()));
-		request.setAttribute("roleList", roleService.listRole(null));
+		model.addAttribute("user", user);
+		model.addAttribute("role", roleService.getRole(user.getType()));
+		model.addAttribute("roleList", roleService.listRole(null));
 		return "portal/user/userUpdate";
 	}
 	@RequestMapping(value="/editUser.html",method=RequestMethod.POST)
-	public String updateUser(@ModelAttribute("userForm")UserForm userForm,BindingResult result,HttpServletRequest request){
+	public String updateUser(@Valid @ModelAttribute("userForm")UserForm userForm,BindingResult result,Model model){
+
+		model.addAttribute("roleList", roleService.listRole(null));
 		if(result.hasErrors()){
 			return "portal/user/userUpdate"; 
 		}
+		/*User verifier = new User();
+		verifier.setEmail(userForm.getEmail());
+		verifier.setUserName(userForm.getUserName());
+		verifier = accountsService.verify(verifier);
+		if (verifier != null) {
+			if (userForm.getEmail().equals(verifier.getEmail())) {
+				result.rejectValue("email", "error.email_is_exist","This email address has been registered.");
+				return "portal/user/userForm";
+			}
+			if (userForm.getUserName().equals(verifier.getUserName())) {
+				result.rejectValue("username", "error.username_is_exist","This username has been registered.");
+				return "portal/user/userForm";
+			}
+		}*/
 		User user = userForm.asPojo();
 		accountsService.updateUser(user);
-		request.setAttribute("user", user);
-		request.setAttribute("role", roleService.getRole(user.getType()));
-		request.setAttribute("roleList", roleService.listRole(null));
-		request.setAttribute("content", "编辑用户成功！");
+		model.addAttribute("user", user);
+		model.addAttribute("role", roleService.getRole(user.getType()));
+		model.addAttribute("content", "编辑用户成功！");
 		return "portal/user/userUpdate";
 	}
 }

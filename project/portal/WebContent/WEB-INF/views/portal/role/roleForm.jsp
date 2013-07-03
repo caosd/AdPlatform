@@ -54,7 +54,7 @@
 	          <label class="control-label" for="roleName">角色名称:</label>
 	          <div class="controls">
 	             <form:input path="roleName" type="text" class="span6" id="roleName"/>
-	             <span class="help-inline">*必须项</span>
+	             <form:errors path="roleName" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="form-actions">

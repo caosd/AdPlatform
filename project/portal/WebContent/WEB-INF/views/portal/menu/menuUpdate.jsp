@@ -51,21 +51,21 @@
 	          <div class="controls">
 	          	 <form:hidden path="id" class="span6" id="name" value="${menu.id}"/>
 	             <form:input path="name" type="text" class="span6" id="name" value="${menu.name}"/>
-	             <span class="help-inline">*必须项</span>
+	             <form:errors path="name" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="control-group">
 	          <label class="control-label" for="desc">菜单描述:</label>
 	          <div class="controls">
 	             <form:input path="desc" type="text" class="span6" id="desc" value="${menu.desc}"/>
-	             <span class="help-inline">*必须项</span>
+	             <form:errors path="desc" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="control-group">
 	          <label class="control-label" for="path">菜单路径:</label>
 	          <div class="controls">
 	             <form:input path="path" type="text" class="span6" id="path" value="${menu.path}"/>
-	             <span class="help-inline">*必须项</span>
+	             <form:errors path="path" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="control-group">
@@ -89,7 +89,7 @@
 	          <label class="control-label" for="orderNo">排序标识:</label>
 	          <div class="controls">
 	             <form:input path="orderNo" type="text" class="span6" id="orderNo" value="${menu.orderNo}" />
-	             <span class="help-inline"></span>
+	             <form:errors path="orderNo" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="form-actions">
