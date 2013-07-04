@@ -40,59 +40,39 @@
 	    </span>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
-		<c:if test="${not empty updated}">
-		<div class="protip success">
-			<strong><fmt:message key="tips"/></strong> <fmt:message key="change_email_success"/>
-		</div>
-		</c:if>
-		<c:if test="${not empty error}">
-		<div class="protip warn">
-			<strong><fmt:message key="tips"/></strong> <fmt:message key="change_email_failed"/>
-		</div>
-		</c:if>
-	    <!-- BEGIN FORM-->
-	    <form:form commandName="profileForm" method="POST" class="form-horizontal">
-	       <div class="control-group">
-	          <label class="control-label" for="email"> <fmt:message key="label.account_type"/> </label>
-	          <div class="controls">
-	               <form:select path="type" id="accountType">
-						<option value="1" ${user.type == 1 ? "selected=\"selected\"":"" }><fmt:message key="option.individual"/></option>
-						<option value="2" ${user.type == 2 ? "selected=\"selected\"":"" }><fmt:message key="option.company"/></option>
-					</form:select>
-	          </div>
-	       </div>
-	       <div class="control-group">
-	          <label class="control-label" for="company"> <fmt:message key="label.company_name"/> </label>
-	          <div class="controls">
-	               <form:input path="company" value="${user.company }" autocomplete="off" id="company"/> 
-				   <form:errors path="company" cssClass="error" />
-	          </div>
-	       </div>
-	       <div class="control-group">
-	          <label class="control-label" for="contactName"> <fmt:message key="label.contact_name"/> </label>
-	          <div class="controls">
-					<form:input path="contactName" value="${user.contactName }" autocomplete="off"/> 
-					<form:errors path="contactName" cssClass="error" />
-	          </div>
-	       </div>
-	       <div class="control-group">
-	          <label class="control-label" for="contactTel"> <fmt:message key="label.contact_tel"/> </label>
-	          <div class="controls">
-	               <form:input path="contactTel" value="${user.contactTel }" autocomplete="off"/> 
-			 	   <form:errors path="contactTel" cssClass="error" />
-	          </div>
-	       </div>
-	       <div class="control-group">
-	          <label class="control-label" for="qq"> <fmt:message key="label.qq"/> </label>
-	          <div class="controls">
-	               <form:input path="qq" value="${user.qq }" autocomplete="off"/> 
-                   <form:errors path="qq" cssClass="error" />
-	          </div>
-	       </div>
-	       <div class="form-actions">
-	          <button type="submit" class="btn btn-success"><fmt:message key="change_my_profile"/></button>
-	       </div>
-	    </form:form>
+		<div class="right_content">
+					<div class="bluebox">
+						<dl>
+							<dt><fmt:message key="label.account_name"/></dt>
+                            <dd>${user.userName}</dd>
+                            <dt><fmt:message key="label.email"/></dt>
+                            <dd>${user.email}</dd>
+							<dt><fmt:message key="label.account_type"/></dt>
+							<dd>
+							<c:if test="${user.type == 1}"><fmt:message key="option.individual"/></c:if>
+							<c:if test="${user.type == 2}"><fmt:message key="option.company"/></c:if>
+							</dd>
+							<c:if test="${user.type == 2 }">
+							<dt><fmt:message key="label.company_name"/></dt>
+							<dd>${user.company}</dd>
+							</c:if>
+							<c:if test="${user.type == 1 }">
+							<dt><fmt:message key="label.contact_name"/></dt>
+							<dd>${user.contactName }</dd>
+							</c:if>
+                            <dt><fmt:message key="label.contact_tel"/></dt>
+                            <dd>${user.contactTel}</dd>
+                            <dt><fmt:message key="label.qq"/></dt>
+                            <dd>${user.qq}</dd>
+							<dt><fmt:message key="label.website"/></dt>
+							<dd>${user.website}</dd>
+                            <dt><fmt:message key="label.account_created"/></dt>
+                            <dd><fmt:formatDate value="${user.createtime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dd>
+                            <dt><fmt:message key="label.last_login_time"/></dt>
+                            <dd><fmt:formatDate value="${user.loginTokenTime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dd>
+						</dl>
+					</div>
+				</div>
 	    <!-- END FORM-->
 	 </div>
 </div>

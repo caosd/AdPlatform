@@ -93,6 +93,8 @@ public class AdResource extends BaseParam{
 	 */
 	private Date itime ;
 	
+	private Integer status;
+	
 	public AdResource(){
 		
 	}
@@ -101,6 +103,14 @@ public class AdResource extends BaseParam{
 		this.id = id ;
 	}
 	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public int getId() {
 		return id;
 	}

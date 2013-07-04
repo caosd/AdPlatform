@@ -58,7 +58,7 @@ public class AccountsController extends UserController {
 	}
 	
 	@RequestMapping("/overview")
-	public String main() {
+	public String main(@ModelAttribute("profileForm") ProfileForm form) {
 		return "portal/accounts/overview";
 	}
 	

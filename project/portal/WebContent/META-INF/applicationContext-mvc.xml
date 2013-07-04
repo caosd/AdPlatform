@@ -56,6 +56,7 @@
 	        <mvc:mapping path="/accounts/**" />
 	        <mvc:mapping path="/apps/**" />
             <mvc:mapping path="/financial/**"/>
+            <mvc:mapping path="/adResource/**"/>
             <mvc:mapping path="/report/**"/>
             <mvc:mapping path="/menu/**"/>
             <mvc:mapping path="/role/**"/>

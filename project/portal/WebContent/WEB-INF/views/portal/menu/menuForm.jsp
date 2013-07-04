@@ -19,10 +19,6 @@
             </span>
        </div>
        <!-- END THEME CUSTOMIZER-->
-      <h3 class="page-title">
-           	添加菜单
-         <small>表单</small>
-      </h3>
        <ul class="breadcrumb">
            <li>
                <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
