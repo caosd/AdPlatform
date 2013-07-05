@@ -115,6 +115,10 @@ public class AccountsController extends UserController {
 		}
 		user.setType(formUser.getType());
 		user.setCompany(formUser.getCompany());
+		user.setContactName(formUser.getContactName());
+		user.setContactTel(formUser.getContactTel());
+		user.setQq(formUser.getQq());
+		user.setWebsite(formUser.getWebsite());
 		
 		accountsService.updateUser(user);
 		this.refreshUserSession(request, user);
@@ -268,7 +272,7 @@ public class AccountsController extends UserController {
 		return "portal/user/userList";
 	}
 	@RequestMapping(value="/editUser.html",method=RequestMethod.GET)
-	public String updateUser(@ModelAttribute("userForm")UserForm userForm,int id,Model model){
+	public String updateUser(@ModelAttribute("profileForm")ProfileForm form,int id,Model model){
 		User user = accountsService.getUserByUid(id);
 		model.addAttribute("user", user);
 		model.addAttribute("role", roleService.getRole(user.getType()));
@@ -276,28 +280,27 @@ public class AccountsController extends UserController {
 		return "portal/user/userUpdate";
 	}
 	@RequestMapping(value="/editUser.html",method=RequestMethod.POST)
-	public String updateUser(@Valid @ModelAttribute("userForm")UserForm userForm,BindingResult result,Model model){
+	public String updateUser(@Valid @ModelAttribute("profileForm")ProfileForm form,BindingResult result,Model model,HttpServletRequest request){
 
 		model.addAttribute("roleList", roleService.listRole(null));
 		if(result.hasErrors()){
-			return "portal/user/userUpdate"; 
+			return updateUser(form, form.getUid(), model);
 		}
-		/*User verifier = new User();
-		verifier.setEmail(userForm.getEmail());
-		verifier.setUserName(userForm.getUserName());
-		verifier = accountsService.verify(verifier);
-		if (verifier != null) {
-			if (userForm.getEmail().equals(verifier.getEmail())) {
-				result.rejectValue("email", "error.email_is_exist","This email address has been registered.");
-				return "portal/user/userForm";
-			}
-			if (userForm.getUserName().equals(verifier.getUserName())) {
-				result.rejectValue("username", "error.username_is_exist","This username has been registered.");
-				return "portal/user/userForm";
-			}
-		}*/
-		User user = userForm.asPojo();
+		User user = accountsService.getUserByUid(form.getUid());
+		if (form.getType() == 1) {
+			user.setCompany(null);
+		} else if (form.getType() == 2) {
+			user.setContactName(null);
+		}
+		user.setType(form.getType());
+		user.setCompany(form.getCompany());
+		user.setContactName(form.getContactName());
+		user.setContactTel(form.getContactTel());
+		user.setQq(form.getQq());
+		user.setWebsite(form.getWebsite());
+		
 		accountsService.updateUser(user);
+		
 		model.addAttribute("user", user);
 		model.addAttribute("role", roleService.getRole(user.getType()));
 		model.addAttribute("content", "编辑用户成功！");

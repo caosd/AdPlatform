@@ -45,13 +45,12 @@
 		    </div>
 	    </c:if>
 	    <!-- BEGIN FORM-->
-	    <form:form commandName="userForm" method="POST" class="form-horizontal">
+	    <form:form commandName="profileForm" method="POST" class="form-horizontal">
 	       <div class="control-group">
 	          <label class="control-label" for="userName">用户名:</label>
 	          <div class="controls">
 	          	 <form:hidden path="uid" id="uid" value="${user.uid}"/>
-	             <form:input path="userName" type="text" class="span6" id="userName" value="${user.userName}"/>
-	             <form:errors path="userName" cssClass="error"/>
+	             ${user.userName}
 	          </div>
 	       </div>
 	       <div class="control-group">
@@ -62,13 +61,14 @@
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" for="roleId">角色:</label>
+	          <label class="control-label" for="type">角色:</label>
 	          <div class="controls">
-	             <form:select path="type" id="roleId" class="span6 " data-placeholder="角色:" tabindex="1">
+	             <form:select path="type" class="span6 " data-placeholder="角色:" tabindex="1">
                     <c:forEach items="${roleList}" var="item" varStatus="stat">
                     	<option value="${item.id}" ${user.type == item.id ? "selected=\"selected\"":"" }>${item.roleName}</option>
                     </c:forEach>
                  </form:select>
+                 <form:errors path="type" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="control-group">

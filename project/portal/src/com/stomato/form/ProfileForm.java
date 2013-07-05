@@ -9,10 +9,10 @@ import com.stomato.domain.User;
 
 public class ProfileForm {
 	
-	private int id;
+	private int uid;
 	
 	@Min(1)
-	@Max(2)
+	@Max(10)
 	private Integer type;
 	
 	private String company;
@@ -25,12 +25,13 @@ public class ProfileForm {
 	
 	private String website;
 
-	public int getId() {
-		return id;
+
+	public int getUid() {
+		return uid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
 	public Integer getType() {

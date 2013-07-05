@@ -53,7 +53,11 @@ public class MenuController {
 		if (result.hasErrors()) {
 			return "portal/menu/menuForm";
 		}
-		menuService.addMenu(menuForm.asPojo());
+		Menu menu = menuForm.asPojo();
+		if( menu.getVisible() == null){
+			menu.setVisible(0);
+		}
+		menuService.addMenu(menu);
 		request.setAttribute("content", "添加菜单项成功！");
 		request.setAttribute("parentMenus",menuService.listParentMenu());
 		return "portal/menu/menuForm";
