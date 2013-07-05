@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2013-07-01 18:32:14
+Date: 2013-07-05 09:28:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -241,7 +241,7 @@ CREATE TABLE `t_menu` (
   `_status` int(4) DEFAULT '0' COMMENT '是否有效 0-有效，1-无效',
   `order_no` varchar(50) DEFAULT '0' COMMENT '排序标示',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
@@ -275,7 +275,7 @@ INSERT INTO `t_menu` VALUES ('29', '应用列表', '开发者个人应用列表'
 INSERT INTO `t_menu` VALUES ('30', '查询应用', null, '/appInfo/selectAppInfo.html', '26', '0', '0', '314');
 INSERT INTO `t_menu` VALUES ('31', '修改应用', null, '/appInfo/updateAppInfo.html', '26', '0', '0', '315');
 INSERT INTO `t_menu` VALUES ('32', '删除应用', null, '/appInfo/deleteAppInfo.html', '26', '0', '0', '316');
-INSERT INTO `t_menu` VALUES ('33', '应用列表', '所有开发者应用列表', '/appInfo/listAppInfoAll.html', '26', '0', '0', '313');
+INSERT INTO `t_menu` VALUES ('33', '应用列表', '所有开发者应用列表', '/appInfo/listAppInfoAll.html', '26', '1', '0', '313');
 INSERT INTO `t_menu` VALUES ('34', 'SDK报表', null, '', '0', '1', '0', '4');
 INSERT INTO `t_menu` VALUES ('35', '用户报表', null, '/report/userDayReport.html', '34', '0', '0', '411');
 INSERT INTO `t_menu` VALUES ('36', '应用安装上报报表', null, '/report/appInstallReport.html', '34', '0', '0', '412');
@@ -296,6 +296,34 @@ INSERT INTO `t_menu` VALUES ('50', '修改支付项目action', null, '/amountIte
 INSERT INTO `t_menu` VALUES ('51', '删除支付项目', null, '/amountItem/delete.html', '1', '0', '0', '146');
 INSERT INTO `t_menu` VALUES ('52', '支付报表', '渠道本身的支付报表 —— 对外', '/report/channelAmountReport.html', '44', '0', '0', '611');
 INSERT INTO `t_menu` VALUES ('53', '支付报表', '所有渠道支付报表 —— 对内', '/report/allChannelAmountReport.html', '44', '0', '0', '612');
+INSERT INTO `t_menu` VALUES ('66', '财务中心', '', '', '0', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('67', '帐户管理', '', '', '0', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('68', '财务信息', '', '/financial/overview', '66', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('69', '财务明细', '', '/financial/accounts', '66', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('70', '申请汇款', '', '/financial/remittance', '66', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('71', '汇款记录', '', '/financial/remittance_history', '66', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('72', '收入报表', '', '', '0', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('73', '广告报表', '', '', '0', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('74', '小时统计', '', '', '72', '0', '0', '0');
+INSERT INTO `t_menu` VALUES ('75', '每日统计', '', '/report/incoming/daily', '72', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('76', '每月统计', '', '/report/incoming/monthly', '72', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('77', '广告推送', '', '/report/advert/pushes', '73', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('78', '应用内广告', '', '/report/advert/advertising', '73', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('79', '个人资料', '', '/accounts/overview', '67', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('80', '修改Email', '', '/accounts/change_email', '67', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('81', '修改资料', '', '/accounts/change_profile', '67', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('82', '修改密码', '', '/accounts/change_pwd', '67', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('83', '用户渠道', '', '', '0', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('84', '添加用户渠道', '', '', '83', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('85', '用户渠道列表', '', '', '83', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('86', '添加厂商', '', '', '83', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('87', '厂商列表', '', '', '83', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('88', '用户审核', '', '', '0', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('89', '用户注册资料列表', '', '', '88', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('90', '渠道管理', '', '', '0', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('91', '添加渠道', '', '', '90', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('92', '修改渠道', '', '', '90', '0', '0', '0');
+INSERT INTO `t_menu` VALUES ('93', '渠道列表', '', '', '90', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for `t_payment`
@@ -362,7 +390,7 @@ CREATE TABLE `t_remittance` (
   `last_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间，自动更新',
   PRIMARY KEY (`id`),
   KEY `id_uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_remittance
@@ -370,6 +398,7 @@ CREATE TABLE `t_remittance` (
 INSERT INTO `t_remittance` VALUES ('1', '20', '10', '覃建栋', '华夏银行', '425202520014225852', '0', null, null, '2013-06-02 10:41:37', '2013-06-02 10:41:37');
 INSERT INTO `t_remittance` VALUES ('2', '18', '12', 'aaa', '中国工商银行', '123567', '0', null, null, '2013-06-02 15:26:12', '2013-06-02 15:26:12');
 INSERT INTO `t_remittance` VALUES ('3', '20', '12', '覃建栋', '华夏银行', '425202520014225852', '0', null, null, '2013-06-02 15:35:20', '2013-06-02 15:35:20');
+INSERT INTO `t_remittance` VALUES ('4', '20', '100', '覃建栋', '华夏银行', '425202520014225852', '0', null, null, '2013-07-02 13:28:44', '2013-07-02 13:28:44');
 
 -- ----------------------------
 -- Table structure for `t_report_daily`
@@ -519,61 +548,155 @@ CREATE TABLE `t_role_menu` (
   `role_id` int(4) NOT NULL COMMENT '角色ID',
   `menu_id` int(4) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1150 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1614 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role_menu
 -- ----------------------------
-INSERT INTO `t_role_menu` VALUES ('1100', '1', '1');
-INSERT INTO `t_role_menu` VALUES ('1101', '1', '2');
-INSERT INTO `t_role_menu` VALUES ('1102', '1', '3');
-INSERT INTO `t_role_menu` VALUES ('1103', '1', '22');
-INSERT INTO `t_role_menu` VALUES ('1104', '1', '23');
-INSERT INTO `t_role_menu` VALUES ('1105', '1', '24');
-INSERT INTO `t_role_menu` VALUES ('1106', '1', '25');
-INSERT INTO `t_role_menu` VALUES ('1107', '1', '45');
-INSERT INTO `t_role_menu` VALUES ('1108', '1', '4');
-INSERT INTO `t_role_menu` VALUES ('1109', '1', '5');
-INSERT INTO `t_role_menu` VALUES ('1110', '1', '13');
-INSERT INTO `t_role_menu` VALUES ('1111', '1', '14');
-INSERT INTO `t_role_menu` VALUES ('1112', '1', '6');
-INSERT INTO `t_role_menu` VALUES ('1113', '1', '7');
-INSERT INTO `t_role_menu` VALUES ('1114', '1', '15');
-INSERT INTO `t_role_menu` VALUES ('1115', '1', '16');
-INSERT INTO `t_role_menu` VALUES ('1116', '1', '17');
-INSERT INTO `t_role_menu` VALUES ('1117', '1', '46');
-INSERT INTO `t_role_menu` VALUES ('1118', '1', '47');
-INSERT INTO `t_role_menu` VALUES ('1119', '1', '48');
-INSERT INTO `t_role_menu` VALUES ('1120', '1', '49');
-INSERT INTO `t_role_menu` VALUES ('1121', '1', '50');
-INSERT INTO `t_role_menu` VALUES ('1122', '1', '51');
-INSERT INTO `t_role_menu` VALUES ('1123', '1', '8');
-INSERT INTO `t_role_menu` VALUES ('1124', '1', '9');
-INSERT INTO `t_role_menu` VALUES ('1125', '1', '10');
-INSERT INTO `t_role_menu` VALUES ('1126', '1', '18');
-INSERT INTO `t_role_menu` VALUES ('1127', '1', '19');
-INSERT INTO `t_role_menu` VALUES ('1128', '1', '21');
-INSERT INTO `t_role_menu` VALUES ('1129', '1', '26');
-INSERT INTO `t_role_menu` VALUES ('1130', '1', '27');
-INSERT INTO `t_role_menu` VALUES ('1131', '1', '28');
-INSERT INTO `t_role_menu` VALUES ('1132', '1', '29');
-INSERT INTO `t_role_menu` VALUES ('1133', '1', '33');
-INSERT INTO `t_role_menu` VALUES ('1134', '1', '30');
-INSERT INTO `t_role_menu` VALUES ('1135', '1', '31');
-INSERT INTO `t_role_menu` VALUES ('1136', '1', '32');
-INSERT INTO `t_role_menu` VALUES ('1137', '1', '34');
-INSERT INTO `t_role_menu` VALUES ('1138', '1', '35');
-INSERT INTO `t_role_menu` VALUES ('1139', '1', '36');
-INSERT INTO `t_role_menu` VALUES ('1140', '1', '37');
-INSERT INTO `t_role_menu` VALUES ('1141', '1', '38');
-INSERT INTO `t_role_menu` VALUES ('1142', '1', '39');
-INSERT INTO `t_role_menu` VALUES ('1143', '1', '40');
-INSERT INTO `t_role_menu` VALUES ('1144', '1', '41');
-INSERT INTO `t_role_menu` VALUES ('1145', '1', '42');
-INSERT INTO `t_role_menu` VALUES ('1146', '1', '43');
-INSERT INTO `t_role_menu` VALUES ('1147', '1', '44');
-INSERT INTO `t_role_menu` VALUES ('1148', '1', '52');
-INSERT INTO `t_role_menu` VALUES ('1149', '1', '53');
+INSERT INTO `t_role_menu` VALUES ('1453', '1', '66');
+INSERT INTO `t_role_menu` VALUES ('1454', '1', '68');
+INSERT INTO `t_role_menu` VALUES ('1455', '1', '69');
+INSERT INTO `t_role_menu` VALUES ('1456', '1', '70');
+INSERT INTO `t_role_menu` VALUES ('1457', '1', '71');
+INSERT INTO `t_role_menu` VALUES ('1458', '1', '67');
+INSERT INTO `t_role_menu` VALUES ('1459', '1', '79');
+INSERT INTO `t_role_menu` VALUES ('1460', '1', '80');
+INSERT INTO `t_role_menu` VALUES ('1461', '1', '81');
+INSERT INTO `t_role_menu` VALUES ('1462', '1', '82');
+INSERT INTO `t_role_menu` VALUES ('1463', '1', '72');
+INSERT INTO `t_role_menu` VALUES ('1464', '1', '74');
+INSERT INTO `t_role_menu` VALUES ('1465', '1', '75');
+INSERT INTO `t_role_menu` VALUES ('1466', '1', '76');
+INSERT INTO `t_role_menu` VALUES ('1467', '1', '73');
+INSERT INTO `t_role_menu` VALUES ('1468', '1', '77');
+INSERT INTO `t_role_menu` VALUES ('1469', '1', '78');
+INSERT INTO `t_role_menu` VALUES ('1470', '1', '83');
+INSERT INTO `t_role_menu` VALUES ('1471', '1', '84');
+INSERT INTO `t_role_menu` VALUES ('1472', '1', '85');
+INSERT INTO `t_role_menu` VALUES ('1473', '1', '86');
+INSERT INTO `t_role_menu` VALUES ('1474', '1', '87');
+INSERT INTO `t_role_menu` VALUES ('1475', '1', '88');
+INSERT INTO `t_role_menu` VALUES ('1476', '1', '89');
+INSERT INTO `t_role_menu` VALUES ('1477', '1', '90');
+INSERT INTO `t_role_menu` VALUES ('1478', '1', '91');
+INSERT INTO `t_role_menu` VALUES ('1479', '1', '92');
+INSERT INTO `t_role_menu` VALUES ('1480', '1', '93');
+INSERT INTO `t_role_menu` VALUES ('1481', '1', '1');
+INSERT INTO `t_role_menu` VALUES ('1482', '1', '2');
+INSERT INTO `t_role_menu` VALUES ('1483', '1', '3');
+INSERT INTO `t_role_menu` VALUES ('1484', '1', '22');
+INSERT INTO `t_role_menu` VALUES ('1485', '1', '23');
+INSERT INTO `t_role_menu` VALUES ('1486', '1', '24');
+INSERT INTO `t_role_menu` VALUES ('1487', '1', '25');
+INSERT INTO `t_role_menu` VALUES ('1488', '1', '45');
+INSERT INTO `t_role_menu` VALUES ('1489', '1', '4');
+INSERT INTO `t_role_menu` VALUES ('1490', '1', '5');
+INSERT INTO `t_role_menu` VALUES ('1491', '1', '13');
+INSERT INTO `t_role_menu` VALUES ('1492', '1', '14');
+INSERT INTO `t_role_menu` VALUES ('1493', '1', '6');
+INSERT INTO `t_role_menu` VALUES ('1494', '1', '7');
+INSERT INTO `t_role_menu` VALUES ('1495', '1', '15');
+INSERT INTO `t_role_menu` VALUES ('1496', '1', '16');
+INSERT INTO `t_role_menu` VALUES ('1497', '1', '17');
+INSERT INTO `t_role_menu` VALUES ('1498', '1', '46');
+INSERT INTO `t_role_menu` VALUES ('1499', '1', '47');
+INSERT INTO `t_role_menu` VALUES ('1500', '1', '48');
+INSERT INTO `t_role_menu` VALUES ('1501', '1', '49');
+INSERT INTO `t_role_menu` VALUES ('1502', '1', '50');
+INSERT INTO `t_role_menu` VALUES ('1503', '1', '51');
+INSERT INTO `t_role_menu` VALUES ('1504', '1', '8');
+INSERT INTO `t_role_menu` VALUES ('1505', '1', '9');
+INSERT INTO `t_role_menu` VALUES ('1506', '1', '10');
+INSERT INTO `t_role_menu` VALUES ('1507', '1', '18');
+INSERT INTO `t_role_menu` VALUES ('1508', '1', '19');
+INSERT INTO `t_role_menu` VALUES ('1509', '1', '21');
+INSERT INTO `t_role_menu` VALUES ('1510', '1', '26');
+INSERT INTO `t_role_menu` VALUES ('1511', '1', '27');
+INSERT INTO `t_role_menu` VALUES ('1512', '1', '28');
+INSERT INTO `t_role_menu` VALUES ('1513', '1', '29');
+INSERT INTO `t_role_menu` VALUES ('1514', '1', '33');
+INSERT INTO `t_role_menu` VALUES ('1515', '1', '30');
+INSERT INTO `t_role_menu` VALUES ('1516', '1', '31');
+INSERT INTO `t_role_menu` VALUES ('1517', '1', '32');
+INSERT INTO `t_role_menu` VALUES ('1518', '1', '34');
+INSERT INTO `t_role_menu` VALUES ('1519', '1', '35');
+INSERT INTO `t_role_menu` VALUES ('1520', '1', '36');
+INSERT INTO `t_role_menu` VALUES ('1521', '1', '37');
+INSERT INTO `t_role_menu` VALUES ('1522', '1', '38');
+INSERT INTO `t_role_menu` VALUES ('1523', '1', '39');
+INSERT INTO `t_role_menu` VALUES ('1524', '1', '40');
+INSERT INTO `t_role_menu` VALUES ('1525', '1', '41');
+INSERT INTO `t_role_menu` VALUES ('1526', '1', '42');
+INSERT INTO `t_role_menu` VALUES ('1527', '1', '43');
+INSERT INTO `t_role_menu` VALUES ('1528', '1', '44');
+INSERT INTO `t_role_menu` VALUES ('1529', '1', '52');
+INSERT INTO `t_role_menu` VALUES ('1530', '1', '53');
+INSERT INTO `t_role_menu` VALUES ('1548', '4', '66');
+INSERT INTO `t_role_menu` VALUES ('1549', '4', '68');
+INSERT INTO `t_role_menu` VALUES ('1550', '4', '69');
+INSERT INTO `t_role_menu` VALUES ('1551', '4', '70');
+INSERT INTO `t_role_menu` VALUES ('1552', '4', '71');
+INSERT INTO `t_role_menu` VALUES ('1553', '4', '67');
+INSERT INTO `t_role_menu` VALUES ('1554', '4', '79');
+INSERT INTO `t_role_menu` VALUES ('1555', '4', '80');
+INSERT INTO `t_role_menu` VALUES ('1556', '4', '81');
+INSERT INTO `t_role_menu` VALUES ('1557', '4', '82');
+INSERT INTO `t_role_menu` VALUES ('1558', '4', '26');
+INSERT INTO `t_role_menu` VALUES ('1559', '4', '27');
+INSERT INTO `t_role_menu` VALUES ('1560', '4', '28');
+INSERT INTO `t_role_menu` VALUES ('1561', '4', '29');
+INSERT INTO `t_role_menu` VALUES ('1562', '4', '30');
+INSERT INTO `t_role_menu` VALUES ('1563', '4', '31');
+INSERT INTO `t_role_menu` VALUES ('1564', '4', '32');
+INSERT INTO `t_role_menu` VALUES ('1565', '5', '66');
+INSERT INTO `t_role_menu` VALUES ('1566', '5', '68');
+INSERT INTO `t_role_menu` VALUES ('1567', '5', '69');
+INSERT INTO `t_role_menu` VALUES ('1568', '5', '70');
+INSERT INTO `t_role_menu` VALUES ('1569', '5', '71');
+INSERT INTO `t_role_menu` VALUES ('1570', '5', '67');
+INSERT INTO `t_role_menu` VALUES ('1571', '5', '79');
+INSERT INTO `t_role_menu` VALUES ('1572', '5', '80');
+INSERT INTO `t_role_menu` VALUES ('1573', '5', '81');
+INSERT INTO `t_role_menu` VALUES ('1574', '5', '82');
+INSERT INTO `t_role_menu` VALUES ('1575', '5', '72');
+INSERT INTO `t_role_menu` VALUES ('1576', '5', '74');
+INSERT INTO `t_role_menu` VALUES ('1577', '5', '75');
+INSERT INTO `t_role_menu` VALUES ('1578', '5', '76');
+INSERT INTO `t_role_menu` VALUES ('1579', '5', '73');
+INSERT INTO `t_role_menu` VALUES ('1580', '5', '77');
+INSERT INTO `t_role_menu` VALUES ('1581', '5', '78');
+INSERT INTO `t_role_menu` VALUES ('1582', '5', '26');
+INSERT INTO `t_role_menu` VALUES ('1583', '5', '27');
+INSERT INTO `t_role_menu` VALUES ('1584', '5', '28');
+INSERT INTO `t_role_menu` VALUES ('1585', '5', '29');
+INSERT INTO `t_role_menu` VALUES ('1586', '5', '30');
+INSERT INTO `t_role_menu` VALUES ('1587', '5', '31');
+INSERT INTO `t_role_menu` VALUES ('1588', '5', '32');
+INSERT INTO `t_role_menu` VALUES ('1589', '2', '83');
+INSERT INTO `t_role_menu` VALUES ('1590', '2', '84');
+INSERT INTO `t_role_menu` VALUES ('1591', '2', '85');
+INSERT INTO `t_role_menu` VALUES ('1592', '2', '86');
+INSERT INTO `t_role_menu` VALUES ('1593', '2', '87');
+INSERT INTO `t_role_menu` VALUES ('1594', '2', '88');
+INSERT INTO `t_role_menu` VALUES ('1595', '2', '89');
+INSERT INTO `t_role_menu` VALUES ('1596', '2', '90');
+INSERT INTO `t_role_menu` VALUES ('1597', '2', '91');
+INSERT INTO `t_role_menu` VALUES ('1598', '2', '92');
+INSERT INTO `t_role_menu` VALUES ('1599', '2', '93');
+INSERT INTO `t_role_menu` VALUES ('1600', '2', '8');
+INSERT INTO `t_role_menu` VALUES ('1601', '2', '9');
+INSERT INTO `t_role_menu` VALUES ('1602', '2', '10');
+INSERT INTO `t_role_menu` VALUES ('1603', '2', '18');
+INSERT INTO `t_role_menu` VALUES ('1604', '2', '19');
+INSERT INTO `t_role_menu` VALUES ('1605', '2', '21');
+INSERT INTO `t_role_menu` VALUES ('1606', '2', '26');
+INSERT INTO `t_role_menu` VALUES ('1607', '2', '33');
+INSERT INTO `t_role_menu` VALUES ('1608', '2', '34');
+INSERT INTO `t_role_menu` VALUES ('1609', '2', '35');
+INSERT INTO `t_role_menu` VALUES ('1610', '2', '36');
+INSERT INTO `t_role_menu` VALUES ('1611', '2', '44');
+INSERT INTO `t_role_menu` VALUES ('1612', '2', '52');
+INSERT INTO `t_role_menu` VALUES ('1613', '2', '53');
 
 -- ----------------------------
 -- Table structure for `t_temp_apps`
@@ -652,17 +775,18 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`account_name`),
   UNIQUE KEY `id_UNIQUE` (`uid`),
   UNIQUE KEY `id_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('22', 'admin', '4297F44B13955235245B2497399D7A93', '144@qq.com', '1', 'asdfa', 'kjhk', 'jhkj', 'hkh', 'www.baidu.com', '2013-06-02 17:43:46', '28a79df11ac8460abb419dfd363c40ff', '2013-06-07 01:00:18', '0');
+INSERT INTO `t_user` VALUES ('22', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '144@qq.com', '1', '', '覃建栋', '13631661621', null, '', '2013-06-02 17:43:46', 'f1482b3e36d648f48b334b7f9724a2a7', '2013-07-05 08:02:51', '0');
 INSERT INTO `t_user` VALUES ('23', 'admin2', '4297F44B13955235245B2497399D7A93', 'www@qq.com', '4', '', '', '', null, '', '2013-06-02 17:47:41', 'a83959f8738a42a3b766d914171840e8', '2013-06-17 15:21:22', '0');
 INSERT INTO `t_user` VALUES ('28', 'ageage', '4297F44B13955235245B2497399D7A93', 'jiandong2@powerallnetworks.com', '2', '', '', '', '', '', '2013-06-08 13:23:58', null, null, '0');
 INSERT INTO `t_user` VALUES ('24', 'baidu', '4297F44B13955235245B2497399D7A93', '142224@qq.com', '1', '', '', '', '', '', '2013-06-07 00:57:00', '8e96e54364e74c55bb2d285e5d0662ae', '2013-06-07 00:57:08', '0');
 INSERT INTO `t_user` VALUES ('19', 'demo01', '4297F44B13955235245B2497399D7A93', '1243@qq.com', '1', '', 'hello', '123123123', '1312312', 'www.baidu.com', '2013-05-28 16:51:03', 'c320decbc978488fbd1abf1cba3e4aa9', '2013-06-07 01:00:38', '0');
-INSERT INTO `t_user` VALUES ('20', 'jiandong', 'E10ADC3949BA59ABBE56E057F20F883E', 'jiandong@powerallnetworks.com', '1', 'powerall', '覃建栋', '13631661621', null, 'http://localhost:8081/', '2013-05-29 22:42:25', '6058995cce894a4bb7c8db763aa6ba8b', '2013-07-01 16:09:39', '0');
+INSERT INTO `t_user` VALUES ('30', 'jd_yygl', 'E10ADC3949BA59ABBE56E057F20F883E', 'jiandongee@powerallnetworks.com', '2', '', '覃建栋', '13631661621', null, 'http://localhost:8081/', '2013-07-05 07:48:18', 'c512f978b13e43bebb7ec4bdde46f536', '2013-07-05 07:55:47', '0');
+INSERT INTO `t_user` VALUES ('20', 'jiandong', 'E10ADC3949BA59ABBE56E057F20F883E', 'jiandong@powerallnetworks.com', '4', 'Powerall networks', '覃建栋', '13631661621', null, 'http://localhost:8081/', '2013-05-29 22:42:25', 'b5ba0fd7a0a644c0b2c47370e30bdec0', '2013-07-05 08:10:00', '0');
 INSERT INTO `t_user` VALUES ('25', 'jiandong1', 'E10ADC3949BA59ABBE56E057F20F883E', 'qinjiandong2010@gmail.com', '2', 'Powerall networks', '覃建栋', '13631661621', '63559854', '深圳市南山区振业国际大厦10楼1001', '2013-06-08 10:30:27', null, null, '0');
 INSERT INTO `t_user` VALUES ('18', 'kewiyi', '4297F44B13955235245B2497399D7A93', '123@qq.com', '1', '', null, null, null, null, '2013-05-28 13:25:56', 'e2a042d3920049b8b6304d455f0dc0cf', '2013-06-07 01:00:27', '0');
 INSERT INTO `t_user` VALUES ('26', 'test11', '4297F44B13955235245B2497399D7A93', 'jiandong4@powerallnetworks.com', '2', 'Powerall networks', '覃建栋', '13631661621', '63559854', '深圳市南山区振业国际大厦10楼1001', '2013-06-08 10:58:14', null, null, '0');
