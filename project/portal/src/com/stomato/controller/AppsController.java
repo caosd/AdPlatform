@@ -88,26 +88,26 @@ public class AppsController extends UserController {
 		List<App> applist = appService.getAppList(user.getUid());
 		model.addAttribute("applist", applist);
 		
-		return "backend/apps/applist";
+		return "portal/apps/applist";
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.GET)
 	public String showNewAppForm(@ModelAttribute("appForm") AppForm form) {
-		return "backend/apps/createForm";
+		return "portal/apps/createForm";
 	}
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST)
 	public String addApp(@Valid @ModelAttribute("appForm") AppForm form, BindingResult result, HttpServletRequest request, Model model) {
 		appValidation.validate(form, result);
 		if (result.hasErrors()) {
-			return "backend/apps/createForm";
+			return "portal/apps/createForm";
 		}
 		
 		User user = this.lookup(request);
 		boolean ready = true;//AppHelper.syncPackage(user.getUid(), form.getPkg());
 		if (!ready) {
 			model.addAttribute("failedWithDuplicatePackage", true);
-			return "backend/apps/createForm";
+			return "portal/apps/createForm";
 		}
 		
 		String appKey = AppHelper.generateAppKey(user.getUserName());
@@ -126,7 +126,7 @@ public class AppsController extends UserController {
 		}
 		
 		model.addAttribute("failed", true);
-		return "backend/apps/createForm";
+		return "portal/apps/createForm";
 	}
 	
 	@ResponseBody
@@ -146,18 +146,18 @@ public class AppsController extends UserController {
 					+ Constant.Configs.appsDirPath + fileSeparator + appKey + fileSeparator + Constant.Configs.appIconDir + fileSeparator;
 			app.setIcon(dir + app.getIcon().replace("#", "%23"));
 		}
-		return "backend/apps/detail";
+		return "portal/apps/detail";
 	}
 	
 	@RequestMapping(value="/{appKey}/edit", method=RequestMethod.GET)
 	public String showEditAppForm(@ModelAttribute("appForm") AppForm form, @PathVariable String appKey, Model model, HttpServletRequest request) {
-		return "backend/apps/editForm";
+		return "portal/apps/editForm";
 	}
 	
 	@RequestMapping(value="/{appKey}/edit", method=RequestMethod.POST)
 	public String updateApp(@Valid AppForm form, BindingResult result, @PathVariable String appKey, HttpServletRequest request) {
 		if (result.hasErrors()) {
-			return "backend/apps/editForm";
+			return "portal/apps/editForm";
 		}
 		App app = (App)request.getAttribute("app");
 		if (app.getName().equals(form.getName())) {
@@ -183,7 +183,7 @@ public class AppsController extends UserController {
 	
 	@RequestMapping(value="/{appKey}/reports", method=RequestMethod.GET)
 	public String showReports(@PathVariable String appKey, Model model, HttpServletRequest request) {
-		return "backend/apps/reports/reports";
+		return "portal/apps/reports/reports";
 	}
 	
 	@ResponseBody
@@ -228,7 +228,7 @@ public class AppsController extends UserController {
 	
 	@RequestMapping(value="/{appKey}/reports/earnings", method=RequestMethod.GET)
 	public String earngins(@PathVariable String appKey, Model model) {
-		return "backend/apps/reports/earnings";
+		return "portal/apps/reports/earnings";
 	}
 	
 	@RequestMapping(value="/{appKey}/push", method=RequestMethod.GET)
@@ -240,7 +240,7 @@ public class AppsController extends UserController {
 		List<UserImei> list = userImeiService.getAllUserImei(userImei);
 		model.addAttribute("userImeiList", list);
 		
-		return "backend/apps/push";
+		return "portal/apps/push";
 	}
 	
 	@ResponseBody
@@ -360,12 +360,12 @@ public class AppsController extends UserController {
 	
 	@RequestMapping(value="/{appKey}/uploads", method=RequestMethod.GET)
 	public String showUploadApp() {
-		return "backend/apps/uploads";
+		return "portal/apps/uploads";
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
 	public String create1(HttpServletRequest request) {
-		return "backend/apps/new_step1";
+		return "portal/apps/new_step1";
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
@@ -441,7 +441,7 @@ public class AppsController extends UserController {
 		}
 		
 		model.addAttribute("app", tempApp);
-		return "backend/apps/new_step2";
+		return "portal/apps/new_step2";
 	}
 	
 	@RequestMapping(value="/create/{appKey}", method=RequestMethod.POST)
@@ -509,7 +509,7 @@ public class AppsController extends UserController {
 		}
 		
 		model.addAttribute("app", app);
-		return "backend/apps/new_step3";
+		return "portal/apps/new_step3";
 	}
 	
 	@RequestMapping(value="/{appKey}/build_sdk", method=RequestMethod.GET)
@@ -534,7 +534,7 @@ public class AppsController extends UserController {
 	
 	@RequestMapping(value="/{appKey}/upload_app", method=RequestMethod.GET)
 	public String _uploadApp() {
-		return "backend/apps/new_step4";
+		return "portal/apps/new_step4";
 	}
 	
 	@RequestMapping(value="/{appKey}/upload_app", method=RequestMethod.POST)
@@ -567,7 +567,7 @@ public class AppsController extends UserController {
 						+ Constant.Configs.appsDirPath + fileSeparator + appKey + fileSeparator + Constant.Configs.appIconDir 
 						+ fileSeparator;
 		model.addAttribute("iconDir", iconDir);
-		return "backend/apps/new_step5";
+		return "portal/apps/new_step5";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
@@ -575,7 +575,7 @@ public class AppsController extends UserController {
 		int uid = this.lookup(request).getUid();
 		PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
 		model.addAttribute("pushTest", pushTest);
-		return "backend/apps/pushtest";
+		return "portal/apps/pushtest";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.POST)
@@ -603,12 +603,12 @@ public class AppsController extends UserController {
 			logger.error(error.getMessage());
 		}
 		model.addAttribute("pushTest", pushTest);
-		return "backend/apps/pushtest";
+		return "portal/apps/pushtest";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.GET)
 	public String pushsetting(@PathVariable String appKey, HttpServletRequest request) {
-		return "backend/apps/pushsetting";
+		return "portal/apps/pushsetting";
 	}
 	
 	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.POST)
@@ -636,13 +636,13 @@ public class AppsController extends UserController {
 	
 	@RequestMapping(value="/{appKey}/rich-push", method=RequestMethod.GET)
 	public String richpush(@PathVariable String appKey, HttpServletRequest request) {
-		return "backend/apps/richpush";
+		return "portal/apps/richpush";
 	}
 	
 	@RequestMapping(value="/{appKey}/rich-push", method=RequestMethod.POST)
 	public String _richpush(@PathVariable String appKey, HttpServletRequest request, Model model) {
 		model.addAttribute("success", true);
-		return "backend/apps/richpush";
+		return "portal/apps/richpush";
 	}
 	
 	@RequestMapping(value="/{appKey}/preview", method=RequestMethod.GET)
