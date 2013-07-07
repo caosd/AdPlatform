@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<head><style type="text/css">.navbar .span2{width:18%;}</style></head>
 <body>
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home"></i></a><span
