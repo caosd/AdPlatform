@@ -20,8 +20,7 @@ public class UserForm {
 	private String password;
 	
 	private String confirmPassword;
-	
-	private int roleId;
+
 	@NotEmpty
 	@Email
 	private String email;
@@ -68,14 +67,6 @@ public class UserForm {
 
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
-	}
-
-	public int getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
 	}
 
 	public String getEmail() {

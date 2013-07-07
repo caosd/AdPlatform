@@ -14,6 +14,7 @@ import com.stomato.domain.Menu;
 import com.stomato.domain.User;
 import com.stomato.service.MenuService;
 import com.stomato.utils.SpringContextUtil;
+import com.stomato.utils.StringUtils;
 
 public class MenuTag extends BodyTagSupport {
 
@@ -38,16 +39,23 @@ public class MenuTag extends BodyTagSupport {
 			sb.append("<ul class=\"sidebar-menu\">");
 			for (int i = 0, j = menuList.size(); i < j; i++) {
 				Menu menu = menuList.get(i);
-				sb.append("<li class=\"has-sub " + (i == 0 ? "active open" : "") + "\">");
+				boolean isOpen = false;
+				String sunMenuStr = "";
+				for (Menu sunMenu : menu.getSunMenu()) {
+					if( !isOpen && !StringUtils.isEmpty(sunMenu.getPath()) &&  uri.indexOf(sunMenu.getPath()) > -1){
+						isOpen = true;
+						sunMenuStr += ("<li><a class=\"active\" href=\"" + sunMenu.getPath() + "\">" + sunMenu.getName() + "</a></li>");
+					}else{
+						sunMenuStr +=("<li><a class=\"\" href=\"" + sunMenu.getPath() + "\">" + sunMenu.getName() + "</a></li>");
+					}
+				}				
+				sb.append("<li class=\"has-sub " + (isOpen ? "active open" : "") + "\">");
 				sb.append("<a href=\"javascript:void(0);\" class=\"\">");
 				sb.append("<span class=\"icon-box\"><i class=\"icon-file-alt\"></i></span>" + menu.getName());
 				sb.append("<span class=\"arrow\"></span>");
 				sb.append("</a>");
 				sb.append("<ul class=\"sub\">");
-				
-				for (Menu sunMenu : menu.getSunMenu()) {
-					sb.append("<li><a class=\"\" href=\"" + sunMenu.getPath() + "\">" + sunMenu.getName() + "</a></li>");
-				}
+				sb.append(sunMenuStr);
 				sb.append("</ul>");
 				sb.append("</li>");
 			}

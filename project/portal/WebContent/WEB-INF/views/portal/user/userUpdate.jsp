@@ -31,13 +31,9 @@
    </div>
 </div>
 <div class="widget">
-	 <div class="widget-title">
-	    <h4><i class="icon-reorder"></i>编辑用户</h4>
-	    <span class="tools">
-	       <a href="javascript:;" class="icon-chevron-down"></a>
-	       <a href="javascript:;" class="icon-remove"></a>
-	    </span>
-	 </div>
+	  <div class="widget-header">
+		  <h5>编辑用户</h5>
+	  </div>
 	  <div class="widget-body form" style="display: block;">
 	  	<c:if test="${content != null}">
 		  	<div class="alert alert-success">
@@ -49,14 +45,14 @@
 	       <div class="control-group">
 	          <label class="control-label" for="userName">用户名:</label>
 	          <div class="controls">
-	          	 <form:hidden path="uid" id="uid" value="${user.uid}"/>
-	             ${user.userName}
+	          	 <form:hidden path="uid" id="uid" value="${editUser.uid}"/>
+	             ${editUser.userName}
 	          </div>
 	       </div>
 	       <div class="control-group">
 	          <label class="control-label" for="company">公司名称:</label>
 	          <div class="controls">
-	             <form:input path="company" type="text" class="span6" id="company" value="${user.company }"/>
+	             <form:input path="company" type="text" class="span6" id="company" value="${editUser.company }"/>
 	             <form:errors path="company" cssClass="error"/>
 	          </div>
 	       </div>
@@ -65,7 +61,7 @@
 	          <div class="controls">
 	             <form:select path="type" class="span6 " data-placeholder="角色:" tabindex="1">
                     <c:forEach items="${roleList}" var="item" varStatus="stat">
-                    	<option value="${item.id}" ${user.type == item.id ? "selected=\"selected\"":"" }>${item.roleName}</option>
+                    	<option value="${item.id}" ${editUser.type == item.id ? "selected=\"selected\"":"" }>${item.roleName}</option>
                     </c:forEach>
                  </form:select>
                  <form:errors path="type" cssClass="error"/>
@@ -74,21 +70,21 @@
 	       <div class="control-group">
 	          <label class="control-label" for="contactName">contactName:</label>
 	          <div class="controls">
-	             <form:input path="contactName" type="text" class="span6" id="contactName" value="${user.contactName}"/>
+	             <form:input path="contactName" type="text" class="span6" id="contactName" value="${editUser.contactName}"/>
 	             <form:errors path="contactName" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="control-group">
 	          <label class="control-label" for="contactTel">contactTel:</label>
 	          <div class="controls">
-	             <form:input path="contactTel" type="text" class="span6" id="contactTel" value="${user.contactTel}"/>
+	             <form:input path="contactTel" type="text" class="span6" id="contactTel" value="${editUser.contactTel}"/>
 	             <form:errors path="contactTel" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="control-group">
 	          <label class="control-label" for="website">网址:</label>
 	          <div class="controls">
-	             <form:input path="website" type="text" class="span6" id="website" value="${user.website}"/>
+	             <form:input path="website" type="text" class="span6" id="website" value="${editUser.website}"/>
 	             <form:errors path="website" cssClass="error"/>
 	          </div>
 	       </div>

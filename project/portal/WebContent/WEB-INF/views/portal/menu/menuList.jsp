@@ -36,35 +36,30 @@
     <div class="span12">
         <!-- BEGIN EXAMPLE TABLE widget-->
         <div class="widget">
-            <div class="widget-title">
-                <h4><i class="icon-reorder"></i>菜单列表</h4>
-                <span class="tools">
-                    <a href="javascript:;" class="icon-chevron-down"></a>
-                    <a href="javascript:;" class="icon-remove"></a>
-                </span>
-            </div>
+        	<div class="widget-header">
+				<h5>菜单列表</h5>
+			</div>
             <div class="widget-body">
             	<div class="row-fluid">
             		<form:form id="searchForm" commandName="menuParamForm" method="post">
-	            		<div class="span6">
+	            		<div class="span3">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
-	            					<select size="1" name="pageSize" aria-controls="role_table" class="input-mini">
-	            						<option value="10" selected="selected">10</option>
-	            						<option value="25">25</option>
-	            						<option value="50">50</option>
-	            						<option value="100">100</option>
-	            					</select> 
-	            					records per page
+	            					<form:select path="pageSize" size="1" class="input-mini">
+	            						<form:option value="10">10</form:option>
+	            						<form:option value="25">25</form:option>
+	            						<form:option value="50">50</form:option>
+	            						<form:option value="100">100</form:option>
+	            					</form:select>
 	            				</label>
-	            				</div>
 	            			</div>
-						<div class="span6">
-							<div class="dataTables_filter" id="search_filter">
-								<label>搜索: <form:input path="name" type="text" aria-controls="role_table" class="input-medium"/>
-            								   <form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
-								</label>
-							</div>
+	            		</div>
+	            		<div class="span3">
+			                    <label>菜单名称: <form:input path="name" type="text" aria-controls="role_table" class="input-medium"/></label>
+	                    </div>
+						<div class="span3">
+							<button type="submit" class="btn btn-inverse">查询</button>
+							<form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
 						</div>
 					</form:form>
 				</div>
@@ -84,7 +79,16 @@
 		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.id }"></td>
 		            			<td class="sorting_1">${stat.index}</td>
 		                        <td class=" ">${item.name }</td>
-		                        <td class="sorting_1">${item.visible }</td>
+		                        <td>
+									<c:choose>
+										<c:when test="${item.visible == 0}">
+											<span class="label label-warning">不显示</span>
+										</c:when>
+										<c:otherwise>
+											<span class="label label-success">显示</span>
+										</c:otherwise>
+									</c:choose>
+								</td>
 		                        <td class=" ">
 		                        	<a href="/menu/editMenu.html?id=${item.id }">编辑</a>
 		                        </td>

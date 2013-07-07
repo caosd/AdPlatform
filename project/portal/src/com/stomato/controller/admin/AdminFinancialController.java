@@ -18,6 +18,7 @@ import com.stomato.form.RemittanceParamForm;
 import com.stomato.service.RemittanceService;
 import com.stomato.service.UserAccountsService;
 import com.stomato.utils.Pager;
+import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping("/admin/financial")
@@ -48,14 +49,17 @@ public class AdminFinancialController extends UserController{
 	@RequestMapping("/remittance_list")
 	public String remittance_history(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
 		RemittanceParam remittanceParam= form.asPojo();
-		int records = this.remittanceService.getRemittanceCount(remittanceParam);
-		int curPage = this.getIntParameter(request, "p");
-		if( curPage < 1) curPage = 1;
-		remittanceParam.setSlimt((curPage-1) * remittanceParam.getRows());
-		//分页
-		Pager pager = new Pager(remittanceParam.getRows(), curPage, records);
-		model.addAttribute("pager", pager);
+		remittanceParam.setUid(super.lookup(request).getUid());
+		int total = this.remittanceService.getRemittanceCount(remittanceParam);
+		int pageTotal = SysConfig.getPageTotal(total, remittanceParam.getPageSize());
+		if(pageTotal<remittanceParam.getPageNum()){ remittanceParam.setPageNum(1); } 
+		int start = (remittanceParam.getPageNum()-1)*remittanceParam.getPageSize();
+		remittanceParam.setSlimt(start);
+		
 		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(remittanceParam);
+		model.addAttribute("pageTotal", pageTotal);
+		model.addAttribute("totalcount", total);
+		model.addAttribute("pageNum", form.getPageNum());
 		model.addAttribute("remittanceList", remittanceList);
 		return "admin/financial/remittance_list";
 	}

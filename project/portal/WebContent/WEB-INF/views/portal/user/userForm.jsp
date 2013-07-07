@@ -31,12 +31,8 @@
    </div>
 </div>
 <div class="widget">
-	 <div class="widget-title">
-	    <h4><i class="icon-reorder"></i>添加用户</h4>
-	    <span class="tools">
-	       <a href="javascript:;" class="icon-chevron-down"></a>
-	       <a href="javascript:;" class="icon-remove"></a>
-	    </span>
+	 <div class="widget-header">
+		<h5>添加用户</h5>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
 	  	<c:if test="${content != null}">
@@ -75,9 +71,9 @@
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" for="roleId">角色:</label>
+	          <label class="control-label" for="type">角色:</label>
 	          <div class="controls">
-	             <form:select path="roleId" id="roleId" class="span6 " data-placeholder="角色:" tabindex="1">
+	             <form:select path="type" id="type" class="span6 " data-placeholder="角色:" tabindex="1">
                     <c:forEach items="${roleList}" var="item" varStatus="stat">
                     	<option value="${item.id}">${item.roleName}</option>
                     </c:forEach>

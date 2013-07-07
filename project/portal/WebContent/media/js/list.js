@@ -17,3 +17,10 @@ function deleteData(url){
 		$('#searchForm').submit(url);
 	}
 }
+
+$(document).ready(function(){ 
+	//页面查询列表，选择一页显示的行数
+	$('#searchForm select[name=pageSize]').change(function(){ 
+		$("#searchForm").submit();
+	}) 
+})

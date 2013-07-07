@@ -17,7 +17,7 @@
 		insert into t_menu(menuname, description, path,parent,visible,order_no) values(#{name}, #{desc}, #{path},#{parent},#{visible},#{orderNo})
 	</insert>
 	<select id="listTotal" parameterType="com.stomato.domain.Menu" resultType="int" >
-		select count(1) from t_menu where status = 0
+		select count(1) from t_menu where status = 1
 		<if test="name != null">
 				and menuname like '%${name}%'
 		</if>
@@ -34,7 +34,7 @@
 			order_no
 		FROM
 			t_menu
-		where status = 0
+		where status = 1
 		<if test="parent != null">and parent = #{parent}</if>
 		<if test="name != null">
 				and menuname like '%${name}%'
@@ -55,7 +55,7 @@
 		FROM
 			t_menu
 		WHERE
-			status = 0 and parent = 0 order by order_no asc
+			status = 1 and parent = 0 order by order_no asc
 	</select>
 	<select id="listMenuByIds" resultMap="menu" >
 		SELECT
@@ -69,7 +69,7 @@
 		FROM
 			t_menu
 		WHERE
-			status = 0 and id in
+			status = 1 and id in
 		  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
 		        #{item}
 		  </foreach>
@@ -88,7 +88,7 @@
 			t_menu tb1
 		INNER JOIN t_role_menu AS tb2 ON tb1.id = tb2.menu_id
 		WHERE
-			tb2.role_id = #{roleId} and tb1.status = 0 and tb1.visible = 1 and tb1.parent = 0 order by tb1.order_no asc
+			tb2.role_id = #{roleId} and tb1.status = 1 and tb1.visible = 1 and tb1.parent = 0 order by tb1.order_no asc
 	</select>
 	<select id="getMenu" parameterType="int" resultMap="menu" >
 		select id,menuname,description,path,parent,visible,order_no from t_menu where id=#{id}

@@ -19,8 +19,8 @@
 	</resultMap>
 	
 	<insert id="addUser" parameterType="com.stomato.domain.User">
-		insert into t_user(account_name, account_pwd, type, email, company, contact_name, contact_tel, qq, website, createtime)
-					values(#{userName}, upper(md5(#{password})), #{type}, #{email},#{company}, #{contactName}, #{contactTel}, #{qq}, #{website}, now())
+		insert into t_user(account_name, account_pwd, type, email, company, contact_name, contact_tel, qq, website, createtime,status)
+					values(#{userName}, upper(md5(#{password})), #{type}, #{email},#{company}, #{contactName}, #{contactTel}, #{qq}, #{website}, now(),1)
 	</insert>
 	<select id="getUserByUid" parameterType="int" resultMap="user" >
 		select * from t_user where uid=#{uid}

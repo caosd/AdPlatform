@@ -37,25 +37,21 @@
     <div class="span12">
         <!-- BEGIN EXAMPLE TABLE widget-->
         <div class="widget">
-            <div class="widget-title">
-                <h4><i class="icon-reorder"></i>资源列表</h4>
-                <span class="tools">
-                    <a href="javascript:;" class="icon-chevron-down"></a>
-                    <a href="javascript:;" class="icon-remove"></a>
-                </span>
-            </div>
+			<div class="widget-header">
+				<h5>资源列表</h5>
+			</div>
             <div class="widget-body">
             	<div class="row-fluid">
             		<form:form id="searchForm" commandName="adResourceParamForm"  method="post">
-	            		<div class="span2">
+						<div class="span2">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
-	            					<select size="1" name="pageSize" aria-controls="role_table" class="input-mini">
-	            						<option value="10" selected="selected">10</option>
-	            						<option value="25">25</option>
-	            						<option value="50">50</option>
-	            						<option value="100">100</option>
-	            					</select>
+	            					<form:select path="pageSize" size="1" class="input-mini">
+	            						<form:option value="10">10</form:option>
+	            						<form:option value="25">25</form:option>
+	            						<form:option value="50">50</form:option>
+	            						<form:option value="100">100</form:option>
+	            					</form:select>
 	            				</label>
 	            			</div>
 	            		</div>
@@ -64,17 +60,17 @@
 	                        <span id="start-date-container"><form:input type="text" path="startDatestr" style="width:80px"/></span>
 	                        &nbsp;至&nbsp;
 	                        <span id="end-date-container"><form:input type="text" path="endDatestr" style="width:80px"/></span>
-	                        &nbsp;资源名称:&nbsp;<span><form:input type="text" path="adName" style="width:80px"/></span>
-	                        &nbsp;请选择类型：
-	                        <form:select path="adType" style="width:80px">
-				             	<form:option value="0" selected="selected">热门</form:option>
-				             	<form:option value="1">应用</form:option>
-				             	<form:option value="2">游戏</form:option>
-				            </form:select>
-				            <form:input path="pageNum" type="hidden" id="pageNum"/>
+	                        &nbsp;资源名称: <form:input path="adName" type="text" aria-controls="role_table" class="input-medium"/></label>
+		                    &nbsp;类型: 
+									<form:select path="adType" style="width:80px">
+						             	<form:option value="0" selected="selected">热门</form:option>
+						             	<form:option value="1">应用</form:option>
+						             	<form:option value="2">游戏</form:option>
+						            </form:select>
 	                    </div>
 						<div class="span1">
-							<button class="mini">查询</button>
+							<button type="submit" class="btn btn-inverse">查询</button>
+							<form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
 						</div>
 					</form:form>
 				</div>
@@ -107,7 +103,14 @@
 						<td><fmt:formatDate value="${adr.itime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<td>${adr.startTime } - ${adr.endTime }</td>
 						<td>
-							<span class="label ${adr.status==1?'label-success':'label-error' }">${adr.status }</span>
+							<c:choose>
+								<c:when test="${adr.status == 0}">
+									<span class="label label-warning">无效</span>
+								</c:when>
+								<c:otherwise>
+									<span class="label label-success">有效</span>
+								</c:otherwise>
+							</c:choose>
 						</td>
 						<td><a href="${ctx }/adResource/getAdResource.html?id=${adr.id }" >编辑</a> | <a href="${ctx }/adResource/showAdResource.html?id=${adr.id }">预览</a></td>
 						</tr>
