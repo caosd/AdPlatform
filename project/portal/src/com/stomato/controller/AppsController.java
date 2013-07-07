@@ -371,6 +371,7 @@ public class AppsController extends UserController {
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String _create1(@RequestParam MultipartFile file, HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
+		String appName = request.getParameter("appName");
 		
 		if (file.getSize() > 0) {
 			String appKey = AppHelper.generateAppKey(user.getUserName());
@@ -401,7 +402,6 @@ public class AppsController extends UserController {
 					return "redirect:/apps/create";
 				}
 				
-				String appName = request.getParameter("appName");
 				TempApp tempApp = new TempApp();
 				tempApp.setUid(user.getUid());
 				tempApp.setKey(appKey);
@@ -414,6 +414,8 @@ public class AppsController extends UserController {
 				logger.error("[Upload Error] " + e.getMessage());
 			}
 			model.addAttribute("unpackError", true);
+		} else {
+			model.addAttribute("emptyFile", true);
 		}
 		return "redirect:/apps/create";
 	}

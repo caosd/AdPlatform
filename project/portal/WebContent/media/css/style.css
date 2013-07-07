@@ -73,11 +73,6 @@ h3 small, h2 small, h5 small {
     color: #868686;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: normal;
-}
-
-
 h1.block, h2.block, h3.block, h4.block, h5.block, h6.block {
     padding-bottom: 10px;
 }
@@ -2813,7 +2808,7 @@ div.tagsinput .not_valid {
 }
 
 .form-wizard .steps .navbar-inner {
-    background-color: #fff !important;
+    background-color: #f8f8f8 !important;
     background-image: none !important;
     filter:none !important;
     border: 0px;

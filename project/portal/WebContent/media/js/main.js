@@ -2173,6 +2173,12 @@ var App = function () {
             
             //tooltips
             $('.element').tooltip();
+            
+            //uniform
+            $('input[type="checkbox"], input[type="radio"], select.uniform, input[type="file"]').uniform();
+            
+            //note
+            $('.note-remove').click(function() {$(this).parent(".note").fadeOut();})
 
             handleDeviceWidth(); // handles proper responsive features of the page
             handleChoosenSelect(); // handles bootstrap chosen dropdowns

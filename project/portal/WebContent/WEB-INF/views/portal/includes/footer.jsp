@@ -10,8 +10,7 @@
 <!-- BEGIN JAVASCRIPTS -->
 <script src="/js/jquery-1.8.3.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<script src="/js/jquery.blockui.js"></script>
-<script src="/js/jquery.cookie.js"></script>
+<script src="/js/uniform/jquery.uniform.js"></script>
 <!-- ie8 fixes -->
 <!--[if lt IE 9]>
 <script src="js/excanvas.js"></script>
@@ -19,5 +18,4 @@
 <![endif]-->
 <script src="/js/main.js"></script>
 <script src="/js/list.js"></script>
-<script src="/js/roleMenu.js"></script>
 <!-- END JAVASCRIPTS -->

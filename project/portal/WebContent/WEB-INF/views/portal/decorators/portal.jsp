@@ -11,6 +11,7 @@
 <head>
 <title><decorator:title default="" /></title>
 <%@include file="../includes/style.jsp"%>
+<link type="text/css" rel="stylesheet" href="/css/main.css" media="screen">
 <decorator:head />
 </head>
 <body class="fixed-top">
