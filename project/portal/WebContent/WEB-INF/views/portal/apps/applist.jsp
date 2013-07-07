@@ -42,27 +42,27 @@
 			</div>
             <div class="widget-body">
             	<div class="row-fluid">
-            		<form:form id="searchForm" commandName="userParamForm"  method="post">
+            		<form id="searchForm" method="post">
             			<div class="span3">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
-	            					<form:select path="pageSize" size="1" class="input-mini">
-	            						<form:option value="10">10</form:option>
-	            						<form:option value="25">25</form:option>
-	            						<form:option value="50">50</form:option>
-	            						<form:option value="100">100</form:option>
-	            					</form:select>
+	            					<select name="pageSize" size="1" class="input-mini">
+	            						<option value="10">10</option>
+	            						<option value="25">25</option>
+	            						<option value="50">50</option>
+	            						<option value="100">100</option>
+	            					</select>
 	            				</label>
 	            			</div>
 	            		</div>
 	            		<div class="span3">
-			                    <label>应用名: <form:input path="name" type="text" class="input-medium"/></label>
+			                    <label>应用名: <input name="name" type="text" class="input-medium"/></label>
 	                    </div>
 						<div class="span3">
 							<button type="submit" class="btn btn-inverse">查询</button>
-							<form:input path="pageNum" type="hidden" id="pageNum"/>
+							<input name="pageNum" type="hidden" id="pageNum"/>
 						</div>
-					</form:form>
+					</form>
 				</div>
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>

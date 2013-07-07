@@ -89,15 +89,13 @@
 	       <div class="control-group">
 	          <label class="control-label"> 证件上传 </label>
 	          <div class="controls">
-                  <img src="${empty credentials.credentialsPhoto1?"":imgServer}${empty credentials.credentialsPhoto1? '/images/identity_front.gif':credentials.credentialsPhoto1 }" class="identity_tile"/>
-                  <img src="${empty credentials.credentialsPhoto2?"":imgServer}${empty credentials.credentialsPhoto2? '/images/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
+                  <img width="250px" src="${empty credentials.credentialsPhoto1?"":imgServer}${empty credentials.credentialsPhoto1? '/images/identity_front.gif':credentials.credentialsPhoto1 }" class="identity_tile"/>
+                  <img width="250px" src="${empty credentials.credentialsPhoto2?"":imgServer}${empty credentials.credentialsPhoto2? '/images/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
                   <div>
                       <a href="javascript:void(0);" class="file">
-                          <span><em>+</em>选择证件照片</span>
                           <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file1" type="file" id="fileCtrl1" value=""/>
                       </a>
                       <a href="javascript:void(0);" class="file">
-                          <span><em>+</em>选择证件照片</span>
                           <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file2" type="file" id="fileCtrl2" value=""/>
                       </a>
                   </div>

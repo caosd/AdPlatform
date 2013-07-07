@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<head><style type="text/css">.navbar .span2{width:18%;}</style></head>
 <body>
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home"></i></a><span
@@ -12,7 +13,7 @@
     </ul>
 
     <div class="widget">
-        <form method="POST" class="form-horizontal form-wizard" action="/apps/${app.key }/upload_app">
+        <form method="GET" class="form-horizontal form-wizard" action="/apps/${app.key }/upload_app">
             <div class="widget-header">
                 <h5>上传应用</h5>
             </div>
@@ -60,7 +61,7 @@
                 <div class="form-row">
                     <label class="field-name">应用Key：</label>
                     <div class="field">
-                        <input class="span12" type="text" name="appKey" value="${app.key }" readonly="readonly"/> 
+                        <input class="span12" type="text" value="${app.key }" readonly="readonly"/> 
                     </div>
                 </div>
                 <div class="form-row">

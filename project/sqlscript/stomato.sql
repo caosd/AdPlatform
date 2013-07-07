@@ -430,7 +430,11 @@ INSERT INTO `t_menu` (`id`, `menuname`, `description`, `path`, `parent`, `visibl
 (26, '开发者应用', NULL, '', 0, 1, 1, '3'),
 (27, '应用上传', '', '/apps/create.html', 26, 1, 1, '311'),
 (28, '上传应用action', NULL, '/appInfo/addAppInfo.html', 26, 0, 1, '312'),
+<<<<<<< HEAD
 (29, '应用列表', '开发者个人应用列表', '/apps', 26, 1, 1, '313'),
+=======
+(29, '应用列表', '开发者个人应用列表', '/apps/', 26, 1, 1, '313'),
+>>>>>>> bb803f661fcea9cb4cac4213b76cc17eded88578
 (30, '查询应用', NULL, '/appInfo/selectAppInfo.html', 26, 0, 1, '314'),
 (31, '修改应用', NULL, '/appInfo/updateAppInfo.html', 26, 0, 1, '315'),
 (32, '删除应用', NULL, '/appInfo/deleteAppInfo.html', 26, 0, 1, '316'),
