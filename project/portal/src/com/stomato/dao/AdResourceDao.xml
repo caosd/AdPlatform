@@ -2,19 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stomato.dao.AdResourceDao">
-
-	<!-- <resultMap type="com.stomato.domain.AdResource" id="adResource"> 
+	<resultMap type="com.stomato.domain.AdResource" id="adResource"> 
 		<result property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="desc" column="desc" />
-		<result property="path" column="path"/>
-		<result property="parent" column="parent"/>
-		<result property="issible" column="issible"/>
-		<result property="orderNo" column="order_no"/>
+		<result property="adName" column="ad_name" />
+		<result property="adText" column="ad_text" />
+		<result property="adIcon" column="ad_icon"/>
+		<result property="adPoint" column="ad_point"/>
+		<result property="description" column="description"/>
+		<result property="version" column="version"/>
+		<result property="fileSize" column="file_size"/>
+		<result property="adPackage" column="ad_package"/>
+		<result property="adImages" column="ad_images"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="itime" column="itime"/>
+		<result property="adType" column="ad_type"/>
+		<result property="apkUrl" column="apk_url"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="status" column="status"/>
 	</resultMap>
 	
 	<insert id="addAdResource" parameterType="com.stomato.domain.AdResource">
-		insert into ad_list (ad_name,
+		insert into t_ad_rssource (ad_name,
 							ad_text,
 							ad_icon,
 							ad_point,
@@ -33,11 +42,11 @@
 		values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	</insert>
 	
-	<select id="hasPackage" parameterType="string" resultMap="int" >
-		select count(1) from ad_list where ad_package = #{}
+	<select id="hasPackage" parameterType="string" resultType="int" >
+		select count(1) from t_ad_rssource where ad_package = #{adPackage}
 	</select>
 	
-	<select id="getAdResource" parameterType="int" resultMap="com.stomato.domain.AdResource" >
+	<select id="getAdResource" parameterType="int" resultMap="adResource" >
 		select id,
 				ad_name,
 				ad_text,
@@ -55,10 +64,34 @@
 				start_time,
 				end_time,
 				status 
-				from ad_list where id=? 
+				from t_ad_rssource where id=? 
 	</select>
-	 
-	<select id="listAdResource" parameterType="com.stomato.domain.PublicModel" resultMap="com.stomato.domain.AdResource" >
+	<update id="updateAdResource" parameterType="com.stomato.domain.AdResource">
+		update t_ad_rssource set ad_name = ? ,
+                           ad_text = ? ,
+                           ad_icon = ? ,
+                           ad_point = ? ,
+                           description = ?,
+                           version = ?,
+                           file_size = ?,
+                           ad_package = ?,
+                           ad_images = ?,
+                           modify_date = ?,
+                           itime = ?,
+                           ad_type = ?,
+                           apk_url = ?,
+                           start_time = ?,
+                           end_time = ?,
+                           status = ?
+        where id = ?
+	</update>
+	<select id="listTotal" parameterType="com.stomato.domain.AdResourceParam" resultType="int">
+		select count(1) from t_ad_rssource where 1=1
+		<if test="adName != null">
+		 	and ad_name like '%${adName}%'
+		</if>
+	</select>
+	<select id="listAdResource" parameterType="com.stomato.domain.AdResourceParam" resultMap="adResource" >
 		select  id,
 				ad_name,
 				ad_text,
@@ -76,34 +109,11 @@
 				start_time,
 				end_time,
 				status
-		from ad_list where 1=1 
-	</select>
-	<select id="listTotal" parameterType="com.stomato.domain.PublicModel" resultType="int">
-		select count(1) from ad_list
-		<if test="paramList != null">
-		 	where 1=1
-			<foreach item="item" collection="paramList" open=" and " separator=" and ">
-				#{item.first}=#{item.second}
-			</foreach>
+		from t_ad_rssource where 1=1 
+		<if test="adName != null">
+		 	and ad_name like '%${adName}%'
 		</if>
+		order by modify_date asc
+		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
 	</select>
-	<update id="updateAdResource" parameterType="com.stomato.domain.AdResource">
-		update ad_list set ad_name = ? ,
-                           ad_text = ? ,
-                           ad_icon = ? ,
-                           ad_point = ? ,
-                           description = ?,
-                           version = ?,
-                           file_size = ?,
-                           ad_package = ?,
-                           ad_images = ?,
-                           modify_date = ?,
-                           itime = ?,
-                           ad_type = ?,
-                           apk_url = ?,
-                           start_time = ?,
-                           end_time = ?,
-                           status = ?
-        where id = ?
-	</update> -->
 </mapper>

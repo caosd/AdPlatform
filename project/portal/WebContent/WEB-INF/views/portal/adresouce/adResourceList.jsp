@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/page" prefix="p" %>
 <body>
 <div class="row-fluid">
@@ -28,7 +28,7 @@
            <li>
                <a href="#">资源管理</a> <span class="divider">&nbsp;</span>
            </li>
-           <li><a href="#">广告推送</a><span class="divider-last">&nbsp;</span></li>
+           <li><a href="#">资源列表</a><span class="divider-last">&nbsp;</span></li>
        </ul>
    </div>
 </div>
@@ -38,7 +38,7 @@
         <!-- BEGIN EXAMPLE TABLE widget-->
         <div class="widget">
             <div class="widget-title">
-                <h4><i class="icon-reorder"></i>广告推送</h4>
+                <h4><i class="icon-reorder"></i>资源列表</h4>
                 <span class="tools">
                     <a href="javascript:;" class="icon-chevron-down"></a>
                     <a href="javascript:;" class="icon-remove"></a>
@@ -46,8 +46,8 @@
             </div>
             <div class="widget-body">
             	<div class="row-fluid">
-            		<form:form id="searchForm" commandName="reportParamForm"  method="post">
-	            		<div class="span3">
+            		<form:form id="searchForm" commandName="adResourceParamForm"  method="post">
+	            		<div class="span2">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
 	            					<select size="1" name="pageSize" aria-controls="role_table" class="input-mini">
@@ -55,25 +55,25 @@
 	            						<option value="25">25</option>
 	            						<option value="50">50</option>
 	            						<option value="100">100</option>
-	            					</select> 
-	            					records per page
+	            					</select>
 	            				</label>
 	            			</div>
 	            		</div>
-	            		<div class="span6">
+	            		<div class="span8">
 			                                从&nbsp;
 	                        <span id="start-date-container"><form:input type="text" path="startDatestr" style="width:80px"/></span>
 	                        &nbsp;至&nbsp;
 	                        <span id="end-date-container"><form:input type="text" path="endDatestr" style="width:80px"/></span>
-	                        &nbsp;请选择应用：
-	                        <form:select class="mini" path="appId" style="width:80px">
-	                            <option value="0">全部应用</option>
-	                            <c:forEach items="${appList}" var="app" varStatus="stat">
-									<option value="${app.id}" ${reportParam.appId == app.id ? 'selected':'' }>${app.name }</option>
-								</c:forEach>
-	                        </form:select>
+	                        &nbsp;资源名称:&nbsp;<span><form:input type="text" path="adName" style="width:80px"/></span>
+	                        &nbsp;请选择类型：
+	                        <form:select path="adType" style="width:80px">
+				             	<form:option value="0" selected="selected">热门</form:option>
+				             	<form:option value="1">应用</form:option>
+				             	<form:option value="2">游戏</form:option>
+				            </form:select>
+				            <form:input path="pageNum" type="hidden" id="pageNum"/>
 	                    </div>
-						<div class="span3">
+						<div class="span1">
 							<button class="mini">查询</button>
 						</div>
 					</form:form>
@@ -82,24 +82,34 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th width="12%">日期</th>
-                        <th>总用户数</th>
-                        <th>应用打开次数</th>
-                        <th>展示次数</th>
-                        <th>填充率</th>
-                        <th>广告收入 (元)</th>
+                        <th width="12%">资源名称</th>
+                        <th>应用包名</th>
+                        <th>积分</th>
+                        <th>应用版本</th>
+                        <th>安装包大小</th>
+                        <th>广告类型</th>
+                        <th>录入时间</th>
+                        <th>有效日期</th>
+                        <th>状态</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
-					<c:forEach items="${dailyList}" var="report" varStatus="stat">
+					<c:forEach items="${adResourceList}" var="adr" varStatus="stat">
 						<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 						<td>${stat.index}</td>
-						<th><fmt:formatDate value="${report.idate }" pattern="yyyy-MM-dd" /></th>
-						<td><fmt:formatNumber value="${report.totalUsers }"/></td>
-						<td><fmt:formatNumber value="${report.appOpens }"/></td>
-						<td><fmt:formatNumber value="${report.displayTimes }"/></td>
-						<td><fmt:formatNumber value="${report.fillRate }" type="percent"/></td>
-						<td>${report.moneyAdvertising }</td>
+						<th>${adr.adName}</th>
+						<td>${adr.adPackage}</td>
+						<td>${adr.adPoint}</td>
+						<td>${adr.version}</td>
+						<td>${adr.fileSize}</td>
+						<td>${adr.adTypeStr}</td>
+						<td><fmt:formatDate value="${adr.itime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td>${adr.startTime } - ${adr.endTime }</td>
+						<td>
+							<span class="label ${adr.status==1?'label-success':'label-error' }">${adr.status }</span>
+						</td>
+						<td><a href="${ctx }/adResource/getAdResource.html?id=${adr.id }" >编辑</a> | <a href="${ctx }/adResource/showAdResource.html?id=${adr.id }">预览</a></td>
 						</tr>
 					</c:forEach>
                 </tbody>

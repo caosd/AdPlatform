@@ -6,7 +6,7 @@
 	<resultMap type="com.stomato.domain.Role" id="role"> 
 		<result property="id" column="id" />
 		<result property="roleName" column="role_name" />
-		<result property="status" column="_status" />
+		<result property="status" column="status" />
 		<result property="createDate" column="create_date"/>
 	</resultMap>
 	
@@ -19,7 +19,7 @@
 	</select>
 	 
 	<select id="listRole" parameterType="com.stomato.domain.RoleParam" resultMap="role" >
-		select id,role_name, _status, create_date from t_role where _status = 0
+		select id,role_name, status, create_date from t_role where status = 0
 		<if test="roleName != null">
 			and role_name like '%${roleName}%'
 		</if>
@@ -28,7 +28,7 @@
 		</if>
 	</select>
 	<select id="listTotal" parameterType="com.stomato.domain.RoleParam" resultType="int">
-		select count(1) from t_role where _status = 0
+		select count(1) from t_role where status = 0
 		<if test="roleName != null">
 			and role_name like '%${roleName}%'
 		</if>
@@ -37,7 +37,7 @@
 		update t_role
         <set>
             <if test="roleName != null">role_name=#{roleName},</if>
-            <if test="status != status">_status=#{status},</if>
+            <if test="status != status">status=#{status},</if>
             create_date=now()
         </set>
         

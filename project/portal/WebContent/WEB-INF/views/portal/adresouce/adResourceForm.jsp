@@ -59,7 +59,7 @@
 	             <form:select path="adType" class="span6">
 	             	<form:option value="0" selected="selected">热门</form:option>
 	             	<form:option value="1">应用</form:option>
-	             	<form:option value="2">游</form:option>
+	             	<form:option value="2">游戏</form:option>
 	             </form:select>
 	             <SPAN class="red">*</SPAN><br><form:errors path="adType" cssClass="error"/>
 	          </div>

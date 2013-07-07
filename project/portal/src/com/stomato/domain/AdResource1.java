@@ -1,78 +1,93 @@
-package com.stomato.form;
+package com.stomato.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.Gson;
-import com.stomato.domain.AdResource;
+import com.stomato.utils.StringUtils;
+import com.stomato.vo.SysConfig;
 
-public class AdResourceForm{
-private int id ;
+/**
+ * 下载资源录入
+ * @author zyf
+ *
+ */
+public class AdResource1 extends BaseParam{
+
+	private int id ;
+	
+	/**
+	 * 广告来源，从启用渠道中选择，默认用自由渠道
+	 */
+	private Integer adChannelId;
 	
 	/**
 	 * 下载资源名称
 	 */
-	@NotEmpty
 	private String adName ;
 	
 	/**
 	 * 广告语文字
 	 */
-	@NotEmpty
 	private String adText ;
 	
 	/**
 	 * 广告图标地址
 	 */
-	@NotEmpty
 	private String adIcon ;
 	
 	/**
+	 * 用于推送消息栏图片
+	 */
+	private String banner;
+	/**
+	 * 桌面快捷方式图片
+	 */
+	private String desktop;
+	/**
+	 * 应用图片组(a.jpg,c.jpg,b.jpg) 地址
+	 */
+	private String adImages;
+	/**
+	 * 应用包名
+	 */
+	private String adPackage;
+	/**
+	 * 安装包大小(KB)
+	 */
+	private long fileSize ;
+	/**
+	 * 应用版本
+	 */
+	private String version;
+	/**
+	 * 平台版本要求
+	 */
+	private String plfVersion;
+	/**
+	 * 广告类型
+	 */
+	private int adType1 ;
+	
+	/**
+	 * 子分类
+	 */
+	private int adType2;
+	/**
 	 * 广告积分
 	 */
-	private int adPoint ;
+	private int adPoint;
 	
 	/**
 	 * 应用描述
 	 */
-	@NotEmpty
 	private String description;
-	
-	/**
-	 * 应用版本
-	 */
-	@NotEmpty
-	private String version;
-	
-	/**
-	 * 安装包大小(KB)
-	 */
-	@NotEmpty
-	private long fileSize ;
-	
-	/**
-	 * 应用包名
-	 */
-	@NotEmpty
-	private String adPackage ;
-	
-	/**
-	 * 应用图片组(a.jpg,c.jpg,b.jpg) 地址
-	 */
-	private String adImages ;
-	
-	/**
-	 * 广告类型
-	 */
-	private int adType ;
 	
 	/**
 	 * apk 下载地址
 	 */
-	@NotEmpty
 	private String apkUrl ;
 	
 	/**
@@ -96,28 +111,23 @@ private int id ;
 	private Date itime ;
 	
 	private Integer status;
+	
+	public AdResource(){
+		
+	}
+	
+	public AdResource(int id){
+		this.id = id ;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
 
-	/*************************************************************************
-	 * 
-	 * 非持久化对象
-	 * 
-	 ************************************************************************/
-	
-	private MultipartFile adIconFile;
-	
-	private MultipartFile adPackageFile;
-	
-	/**
-	 * 应用图片组(a.jpg,c.jpg,b.jpg)
-	 */
-	private MultipartFile adImagea;
-	
-	private MultipartFile adImageb;
-	
-	private MultipartFile adImagec;
-	
-	private MultipartFile adImaged;
-	
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -245,14 +255,31 @@ private int id ;
 	public void setItime(Date itime) {
 		this.itime = itime;
 	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+	
+	
+	
+	
+	
+	/*************************************************************************
+	 * 
+	 * 非持久化对象
+	 * 
+	 ************************************************************************/
+	
+	private MultipartFile adIconFile;
+	
+	private MultipartFile adPackageFile;
+	
+	/**
+	 * 应用图片组(a.jpg,c.jpg,b.jpg)
+	 */
+	private MultipartFile adImagea;
+	
+	private MultipartFile adImageb;
+	
+	private MultipartFile adImagec;
+	
+	private MultipartFile adImaged;
 
 	public MultipartFile getAdIconFile() {
 		return adIconFile;
@@ -301,15 +328,33 @@ private int id ;
 	public void setAdImaged(MultipartFile adImaged) {
 		this.adImaged = adImaged;
 	}
+	
+	/**
+	 * 展示需要
+	 */
+	
+	private String adTypeStr ;
+	
+	private List<String> adImagesList;
 
-	@Override
-	public String toString() {
-		return new Gson().toJson(this);
+	public String getAdTypeStr() {
+		adTypeStr = SysConfig.getAdType(adType);
+		return adTypeStr;
+	}
+
+	public List<String> getAdImagesList() {
+		List<String> list = new ArrayList<String>();
+		if(StringUtils.isEmpty(this.adImages)){
+			adImagesList = null;
+		}else{
+			String[] strs = this.adImages.split(",");
+			for(String str:strs){
+				list.add(str);
+			}
+			adImagesList = list ;
+		}
+		return adImagesList;
 	}
 	
-	public AdResource asPojo() {
-		AdResource adResource = new AdResource();
-		BeanUtils.copyProperties(this, adResource);
-		return adResource;
-	}
+	
 }

@@ -15,7 +15,7 @@
 		<result property="website" column="website" />
 		<result property="createtime" column="createtime" />
         <result property="loginTokenTime" column="login_token_time" />
-        <result property="status" column="_status" />
+        <result property="status" column="status" />
 	</resultMap>
 	
 	<insert id="addUser" parameterType="com.stomato.domain.User">
