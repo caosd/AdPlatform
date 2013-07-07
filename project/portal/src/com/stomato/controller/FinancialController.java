@@ -33,9 +33,9 @@ import com.stomato.service.CredentialsService;
 import com.stomato.service.RemittanceService;
 import com.stomato.service.ReportService;
 import com.stomato.service.UserAccountsService;
-import com.stomato.utils.Pager;
 import com.stomato.utils.StringUtils;
 import com.stomato.validator.CredentialValidation;
+import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping("/financial")
@@ -154,17 +154,18 @@ public class FinancialController extends UserController{
 		
 		List<App> appList = this.appService.getAppList(user.getUid());
 		if( appList.size() > 0 ){
-			int records = this.reportService.getDailyReportCount(param);
-			int curPage = this.getIntParameter(request, "p");
-			if( curPage < 1) curPage = 1;
-			param.setSlimt((curPage-1) * param.getRows());
-			//分页
-			Pager pager = new Pager(param.getRows(), curPage, records);
-			model.addAttribute("pager", pager);
-			model.addAttribute("dailyList", this.reportService.getAccountsReport(param));
+			int total = this.reportService.getDailyReportCount(param);
+			int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
+			if(pageTotal<param.getPageNum()){ param.setPageNum(1); } 
+			int start = (param.getPageNum()-1)*param.getPageSize();
+			param.setSlimt(start);
+
+			request.setAttribute("pageTotal", pageTotal);
+			request.setAttribute("totalcount", total);
+			request.setAttribute("pageNum", param.getPageNum());
+			request.setAttribute("dailyList", this.reportService.getAccountsReport(param));
 		}
 		model.addAttribute("appList", appList);
-		model.addAttribute("reportParam", param);
 		return "portal/financial/accounts";
 	}
 	
@@ -226,17 +227,19 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/remittance_history")
-	public String remittance_history(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
+	public String remittance_history(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,BindingResult result,HttpServletRequest request, Model model) {
 		RemittanceParam remittanceParam= form.asPojo();
-		int records = this.remittanceService.getRemittanceCount(remittanceParam);
-		int curPage = this.getIntParameter(request, "p");
-		if( curPage < 1) curPage = 1;
-		remittanceParam.setSlimt((curPage-1) * remittanceParam.getRows());
-		remittanceParam.setUid(this.lookup(request).getUid());
-		//分页
-		Pager pager = new Pager(remittanceParam.getRows(), curPage, records);
-		model.addAttribute("pager", pager);
+		remittanceParam.setUid(super.lookup(request).getUid());
+		int total = this.remittanceService.getRemittanceCount(remittanceParam);
+		int pageTotal = SysConfig.getPageTotal(total, remittanceParam.getPageSize());
+		if(pageTotal<remittanceParam.getPageNum()){ remittanceParam.setPageNum(1); } 
+		int start = (remittanceParam.getPageNum()-1)*remittanceParam.getPageSize();
+		remittanceParam.setSlimt(start);
+		
 		List<Remittance> remittanceList = this.remittanceService.getRemittanceListByUser(remittanceParam);
+		model.addAttribute("pageTotal", pageTotal);
+		model.addAttribute("totalcount", total);
+		model.addAttribute("pageNum", form.getPageNum());
 		model.addAttribute("remittanceList", remittanceList);
 		return "portal/financial/remittance_history";
 	}

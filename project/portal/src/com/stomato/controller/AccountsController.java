@@ -274,7 +274,7 @@ public class AccountsController extends UserController {
 	@RequestMapping(value="/editUser.html",method=RequestMethod.GET)
 	public String updateUser(@ModelAttribute("profileForm")ProfileForm form,int id,Model model){
 		User user = accountsService.getUserByUid(id);
-		model.addAttribute("user", user);
+		model.addAttribute("editUser", user);
 		model.addAttribute("role", roleService.getRole(user.getType()));
 		model.addAttribute("roleList", roleService.listRole(null));
 		return "portal/user/userUpdate";
@@ -301,7 +301,7 @@ public class AccountsController extends UserController {
 		
 		accountsService.updateUser(user);
 		
-		model.addAttribute("user", user);
+		model.addAttribute("editUser", user);
 		model.addAttribute("role", roleService.getRole(user.getType()));
 		model.addAttribute("content", "编辑用户成功！");
 		return "portal/user/userUpdate";

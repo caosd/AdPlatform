@@ -32,12 +32,8 @@
    </div>
 </div>
 <div class="widget">
-	 <div class="widget-title">
-	    <h4><i class="icon-reorder"></i><fmt:message key="change_profile_title"/></h4>
-	    <span class="tools">
-	       <a href="javascript:;" class="icon-chevron-down"></a>
-	       <a href="javascript:;" class="icon-remove"></a>
-	    </span>
+	 <div class="widget-header">
+		<h5><fmt:message key="change_profile_title"/></h5>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
 		<c:if test="${not empty updated}">

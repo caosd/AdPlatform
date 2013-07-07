@@ -47,34 +47,34 @@
             <div class="widget-body">
             	<div class="row-fluid">
             		<form:form id="searchForm" commandName="reportParamForm"  method="post">
-	            		<div class="span3">
+	            		<div class="span2">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
-	            					<select size="1" name="pageSize" aria-controls="role_table" class="input-mini">
-	            						<option value="10" selected="selected">10</option>
-	            						<option value="25">25</option>
-	            						<option value="50">50</option>
-	            						<option value="100">100</option>
-	            					</select> 
-	            					records per page
+	            					<form:select path="pageSize" size="1" class="input-mini">
+	            						<form:option value="10">10</form:option>
+	            						<form:option value="25">25</form:option>
+	            						<form:option value="50">50</form:option>
+	            						<form:option value="100">100</form:option>
+	            					</form:select>
 	            				</label>
 	            			</div>
 	            		</div>
-	            		<div class="span6">
+	            		<div class="span8">
 			                                从&nbsp;
 	                        <span id="start-date-container"><form:input type="text" path="startDatestr" style="width:80px"/></span>
 	                        &nbsp;至&nbsp;
 	                        <span id="end-date-container"><form:input type="text" path="endDatestr" style="width:80px"/></span>
 	                        &nbsp;请选择应用：
-	                        <form:select class="mini" path="appId" style="width:80px">
-	                            <option value="0">全部应用</option>
-	                            <c:forEach items="${appList}" var="app" varStatus="stat">
-									<option value="${app.id}" ${reportParam.appId == app.id ? 'selected':'' }>${app.name }</option>
-								</c:forEach>
-	                        </form:select>
+		                        <form:select class="mini" path="appId" style="width:100px">
+		                            <option value="0">全部应用</option>
+		                            <c:forEach items="${appList}" var="app" varStatus="stat">
+										<option value="${app.id}" ${reportParam.appId == app.id ? 'selected':'' }>${app.name }</option>
+									</c:forEach>
+		                        </form:select>
 	                    </div>
-						<div class="span3">
-							<button class="mini">查询</button>
+						<div class="span1">
+							<button type="submit" class="btn btn-inverse">查询</button>
+							<form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
 						</div>
 					</form:form>
 				</div>

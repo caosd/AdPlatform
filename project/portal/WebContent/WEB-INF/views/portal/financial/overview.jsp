@@ -32,12 +32,8 @@
    </div>
 </div>
 <div class="widget">
-	 <div class="widget-title">
-	    <h4><i class="icon-reorder"></i>账户信息</h4>
-	    <span class="tools">
-	       <a href="javascript:;" class="icon-chevron-down"></a>
-	       <a href="javascript:;" class="icon-remove"></a>
-	    </span>
+	 <div class="widget-header">
+		<h5>账户信息</h5>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
 		<c:if test="${param.failed}">
@@ -72,7 +68,7 @@
 		</div>
 		</c:if>
 	    <!-- BEGIN FORM-->
-	    <form:form commandName="credentialForm" method="POST" class="form-horizontal">
+	    <form:form commandName="credentialForm" method="POST" class="form-horizontal" enctype="multipart/form-data">
 	       <div class="control-group">
 	          <label class="control-label" for="credentialsType"> 证件类型 </label>
 	          <div class="controls">

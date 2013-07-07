@@ -48,33 +48,35 @@
 	<select id="getRemittanceListByUser" parameterType="com.stomato.domain.RemittanceParam" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} 
 		<choose>
-		   <when test="startDate != null and endDate != null">
-		      AND create_time between #{startDate} and #{endDate}
+		   <when test="_startDate != null and _endDate != null">
+		      AND create_time between #{_startDate} and #{_endDate}
 		    </when>
-		    <when test="startDate != null">
-		      AND create_time >= #{startDate}
+		    <when test="_startDate != null">
+		      AND create_time >= #{_startDate}
 		    </when>
-		    <when test="endDate != null">
-		      AND #{endDate}  >=  create_time
+		    <when test="_endDate != null">
+		      AND #{_endDate}  >=  create_time
 		    </when>
 	    </choose>
-		order by id asc limit #{slimt},#{rows};
+		order by id asc 
+		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
 	</select>
 	<select id="getRemittanceList" parameterType="com.stomato.domain.RemittanceParam" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance 
 		where 1=1
 		<choose>
-		   <when test="startDate != null and endDate != null">
-		      AND create_time between #{startDate} and #{endDate}
+		   <when test="_startDate != null and _endDate != null">
+		      AND create_time between #{_startDate} and #{_endDate}
 		    </when>
-		    <when test="startDate != null">
-		      AND create_time >= #{startDate}
+		    <when test="_startDate != null">
+		      AND create_time >= #{_startDate}
 		    </when>
-		    <when test="endDate != null">
-		      AND #{endDate}  >=  create_time
+		    <when test="_endDate != null">
+		      AND #{_endDate}  >=  create_time
 		    </when>
 	    </choose>
-	    order by status,create_time asc limit #{slimt},#{rows};
+	    order by status,create_time asc 
+		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
 	</select>
 	<select id="getRemittanceCount" parameterType="com.stomato.domain.RemittanceParam" resultType="int" >
 		select count(1) from t_remittance 
@@ -83,14 +85,14 @@
 			AND uid=#{uid}
 		</if>
 		<choose>
-		   <when test="startDate != null and endDate != null">
-		      AND create_time between #{startDate} and #{endDate}
+		   <when test="_startDate != null and _endDate != null">
+		      AND create_time between #{_startDate} and #{_endDate}
 		    </when>
-		    <when test="startDate != null">
-		      AND create_time >= #{startDate}
+		    <when test="_startDate != null">
+		      AND create_time >= #{_startDate}
 		    </when>
-		    <when test="endDate != null">
-		      AND #{endDate}  >=  create_time
+		    <when test="_endDate != null">
+		      AND #{_endDate}  >=  create_time
 		    </when>
 	    </choose>
 	    order by status,create_time asc;

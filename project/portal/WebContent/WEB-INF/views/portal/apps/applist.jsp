@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/page" prefix="p" %>
 <body>
@@ -25,9 +26,9 @@
                <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
            </li>
            <li>
-               <a href="#">财务管理</a> <span class="divider">&nbsp;</span>
+               <a href="#">开发者应用</a> <span class="divider">&nbsp;</span>
            </li>
-           <li><a href="#">汇款记录</a><span class="divider-last">&nbsp;</span></li>
+           <li><a href="#"><fmt:message key="applist_title"/></a><span class="divider-last">&nbsp;</span></li>
        </ul>
    </div>
 </div>
@@ -36,13 +37,13 @@
     <div class="span12">
         <!-- BEGIN EXAMPLE TABLE widget-->
         <div class="widget">
-            <div class="widget-header">
-				<h5>汇款记录</h5>
+			<div class="widget-header">
+				<h5><fmt:message key="applist_title"/></h5>
 			</div>
             <div class="widget-body">
             	<div class="row-fluid">
-            		<form:form id="searchForm" commandName="remittanceParamForm"  method="post">
-            			 <div class="span2">
+            		<form:form id="searchForm" commandName="userParamForm"  method="post">
+            			<div class="span3">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
 	            					<form:select path="pageSize" size="1" class="input-mini">
@@ -54,15 +55,12 @@
 	            				</label>
 	            			</div>
 	            		</div>
-	            		<div class="span8">
-			                                 从&nbsp;
-	                        <span id="start-date-container"><form:input type="text" path="startDatestr" style="width:80px"/></span>
-	                        &nbsp;至&nbsp;
-	                        <span id="end-date-container"><form:input type="text" path="endDatestr" style="width:80px"/></span>
+	            		<div class="span3">
+			                    <label>应用名: <form:input path="name" type="text" class="input-medium"/></label>
 	                    </div>
-						<div class="span1">
+						<div class="span3">
 							<button type="submit" class="btn btn-inverse">查询</button>
-							<form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
+							<form:input path="pageNum" type="hidden" id="pageNum"/>
 						</div>
 					</form:form>
 				</div>
@@ -71,38 +69,25 @@
                     <tr>
                         <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
                         <th>#</th>
-                        <th>姓名</th>
-                        <th>卡号</th>
-                        <th>金额</th>
-                        <th>取款时间</th>
-                        <th>汇款时间</th>
-                        <th>状态</th>
-                        <th>备注</th>
+                        <th width="16%"><fmt:message key="applist_name"/></th>
+						<th width="8%"><fmt:message key="applist_total"/></th>
+						<th width="16%"><fmt:message key="applist_active"/></th>
+						<th width="18%"><fmt:message key="applist_new"/></th>
+						<th class="last" width="10%"><fmt:message key="applist_earnings"/></th>
                     </tr>
                 </thead>
                 <tbody>
-                	<c:forEach items="${remittanceList}" var="remittance" varStatus="stat">
-						<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-						<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${remittance.id }"></td>
-						<td>${stat.index}</td>
-						<th>${remittance.bankAccount }</th>
-						<td>${remittance.bankCard }</td>
-						<td>${remittance.money }</td>
-						<td><fmt:formatDate value="${remittance.createTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td><fmt:formatDate value="${remittance.remittanceTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td>
-							<c:choose>
-								<c:when test="${remittance.status == 0}">
-									<span class="label label-warning">申请中</span>
-								</c:when>
-								<c:otherwise>
-									<span class="label label-success">汇款成功</span>
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td>${remittance.remark }</td>
-						</tr>
-					</c:forEach>
+                	<c:forEach items="${applist}" var="app" varStatus="stat">
+		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
+		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.uid }"></td>
+		            			<td class="sorting_1">${stat.index}</td>
+		                        <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
+								<td class=app_amounts>-</td>
+								<td class="app_online">- / -</td>
+								<td class="app_new">- / -</td>
+								<td class="app_earnings">-</td>
+		                    </tr>
+		           </c:forEach>
                 </tbody>
             </table>
             <div class="row-fluid">

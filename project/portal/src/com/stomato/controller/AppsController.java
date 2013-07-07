@@ -207,8 +207,8 @@ public class AppsController extends UserController {
 		ReportParam rptParam = new ReportParam();
 		rptParam.setUid(user.getUid());
 		rptParam.setAppId(app.getId());
-		rptParam.setStartDate(startDate);
-		rptParam.setEndDate(endDate);
+		rptParam.set_startDate(startDate);
+		rptParam.set_endDate(endDate);
 		rptParam.setReportType(ReportTypeEnum.from(precision));//must set after date
 		
 		List<long[]> rptData = new ArrayList<long[]>();
