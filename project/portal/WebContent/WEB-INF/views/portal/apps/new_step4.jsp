@@ -63,7 +63,7 @@
                 <div class="form-row">
                     <label class="field-name" for="password">您的应用：</label>
                     <div class="field">
-                        <input type="file" name="file">
+                        <input type="file" name="file" id="file">
                     </div>
                     <div style="padding-top: 8px;"><span style="color:red">*</span><fmt:message key="app_upload_attention"/></div>
                 </div>
@@ -73,4 +73,17 @@
             </div>
         </form>
     </div>
+    <script>
+    (function() {
+      $("form").submit(function() {
+        var v = $("#file").val();
+        if (v.lastIndexOf(".apk") == v.length - 4) {
+        	return true;
+        } else {
+        	alert("请选择正确的APK文件");
+        }
+        return false;
+      });
+    })();
+    </script>
 </body>
