@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../includes/config.jsp"%>
-<head><style type="text/css">.navbar .span2{width:18%;}</style></head>
+<head><style type="text/css">.navbar .span2{width:14%;}</style></head>
 <body>
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home"></i></a><span

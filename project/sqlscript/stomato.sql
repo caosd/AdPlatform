@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `adplatform`
 drop database if exists `adplatform`;
-CREATE DATABASE `adplatform` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+CREATE DATABASE `adplatform` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `adplatform`;
 
 -- --------------------------------------------------------
