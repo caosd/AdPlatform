@@ -39,23 +39,23 @@
 		<div class="right_content">
 					<div class="bluebox">
 						<dl>
-							<dt><fmt:message key="label.account_name"/>: ${user.userName}</dt>
-                            <dt><fmt:message key="label.email"/>: ${user.email}</dt>
+							<dt><fmt:message key="label.account_name"/>${user.userName}</dt>
+                            <dt><fmt:message key="label.email"/>${user.email}</dt>
 							<dt><fmt:message key="label.account_type"/>
 								<c:if test="${user.type == 1}"><fmt:message key="option.individual"/></c:if>
 								<c:if test="${user.type == 2}"><fmt:message key="option.company"/></c:if>
 							</dt>
 							<c:if test="${user.type == 2 }">
-							<dt><fmt:message key="label.company_name"/>: ${user.company}</dt>
+							<dt><fmt:message key="label.company_name"/>${user.company}</dt>
 							</c:if>
 							<c:if test="${user.type == 1 }">
-							<dt><fmt:message key="label.contact_name"/>: ${user.contactName }</dt>
+							<dt><fmt:message key="label.contact_name"/>${user.contactName }</dt>
 							</c:if>
-                            <dt><fmt:message key="label.contact_tel"/>: ${user.contactTel}</dt>
-                            <dt><fmt:message key="label.qq"/>: ${user.qq}</dt>
-							<dt><fmt:message key="label.website"/>: ${user.website}</dt>
-                            <dt><fmt:message key="label.account_created"/>: <fmt:formatDate value="${user.createtime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dt>
-                            <dt><fmt:message key="label.last_login_time"/>: <fmt:formatDate value="${user.loginTokenTime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dt>
+                            <dt><fmt:message key="label.contact_tel"/>${user.contactTel}</dt>
+                            <dt><fmt:message key="label.qq"/>${user.qq}</dt>
+							<dt><fmt:message key="label.website"/>${user.website}</dt>
+                            <dt><fmt:message key="label.account_created"/><fmt:formatDate value="${user.createtime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dt>
+                            <dt><fmt:message key="label.last_login_time"/><fmt:formatDate value="${user.loginTokenTime}" type="both" pattern="MMM, dd HH:mm:ss z"/></dt>
 						</dl>
 					</div>
 				</div>

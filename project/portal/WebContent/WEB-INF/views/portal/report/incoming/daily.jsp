@@ -5,16 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%>
 <%@ taglib uri="/page" prefix="p" %>
 <body>
-    <ul class="breadcrumb">
-        <li>
-            <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
-        </li>
-        <li>
-            <a href="#">收入报表</a> <span class="divider">&nbsp;</span>
-        </li>
-        <li><a href="#">每日统计</a><span class="divider-last">&nbsp;</span></li>
-    </ul>
-
 <div class="row-fluid">
    <div class="span12">
        <!-- BEGIN THEME CUSTOMIZER-->
@@ -31,7 +21,15 @@
             </span>
        </div>
        <!-- END THEME CUSTOMIZER-->
-       
+       <ul class="breadcrumb">
+           <li>
+               <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
+           </li>
+           <li>
+               <a href="#">收入报表</a> <span class="divider">&nbsp;</span>
+           </li>
+           <li><a href="#">每日统计</a><span class="divider-last">&nbsp;</span></li>
+       </ul>
    </div>
 </div>
 <!-- BEGIN ADVANCED TABLE widget-->
@@ -39,13 +37,9 @@
     <div class="span12">
         <!-- BEGIN EXAMPLE TABLE widget-->
         <div class="widget">
-            <div class="widget-title">
-                <h4><i class="icon-reorder"></i>每日统计</h4>
-                <span class="tools">
-                    <a href="javascript:;" class="icon-chevron-down"></a>
-                    <a href="javascript:;" class="icon-remove"></a>
-                </span>
-            </div>
+            <div class="widget-header">
+				<h5>每日统计</h5>
+			</div>
             <div class="widget-body">
             	<div class="row-fluid">
             		<form:form id="searchForm" commandName="reportParamForm"  method="post">

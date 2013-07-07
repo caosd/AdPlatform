@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: 127.0.0.1
--- 生成日期: 2013 年 07 月 07 日 18:47
+-- 生成日期: 2013 年 07 月 07 日 20:06
 -- 服务器版本: 5.5.27
 -- PHP 版本: 5.4.7
 
@@ -19,11 +19,14 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `stomato`
 --
+CREATE DATABASE `stomato` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `stomato`;
 
 DELIMITER $$
 --
 -- 存储过程
 --
+DROP PROCEDURE IF EXISTS `proc_confirm_earnings`$$
 CREATE DEFINER=`push_root`@`192.168.252.%` PROCEDURE `proc_confirm_earnings`(
         IN i_start_date INT,
         IN i_end_date INT
@@ -44,6 +47,7 @@ BEGIN
 	   AND kpi_code ='sm_earnings_amount';
     END$$
 
+DROP PROCEDURE IF EXISTS `proc_update_data_adjusted`$$
 CREATE DEFINER=`push_root`@`192.168.252.%` PROCEDURE `proc_update_data_adjusted`(
         in i_start_date int,
         in i_end_date int
@@ -79,6 +83,7 @@ BEGIN
     AND t1.`mon` BETWEEN v_start_mon AND v_end_mon;
 END$$
 
+DROP PROCEDURE IF EXISTS `proc_update_earnings`$$
 CREATE DEFINER=`push_root`@`192.168.252.%` PROCEDURE `proc_update_earnings`(
         IN i_start_date INT,
         IN i_end_date INT
@@ -134,6 +139,7 @@ DELIMITER ;
 -- 表的结构 `t_ad_rssource`
 --
 
+DROP TABLE IF EXISTS `t_ad_rssource`;
 CREATE TABLE IF NOT EXISTS `t_ad_rssource` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ad_name` varchar(255) NOT NULL COMMENT '广告应用名称',
@@ -192,6 +198,7 @@ INSERT INTO `t_ad_rssource` (`id`, `ad_name`, `ad_text`, `ad_icon`, `ad_point`, 
 -- 表的结构 `t_apps`
 --
 
+DROP TABLE IF EXISTS `t_apps`;
 CREATE TABLE IF NOT EXISTS `t_apps` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `app_key` varchar(255) DEFAULT NULL,
@@ -219,9 +226,9 @@ CREATE TABLE IF NOT EXISTS `t_apps` (
 --
 
 INSERT INTO `t_apps` (`id`, `app_key`, `uid`, `name`, `pkg`, `icon`, `status`, `is_del`, `last_update_time`, `create_time`, `allow_push`, `allow_trustee`, `delay_push_interval`) VALUES
-(1, 'fd62421b5824f4af33887e79462b75bb', 23, '大白菜', 'com.skycall.oem', 'drawable-mdpi#icon.png', 1, 0, '2013-06-06 16:07:20', '2013-06-05 17:58:17', '0', '1', 0),
-(2, '9a3b327c837794a67e854a2c24d32b46', 23, '小青菜', 'com.elevenbitstudios.FunkySmugglers', 'drawable-xxhdpi#icon.png', 1, 0, '2013-06-08 01:37:36', '2013-06-05 18:04:03', '0', '0', 1),
-(3, '678f1cfeaf2cfe14207d90c998acc70b', 23, '红萝卜', 'com.appspot.swisscodemonkeys.camerafx', 'drawable-ldpi#ic_launcher_camera2.png', 1, 1, '2013-06-06 16:07:10', '2013-06-07 00:06:15', '0', '0', 0);
+(1, 'fd62421b5824f4af33887e79462b75bb', 23, '大白菜', 'com.skycall.oem', 'drawable-mdpi#icon.png', 1, 0, '2013-06-06 16:07:20', '2013-06-05 17:58:17', '1', '1', 0),
+(2, '9a3b327c837794a67e854a2c24d32b46', 23, '小青菜', 'com.elevenbitstudios.FunkySmugglers', 'drawable-xxhdpi#icon.png', 1, 0, '2013-06-08 01:37:36', '2013-06-05 18:04:03', '1', '1', 1),
+(3, '678f1cfeaf2cfe14207d90c998acc70b', 23, '红萝卜', 'com.appspot.swisscodemonkeys.camerafx', 'drawable-ldpi#ic_launcher_camera2.png', 1, 1, '2013-06-06 16:07:10', '2013-06-07 00:06:15', '1', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -229,6 +236,7 @@ INSERT INTO `t_apps` (`id`, `app_key`, `uid`, `name`, `pkg`, `icon`, `status`, `
 -- 表的结构 `t_channel`
 --
 
+DROP TABLE IF EXISTS `t_channel`;
 CREATE TABLE IF NOT EXISTS `t_channel` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL COMMENT '厂商名称',
@@ -254,6 +262,7 @@ INSERT INTO `t_channel` (`id`, `name`, `description`, `create_date`, `status`) V
 -- 表的结构 `t_channel_user`
 --
 
+DROP TABLE IF EXISTS `t_channel_user`;
 CREATE TABLE IF NOT EXISTS `t_channel_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -287,6 +296,7 @@ INSERT INTO `t_channel_user` (`id`, `create_date`, `last_update_time`, `channel_
 -- 表的结构 `t_config`
 --
 
+DROP TABLE IF EXISTS `t_config`;
 CREATE TABLE IF NOT EXISTS `t_config` (
   `cmd_name` varchar(100) COLLATE utf8_bin NOT NULL,
   `cmd_value` varchar(300) COLLATE utf8_bin DEFAULT NULL,
@@ -308,6 +318,7 @@ INSERT INTO `t_config` (`cmd_name`, `cmd_value`, `last_update_time`) VALUES
 -- 表的结构 `t_credentials`
 --
 
+DROP TABLE IF EXISTS `t_credentials`;
 CREATE TABLE IF NOT EXISTS `t_credentials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL COMMENT '用户id',
@@ -343,6 +354,7 @@ INSERT INTO `t_credentials` (`id`, `uid`, `credentials_type`, `credentials_no`, 
 -- 表的结构 `t_extra_applist`
 --
 
+DROP TABLE IF EXISTS `t_extra_applist`;
 CREATE TABLE IF NOT EXISTS `t_extra_applist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ord` int(11) DEFAULT NULL COMMENT '顺序',
@@ -375,6 +387,7 @@ INSERT INTO `t_extra_applist` (`id`, `ord`, `name`, `size`, `version`, `previews
 -- 表的结构 `t_menu`
 --
 
+DROP TABLE IF EXISTS `t_menu`;
 CREATE TABLE IF NOT EXISTS `t_menu` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `menuname` varchar(250) NOT NULL DEFAULT '' COMMENT '菜单名称',
@@ -417,7 +430,7 @@ INSERT INTO `t_menu` (`id`, `menuname`, `description`, `path`, `parent`, `visibl
 (26, '开发者应用', NULL, '', 0, 1, 1, '3'),
 (27, '应用上传', '', '/apps/create.html', 26, 1, 1, '311'),
 (28, '上传应用action', NULL, '/appInfo/addAppInfo.html', 26, 0, 1, '312'),
-(29, '应用列表', '开发者个人应用列表', '/apps.html', 26, 1, 1, '313'),
+(29, '应用列表', '开发者个人应用列表', '/apps', 26, 1, 1, '313'),
 (30, '查询应用', NULL, '/appInfo/selectAppInfo.html', 26, 0, 1, '314'),
 (31, '修改应用', NULL, '/appInfo/updateAppInfo.html', 26, 0, 1, '315'),
 (32, '删除应用', NULL, '/appInfo/deleteAppInfo.html', 26, 0, 1, '316'),
@@ -477,6 +490,7 @@ INSERT INTO `t_menu` (`id`, `menuname`, `description`, `path`, `parent`, `visibl
 -- 表的结构 `t_payment`
 --
 
+DROP TABLE IF EXISTS `t_payment`;
 CREATE TABLE IF NOT EXISTS `t_payment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
@@ -500,6 +514,7 @@ CREATE TABLE IF NOT EXISTS `t_payment` (
 -- 表的结构 `t_push_test`
 --
 
+DROP TABLE IF EXISTS `t_push_test`;
 CREATE TABLE IF NOT EXISTS `t_push_test` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
@@ -526,6 +541,7 @@ INSERT INTO `t_push_test` (`id`, `uid`, `app_key`, `test_key`, `description`, `l
 -- 表的结构 `t_remittance`
 --
 
+DROP TABLE IF EXISTS `t_remittance`;
 CREATE TABLE IF NOT EXISTS `t_remittance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT NULL COMMENT '用户id',
@@ -558,6 +574,7 @@ INSERT INTO `t_remittance` (`id`, `uid`, `money`, `bank_account`, `bank_name`, `
 -- 表的结构 `t_report_daily`
 --
 
+DROP TABLE IF EXISTS `t_report_daily`;
 CREATE TABLE IF NOT EXISTS `t_report_daily` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idate` date NOT NULL,
@@ -611,6 +628,7 @@ INSERT INTO `t_report_daily` (`id`, `idate`, `uid`, `app_id`, `kpi_code`, `kpi_v
 -- 表的结构 `t_report_hourly`
 --
 
+DROP TABLE IF EXISTS `t_report_hourly`;
 CREATE TABLE IF NOT EXISTS `t_report_hourly` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idate` int(10) unsigned NOT NULL,
@@ -632,6 +650,7 @@ CREATE TABLE IF NOT EXISTS `t_report_hourly` (
 -- 表的结构 `t_report_monthly`
 --
 
+DROP TABLE IF EXISTS `t_report_monthly`;
 CREATE TABLE IF NOT EXISTS `t_report_monthly` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idate` date NOT NULL,
@@ -666,6 +685,7 @@ INSERT INTO `t_report_monthly` (`id`, `idate`, `uid`, `app_id`, `kpi_code`, `kpi
 -- 表的结构 `t_reset_pwd`
 --
 
+DROP TABLE IF EXISTS `t_reset_pwd`;
 CREATE TABLE IF NOT EXISTS `t_reset_pwd` (
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
   `token` varchar(80) COLLATE utf8_bin NOT NULL,
@@ -681,6 +701,7 @@ CREATE TABLE IF NOT EXISTS `t_reset_pwd` (
 -- 表的结构 `t_role`
 --
 
+DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE IF NOT EXISTS `t_role` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(50) NOT NULL DEFAULT '' COMMENT '角色名称',
@@ -706,35 +727,19 @@ INSERT INTO `t_role` (`id`, `role_name`, `status`, `create_date`) VALUES
 -- 表的结构 `t_role_menu`
 --
 
+DROP TABLE IF EXISTS `t_role_menu`;
 CREATE TABLE IF NOT EXISTS `t_role_menu` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `role_id` int(4) NOT NULL COMMENT '角色ID',
   `menu_id` int(4) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1721 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1744 ;
 
 --
 -- 转存表中的数据 `t_role_menu`
 --
 
 INSERT INTO `t_role_menu` (`id`, `role_id`, `menu_id`) VALUES
-(1548, 4, 66),
-(1549, 4, 68),
-(1550, 4, 69),
-(1551, 4, 70),
-(1552, 4, 71),
-(1553, 4, 67),
-(1554, 4, 79),
-(1555, 4, 80),
-(1556, 4, 81),
-(1557, 4, 82),
-(1558, 4, 26),
-(1559, 4, 27),
-(1560, 4, 28),
-(1561, 4, 29),
-(1562, 4, 30),
-(1563, 4, 31),
-(1564, 4, 32),
 (1565, 5, 66),
 (1566, 5, 68),
 (1567, 5, 69),
@@ -865,7 +870,30 @@ INSERT INTO `t_role_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1717, 2, 19),
 (1718, 2, 21),
 (1719, 2, 26),
-(1720, 2, 33);
+(1720, 2, 33),
+(1721, 4, 66),
+(1722, 4, 68),
+(1723, 4, 69),
+(1724, 4, 70),
+(1725, 4, 71),
+(1726, 4, 67),
+(1727, 4, 79),
+(1728, 4, 80),
+(1729, 4, 81),
+(1730, 4, 82),
+(1731, 4, 72),
+(1732, 4, 75),
+(1733, 4, 76),
+(1734, 4, 73),
+(1735, 4, 77),
+(1736, 4, 78),
+(1737, 4, 26),
+(1738, 4, 27),
+(1739, 4, 28),
+(1740, 4, 29),
+(1741, 4, 30),
+(1742, 4, 31),
+(1743, 4, 32);
 
 -- --------------------------------------------------------
 
@@ -873,6 +901,7 @@ INSERT INTO `t_role_menu` (`id`, `role_id`, `menu_id`) VALUES
 -- 表的结构 `t_temp_apps`
 --
 
+DROP TABLE IF EXISTS `t_temp_apps`;
 CREATE TABLE IF NOT EXISTS `t_temp_apps` (
   `app_key` varchar(45) NOT NULL,
   `uid` int(11) NOT NULL,
@@ -911,6 +940,7 @@ INSERT INTO `t_temp_apps` (`app_key`, `uid`, `name`, `pkg`, `status`, `create_ti
 -- 表的结构 `t_transfer_history`
 --
 
+DROP TABLE IF EXISTS `t_transfer_history`;
 CREATE TABLE IF NOT EXISTS `t_transfer_history` (
   `transfer_no` varchar(32) COLLATE utf8_bin NOT NULL COMMENT 'trade no, 32 md5.',
   `uid` int(11) NOT NULL,
@@ -930,6 +960,7 @@ CREATE TABLE IF NOT EXISTS `t_transfer_history` (
 -- 表的结构 `t_user`
 --
 
+DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE IF NOT EXISTS `t_user` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户编号',
   `account_name` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '帐户名称',
@@ -955,8 +986,8 @@ CREATE TABLE IF NOT EXISTS `t_user` (
 --
 
 INSERT INTO `t_user` (`uid`, `account_name`, `account_pwd`, `email`, `type`, `company`, `contact_name`, `contact_tel`, `qq`, `website`, `createtime`, `login_token`, `login_token_time`, `status`) VALUES
-(22, 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '144@qq.com', 1, '', '覃建栋', '13631661621', NULL, '', '2013-06-02 17:43:46', 'aa6211bc8c3d41c4888c4f1060c0a533', '2013-07-08 00:23:42', 1),
-(33, 'dev001', 'E10ADC3949BA59ABBE56E057F20F883E', 'dev001@gmail.com', 4, NULL, 'dev001', '13631661621', NULL, 'http://localhost:8080', '2013-07-08 00:13:23', 'dccb3cfa9d8942419701702c7bf9c501', '2013-07-08 00:43:58', 1),
+(22, 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '144@qq.com', 1, '', '覃建栋', '13631661621', NULL, '', '2013-06-02 17:43:46', '9965ab660d4a4fa69a743e33ff4e3fbd', '2013-07-08 02:01:00', 1),
+(33, 'dev001', 'E10ADC3949BA59ABBE56E057F20F883E', 'dev001@gmail.com', 4, NULL, 'dev001', '13631661621', NULL, 'http://localhost:8080', '2013-07-08 00:13:23', '2502e05c4e3f418596ad433b805d4d89', '2013-07-08 02:01:32', 1),
 (31, 'jd_test', '4297F44B13955235245B2497399D7A93', 'qinjiandong21010@gmail.com', 6, 'Powerall networks', '覃建栋', '13631661621', NULL, 'http://localhost:8081/', '2013-07-07 23:19:48', '4289c363fde745d388ec1aa9e4d12069', '2013-07-07 23:40:53', 1),
 (32, 'yygl001', 'E10ADC3949BA59ABBE56E057F20F883E', 'yygl@gmail.com', 2, '', 'yygl', '13631661621', NULL, 'http://localhost:8080', '2013-07-08 00:12:45', '8092cc0d90b54a6d91aa7268c00bdbe2', '2013-07-08 00:17:04', 1);
 
@@ -966,6 +997,7 @@ INSERT INTO `t_user` (`uid`, `account_name`, `account_pwd`, `email`, `type`, `co
 -- 表的结构 `t_user_account`
 --
 
+DROP TABLE IF EXISTS `t_user_account`;
 CREATE TABLE IF NOT EXISTS `t_user_account` (
   `uid` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '用户',
   `balance` double NOT NULL COMMENT '余额',
@@ -996,6 +1028,7 @@ INSERT INTO `t_user_account` (`uid`, `balance`, `last_update_time`) VALUES
 -- 表的结构 `t_user_imei`
 --
 
+DROP TABLE IF EXISTS `t_user_imei`;
 CREATE TABLE IF NOT EXISTS `t_user_imei` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
