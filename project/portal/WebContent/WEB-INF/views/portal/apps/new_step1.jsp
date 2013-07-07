@@ -20,29 +20,33 @@
 			<div class="widget-content no-padding">
 				<div class="navbar steps">
 					<div class="navbar-inner">
-						<ul class="row-fluid nav nav-pills">
-							<li class="span3 active"><a href="#tab1" data-toggle="tab"
-								class="step active"> <span class="number">1</span> <span
-									class="desc"><i class="icon-ok"></i> 分析应用 </span>
-							</a></li>
-							<li class="span3"><a href="#tab2" data-toggle="tab"
-								class="step"> <span class="number">2</span> <span
-									class="desc"><i class="icon-ok"></i> 修改信息 </span>
-							</a></li>
-							<li class="span3"><a href="#tab3" data-toggle="tab"
-								class="step"> <span class="number">3</span> <span
-									class="desc"><i class="icon-ok"></i> 下载SDK </span>
-							</a></li>
-							<li class="span3"><a href="#tab4" data-toggle="tab"
-								class="step"> <span class="number">4</span> <span
-									class="desc"><i class="icon-ok"></i> 上传应用 </span>
-							</a></li>
-						</ul>
+                        <ul class="row-fluid nav nav-pills">
+                            <li class="span2 active"><a href="#tab1" data-toggle="tab"
+                                class="step active"> <span class="number">1</span> <span
+                                    class="desc"><i class="icon-ok"></i> 分析应用 </span>
+                            </a></li>
+                            <li class="span2"><a href="#tab2" data-toggle="tab"
+                                class="step"> <span class="number">2</span> <span
+                                    class="desc"><i class="icon-ok"></i> 修改信息 </span>
+                            </a></li>
+                            <li class="span2"><a href="#tab3" data-toggle="tab"
+                                class="step"> <span class="number">3</span> <span
+                                    class="desc"><i class="icon-ok"></i> 下载SDK </span>
+                            </a></li>
+                            <li class="span2"><a href="#tab4" data-toggle="tab"
+                                class="step"> <span class="number">4</span> <span
+                                    class="desc"><i class="icon-ok"></i> 上传应用 </span>
+                            </a></li>
+                            <li class="span2 "><a href="#tab4" data-toggle="tab"
+                                class="step active"> <span class="number">5</span> <span
+                                    class="desc"><i class="icon-ok"></i> 添加成功 </span>
+                            </a></li>
+                        </ul>
 					</div>
 				</div>
 				<div id="bar" class="progress progress-striped"
 					style="margin: 30px 20px;">
-					<div class="bar" style="width: 25%;"></div>
+					<div class="bar" style="width: 20%;"></div>
 				</div>
 				<h4 style="margin: 50px 30px 10px 30px;">第一步，提交应用进行应用信息提取</h4>
 				<c:if test="${param.packageExisted || param.unpackError || param.emptyFile}">
@@ -64,7 +68,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="password">上传文件：</label>
+					<label class="field-name" for="password">您的应用：</label>
 					<div class="field">
 						<input type="file" name="file">
 					</div>

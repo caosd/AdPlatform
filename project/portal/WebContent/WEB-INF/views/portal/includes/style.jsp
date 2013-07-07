@@ -12,3 +12,4 @@
 <link type="text/css" rel="stylesheet" href="/css/style.css" media="screen">
 <link type="text/css" rel="stylesheet" href="/css/style_responsive.css" media="screen">
 <link type="text/css" rel="stylesheet" href="/css/style_default.css" media="screen">
+<script src="/js/jquery-1.8.3.min.js"></script>

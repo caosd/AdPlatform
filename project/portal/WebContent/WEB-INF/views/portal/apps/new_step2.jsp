@@ -1,90 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@include file="../includes/html_attributes.jsp" %>
-<head>
-<title><fmt:message key="new_app_title"/></title>
-<%@include file="../includes/style.jsp"%>
-<style>
-form.blueform ul.icons li {
-float: left;
-text-align:center;
-margin-right: 20px;
-}
-form.blueform ul.icons li img {
-width:45px;
-}
-form.blueform ul.icons li .desc {
-display:block;
-}
-</style>
-</head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../includes/config.jsp"%>
 <body>
-	<%@include file="../includes/header.jsp"%>
-	<div class="inside">
-		<div class="container">
-			<div id="content">
-				<h2><fmt:message key="new_app_title"/></h2>
+
+    <ul class="breadcrumb">
+        <li><a href="/"><i class="icon-home"></i></a><span
+            class="divider">&nbsp;</span></li>
+        <li><a href="#">应用管理</a> <span class="divider">&nbsp;</span></li>
+        <li><a href="#">创建应用</a><span class="divider-last">&nbsp;</span></li>
+    </ul>
+
+    <div class="widget">
+        <form method="POST" class="form-horizontal form-wizard" action="/apps/create/${app.key}">
+            <div class="widget-header">
+                <h5>上传应用</h5>
+            </div>
+            <div class="widget-content no-padding">
+                <div class="navbar steps">
+                    <div class="navbar-inner">
+                        <ul class="row-fluid nav nav-pills">
+                            <li class="span2 active"><a href="#tab1" data-toggle="tab"
+                                class="step active"> <span class="number">1</span> <span
+                                    class="desc"><i class="icon-ok"></i> 分析应用 </span>
+                            </a></li>
+                            <li class="span2 active "><a href="#tab2" data-toggle="tab"
+                                class="step active"> <span class="number">2</span> <span
+                                    class="desc"><i class="icon-ok"></i> 修改信息 </span>
+                            </a></li>
+                            <li class="span2"><a href="#tab3" data-toggle="tab"
+                                class="step"> <span class="number">3</span> <span
+                                    class="desc"><i class="icon-ok"></i> 下载SDK </span>
+                            </a></li>
+                            <li class="span2"><a href="#tab4" data-toggle="tab"
+                                class="step"> <span class="number">4</span> <span
+                                    class="desc"><i class="icon-ok"></i> 上传应用 </span>
+                            </a></li>
+                            <li class="span2 "><a href="#tab4" data-toggle="tab"
+                                class="step active"> <span class="number">5</span> <span
+                                    class="desc"><i class="icon-ok"></i> 添加成功 </span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="bar" class="progress progress-striped"
+                    style="margin: 30px 20px;">
+                    <div class="bar" style="width: 40%;"></div>
+                </div>
+                <h4 style="margin: 50px 30px 10px 30px;">第二步，补充应用信息</h4>
                 <c:if test="${appKeyError}">
-                <div class="protip error">
-                    <strong><fmt:message key="tips"/></strong> appKey不存在
+                <div class="note note-danger" style="margin: 20px 30px;">
+                    <button type="button" class="close note-remove">×</button>
+                    <strong><fmt:message key="tips"/></strong> 
+                    <c:if test="${param.packageExisted}">appKey不存在。</c:if>
                 </div>
                 </c:if>
-                <div class="protip error" id="formerror" style="display: none;"></div>
-                <ul id="steps">
-                  <li style="z-index: 6;"><a href="javascript:;" id="step-nav-0" class="active">分析应用</a></li>
-                  <li style="z-index: 5;"><a href="javascript:;" id="step-nav-1" class="active">修改信息</a></li>
-                  <li style="z-index: 4;"><a href="javascript:;" id="step-nav-2">下载SDK</a></li>
-                  <li style="z-index: 3;"><a href="javascript:;" id="step-nav-3">上传应用</a></li>
-                  <li style="z-index: 2;"><a href="javascript:;" id="step-nav-4">添加成功</a></li>
-                </ul>
-                <form method="POST" class="blueform" action="/apps/create/${app.key}">
-                  <ul class="form">
-                      <li>
-                        <label> 应用名称 </label> 
-                        <input type="text" name="appName" value="${app.name }" />
-                      </li>
-                      <li>
-                        <label> 包名 </label> 
-                        <input type="text" name="packageName" value="${app.pkg }" readonly="readonly" />
-                      </li>
-                      <li>
-                        <label> 应用图标<br/>(来源于上传应用中) </label> 
-                        <ul class="icons">
+                <div class="form-row">
+                    <label class="field-name">应用名称：</label>
+                    <div class="field">
+                        <div class="input-prepend input-append">
+                            <input class="span12" type="text" name="appName" value="${app.name }" maxlength="20" /> 
+                            <span class="add-on">不能超过20个字符</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="field-name">应用包名：</label>
+                    <div class="field">
+                        <input class="span12" type="text" name="packagename" value="${app.pkg }" readonly="readonly" /> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="field-name" for="password">应用图标：</label>
+                    <div class="field">
+                        <ul class="thumbnails" style="margin-bottom: 0;">
                         <c:forEach items="${icons}" var="icon">
-                            <li>
-                              <img src="${imgServer }${icon }" />
-                              <span class="desc">${fn:replace(fn:split(icon, "/")[fn:length(fn:split(icon, "/"))-1], "%23", "/") }</span>
-                              <input type="radio" name="appIcon" value="${icon }" />
+                            <li class="span3">
+                                <div class="thumbnail well" style="background-color: #F1F1F1">
+                                    <img src="${imgServer }${icon }" />
+	                                <div class="caption">
+	                                    <p style="text-align:center;">${fn:replace(fn:split(icon, "/")[fn:length(fn:split(icon, "/"))-1], "%23", "/") }</p>
+	                                    <p style="text-align:center;">
+	                                        <button type="button" class="button button-turquoise thumbnail-choose">选&nbsp;&nbsp;&nbsp;&nbsp;择</button>
+	                                        <input type="radio" name="appIcon" value="${icon }" style="display: none;" />
+	                                    </p>
+	                                </div>
+                                </div>
                             </li>
                         </c:forEach>
                         </ul>
-                      </li>
-                  </ul>
-                  <ul class="form">
-                      <li>
-                          <button id="btn_sub2" type="submit">创建应用</button>
-                      </li>
-                  </ul>
-                </form>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-    <jsp:include page="../includes/footer.jsp"></jsp:include>
+                    </div>
+                </div>
+                <div class="form-row" style="padding-left: 180px;">
+                    <button type="submit" class="button button-blue">提交信息</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <script>
     (function() {
-      $(".blueform").submit(function() {
-        var err = $("#formerror");
+      $(".thumbnail-choose").click(function() {
+    	$(".thumbnail").css({'border': 'none', 'background': 'none'});
+    	$(this).next().find("input[name=appIcon]").attr("checked", "checked");
+    	$(this).parent().parent().parent('.thumbnail').css({'background': '#B3D9F7'});
+      });
+      $("form").submit(function() {
         if ($("input[name=appIcon]:checked").length == 1) {
-          err.hide();
           return true;
+        } else {
+        	$(".thumbnail").css({border: '1px solid #FFF400'});
         }
-        err.html("请选择一个图标").show();
         return false;
       });
     })();
     </script>
 </body>
-</html>
