@@ -156,7 +156,7 @@ public class FinancialController extends UserController{
 		if( appList.size() > 0 ){
 			int total = this.reportService.getDailyReportCount(param);
 			int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
-			if(pageTotal<param.getPageNum()){ param.setPageNum(1); } 
+			if(pageTotal<param.getPageNum()){ param.setPageNum(1); }
 			int start = (param.getPageNum()-1)*param.getPageSize();
 			param.setSlimt(start);
 
