@@ -44,9 +44,9 @@ public class MenuTag extends BodyTagSupport {
 				for (Menu sunMenu : menu.getSunMenu()) {
 					if( !isOpen && !StringUtils.isEmpty(sunMenu.getPath()) &&  uri.indexOf(sunMenu.getPath()) > -1){
 						isOpen = true;
-						sunMenuStr += ("<li><a class=\"active\" href=\"" + sunMenu.getPath() + "\">" + sunMenu.getName() + "</a></li>");
+						sunMenuStr += ("<li class=\"active\" ><a href=\"" + sunMenu.getPath() + "\">" + sunMenu.getName() + "</a></li>");
 					}else{
-						sunMenuStr +=("<li><a class=\"\" href=\"" + sunMenu.getPath() + "\">" + sunMenu.getName() + "</a></li>");
+						sunMenuStr +=("<li><a href=\"" + sunMenu.getPath() + "\">" + sunMenu.getName() + "</a></li>");
 					}
 				}				
 				sb.append("<li class=\"has-sub " + (isOpen ? "active open" : "") + "\">");

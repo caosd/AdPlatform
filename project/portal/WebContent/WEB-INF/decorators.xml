@@ -23,6 +23,7 @@
         <pattern>/role/*</pattern>
         <pattern>/financial/*</pattern>
         <pattern>/adResource/*</pattern>
+        <pattern>/adchannel/*</pattern>
         <pattern>/report/*</pattern>
         <pattern>/errors/*</pattern>
     </decorator>

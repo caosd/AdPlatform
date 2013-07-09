@@ -1,17 +1,13 @@
 package com.stomato.form;
 
-import java.util.Date;
-
 import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
-import com.stomato.domain.AdChannel;
+import com.stomato.dao.AdChannelParam;
 import com.stomato.domain.BaseParam;
 
-public class AdChannelForm extends BaseParam {
-	
-	private int id;
-	
+public class AdChannelParamForm extends BaseParam {
+ 
 	private String channelName;
 	
 	private String chantactTel;
@@ -24,16 +20,7 @@ public class AdChannelForm extends BaseParam {
 	
 	private Integer enable;
 	
-	private Date createTime;
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getChannelName() {
 		return channelName;
 	}
@@ -82,21 +69,13 @@ public class AdChannelForm extends BaseParam {
 		this.enable = enable;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);
 	}
 
-	public AdChannel asPojo() {
-		AdChannel param = new AdChannel();
+	public AdChannelParam asPojo() {
+		AdChannelParam param = new AdChannelParam();
 		BeanUtils.copyProperties(this, param);
 		return param;
 	}
