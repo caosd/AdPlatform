@@ -26,6 +26,7 @@
         <pattern>/adchannel/*</pattern>
         <pattern>/report/*</pattern>
         <pattern>/errors/*</pattern>
+        <pattern>/result/*</pattern>
     </decorator>
 
 </decorators>
