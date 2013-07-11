@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,12 +89,19 @@ public class AdChannelController {
 		param.setSlimt(start);
 		List<AdChannel> AdChannelList = adChannelService.listAdChannel(param);
 		request.setAttribute("pageTotal", pageTotal);
-		request.setAttribute("AdChannelList", AdChannelList);
+		request.setAttribute("adChannelList", AdChannelList);
 		request.setAttribute("totalcount", total);
 		request.setAttribute("pageNum", param.getPageNum());
 		return "portal/adchannel/adChannelList";
 	}
-	
+
+	@RequestMapping(value="/updateAdChannel.html",method=RequestMethod.GET)
+	public String AdChannelUpdate(@ModelAttribute("adChannelForm")AdChannelForm form,int id,Model model) throws ParseException, IOException{
+
+		AdChannel adChannel = adChannelService.getAdChannel(id);
+		model.addAttribute("adChannel",adChannel);
+		return "portal/adchannel/updateAdChannel";
+	}
 	/**
 	 * 修改渠道
 	 * @param AdChannel
@@ -102,7 +110,7 @@ public class AdChannelController {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/updateAdChannel.html")
+	@RequestMapping(value="/updateAdChannel.html",method=RequestMethod.POST)
 	public String AdChannelUpdate(@Valid @ModelAttribute("adChannelForm")AdChannelForm form, BindingResult result,HttpServletRequest request) throws ParseException, IOException{
 		if( result.hasErrors()){
 			return "portal/adchannel/updateAdChannel";

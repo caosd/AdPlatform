@@ -306,4 +306,29 @@ public class AccountsController extends UserController {
 		model.addAttribute("content", "编辑用户成功！");
 		return "portal/user/userUpdate";
 	}
+	@RequestMapping(value="/userReview.html")
+	public String listToReview(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,Model model){
+		/*if(flag == 1){
+			user.setRoleId(5);
+		}*/
+		UserParam param = paramForm.asPojo();
+		int total = accountsService.listTotal(param);
+		
+		int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
+		
+		if(pageTotal<param.getPageNum()){
+			param.setPageNum(1);
+		}
+		int start = (param.getPageNum()-1)*param.getPageSize();
+		param.setSlimt(start);
+		List<User> userList = accountsService.listUser(param);
+		
+		logger.debug("userList size:"+userList.size());
+
+		model.addAttribute("pageTotal", pageTotal);
+		model.addAttribute("totalcount", total);
+		model.addAttribute("pageNum", param.getPageNum());
+		model.addAttribute("userList", userList);
+		return "portal/user/userReview";
+	}
 }

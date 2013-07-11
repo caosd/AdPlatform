@@ -36,4 +36,12 @@ public interface Constant {
 		int identityCard = 1;
 		int businessLicense = 2;
 	}
+	//用户状态
+	interface UserStatus{
+		int newRegist = 1;
+
+		int noPASS = 1;
+		
+		int approved = 2;
+	}
 }

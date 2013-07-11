@@ -17,7 +17,6 @@ import com.stomato.domain.UserAccount;
 import com.stomato.form.RemittanceParamForm;
 import com.stomato.service.RemittanceService;
 import com.stomato.service.UserAccountsService;
-import com.stomato.utils.Pager;
 import com.stomato.vo.SysConfig;
 
 @Controller

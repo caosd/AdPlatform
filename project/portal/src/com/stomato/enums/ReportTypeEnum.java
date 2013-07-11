@@ -4,7 +4,7 @@ public enum ReportTypeEnum {
 	Hourly(1),
 	
 	Daliy(2),
-	
+	 
 	Weekly(3),
 	
 	Monthly(4);

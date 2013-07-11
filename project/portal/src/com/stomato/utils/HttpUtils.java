@@ -13,7 +13,7 @@ public class HttpUtils {
 	private static Logger logger = Logger.getLogger(HttpUtils.class.getName());
 	
 	private static final String charset = "utf-8";
-	
+
 	//private ThreadLocal<HttpURLConnection> connectionThradLocal = new ThreadLocal<HttpURLConnection>();
 	
 	public static String post(String path, String params) {

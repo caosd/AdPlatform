@@ -9,13 +9,13 @@
 		<li><a href="/"><i class="icon-home"></i></a><span
 			class="divider">&nbsp;</span></li>
 		<li><a href="#">广告渠道管理</a> <span class="divider">&nbsp;</span></li>
-		<li><a href="#">添加广告渠道</a><span class="divider-last">&nbsp;</span></li>
+		<li><a href="#">修改广告渠道</a><span class="divider-last">&nbsp;</span></li>
 	</ul>
 
 	<div class="widget">
 		<form:form commandName="adChannelForm" method="POST" class="form-horizontal form-wizard">
 			<div class="widget-header">
-				<h5>添加广告渠道</h5>
+				<h5>修改广告渠道</h5>
 			</div>
 			<div class="widget-content no-padding">
 				<c:if test="${success != null}">
@@ -24,10 +24,10 @@
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
                     	<c:when test="${success}">
-                    		添加渠道成功。
+                    		修改渠道成功。
                     	</c:when>
                     	<c:otherwise>
-                    		添加渠道失败。
+                    		修改渠道失败。
                     	</c:otherwise>
                     </c:choose>
                 </div>
@@ -36,7 +36,7 @@
 					<label class="field-name" for="channelName">渠道名称：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="channelName" class="span12"  maxlength="20" /> 
+							<form:input path="channelName" class="span12"  maxlength="20" value="${adChannel.channelName}"/> 
 							<span class="add-on">不能超过20个字符</span><br><form:errors path="channelName" cssClass="error"/>
 						</div>
 					</div>
@@ -45,7 +45,7 @@
 					<label class="field-name" for="chantactTel">联系电话：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="chantactTel" class="span12" maxlength="20" /> 
+							<form:input path="chantactTel" class="span12" maxlength="20" value="${adChannel.chantactTel}"/> 
 							<span class="add-on">*</span><br><form:errors path="chantactTel" cssClass="error"/>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 					<label class="field-name" for="qq">QQ：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="qq" class="span12" maxlength="20" /> 
+							<form:input path="qq" class="span12" maxlength="20" value="${adChannel.qq}"/> 
 							<span class="add-on"></span><br><form:errors path="qq" cssClass="error"/>
 						</div>
 					</div>
@@ -63,7 +63,7 @@
 					<label class="field-name" for="contactName">联系人：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="contactName" class="span12" maxlength="20" /> 
+							<form:input path="contactName" class="span12" maxlength="20" value="${adChannel.contactName}"/> 
 							<span class="add-on">*</span><br><form:errors path="contactName" cssClass="error"/>
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 					<label class="field-name" for=description>渠道描述：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="description" class="span12"/> 
+							<form:input path="description" class="span12" value="${adChannel.description}"/> 
 							<span class="add-on"></span><br><form:errors path="description" cssClass="error"/>
 						</div>
 					</div>
@@ -81,13 +81,13 @@
 					<label class="field-name" for="enable">是否启用：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:checkbox path="enable" class="span12" checked="checked" value="1"/> 
+							<form:checkbox path="enable" class="span12" ${adChannel.enable == 1? 'checked=\"checked\"':''} value="1"/> 
 							<br><form:errors path="enable" cssClass="error"/>
 						</div>
 					</div>
 				</div>
 				<div class="form-row" style="padding-left: 180px;">
-					<button type="submit" class="button button-blue">添加渠道</button>
+					<button type="submit" class="button button-blue">保存修改</button>
 				</div>
 			</div>
 		</form:form>

@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 
 public class SpringContextUtil implements ApplicationContextAware{
 
-	private static ApplicationContext applicationContext; 
+	private static ApplicationContext applicationContext;
 	
 	/**
 	 * 实现ApplicationContextAware接口的回调方法，设置上下文环境

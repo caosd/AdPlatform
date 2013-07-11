@@ -2,6 +2,9 @@ package com.stomato.form;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
@@ -10,14 +13,15 @@ import com.stomato.domain.BaseParam;
 
 public class AdChannelForm extends BaseParam {
 	
-	private int id;
-	
+	private int id; 
+	@NotEmpty
 	private String channelName;
-	
+	@Size(max=11,min=11)
+	@NotEmpty
 	private String chantactTel;
 	
 	private String qq;
-	
+	@NotEmpty
 	private String contactName;
 	
 	private String description;

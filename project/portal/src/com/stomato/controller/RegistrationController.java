@@ -3,6 +3,7 @@ package com.stomato.controller;
 import java.io.File;
 
 import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,6 +82,7 @@ public class RegistrationController {
 		}
 		
 		User user = form.asPojo();
+		user.setStatus(Constant.UserStatus.newRegist);
 		accountsService.addUser(user);
 		
 		user = accountsService.getUser(user);
