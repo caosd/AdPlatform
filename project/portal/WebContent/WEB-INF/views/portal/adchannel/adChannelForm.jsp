@@ -37,17 +37,29 @@
 					<div class="field">
 						<div class="input-prepend input-append">
 							<form:input path="channelName" class="span12"  maxlength="20" /> 
-							<span class="add-on">不能超过20个字符</span><br><form:errors path="channelName" cssClass="error"/>
+							<span class="add-on">不能超过20个字符</span>
 						</div>
+						<form:errors path="channelName" cssClass="error"/>
+					</div>
+				</div>
+			    <div class="form-row">
+					<label class="field-name" for="contactName">联系人：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:input path="contactName" class="span12" maxlength="20" /> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="contactName" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="chantactTel">联系电话：</label>
+					<label class="field-name" for="contactTel">联系电话：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="chantactTel" class="span12" maxlength="20" /> 
-							<span class="add-on">*</span><br><form:errors path="chantactTel" cssClass="error"/>
+							<form:input path="contactTel" class="span12" maxlength="20" /> 
+							<span class="add-on">*</span>
 						</div>
+						<form:errors path="contactTel" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
@@ -55,17 +67,9 @@
 					<div class="field">
 						<div class="input-prepend input-append">
 							<form:input path="qq" class="span12" maxlength="20" /> 
-							<span class="add-on"></span><br><form:errors path="qq" cssClass="error"/>
+							<span class="add-on"></span>
 						</div>
-					</div>
-				</div>
-				<div class="form-row">
-					<label class="field-name" for="contactName">联系人：</label>
-					<div class="field">
-						<div class="input-prepend input-append">
-							<form:input path="contactName" class="span12" maxlength="20" /> 
-							<span class="add-on">*</span><br><form:errors path="contactName" cssClass="error"/>
-						</div>
+						<form:errors path="qq" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
@@ -73,17 +77,18 @@
 					<div class="field">
 						<div class="input-prepend input-append">
 							<form:input path="description" class="span12"/> 
-							<span class="add-on"></span><br><form:errors path="description" cssClass="error"/>
+							<span class="add-on"></span>
 						</div>
+						<form:errors path="description" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
 					<label class="field-name" for="enable">是否启用：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:checkbox path="enable" class="span12" checked="checked" value="1"/> 
-							<br><form:errors path="enable" cssClass="error"/>
+							<form:checkbox path="enable" class="span12" checked="checked" value="1"/>
 						</div>
+						<form:errors path="enable" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row" style="padding-left: 180px;">

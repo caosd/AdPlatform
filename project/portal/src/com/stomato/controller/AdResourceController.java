@@ -21,14 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
 import com.stomato.domain.AdResource;
-import com.stomato.domain.AdResourceParam;
+import com.stomato.domain.BaseParam;
 import com.stomato.form.AdResourceForm;
-import com.stomato.form.AdResourceParamForm;
 import com.stomato.service.AdResourceService;
 import com.stomato.service.ConfigService;
 import com.stomato.utils.DateUtils;
 import com.stomato.utils.StringUtils;
-import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping(value="/adResource")
@@ -215,20 +213,14 @@ public class AdResourceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/adResourceList.html")
-	public String adResourceList(@ModelAttribute("adResourceParamForm")AdResourceParamForm paramForm,BindingResult result,HttpServletRequest request) throws ParseException{
-		AdResourceParam param = paramForm.asPojo();
-		int total = adResourceService.listTotal(param);
-		int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
-		if(pageTotal < param.getPageNum()){
-			param.setPageNum(1);
-		}
-		int start = (param.getPageNum()-1) * param.getPageSize();
-		param.setSlimt(start);
-		List<AdResource> adResourceList = adResourceService.listAdResource(param);
-		request.setAttribute("pageTotal", pageTotal);
+	public String adResourceList(@ModelAttribute("adResource")AdResource adResource,BindingResult result,HttpServletRequest request) throws ParseException{
+		int total = adResourceService.listTotal(adResource);
+		BaseParam baseParam = new BaseParam(request,total);
+		baseParam.setParam(adResource);
+		
+		List<AdResource> adResourceList = adResourceService.listAdResource(baseParam);
 		request.setAttribute("adResourceList", adResourceList);
-		request.setAttribute("totalcount", total);
-		request.setAttribute("pageNum", param.getPageNum());
+		request.setAttribute("pageBean", baseParam);
 		return "portal/adresouce/adResourceList";
 	}
 	

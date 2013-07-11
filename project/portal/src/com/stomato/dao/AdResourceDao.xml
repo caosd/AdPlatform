@@ -85,13 +85,13 @@
                            status = ?
         where id = ?
 	</update>
-	<select id="listTotal" parameterType="com.stomato.domain.AdResourceParam" resultType="int">
+	<select id="listTotal" parameterType="com.stomato.domain.AdResource" resultType="int">
 		select count(1) from t_ad_rssource where 1=1
 		<if test="adName != null">
 		 	and ad_name like '%${adName}%'
 		</if>
 	</select>
-	<select id="listAdResource" parameterType="com.stomato.domain.AdResourceParam" resultMap="adResource" >
+	<select id="listAdResource" parameterType="com.stomato.domain.BaseParam" resultMap="adResource" >
 		select  id,
 				ad_name,
 				ad_text,
@@ -110,8 +110,10 @@
 				end_time,
 				status
 		from t_ad_rssource where 1=1 
-		<if test="adName != null">
-		 	and ad_name like '%${adName}%'
+		<if test="param != null">
+			<if test="param.adName != null">
+			 	and ad_name like '%${param.adName}%'
+			</if>
 		</if>
 		order by modify_date asc
 		<if test="slimt != null">limit #{slimt},#{pageSize}</if>

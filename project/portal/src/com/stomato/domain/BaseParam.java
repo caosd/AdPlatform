@@ -2,8 +2,12 @@ package com.stomato.domain;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.google.gson.Gson;
 import com.stomato.utils.DateUtils;
+import com.stomato.utils.StringUtils;
+import com.stomato.vo.SysConfig;
 
 public class BaseParam {
 	// 开始时间
@@ -20,15 +24,49 @@ public class BaseParam {
 	int pageSize = 10;
 	// 当前页
 	int pageNum = 1;
+	//总行数
+	int totalCount = 0;
+	//总页数
+	int pageTotal = 0;
 	// 查询数据库开始行
 	private Integer slimt;
 	// 查询条件对象
 	private Object param;
-
+	
+	public BaseParam(){
+		
+	}
+	public BaseParam(HttpServletRequest request,int total){
+		this.startDatestr = request.getParameter("startDatestr");
+		this.endDatestr = request.getParameter("endDatestr");
+		this.index = StringUtils.getIntParameter(request,"index");
+		this.pageSize = StringUtils.getIntParameter(request,"pageSize");
+		this.totalCount = total;
+		if( pageSize == 0) pageSize = 10;
+		this.pageNum = StringUtils.getIntParameter(request,"pageNum");
+		if( pageNum < 1) pageNum = 1;
+		pageTotal = SysConfig.getPageTotal(total, getPageSize());
+		if(pageTotal<getPageNum()){ setPageNum(1); } 
+		int start = (getPageNum()-1)*getPageSize();
+		setSlimt(start);
+	}
+	
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
 	public Object getParam() {
 		return param;
 	}
 
+	public int getPageTotal() {
+		return pageTotal;
+	}
+	public void setPageTotal(int pageTotal) {
+		this.pageTotal = pageTotal;
+	}
 	public void setParam(Object param) {
 		this.param = param;
 	}

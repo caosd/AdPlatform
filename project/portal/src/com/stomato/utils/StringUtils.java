@@ -3,6 +3,8 @@ package com.stomato.utils;
 import java.security.MessageDigest;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class StringUtils {
 	public static boolean isEmpty(Object obj){
 		return obj == null ? true : String.valueOf(obj).trim().length() == 0;
@@ -77,5 +79,40 @@ public class StringUtils {
 	 */
 	public static String getSuffix(String str){
 		return str.substring(str.lastIndexOf("."), str.length());
+	}
+	
+	public static int getIntParameter(HttpServletRequest request,String key) {
+		String value = request.getParameter(key);
+		if (value != null) {
+			try {
+				return Integer.parseInt(value.trim());
+			} catch (Exception e) {
+				return 0;
+			}
+		}
+		return 0;
+	}
+	public static long getLongParameter(HttpServletRequest request,String key) {
+		String value = request.getParameter(key);
+		if (value != null) {
+			try {
+				return Long.parseLong(value.trim());
+			} catch (Exception e) {
+				return 0L;
+			}
+		}
+		return 0L;
+	}
+	public static String getStringParameter(HttpServletRequest request,String key, boolean isNull) throws Exception {
+		String value = request.getParameter(key);
+		if (isEmpty(value)) {
+			if (!isNull) {
+				throw new Exception("值不能为空");
+			} else {
+				return "";
+			}
+		} else {
+			return value;
+		}
 	}
 }

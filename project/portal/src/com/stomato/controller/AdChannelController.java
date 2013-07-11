@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.stomato.dao.AdChannelParam;
 import com.stomato.domain.AdChannel;
+import com.stomato.domain.BaseParam;
 import com.stomato.form.AdChannelForm;
-import com.stomato.form.AdChannelParamForm;
 import com.stomato.service.AdChannelService;
-import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping(value="/adchannel")
@@ -47,13 +45,14 @@ public class AdChannelController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
-	public String addAdChannel(@Valid @ModelAttribute("adChannelForm")AdChannelForm AdChannelForm, BindingResult result,HttpServletRequest request) throws IOException, ParseException{
+	public String addAdChannel(@Valid @ModelAttribute("adChannelForm")AdChannelForm AdChannelForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
 		
 		if(result.hasErrors()){
 			return "portal/adchannel/adChannelForm";
 		}
 		AdChannel adChannel = AdChannelForm.asPojo();
 		adChannelService.addAdChannel(adChannel);
+		model.addAttribute("success", true);
 		return "portal/adchannel/adChannelForm";
 	}
 	
@@ -78,29 +77,23 @@ public class AdChannelController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/adChannelList.html")
-	public String AdChannelList(@ModelAttribute("adChannelParamForm")AdChannelParamForm paramForm,BindingResult result,HttpServletRequest request) throws ParseException{
-		AdChannelParam param = paramForm.asPojo();
-		int total = adChannelService.listTotal(param);
-		int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
-		if(pageTotal < param.getPageNum()){
-			param.setPageNum(1);
-		}
-		int start = (param.getPageNum()-1) * param.getPageSize();
-		param.setSlimt(start);
-		List<AdChannel> AdChannelList = adChannelService.listAdChannel(param);
-		request.setAttribute("pageTotal", pageTotal);
-		request.setAttribute("adChannelList", AdChannelList);
-		request.setAttribute("totalcount", total);
-		request.setAttribute("pageNum", param.getPageNum());
+	public String adChannelList(@ModelAttribute("adChannel")AdChannel adChannel,BindingResult result,HttpServletRequest request,Model model){
+		
+		int total = adChannelService.listTotal(adChannel);
+		BaseParam baseParam = new BaseParam(request,total);
+		baseParam.setParam(adChannel);
+		List<AdChannel> AdChannelList = adChannelService.listAdChannel(baseParam);
+		model.addAttribute("pageBean", baseParam);
+		model.addAttribute("adChannelList", AdChannelList);
 		return "portal/adchannel/adChannelList";
 	}
 
 	@RequestMapping(value="/updateAdChannel.html",method=RequestMethod.GET)
-	public String AdChannelUpdate(@ModelAttribute("adChannelForm")AdChannelForm form,int id,Model model) throws ParseException, IOException{
+	public String adChannelUpdate(@ModelAttribute("adChannelForm")AdChannelForm form,int id,Model model) throws ParseException, IOException{
 
 		AdChannel adChannel = adChannelService.getAdChannel(id);
 		model.addAttribute("adChannel",adChannel);
-		return "portal/adchannel/updateAdChannel";
+		return "portal/adchannel/adChannelUpdate";
 	}
 	/**
 	 * 修改渠道
@@ -111,12 +104,24 @@ public class AdChannelController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/updateAdChannel.html",method=RequestMethod.POST)
-	public String AdChannelUpdate(@Valid @ModelAttribute("adChannelForm")AdChannelForm form, BindingResult result,HttpServletRequest request) throws ParseException, IOException{
+	public String adChannelUpdate(@Valid @ModelAttribute("adChannelForm")AdChannelForm form, BindingResult result,HttpServletRequest request,Model model) throws ParseException, IOException{
 		if( result.hasErrors()){
-			return "portal/adchannel/updateAdChannel";
+			return "portal/adchannel/adChannelUpdate";
 		}
 		AdChannel adChannel = form.asPojo();
 		adChannelService.updateAdChannel(adChannel);
-		return "portal/adchannel/updateAdChannel";
+		model.addAttribute("success", true);
+		return "portal/adchannel/adChannelUpdate";
+	}
+	/**
+	 * 删除渠道，数据库标识删除
+	 * @param id
+	 * @return
+	 */
+	 @RequestMapping(value="/deleteAdChannel.html")
+	public String adChanelDelete(@ModelAttribute("adChannel")AdChannel adChannel,int id,BindingResult result,HttpServletRequest request,Model model){
+		adChannelService.deleteAdChannel(id);
+		model.addAttribute("success", "del");
+		return this.adChannelList(adChannel, result, request, model);
 	}
 }

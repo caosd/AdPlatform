@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AdResourceDao;
 import com.stomato.domain.AdResource;
-import com.stomato.domain.AdResourceParam;
+import com.stomato.domain.BaseParam;
 
 @Service
 public class AdResourceService {
@@ -27,12 +27,12 @@ public class AdResourceService {
 		adResourceDao.updateAdResource(adResource);
 	}
 	
-	public List<AdResource> listAdResource(AdResourceParam params){
-		return adResourceDao.listAdResource(params);
+	public List<AdResource> listAdResource(BaseParam param){
+		return adResourceDao.listAdResource(param);
 	}
 	
-	public int listTotal(AdResourceParam params){
-		return adResourceDao.listTotal(params);
+	public int listTotal(AdResource adResource){
+		return adResourceDao.listTotal(adResource);
 	}
 	
 	public AdResource getAdResource(int id){

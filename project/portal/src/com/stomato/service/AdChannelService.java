@@ -6,32 +6,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AdChannelDao;
-import com.stomato.dao.AdChannelParam;
 import com.stomato.domain.AdChannel;
+import com.stomato.domain.BaseParam;
 
 @Service
 public class AdChannelService {
 
 	@Autowired
-	private AdChannelDao AdChannelDao;
+	private AdChannelDao adChannelDao;
 
 	public void addAdChannel(AdChannel adChannel) {
-		AdChannelDao.addAdChannel(adChannel);
+		adChannelDao.addAdChannel(adChannel);
 	}
 
 	public void updateAdChannel(AdChannel adChannel) {
-		AdChannelDao.updateAdChannel(adChannel);
+		adChannelDao.updateAdChannel(adChannel);
+	}
+	public void deleteAdChannel(int id) {
+		adChannelDao.deleteAdChannel(id);
+	}
+	public List<AdChannel> listAdChannel(BaseParam param) {
+		return adChannelDao.listAdChannel(param);
 	}
 
-	public List<AdChannel> listAdChannel(AdChannelParam params) {
-		return AdChannelDao.listAdChannel(params);
-	}
-
-	public int listTotal(AdChannelParam params) {
-		return AdChannelDao.listTotal(params);
+	public int listTotal(AdChannel adChannel) {
+		return adChannelDao.listTotal(adChannel);
 	}
 
 	public AdChannel getAdChannel(int id) {
-		return AdChannelDao.getAdChannel(id);
+		return adChannelDao.getAdChannel(id);
 	}
 }

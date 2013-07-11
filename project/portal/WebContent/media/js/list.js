@@ -14,7 +14,7 @@ function nextPage(){
 
 function deleteData(url){
 	if(confirm("确认删除该记录？")){
-		$('#searchForm').submit(url);
+		$("#searchForm").attr("action", url).submit();
 	}
 }
 

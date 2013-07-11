@@ -42,17 +42,17 @@
 			</div>
             <div class="widget-body">
             	<div class="row-fluid">
-            		<form:form id="searchForm" commandName="adResourceParamForm"  method="post">
+            		<form:form id="searchForm" commandName="adResource"  method="post">
 						<div class="span2">
 	            			<div id="table_length" class="dataTables_length">
 	            				<label>
-	            					<form:select path="pageSize" size="1" class="input-mini">
-	            						<form:option value="10">10</form:option>
-	            						<form:option value="25">25</form:option>
-	            						<form:option value="50">50</form:option>
-	            						<form:option value="100">100</form:option>
-	            					</form:select>
-	            				</label>
+		           					<select name="pageSize" size="1" class="input-mini">
+		           						<option value="10" ${pageBean.pageSize==10 ? "selected":"" }>10</option>
+		           						<option value="25" ${pageBean.pageSize==25 ? "selected":"" }>25</option>
+		           						<option value="50" ${pageBean.pageSize==50 ? "selected":"" }>50</option>
+		           						<option value="100" ${pageBean.pageSize==100 ? "selected":"" }>100</option>
+		           					</select>
+	           					</label>
 	            			</div>
 	            		</div>
 	            		<div class="span8">
@@ -70,7 +70,7 @@
 	                    </div>
 						<div class="span1">
 							<button type="submit" class="btn btn-inverse">查询</button>
-							<form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
+							<input name="pageNum" type="hidden" aria-controls="role_table" id="pageNum" value="${pageBean.pageNum}"/>
 						</div>
 					</form:form>
 				</div>
@@ -118,7 +118,7 @@
                 </tbody>
             </table>
             <div class="row-fluid">
-            	<p:page pageNum="${pageNum}" pageTotal="${pageTotal}"></p:page>
+            	<p:page pageNum="${pageBean.pageNum}" pageTotal="${pageBean.pageTotal}"></p:page>
             </div>
           </div>
         </div>

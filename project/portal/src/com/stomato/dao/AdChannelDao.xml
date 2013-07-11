@@ -5,7 +5,7 @@
 	<resultMap type="com.stomato.domain.AdChannel" id="adChannel"> 
 		<result property="id" column="id" />
 		<result property="channelName" column="channel_name" />
-		<result property="chantactTel" column="chantactT_tel" />
+		<result property="contactTel" column="contact_tel" />
 		<result property="qq" column="qq"/>
 		<result property="contactName" column="contact_name"/>
 		<result property="description" column="description"/>
@@ -15,19 +15,20 @@
 	
 	<insert id="addAdChannel" parameterType="com.stomato.domain.AdChannel">
 		insert into t_ad_channel (channel_name,
-							chantactT_tel,
+							contact_tel,
 							qq,
 							contact_name,
 							description,
 							enable,
-							create_time) 
-		values (#{channelName},#{chantactTel},#{qq},#{contactName},#{description},#{enable},now())
+							create_time,
+							is_del) 
+		values (#{channelName},#{contactTel},#{qq},#{contactName},#{description},#{enable},now(),0)
 	</insert>
 	
 	<select id="getAdChannel" parameterType="int" resultMap="adChannel" >
 		select id,
 				channel_name,
-				chantactT_tel,
+				contact_tel,
 				qq,
 				contact_name,
 				description,
@@ -36,35 +37,42 @@
 				from t_ad_channel where id=#{id}
 	</select>
 	<update id="updateAdChannel" parameterType="com.stomato.domain.AdChannel">
-		update t_ad_rssource 
+		update t_ad_channel 
 		<set>
-			<if test="channelName != null">channel_name=#{channelName}</if>
-			<if test="chantactTel != null">chantactT_tel=#{chantactTel}</if>
-			<if test="qq != null">qq=#{qq}</if>
-			<if test="contactName != null">contact_name=#{contactName}</if>
-			<if test="description != null">description=#{description}</if>
+			<if test="channelName != null">channel_name=#{channelName},</if>
+			<if test="contactTel != null">contact_tel=#{contactTel},</if>
+			<if test="qq != null">qq=#{qq},</if>
+			<if test="contactName != null">contact_name=#{contactName},</if>
+			<if test="description != null">description=#{description},</if>
 			<if test="enable != null">enable=#{enable}</if>
 		</set>
         where id = #{id}
 	</update>
-	<select id="listTotal" parameterType="com.stomato.domain.AdChannelParam" resultType="int" >
-		select count(1) from t_ad_channel where 1=1
+	
+	<update id="deleteAdChannel" parameterType="int">
+		update t_ad_channel set is_del=#{1} where id = #{id}
+	</update>
+	
+	<select id="listTotal" parameterType="com.stomato.domain.BaseParam" resultType="int" >
+		select count(1) from t_ad_channel where is_del=0
 		<if test="channelName != null">
 		 	and channel_name like '%${channelName}%'
 		</if>
 	</select>
-	<select id="listAdChannel" parameterType="com.stomato.domain.AdChannelParam" resultMap="adChannel" >
+	<select id="listAdChannel" parameterType="com.stomato.domain.BaseParam" resultMap="adChannel" >
 		select  id,
 				channel_name,
-				chantactT_tel,
+				contact_tel,
 				qq,
 				contact_name,
 				description,
 				enable,
 				create_time
-				from t_ad_channel where 1=1 
-		<if test="channelName != null">
-		 	and channel_name like '%${channelName}%'
+				from t_ad_channel where is_del=0
+		<if test="param != null">
+			<if test="param.channelName != null">
+			 	and channel_name like '%${param.channelName}%'
+			</if>
 		</if>
 		order by create_time asc
 		<if test="slimt != null">limit #{slimt},#{pageSize}</if>

@@ -16,17 +16,15 @@ public class AdChannelForm extends BaseParam {
 	private int id; 
 	@NotEmpty
 	private String channelName;
-	@Size(max=11,min=11)
 	@NotEmpty
-	private String chantactTel;
-	
+	private String contactTel;
 	private String qq;
 	@NotEmpty
 	private String contactName;
 	
 	private String description;
 	
-	private Integer enable;
+	private Boolean enable;
 	
 	private Date createTime;
 	
@@ -45,13 +43,13 @@ public class AdChannelForm extends BaseParam {
 	public void setChannelName(String channelName) {
 		this.channelName = channelName;
 	}
-
-	public String getChantactTel() {
-		return chantactTel;
+	
+	public String getContactTel() {
+		return contactTel;
 	}
 
-	public void setChantactTel(String chantactTel) {
-		this.chantactTel = chantactTel;
+	public void setContactTel(String contactTel) {
+		this.contactTel = contactTel;
 	}
 
 	public String getQq() {
@@ -78,11 +76,11 @@ public class AdChannelForm extends BaseParam {
 		this.description = description;
 	}
 
-	public Integer getEnable() {
+	public Boolean getEnable() {
 		return enable;
 	}
 
-	public void setEnable(Integer enable) {
+	public void setEnable(Boolean enable) {
 		this.enable = enable;
 	}
 

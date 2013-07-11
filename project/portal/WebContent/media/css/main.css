@@ -2382,6 +2382,14 @@ header #phoneNav img {
   clear: both !important;
 }
 
+.form-horizontal .form-row .field .error {
+	font-size: 12px;
+	color: #a73939;
+	display: block;
+	line-height: 14px;
+	margin-top: 5px;
+}
+
 /* Calendar event widget */
 
 .calendar-event-list .external-event {
