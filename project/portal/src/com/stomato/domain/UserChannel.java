@@ -9,10 +9,11 @@ import java.util.Date;
  * Time: 上午7:36
  * To change this template use File | Settings | File Templates.
  */
-public class ChannelUser {
+public class UserChannel {
     private Integer id;
 
-    private Integer channelId;
+    private Integer companyId;
+    private String companyName;
 
     private String channelNo;
 
@@ -21,8 +22,26 @@ public class ChannelUser {
     private Date lastUpdateTime;
 
     private Integer status;
+    
+    private String description;
 
-    public Date getCreateDate() {
+    public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreateDate() {
         return createDate;
     }
 
@@ -46,15 +65,15 @@ public class ChannelUser {
         this.status = status;
     }
 
-    public Integer getChannelId() {
-        return channelId;
-    }
+    public Integer getCompanyId() {
+		return companyId;
+	}
 
-    public void setChannelId(Integer channelId) {
-        this.channelId = channelId;
-    }
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 
-    public String getChannelNo() {
+	public String getChannelNo() {
         return channelNo;
     }
 

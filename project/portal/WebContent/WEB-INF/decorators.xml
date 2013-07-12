@@ -24,6 +24,8 @@
         <pattern>/financial/*</pattern>
         <pattern>/adResource/*</pattern>
         <pattern>/adchannel/*</pattern>
+        <pattern>/company/*</pattern>
+        <pattern>/userchannel/*</pattern>
         <pattern>/report/*</pattern>
         <pattern>/errors/*</pattern>
         <pattern>/result/*</pattern>
