@@ -14,7 +14,7 @@
 		<result property="orderNo" column="order_no"/>
 	</resultMap>
 	<insert id="addMenu" parameterType="com.stomato.domain.Menu">
-		insert into t_menu(menuname, description, path,parent,visible,order_no) values(#{name}, #{desc}, #{path},#{parent},#{visible},#{orderNo})
+		insert into t_menu(menuname, description, path,parent,visible,order_no,status) values(#{name}, #{desc}, #{path},#{parent},#{visible},#{orderNo},1)
 	</insert>
 	<select id="listTotal" parameterType="com.stomato.domain.Menu" resultType="int" >
 		select count(1) from t_menu where status = 1
