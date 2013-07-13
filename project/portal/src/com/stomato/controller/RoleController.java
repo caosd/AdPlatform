@@ -58,8 +58,13 @@ public class RoleController {
 		if (result.hasErrors()) {
 			return "portal/role/roleForm";
 		}
+		if( roleService.getRoleByName( roleForm.getRoleName() ) != null ){
+			request.setAttribute("content", "角色名称已存在,添加失败!");
+			return "portal/role/roleForm";
+		}
 		roleService.addRole(roleForm.asPojo());
-		request.setAttribute("content", "添加角色信息成功");
+		roleForm.setRoleName("");
+		request.setAttribute("content", "添加角色信息成功!");
 		return "portal/role/roleForm";
 	}
 	

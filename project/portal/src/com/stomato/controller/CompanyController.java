@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,13 +47,15 @@ public class CompanyController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
-	public String addCompany(@Valid @ModelAttribute("companyForm")CompanyForm companyForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
+	public String addCompany(@Valid @ModelAttribute("companyForm")CompanyForm companyForm, BindingResult result,HttpServletRequest request,Model model){
 		logger.info(String.format("addCompany[%s]",companyForm.getName()));
 		if(result.hasErrors()){
 			return "portal/company/companyForm";
 		}
 		Company company = companyForm.asPojo();
 		companyService.addCompany(company);
+		//清空表单
+		BeanUtils.copyProperties(new CompanyForm(), companyForm);
 		model.addAttribute("success", true);
 		return "portal/company/companyForm";
 	}
@@ -104,7 +107,7 @@ public class CompanyController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/updateCompany.html",method=RequestMethod.POST)
-	public String companyUpdate(@Valid @ModelAttribute("companyForm")CompanyForm form, BindingResult result,HttpServletRequest request,Model model) throws ParseException, IOException{
+	public String companyUpdate(@Valid @ModelAttribute("companyForm")CompanyForm form, BindingResult result,HttpServletRequest request,Model model){
 		if( result.hasErrors()){
 			return "portal/company/companyUpdate";
 		}

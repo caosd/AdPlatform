@@ -1,5 +1,6 @@
 package com.stomato.form;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
@@ -9,8 +10,10 @@ import com.stomato.domain.UserChannel;
 public class UserChannelForm extends BaseParam {
 	private Integer id;
 
+	@NotEmpty
 	private Integer companyId;
 
+	@NotEmpty
 	private String channelNo;
 	
 	private String description;

@@ -1,5 +1,6 @@
 package com.stomato.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -212,9 +213,11 @@ public class AccountsController extends UserController {
 	 * @param user
 	 * @param request
 	 * @return
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
-	public String addUser(@Valid @ModelAttribute("userForm")UserForm userForm,BindingResult result,Model model){
+	public String addUser(@Valid @ModelAttribute("userForm")UserForm userForm,BindingResult result,Model model) throws IllegalAccessException, InvocationTargetException{
 
 		model.addAttribute("roleList", roleService.listRole(null));
 		if( !userForm.getPassword().equals(userForm.getConfirmPassword()) ){
@@ -242,6 +245,8 @@ public class AccountsController extends UserController {
 			userAccount.setUid(user.getUid());
 			userAccount.setBalance(0d);
 			userAccountService.addUserAccount(userAccount);
+			//清空表单
+			BeanUtils.copyProperties(new UserForm(), userForm);
 			model.addAttribute("content", "添加用户成功！");
 		}
 		return "portal/user/userForm";

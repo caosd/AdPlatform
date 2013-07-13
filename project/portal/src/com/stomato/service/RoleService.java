@@ -30,6 +30,19 @@ public class RoleService {
 	public List<Role> listRole(RoleParam param){
 		return roleDao.listRole(param);
 	}
-	
+	/**
+	 * 根据角色名查询
+	 * @param name
+	 * @return
+	 */
+	public Role getRoleByName(String name){
+		RoleParam param = new RoleParam();
+		param.setRoleName(name);
+		List<Role> resultList =  roleDao.listRole(param);
+		if( null != resultList && resultList.size() > 0){
+			return resultList.get(0);
+		}
+		return null;
+	}
 	
 }

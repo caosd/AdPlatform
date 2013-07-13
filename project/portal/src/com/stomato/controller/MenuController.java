@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -58,6 +59,7 @@ public class MenuController {
 			menu.setVisible(0);
 		}
 		menuService.addMenu(menu);
+		BeanUtils.copyProperties(new MenuForm(), menuForm);
 		request.setAttribute("content", "添加菜单项成功！");
 		request.setAttribute("parentMenus",menuService.listParentMenu());
 		return "portal/menu/menuForm";

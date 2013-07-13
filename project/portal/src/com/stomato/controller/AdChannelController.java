@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,13 +46,15 @@ public class AdChannelController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
-	public String addAdChannel(@Valid @ModelAttribute("adChannelForm")AdChannelForm AdChannelForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
+	public String addAdChannel(@Valid @ModelAttribute("adChannelForm")AdChannelForm AdChannelForm, BindingResult result,HttpServletRequest request,Model model){
 		
 		if(result.hasErrors()){
 			return "portal/adchannel/adChannelForm";
 		}
 		AdChannel adChannel = AdChannelForm.asPojo();
 		adChannelService.addAdChannel(adChannel);
+		//清空表单
+		BeanUtils.copyProperties(new AdChannelForm(), adChannel);
 		model.addAttribute("success", true);
 		return "portal/adchannel/adChannelForm";
 	}

@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -175,6 +176,8 @@ public class AdResourceController {
 		adResourceForm.setStatus(0);
 		AdResource adResource = adResourceForm.asPojo();
 		adResourceService.addAdResource(adResource);
+		//清空表单
+		BeanUtils.copyProperties(new AdResourceForm(), adResourceForm);
 		request.setAttribute("content", "新增下载资源信息成功!");
 		return "portal/adresouce/adResourceForm";
 	}

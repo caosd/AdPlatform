@@ -51,7 +51,7 @@ public class UserChannelController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
-	public String addUserChannel(@Valid @ModelAttribute("userChannelForm")UserChannelForm userChannelForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
+	public String addUserChannel(@Valid @ModelAttribute("userChannelForm")UserChannelForm userChannelForm, BindingResult result,HttpServletRequest request,Model model) {
 		
 		if(result.hasErrors()){
 			return "portal/userchannel/userChannelForm";

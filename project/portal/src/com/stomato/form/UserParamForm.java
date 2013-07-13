@@ -1,6 +1,6 @@
 package com.stomato.form;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -8,7 +8,6 @@ import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
 import com.stomato.domain.BaseParam;
-import com.stomato.domain.User;
 import com.stomato.domain.UserParam;
 
 public class UserParamForm extends BaseParam{
