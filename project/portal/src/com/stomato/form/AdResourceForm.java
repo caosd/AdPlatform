@@ -2,7 +2,6 @@ package com.stomato.form;
 
 import java.util.Date;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,114 +9,88 @@ import com.google.gson.Gson;
 import com.stomato.domain.AdResource;
 
 public class AdResourceForm{
-private int id ;
-	
+
+	private int id;
+
+	/**
+	 * 渠道ID
+	 */
+	private int channelId;
 	/**
 	 * 下载资源名称
 	 */
-	@NotEmpty
-	private String adName ;
-	
+	private String appName;
+
 	/**
-	 * 广告语文字
+	 * 广告标题
 	 */
-	@NotEmpty
-	private String adText ;
-	
+	private String adTitle;
+
 	/**
 	 * 广告图标地址
 	 */
-	@NotEmpty
-	private String adIcon ;
-	
+	private String adIcon;
+	private String adBanner;
 	/**
-	 * 广告积分
+	 * 桌面图片
 	 */
-	private int adPoint ;
-	
+	private String desktopIcon;
 	/**
-	 * 应用描述
+	 * 应用图片列表
 	 */
-	@NotEmpty
-	private String description;
-	
-	/**
-	 * 应用版本
-	 */
-	@NotEmpty
-	private String version;
-	
-	/**
-	 * 安装包大小(KB)
-	 */
-	@NotEmpty
-	private long fileSize ;
-	
+	private String adImages;
 	/**
 	 * 应用包名
 	 */
-	@NotEmpty
-	private String adPackage ;
-	
+	private String appPackage;
 	/**
-	 * 应用图片组(a.jpg,c.jpg,b.jpg) 地址
+	 * 应用文件大小
 	 */
-	private String adImages ;
-	
+	private Integer fileSize;
 	/**
-	 * 广告类型
+	 * 应用版本
 	 */
-	private int adType ;
-	
+	private String version;
 	/**
-	 * apk 下载地址
+	 * 应用支持平台
 	 */
-	@NotEmpty
-	private String apkUrl ;
-	
+	private String supportPlatform;
 	/**
-	 * 开始时间
+	 * 应用分类编号ID
 	 */
-	private int startTime ;
-	
+	private Integer appTypeId;
 	/**
-	 * 结束时间
+	 * 收费类型，0=免费，1=收费
 	 */
-	private int endTime ;
-	
+	private Integer chargeType;
 	/**
-	 * 广告修时间
+	 * 应用被下载次数
 	 */
-	private Date modifyDate ;
-	
+	private Integer downloads;
 	/**
-	 * 创建时间
+	 * 应用被推荐数
 	 */
-	private Date itime ;
-	
-	private Integer status;
+	private Integer recommens;
+	/**
+	 * 应用推荐等级
+	 */
+	private Integer appRating;
+	/**
+	 * 描述
+	 */
+	private String description;
+	private Date modifyDate;
 
-	/*************************************************************************
-	 * 
-	 * 非持久化对象
-	 * 
-	 ************************************************************************/
-	
-	private MultipartFile adIconFile;
-	
-	private MultipartFile adPackageFile;
-	
-	/**
-	 * 应用图片组(a.jpg,c.jpg,b.jpg)
-	 */
-	private MultipartFile adImagea;
-	
-	private MultipartFile adImageb;
-	
-	private MultipartFile adImagec;
-	
-	private MultipartFile adImaged;
-	
+	private Date createDate;
+
+	private String apkUrl;
+
+	private Date startTime;
+	private Date endTime;
+
+	private Integer status;
+	private Boolean is_del;
+
 	public int getId() {
 		return id;
 	}
@@ -126,20 +99,28 @@ private int id ;
 		this.id = id;
 	}
 
-	public String getAdName() {
-		return adName;
+	public int getChannelId() {
+		return channelId;
 	}
 
-	public void setAdName(String adName) {
-		this.adName = adName;
+	public void setChannelId(int channelId) {
+		this.channelId = channelId;
 	}
 
-	public String getAdText() {
-		return adText;
+	public String getAppName() {
+		return appName;
 	}
 
-	public void setAdText(String adText) {
-		this.adText = adText;
+	public void setAppName(String appName) {
+		this.appName = appName;
+	}
+
+	public String getAdTitle() {
+		return adTitle;
+	}
+
+	public void setAdTitle(String adTitle) {
+		this.adTitle = adTitle;
 	}
 
 	public String getAdIcon() {
@@ -150,44 +131,20 @@ private int id ;
 		this.adIcon = adIcon;
 	}
 
-	public int getAdPoint() {
-		return adPoint;
+	public String getAdBanner() {
+		return adBanner;
 	}
 
-	public void setAdPoint(int adPoint) {
-		this.adPoint = adPoint;
+	public void setAdBanner(String adBanner) {
+		this.adBanner = adBanner;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDesktopIcon() {
+		return desktopIcon;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public long getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
-	}
-
-	public String getAdPackage() {
-		return adPackage;
-	}
-
-	public void setAdPackage(String adPackage) {
-		this.adPackage = adPackage;
+	public void setDesktopIcon(String desktopIcon) {
+		this.desktopIcon = desktopIcon;
 	}
 
 	public String getAdImages() {
@@ -198,36 +155,84 @@ private int id ;
 		this.adImages = adImages;
 	}
 
-	public int getAdType() {
-		return adType;
+	public String getAppPackage() {
+		return appPackage;
 	}
 
-	public void setAdType(int adType) {
-		this.adType = adType;
+	public void setAppPackage(String appPackage) {
+		this.appPackage = appPackage;
 	}
 
-	public String getApkUrl() {
-		return apkUrl;
+	public Integer getFileSize() {
+		return fileSize;
 	}
 
-	public void setApkUrl(String apkUrl) {
-		this.apkUrl = apkUrl;
+	public void setFileSize(Integer fileSize) {
+		this.fileSize = fileSize;
 	}
 
-	public int getStartTime() {
-		return startTime;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setStartTime(int startTime) {
-		this.startTime = startTime;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
-	public int getEndTime() {
-		return endTime;
+	public String getSupportPlatform() {
+		return supportPlatform;
 	}
 
-	public void setEndTime(int endTime) {
-		this.endTime = endTime;
+	public void setSupportPlatform(String supportPlatform) {
+		this.supportPlatform = supportPlatform;
+	}
+
+	public Integer getAppTypeId() {
+		return appTypeId;
+	}
+
+	public void setAppTypeId(Integer appTypeId) {
+		this.appTypeId = appTypeId;
+	}
+
+	public Integer getChargeType() {
+		return chargeType;
+	}
+
+	public void setChargeType(Integer chargeType) {
+		this.chargeType = chargeType;
+	}
+
+	public Integer getDownloads() {
+		return downloads;
+	}
+
+	public void setDownloads(Integer downloads) {
+		this.downloads = downloads;
+	}
+
+	public Integer getRecommens() {
+		return recommens;
+	}
+
+	public void setRecommens(Integer recommens) {
+		this.recommens = recommens;
+	}
+
+	public Integer getAppRating() {
+		return appRating;
+	}
+
+	public void setAppRating(Integer appRating) {
+		this.appRating = appRating;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getModifyDate() {
@@ -238,12 +243,36 @@ private int id ;
 		this.modifyDate = modifyDate;
 	}
 
-	public Date getItime() {
-		return itime;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setItime(Date itime) {
-		this.itime = itime;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getApkUrl() {
+		return apkUrl;
+	}
+
+	public void setApkUrl(String apkUrl) {
+		this.apkUrl = apkUrl;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 	public Integer getStatus() {
@@ -253,6 +282,36 @@ private int id ;
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	public Boolean getIs_del() {
+		return is_del;
+	}
+
+	public void setIs_del(Boolean is_del) {
+		this.is_del = is_del;
+	}
+
+
+	/*************************************************************************
+	 * 
+	 * 非持久化对象
+	 * 
+	 ************************************************************************/
+
+	private MultipartFile adIconFile;
+
+	private MultipartFile adPackageFile;
+
+	/**
+	 * 应用图片组(a.jpg,c.jpg,b.jpg)
+	 */
+	private MultipartFile adImagea;
+
+	private MultipartFile adImageb;
+
+	private MultipartFile adImagec;
+
+	private MultipartFile adImaged;
 
 	public MultipartFile getAdIconFile() {
 		return adIconFile;
@@ -301,7 +360,6 @@ private int id ;
 	public void setAdImaged(MultipartFile adImaged) {
 		this.adImaged = adImaged;
 	}
-
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

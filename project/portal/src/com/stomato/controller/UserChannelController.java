@@ -134,7 +134,7 @@ public class UserChannelController {
 	public String adChanelDelete(@ModelAttribute("UserChannel")UserChannel userChannel,int id,BindingResult result,HttpServletRequest request,Model model){
 		userChannelService.deleteUserChannel(id);
 		model.addAttribute("success", "del");
-		model.addAttribute("goto", "/userchannel/userChannelList.html");
+		model.addAttribute("_goto", "/userchannel/userChannelList.html");
 		return "redirect:/portal/result/success";
 	}
 }

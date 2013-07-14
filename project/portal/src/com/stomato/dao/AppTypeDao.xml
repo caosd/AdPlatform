@@ -42,7 +42,7 @@
         where id = #{id}
 	</update>
 	<delete id="deleteAppType" parameterType="int">
-		delete from t_app_type where where id = #{id}
+		delete from t_app_type where id = #{id}
 	</delete>
 	
 	<select id="listTotal" parameterType="com.stomato.domain.BaseParam" resultType="int" >
@@ -64,10 +64,10 @@
 			 	and type_name like '%${param.typeName}%'
 			</if>
 			<if test="param.parent != null">
-				and parent like '%${param.parent}%'
+				and parent = #{param.parent}
 			</if>
 			<if test="param.visible != null">
-				and visible like '%${param.visible}%'
+				and visible = #{param.visible}
 			</if>
 		</if>
 		order by type_name asc

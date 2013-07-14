@@ -48,7 +48,7 @@
 						<div class="input-prepend input-append">
 							<form:select path="parent" class="span12">
 								<option value="0">一级分类</option>
-			                    <c:forEach items="${parentList}" var="item" varStatus="stat">
+			                    <c:forEach items="${appTypeList}" var="item" varStatus="stat">
 			                    	<option value="${item.id}">${item.typeName}</option>
 			                    </c:forEach>
 			                 </form:select>

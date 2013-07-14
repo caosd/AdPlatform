@@ -125,7 +125,7 @@ public class CompanyController {
 	public String adChanelDelete(@ModelAttribute("company")Company company,int id,BindingResult result,HttpServletRequest request,Model model){
 		companyService.deleteCompany(id);
 		model.addAttribute("success", "del");
-		model.addAttribute("goto", "/company/companyList.html");
+		model.addAttribute("_goto", "/company/companyList.html");
 		return "redirect:/portal/result/success";
 	}
 }

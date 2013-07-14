@@ -56,7 +56,7 @@ public class AppTypeController {
 		AppType appType = appTypeForm.asPojo();
 		appTypeService.addAppType(appType);
 		//清空表单
-		BeanUtils.copyProperties(new AppTypeForm(), appType);
+		BeanUtils.copyProperties(new AppTypeForm(), appTypeForm);
 		model.addAttribute("success", true);
 		return fromPage(appTypeForm, model);
 	}
@@ -127,7 +127,7 @@ public class AppTypeController {
 	public String adChanelDelete(@ModelAttribute("appType")AppType appType,int id,BindingResult result,HttpServletRequest request,Model model){
 		appTypeService.deleteAppType(id);
 		model.addAttribute("success", "del");
-		model.addAttribute("goto", "/apps/appTypeList.html");
-		return "redirect:/portal/result/success";
+		model.addAttribute("_goto", "/apps/appTypeList.html");
+		return "redirect:/result/success";
 	}
 }

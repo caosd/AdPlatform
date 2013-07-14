@@ -4,112 +4,96 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.stomato.utils.StringUtils;
-import com.stomato.vo.SysConfig;
 
 /**
  * 下载资源录入
+ * 
  * @author zyf
- *
+ * 
  */
-public class AdResource extends BaseParam{
+public class AdResource extends BaseParam {
 
-	private int id ;
-	
+	private int id;
+
+	/**
+	 * 渠道ID
+	 */
+	private int channelId;
 	/**
 	 * 下载资源名称
 	 */
-	private String adName ;
-	
+	private String appName;
+
 	/**
-	 * 广告语文字
+	 * 广告标题
 	 */
-	private String adText ;
-	
+	private String adTitle;
+
 	/**
 	 * 广告图标地址
 	 */
-	private String adIcon ;
-	
+	private String adIcon;
+	private String adBanner;
 	/**
-	 * 广告积分
+	 * 桌面图片
 	 */
-	private int adPoint ;
-	
+	private String desktopIcon;
 	/**
-	 * 应用描述
+	 * 应用图片列表
 	 */
-	private String description;
-	
+	private String adImages;
+	/**
+	 * 应用包名
+	 */
+	private String appPackage;
+	/**
+	 * 应用文件大小
+	 */
+	private Integer fileSize;
 	/**
 	 * 应用版本
 	 */
 	private String version;
-	
 	/**
-	 * 安装包大小(KB)
+	 * 应用支持平台
 	 */
-	private long fileSize ;
-	
+	private String supportPlatform;
 	/**
-	 * 应用包名
+	 * 应用分类编号ID
 	 */
-	private String adPackage ;
-	
+	private Integer appTypeId;
 	/**
-	 * 应用图片组(a.jpg,c.jpg,b.jpg) 地址
+	 * 收费类型，0=免费，1=收费
 	 */
-	private String adImages ;
-	
+	private Integer chargeType;
 	/**
-	 * 广告类型
+	 * 应用被下载次数
 	 */
-	private int adType ;
-	
+	private Integer downloads;
 	/**
-	 * apk 下载地址
+	 * 应用被推荐数
 	 */
-	private String apkUrl ;
-	
+	private Integer recommens;
 	/**
-	 * 开始时间
+	 * 应用推荐等级
 	 */
-	private int startTime ;
-	
+	private Integer appRating;
 	/**
-	 * 结束时间
+	 * 描述
 	 */
-	private int endTime ;
-	
-	/**
-	 * 广告修时间
-	 */
-	private Date modifyDate ;
-	
-	/**
-	 * 创建时间
-	 */
-	private Date itime ;
-	
-	private Integer status;
-	
-	public AdResource(){
-		
-	}
-	
-	public AdResource(int id){
-		this.id = id ;
-	}
-	
-	public Integer getStatus() {
-		return status;
-	}
+	private String description;
+	private Date modifyDate;
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+	private Date createDate;
+
+	private String apkUrl;
+
+	private Date startTime;
+	private Date endTime;
+
+	private Integer status;
+	private Boolean is_del;
 
 	public int getId() {
 		return id;
@@ -119,20 +103,28 @@ public class AdResource extends BaseParam{
 		this.id = id;
 	}
 
-	public String getAdName() {
-		return adName;
+	public int getChannelId() {
+		return channelId;
 	}
 
-	public void setAdName(String adName) {
-		this.adName = adName;
+	public void setChannelId(int channelId) {
+		this.channelId = channelId;
 	}
 
-	public String getAdText() {
-		return adText;
+	public String getAppName() {
+		return appName;
 	}
 
-	public void setAdText(String adText) {
-		this.adText = adText;
+	public void setAppName(String appName) {
+		this.appName = appName;
+	}
+
+	public String getAdTitle() {
+		return adTitle;
+	}
+
+	public void setAdTitle(String adTitle) {
+		this.adTitle = adTitle;
 	}
 
 	public String getAdIcon() {
@@ -143,44 +135,20 @@ public class AdResource extends BaseParam{
 		this.adIcon = adIcon;
 	}
 
-	public int getAdPoint() {
-		return adPoint;
+	public String getAdBanner() {
+		return adBanner;
 	}
 
-	public void setAdPoint(int adPoint) {
-		this.adPoint = adPoint;
+	public void setAdBanner(String adBanner) {
+		this.adBanner = adBanner;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDesktopIcon() {
+		return desktopIcon;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public long getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
-	}
-
-	public String getAdPackage() {
-		return adPackage;
-	}
-
-	public void setAdPackage(String adPackage) {
-		this.adPackage = adPackage;
+	public void setDesktopIcon(String desktopIcon) {
+		this.desktopIcon = desktopIcon;
 	}
 
 	public String getAdImages() {
@@ -191,36 +159,84 @@ public class AdResource extends BaseParam{
 		this.adImages = adImages;
 	}
 
-	public int getAdType() {
-		return adType;
+	public String getAppPackage() {
+		return appPackage;
 	}
 
-	public void setAdType(int adType) {
-		this.adType = adType;
+	public void setAppPackage(String appPackage) {
+		this.appPackage = appPackage;
 	}
 
-	public String getApkUrl() {
-		return apkUrl;
+	public Integer getFileSize() {
+		return fileSize;
 	}
 
-	public void setApkUrl(String apkUrl) {
-		this.apkUrl = apkUrl;
+	public void setFileSize(Integer fileSize) {
+		this.fileSize = fileSize;
 	}
 
-	public int getStartTime() {
-		return startTime;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setStartTime(int startTime) {
-		this.startTime = startTime;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
-	public int getEndTime() {
-		return endTime;
+	public String getSupportPlatform() {
+		return supportPlatform;
 	}
 
-	public void setEndTime(int endTime) {
-		this.endTime = endTime;
+	public void setSupportPlatform(String supportPlatform) {
+		this.supportPlatform = supportPlatform;
+	}
+
+	public Integer getAppTypeId() {
+		return appTypeId;
+	}
+
+	public void setAppTypeId(Integer appTypeId) {
+		this.appTypeId = appTypeId;
+	}
+
+	public Integer getChargeType() {
+		return chargeType;
+	}
+
+	public void setChargeType(Integer chargeType) {
+		this.chargeType = chargeType;
+	}
+
+	public Integer getDownloads() {
+		return downloads;
+	}
+
+	public void setDownloads(Integer downloads) {
+		this.downloads = downloads;
+	}
+
+	public Integer getRecommens() {
+		return recommens;
+	}
+
+	public void setRecommens(Integer recommens) {
+		this.recommens = recommens;
+	}
+
+	public Integer getAppRating() {
+		return appRating;
+	}
+
+	public void setAppRating(Integer appRating) {
+		this.appRating = appRating;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getModifyDate() {
@@ -231,113 +247,87 @@ public class AdResource extends BaseParam{
 		this.modifyDate = modifyDate;
 	}
 
-	public Date getItime() {
-		return itime;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setItime(Date itime) {
-		this.itime = itime;
-	}
-	
-	
-	
-	
-	
-	/*************************************************************************
-	 * 
-	 * 非持久化对象
-	 * 
-	 ************************************************************************/
-	
-	private MultipartFile adIconFile;
-	
-	private MultipartFile adPackageFile;
-	
-	/**
-	 * 应用图片组(a.jpg,c.jpg,b.jpg)
-	 */
-	private MultipartFile adImagea;
-	
-	private MultipartFile adImageb;
-	
-	private MultipartFile adImagec;
-	
-	private MultipartFile adImaged;
-
-	public MultipartFile getAdIconFile() {
-		return adIconFile;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
-	public void setAdIconFile(MultipartFile adIconFile) {
-		this.adIconFile = adIconFile;
+	public String getApkUrl() {
+		return apkUrl;
 	}
 
-	public MultipartFile getAdPackageFile() {
-		return adPackageFile;
+	public void setApkUrl(String apkUrl) {
+		this.apkUrl = apkUrl;
 	}
 
-	public void setAdPackageFile(MultipartFile adPackageFile) {
-		this.adPackageFile = adPackageFile;
+	public Date getStartTime() {
+		return startTime;
 	}
 
-	public MultipartFile getAdImagea() {
-		return adImagea;
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 
-	public void setAdImagea(MultipartFile adImagea) {
-		this.adImagea = adImagea;
+	public Date getEndTime() {
+		return endTime;
 	}
 
-	public MultipartFile getAdImageb() {
-		return adImageb;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
-	public void setAdImageb(MultipartFile adImageb) {
-		this.adImageb = adImageb;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public MultipartFile getAdImagec() {
-		return adImagec;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
-	public void setAdImagec(MultipartFile adImagec) {
-		this.adImagec = adImagec;
+	public Boolean getIs_del() {
+		return is_del;
 	}
 
-	public MultipartFile getAdImaged() {
-		return adImaged;
+	public void setIs_del(Boolean is_del) {
+		this.is_del = is_del;
 	}
 
-	public void setAdImaged(MultipartFile adImaged) {
-		this.adImaged = adImaged;
+	public void setAdTypeStr(String adTypeStr) {
+		this.adTypeStr = adTypeStr;
 	}
-	
+
+	public void setAdImagesList(List<String> adImagesList) {
+		this.adImagesList = adImagesList;
+	}
+
 	/**
 	 * 展示需要
 	 */
-	
-	private String adTypeStr ;
-	
+
+	private String adTypeStr;
+
 	private List<String> adImagesList;
 
 	public String getAdTypeStr() {
-		adTypeStr = SysConfig.getAdType(adType);
+		//adTypeStr = SysConfig.getAdType(adType);
 		return adTypeStr;
 	}
 
 	public List<String> getAdImagesList() {
 		List<String> list = new ArrayList<String>();
-		if(StringUtils.isEmpty(this.adImages)){
+		if (StringUtils.isEmpty(this.adImages)) {
 			adImagesList = null;
-		}else{
+		} else {
 			String[] strs = this.adImages.split(",");
-			for(String str:strs){
+			for (String str : strs) {
 				list.add(str);
 			}
-			adImagesList = list ;
+			adImagesList = list;
 		}
 		return adImagesList;
 	}
-	
-	
+
 }

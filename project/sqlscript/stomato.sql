@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2013-07-13 18:02:11
+Date: 2013-07-14 11:54:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,8 +55,8 @@ INSERT INTO `t_ad_channel` VALUES ('17', 'test', '13631661621', '63559854', 'tes
 INSERT INTO `t_ad_channel` VALUES ('18', 'test', '13631661621', '63559854', 'test', 'test', '1', '2013-07-11 14:03:50', '18');
 INSERT INTO `t_ad_channel` VALUES ('19', 'test', '13631661621', '63559854', 'test', 'test', '1', '2013-07-11 14:03:50', '0');
 INSERT INTO `t_ad_channel` VALUES ('20', 'test', '13631661621', '63559854', 'test', 'test', '1', '2013-07-11 14:03:50', '0');
-INSERT INTO `t_ad_channel` VALUES ('21', 'test', '13631661621', '63559854', 'test', 'test', '1', '2013-07-11 14:03:51', '0');
-INSERT INTO `t_ad_channel` VALUES ('22', 'test', '13631661621', '63559854', 'test', 'test', '1', '2013-07-11 14:03:51', '0');
+INSERT INTO `t_ad_channel` VALUES ('21', 'test', '13631661621', '63559854', 'test', 'test', '1', '2013-07-11 14:03:51', '21');
+INSERT INTO `t_ad_channel` VALUES ('22', 'test', '13631661621', '63559854', 'test', 'test', '1', '2013-07-11 14:03:51', '22');
 
 -- ----------------------------
 -- Table structure for `t_ad_rssource`
@@ -75,16 +75,16 @@ CREATE TABLE `t_ad_rssource` (
   `file_size` int(11) DEFAULT NULL COMMENT '安装包大小(KB)',
   `version` varchar(255) DEFAULT NULL COMMENT '应用版本',
   `support_platform` varchar(255) DEFAULT NULL COMMENT '应用支持平台要求',
-  `app_type_id` tinyint(4) DEFAULT '1' COMMENT ' 广告类型0:热门,1:应用,2:游戏',
-  `charge_type` tinyint(4) DEFAULT NULL COMMENT '收费类型',
+  `app_type_id` int(8) DEFAULT '1' COMMENT ' 广告类型0:热门,1:应用,2:游戏',
+  `charge_type` int(8) DEFAULT NULL COMMENT '收费类型',
   `price` double DEFAULT NULL COMMENT '单价',
   `clearing_form` varchar(10) DEFAULT NULL COMMENT '结算方式 ,CPA/CPS',
   `downloads` int(11) DEFAULT NULL,
   `recommens` int(11) DEFAULT NULL COMMENT '推荐次数',
   `app_rating` int(11) DEFAULT NULL COMMENT '应用t推荐等级',
   `description` varchar(255) DEFAULT NULL COMMENT '应用描述',
-  `modify_date` timestamp NULL DEFAULT NULL COMMENT '广告修时间',
-  `itime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `modify_date` datetime DEFAULT NULL COMMENT '广告修时间',
+  `create_date` datetime NOT NULL,
   `apk_url` varchar(255) DEFAULT NULL COMMENT 'apk 下载地址',
   `start_time` int(8) DEFAULT '0' COMMENT '开始时间',
   `end_time` int(8) DEFAULT '0' COMMENT '结束时间',
@@ -167,12 +167,14 @@ CREATE TABLE `t_app_type` (
   `visible` tinyint(4) DEFAULT NULL COMMENT '是否可见，1=可见，0=隐藏 ',
   `order_no` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_app_type
 -- ----------------------------
-INSERT INTO `t_app_type` VALUES ('1', 'test', 'test', '0', '1', '1');
+INSERT INTO `t_app_type` VALUES ('3', '游戏', '游侠分类', '0', '1', '0');
+INSERT INTO `t_app_type` VALUES ('4', '应用', '应用分类', '0', '1', '1');
+INSERT INTO `t_app_type` VALUES ('5', '过山车', '', '3', '1', '1');
 
 -- ----------------------------
 -- Table structure for `t_company`
@@ -841,10 +843,10 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('22', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '144@qq.com', '1', '', '覃建栋', '13631661621', null, '', '2013-06-02 17:43:46', 'c1e409cc0c15488db6922d67f7c3badc', '2013-07-13 15:54:30', '1');
+INSERT INTO `t_user` VALUES ('22', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '144@qq.com', '1', '', '覃建栋', '13631661621', null, '', '2013-06-02 17:43:46', 'a795ba3b3cde4df8a96f5335d2e7f8a4', '2013-07-14 11:18:56', '1');
 INSERT INTO `t_user` VALUES ('33', 'dev001', 'E10ADC3949BA59ABBE56E057F20F883E', 'dev001@gmail.com', '4', null, 'dev001', '13631661621', null, 'http://localhost:8080', '2013-07-08 00:13:23', '3b80686435c04fc3b276ba6f6bcb9cab', '2013-07-13 10:37:43', '1');
 INSERT INTO `t_user` VALUES ('31', 'jd_test', '4297F44B13955235245B2497399D7A93', 'qinjiandong21010@gmail.com', '6', 'Powerall networks', '覃建栋', '13631661621', null, 'http://localhost:8081/', '2013-07-07 23:19:48', '4289c363fde745d388ec1aa9e4d12069', '2013-07-07 23:40:53', '1');
-INSERT INTO `t_user` VALUES ('32', 'yygl001', 'E10ADC3949BA59ABBE56E057F20F883E', 'yygl@gmail.com', '2', '', 'yygl', '13631661621', null, 'http://localhost:8080', '2013-07-08 00:12:45', 'e149c68400e64583a044c2fe3156aeff', '2013-07-12 13:33:51', '1');
+INSERT INTO `t_user` VALUES ('32', 'yygl001', 'E10ADC3949BA59ABBE56E057F20F883E', 'yygl@gmail.com', '2', '', 'yygl', '13631661621', null, 'http://localhost:8080', '2013-07-08 00:12:45', 'd3109ba43af84263908a3e76d440e6ff', '2013-07-14 11:19:19', '1');
 
 -- ----------------------------
 -- Table structure for `t_user_account`

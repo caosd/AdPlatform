@@ -125,7 +125,7 @@ public class AdChannelController {
 	public String adChanelDelete(@ModelAttribute("adChannel")AdChannel adChannel,int id,BindingResult result,HttpServletRequest request,Model model){
 		adChannelService.deleteAdChannel(id);
 		model.addAttribute("success", "del");
-		model.addAttribute("goto", "/adchannel/adChannelList.html");
+		model.addAttribute("_goto", "/adchannel/adChannelList.html");
 		return "redirect:/portal/result/success";
 	}
 }
