@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2013-07-12 13:41:00
+Date: 2013-07-13 18:02:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -64,53 +64,63 @@ INSERT INTO `t_ad_channel` VALUES ('22', 'test', '13631661621', '63559854', 'tes
 DROP TABLE IF EXISTS `t_ad_rssource`;
 CREATE TABLE `t_ad_rssource` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ad_name` varchar(255) NOT NULL COMMENT '广告应用名称',
-  `ad_text` varchar(255) DEFAULT NULL COMMENT '广告语文字',
+  `channel_id` int(11) DEFAULT NULL,
+  `app_name` varchar(255) NOT NULL COMMENT '广告应用名称',
+  `ad_title` varchar(255) DEFAULT NULL COMMENT '广告语文字',
   `ad_icon` varchar(255) DEFAULT NULL COMMENT '广告图标',
-  `ad_point` int(11) DEFAULT NULL COMMENT '广告积分',
-  `description` varchar(255) DEFAULT NULL COMMENT '应用描述',
-  `version` varchar(255) DEFAULT NULL COMMENT '应用版本',
-  `file_size` int(11) DEFAULT NULL COMMENT '安装包大小(KB)',
-  `ad_package` varchar(255) DEFAULT NULL COMMENT '应用包名',
+  `ad_banner` varchar(255) DEFAULT NULL,
+  `desktop_icon` varchar(255) DEFAULT NULL COMMENT '桌面快捷方式图片',
   `ad_images` varchar(500) DEFAULT NULL COMMENT '应用图片组(a.jpg,c.jpg,b.jpg)',
+  `app_package` varchar(255) DEFAULT NULL COMMENT '应用包名',
+  `file_size` int(11) DEFAULT NULL COMMENT '安装包大小(KB)',
+  `version` varchar(255) DEFAULT NULL COMMENT '应用版本',
+  `support_platform` varchar(255) DEFAULT NULL COMMENT '应用支持平台要求',
+  `app_type_id` tinyint(4) DEFAULT '1' COMMENT ' 广告类型0:热门,1:应用,2:游戏',
+  `charge_type` tinyint(4) DEFAULT NULL COMMENT '收费类型',
+  `price` double DEFAULT NULL COMMENT '单价',
+  `clearing_form` varchar(10) DEFAULT NULL COMMENT '结算方式 ,CPA/CPS',
+  `downloads` int(11) DEFAULT NULL,
+  `recommens` int(11) DEFAULT NULL COMMENT '推荐次数',
+  `app_rating` int(11) DEFAULT NULL COMMENT '应用t推荐等级',
+  `description` varchar(255) DEFAULT NULL COMMENT '应用描述',
   `modify_date` timestamp NULL DEFAULT NULL COMMENT '广告修时间',
   `itime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `ad_type` tinyint(4) DEFAULT '1' COMMENT ' 广告类型0:热门,1:应用,2:游戏',
   `apk_url` varchar(255) DEFAULT NULL COMMENT 'apk 下载地址',
   `start_time` int(8) DEFAULT '0' COMMENT '开始时间',
   `end_time` int(8) DEFAULT '0' COMMENT '结束时间',
-  `status` tinyint(4) DEFAULT '0' COMMENT '0,有效，1无效',
+  `status` int(8) DEFAULT '0' COMMENT '0,下架，1上架',
+  `is_del` tinyint(4) DEFAULT NULL COMMENT '标记删除',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ad_package` (`ad_package`),
+  UNIQUE KEY `ad_package` (`app_package`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_ad_rssource
 -- ----------------------------
-INSERT INTO `t_ad_rssource` VALUES ('65', '1号药店', '掌上医院全新更名为“1号药店”，更直观，更贴切。万款药品，保证正品，平民价格，送货上门，货到付款，远超实体药店的购物体验。', 'http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/icon/1231faf.png', '50', '掌上医院全新更名为“1号药店”，更直观，更贴切。万款药品，保证正品，平民价格，送货上门，货到付款，远超实体药店的购物体验。', '2.5.9', '2103', 'com.yiwang', 'http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/images/111.png,http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/images/222.png', '2013-04-10 10:06:04', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/1号药店.apk', '20130409', '20130511', '1');
-INSERT INTO `t_ad_rssource` VALUES ('66', '淘宝', '淘宝客户端依托淘宝网强大的自身优势,整合旗下团购聚划算、品质保证淘宝商城、商品品类丰富的淘宝集市为一体,为用户提供更方便快捷流畅、随时随地进行移动购物的完美体验;', 'http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/icon/fa123a.png', '50', '淘宝客户端依托淘宝网强大的自身优势,整合旗下团购聚划算、品质保证淘宝商城、商品品类丰富的淘宝集市为一体,为用户提供更方便快捷流畅、随时随地进行移动购物的完美体验;', '3.5.2', '8058', 'com.taobao.taobao', 'http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/images/淘宝1.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/images/淘宝2.jpg', '2013-04-10 10:06:29', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/淘宝.apk', '20130409', '20130511', '1');
-INSERT INTO `t_ad_rssource` VALUES ('67', '航班管家', '最受欢迎的APP之一，国内唯一一款能显示实时余票量的航班查询手机软件！是您过年回家的抢票利器！', 'http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/icon/fas123a1f2.png', '60', '最受欢迎的APP之一，国内唯一一款能显示实时余票量的航班查询手机软件！是您过年回家的抢票利器！', '3.6.4', '3776', 'com.flightmanager.view', 'http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/images/航班管家1.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/images/航班管家2.jpg', '2013-04-10 10:06:55', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/航班管家.apk', '20130408', '20130511', '1');
-INSERT INTO `t_ad_rssource` VALUES ('68', '超强音乐播放器', '超强音乐播放器', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.soundbest-20130410/icon/icon.png', '30', 'dj.android.soundbest', '2.0', '13163', 'dj.android.soundbest', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.soundbest-20130410/images/1.png', '2013-04-10 09:44:55', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.soundbest-20130410/SoundBestMusicPlayer.apk', '20130410', '20130503', '1');
-INSERT INTO `t_ad_rssource` VALUES ('69', '计算器美化', '计算器美化', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/icon/icon.png', '50', 'lak.dj.calculator计算器美化', '3.0', '414', 'lak.dj.calculator', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/1.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/2.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/3.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/4.png', '2013-04-10 09:46:42', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/calculator.apk', '20130402', '20130509', '1');
-INSERT INTO `t_ad_rssource` VALUES ('70', '掌上宝免费电话', '掌上宝电话最火手机电话软件，超强群聊功能（支持4人同聊）、来去电显示、智能拨号，通话清晰，接通率国内第一，安装就送免费通话，最高达60分钟', 'http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/icon/123a.png', '45', '    新注册用户：\r\n1、充50元到帐100元，充100元到帐580元话费，所有话费一次性到帐；\r\n2、充值满100元送 VIP黄金会员，并送“去电显示”功能。\r\n掌上宝电话最火手机电话软件，超强群聊功能（支持4人同聊）、来去电显示、智能拨号，通话清晰，接通率国内第一，安装就送免费通话，最高达60分钟', '6.1.3', '3781', 'com.dft.hb.app', 'http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/images/s掌上宝免费电话1.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/images/掌上宝免费电话2.jpg', '2013-04-10 09:52:55', '2013-07-06 16:08:35', '1', 'http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/掌上宝免费电话.apk', '20130408', '20130511', '1');
-INSERT INTO `t_ad_rssource` VALUES ('71', '截屏助手', '截屏助手', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/icon/lithiclogogrey.png', '50', 'dj.android.lithic', '3.0', '2672', 'dj.android.lithic', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/images/3.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/images/2.png', '2013-04-10 09:48:29', '2013-07-06 16:08:35', '1', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/Lithic.apk', '20130404', '20130509', '1');
-INSERT INTO `t_ad_rssource` VALUES ('72', '进程杀手', '进程杀手', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/icon/widgeticon.png', '60', 'dj.android.prokiller', '6.3', '201', 'dj.android.prokiller', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/images/3.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/images/4.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/images/1.png', '2013-04-10 09:51:18', '2013-07-06 16:08:35', '1', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/TaskKiller.apk', '20130401', '20130509', '1');
-INSERT INTO `t_ad_rssource` VALUES ('73', '多米音乐', '多米音乐android5.0.4带你进入一个全新的音乐世界。', 'http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/icon/aa.png', '70', '国内唯一不限流量音乐软件！】多米音乐android5.0.4带你进入一个全新的音乐世界。联通用户包流量畅听，扔掉数据线，再无流量压力！在这里，我们集合了众多音乐达人从上千万首歌曲中甄选出来的优质歌单，只为让你发现更多好听的音乐，安心享受音乐带来的快乐；多米音乐具有颠覆性的时尚界面，最智能的音乐搜索引擎，海量320Kps高品质音乐内容和前所未有的歌单分享体系，会让你很难相信这仅仅是一款音乐软件，来吧亲们，和多米一起体验新时代的音乐潮流！', '5.0.4', '4694', 'com.duomi.android', 'http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/images/sy_201304081750355836.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/images/sy_201304081750359320.jpg', '2013-04-10 09:51:54', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/com.duomi.android_175034.apk', '20130409', '20130511', '1');
-INSERT INTO `t_ad_rssource` VALUES ('74', '私密相册', '私密相册', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.simiphoto-20130410/icon/icon.png', '30', 'dj.android.simiphoto', '3.0', '325', 'dj.android.simiphoto', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.simiphoto-20130410/images/1.png', '2013-04-10 09:52:12', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.simiphoto-20130410/PhotoVault.apk', '20130403', '20130509', '1');
-INSERT INTO `t_ad_rssource` VALUES ('75', '文本编辑器', '文本编辑器', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.textEditor-20130410/icon/icon.png', '30', 'dj.android.textEditor', '3.0', '604', 'dj.android.textEditor', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.textEditor-20130410/images/1.png', '2013-04-10 09:53:51', '2013-07-06 16:08:35', '1', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.textEditor-20130410/TextEditor.apk', '20130402', '20130426', '1');
-INSERT INTO `t_ad_rssource` VALUES ('76', '同花顺手机炒股票', '同花顺(300033)手机炒股股票软件是目前国内用户使用量最高、性能最稳定', 'http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/icon/201304091341251196.png', '50', '同花顺(300033)手机炒股股票软件是目前国内用户使用量最高、性能最稳定、支持券商最多并支持手机在线交易的随身免费炒股(财经/证券)软件。是拥有12年专业经验团队为您量身打造，1G光纤带宽高速行情，海量专业证券资讯，快速安全在线委托,投资理财好助手。\r\n同花顺手机炒股创新结合沪深Level-2数据，强势推出：MACD云参数选股、股价预警、股票池、决策密码、Level-2、选股模型，为您实时监控盘中大资金流向，让您随时掌握市场热点，轻松炒股决策，投资下单先人一步！ ', '6.9', '3850', 'com.hexin.plat.android', 'http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/images/sy_201303271050065684.png,http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/images/sy_201303271050075941.png', '2013-04-10 09:55:05', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/com.hexin.plat.android_134126.apk', '20130409', '20130511', '1');
-INSERT INTO `t_ad_rssource` VALUES ('77', '文档扫描仪', '文档扫描仪', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/icon/icon.png', '30', 'dj.android.docscanner', '3.0', '6140', 'dj.android.docscanner', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/images/4.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/images/3.png', '2013-04-10 09:55:45', '2013-07-06 16:08:35', '1', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/DocScanner.apk', '20130409', '20130425', '1');
-INSERT INTO `t_ad_rssource` VALUES ('78', '压缩大师', '压缩大师', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.arsazpaid-20130410/icon/icon.png', '50', 'dj.android.arsazpaid', '6.3', '6140', 'dj.android.arsazpaid', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.arsazpaid-20130410/images/3.png', '2013-04-10 09:56:53', '2013-07-06 16:08:35', '1', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.arsazpaid-20130410/DocScanner.apk', '20130402', '20130510', '1');
-INSERT INTO `t_ad_rssource` VALUES ('79', 'UC浏览器', 'UC浏览器是一款免费网页浏览软件,适用于以手机为主的各类手持移动终端。 ', 'http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/icon/201304101412088817.png', '65', 'UC浏览器是一款免费网页浏览软件,适用于以手机为主的各类手持移动终端。 ', '9.0.0', '9816', 'com.UCMobile', 'http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/images/sy_201304101414030687.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/images/sy_201304101414054827.jpg', '2013-04-10 10:01:34', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/com.UCMobile_141208.apk', '20130409', '20130430', '1');
-INSERT INTO `t_ad_rssource` VALUES ('80', '彩虹便签', '彩虹便签', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/icon/icon.png', '30', 'lak.dj.note', '3.2.0', '743', 'lak.dj.note', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/images/4.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/images/2.png', '2013-04-10 09:57:58', '2013-07-06 16:08:35', '1', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/ColorNote.apk', '20130401', '20130503', '1');
-INSERT INTO `t_ad_rssource` VALUES ('81', '天天动听播放器', '好音质，天天动听！摇一摇，邂逅你的音乐知音！', 'http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/icon/201303291442030431.png', '55', '好音质，天天动听！摇一摇，邂逅你的音乐知音！\r\n\r\n【核心功能】\r\n1.全面支持APE、FLAC、MP3、AAC、M4A、WMA、 ALAC、WAV等各种音频格式\r\n2.专业的EQ均衡器设置\r\n3.专业的重低音、环绕声和环境音效设置\r\n4.一键红心收藏歌曲，如此简单\r\n5.独创横屏舞台，打造春晚舞台效果\r\n6.海量歌词，最新最准\r\n7.高清图片，不一样的视觉享受\r\n8.多彩皮肤，彰显你的自我个性\r\n9.桌面迷你歌词(和电脑上一样)\r\n10.功能贴心，睡眠模式、线控、甩歌方便实用', '5.1.0', '5640', 'com.sds.android.ttpod', 'http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/images/sy_201303290917499277.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/images/sy_201303290917508289.jpg', '2013-04-10 09:59:11', '2013-07-06 16:08:35', '0', 'http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/com.sds.android.ttpod_144205.apk', '20130408', '20130511', '1');
-INSERT INTO `t_ad_rssource` VALUES ('82', '亮灯', '亮灯', 'http://127.0.0.1:8888/ChannelReport/upload/com.droidpower.flow-20130415/icon/icon.png', '60', '亮灯（Light Up）》是一个有趣和令人上瘾的益智游戏。鲍勃是一个有才华的男孩，谁爱使灯泡有趣的拼图。在实验室，生产间，储藏室或陈列室，Bob已经准备了共有240级别的灯泡游戏。他在等待着你的挑战！\r\n\r\n游戏操作：\r\n\r\n- 与电流流动相同的颜色匹配的灯泡连接。所有的颜色配对，并填满整个板来解决每一个难题。但是请注意，电流将打破，如果他们交叉或重叠！\r\n\r\n游戏特色\r\n\r\n- 精心设计的水平，简单，容易上瘾。\r\n\r\n- 美丽和辉煌的场景\r\n\r\n- 为整个家庭添加乐趣', '3.3', '20925', 'com.droidpower.flow', 'http://127.0.0.1:8888/ChannelReport/upload/com.droidpower.flow-20130415/images/1.png', '2013-04-15 12:44:18', '2013-07-06 16:08:35', '0', 'http://127.0.0.1:8888/ChannelReport/upload/com.droidpower.flow-20130415/n-Light_Up_v1_0-groupB.apk', '20130415', '20130607', '1');
-INSERT INTO `t_ad_rssource` VALUES ('83', '外星粉碎机', '外星粉碎机', 'http://127.0.0.1:8888/ChannelReport/upload/com.twodstar.ac-20130415/icon/icon.png', '61', '', '', '14075', 'com.twodstar.ac', '', '2013-04-15 12:48:24', '2013-07-06 16:08:35', '0', 'http://127.0.0.1:8888/ChannelReport/upload/com.twodstar.ac-20130415/n-Alien_Crusher_Pro_v2-groupB.apk', '20130410', '20130510', '1');
-INSERT INTO `t_ad_rssource` VALUES ('84', '相片组合', '相片组合', 'http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/icon/icon.png', '50', 'luxi.top.photogrid', '3.0', '2928', 'luxi.top.photogrid', 'http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/images/1.png,http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/images/2.png,http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/images/3.png', '2013-04-22 07:03:57', '2013-07-06 16:08:35', '2', 'http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/luxi.top.photogrid.apk', '20130422', '20130522', '1');
-INSERT INTO `t_ad_rssource` VALUES ('85', '天草', '所发放', 'http://127.0.0.1:8888/ChannelReport/upload/com.cc.saeweq-20130428/icon/icon.png', '50', 'sfsa', '3.3.2', '8668', 'com.cc.saeweq', 'http://127.0.0.1:8888/ChannelReport/upload/com.cc.saeweq-20130428/images/1.png', '2013-04-28 09:24:16', '2013-07-06 16:08:35', '0', 'http://127.0.0.1:8888/ChannelReport/upload/com.cc.saeweq-20130428/com.cc.saeweq.apk', '20130428', '20130528', '1');
-INSERT INTO `t_ad_rssource` VALUES ('86', '啊啊啊啊啊', '啊啊啊啊', 'http://127.0.0.1:8888/ChannelReport/upload/aaa.bbb.ccc-20130514/icon/icon.png', '100', '上的撒', '3.0', '17089', 'aaa.bbb.ccc', 'http://127.0.0.1:8888/ChannelReport/upload/aaa.bbb.ccc-20130514/images/1.png', '2013-05-21 10:19:07', '2013-07-06 16:08:35', '0', 'http://127.0.0.1:8888/ChannelReport/upload/aaa.bbb.ccc-20130514/aaa.bbb.ccc.apk', '20130514', '20130614', '1');
-INSERT INTO `t_ad_rssource` VALUES ('87', 'afa', '司法法', 'http://127.0.0.1:8888/ChannelReport/upload/com.asdfa.d-20130521/icon/20130521182002.png', '50', 'afafa', '3.0', '367', 'com.asdfa.d', 'http://127.0.0.1:8888/ChannelReport/upload/com.asdfa.d-20130521/images/20130521182002a.png', '2013-05-21 10:20:16', '2013-07-06 16:08:35', '0', 'http://127.0.0.1:8888/ChannelReport/upload/com.asdfa.d-20130521/com.asdfa.d.apk', '20130521', '20130621', '1');
+INSERT INTO `t_ad_rssource` VALUES ('65', null, '1号药店', '掌上医院全新更名为“1号药店”，更直观，更贴切。万款药品，保证正品，平民价格，送货上门，货到付款，远超实体药店的购物体验。', 'http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/icon/1231faf.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/images/111.png,http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/images/222.png', 'com.yiwang', '2103', '2.5.9', null, '0', null, null, null, null, null, '50', '掌上医院全新更名为“1号药店”，更直观，更贴切。万款药品，保证正品，平民价格，送货上门，货到付款，远超实体药店的购物体验。', '2013-04-10 10:06:04', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.yiwang-20130410/1号药店.apk', '20130409', '20130511', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('66', null, '淘宝', '淘宝客户端依托淘宝网强大的自身优势,整合旗下团购聚划算、品质保证淘宝商城、商品品类丰富的淘宝集市为一体,为用户提供更方便快捷流畅、随时随地进行移动购物的完美体验;', 'http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/icon/fa123a.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/images/淘宝1.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/images/淘宝2.jpg', 'com.taobao.taobao', '8058', '3.5.2', null, '0', null, null, null, null, null, '50', '淘宝客户端依托淘宝网强大的自身优势,整合旗下团购聚划算、品质保证淘宝商城、商品品类丰富的淘宝集市为一体,为用户提供更方便快捷流畅、随时随地进行移动购物的完美体验;', '2013-04-10 10:06:29', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.taobao.taobao-20130410/淘宝.apk', '20130409', '20130511', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('67', null, '航班管家', '最受欢迎的APP之一，国内唯一一款能显示实时余票量的航班查询手机软件！是您过年回家的抢票利器！', 'http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/icon/fas123a1f2.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/images/航班管家1.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/images/航班管家2.jpg', 'com.flightmanager.view', '3776', '3.6.4', null, '0', null, null, null, null, null, '60', '最受欢迎的APP之一，国内唯一一款能显示实时余票量的航班查询手机软件！是您过年回家的抢票利器！', '2013-04-10 10:06:55', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.flightmanager.view-20130410/航班管家.apk', '20130408', '20130511', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('68', null, '超强音乐播放器', '超强音乐播放器', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.soundbest-20130410/icon/icon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.soundbest-20130410/images/1.png', 'dj.android.soundbest', '13163', '2.0', null, '0', null, null, null, null, null, '30', 'dj.android.soundbest', '2013-04-10 09:44:55', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.soundbest-20130410/SoundBestMusicPlayer.apk', '20130410', '20130503', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('69', null, '计算器美化', '计算器美化', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/icon/icon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/1.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/2.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/3.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/images/4.png', 'lak.dj.calculator', '414', '3.0', null, '0', null, null, null, null, null, '50', 'lak.dj.calculator计算器美化', '2013-04-10 09:46:42', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.calculator-20130410/calculator.apk', '20130402', '20130509', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('70', null, '掌上宝免费电话', '掌上宝电话最火手机电话软件，超强群聊功能（支持4人同聊）、来去电显示、智能拨号，通话清晰，接通率国内第一，安装就送免费通话，最高达60分钟', 'http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/icon/123a.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/images/s掌上宝免费电话1.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/images/掌上宝免费电话2.jpg', 'com.dft.hb.app', '3781', '6.1.3', null, '1', null, null, null, null, null, '45', '    新注册用户：\r\n1、充50元到帐100元，充100元到帐580元话费，所有话费一次性到帐；\r\n2、充值满100元送 VIP黄金会员，并送“去电显示”功能。\r\n掌上宝电话最火手机电话软件，超强群聊功能（支持4人同聊）、来去电显示、智能拨号，通话清晰，接通率国内第一，安装就送免费通话，最高达60分钟', '2013-04-10 09:52:55', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.dft.hb.app-20130410/掌上宝免费电话.apk', '20130408', '20130511', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('71', null, '截屏助手', '截屏助手', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/icon/lithiclogogrey.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/images/3.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/images/2.png', 'dj.android.lithic', '2672', '3.0', null, '1', null, null, null, null, null, '50', 'dj.android.lithic', '2013-04-10 09:48:29', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.lithic-20130410/Lithic.apk', '20130404', '20130509', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('72', null, '进程杀手', '进程杀手', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/icon/widgeticon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/images/3.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/images/4.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/images/1.png', 'dj.android.prokiller', '201', '6.3', null, '1', null, null, null, null, null, '60', 'dj.android.prokiller', '2013-04-10 09:51:18', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.prokiller-20130410/TaskKiller.apk', '20130401', '20130509', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('73', null, '多米音乐', '多米音乐android5.0.4带你进入一个全新的音乐世界。', 'http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/icon/aa.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/images/sy_201304081750355836.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/images/sy_201304081750359320.jpg', 'com.duomi.android', '4694', '5.0.4', null, '0', null, null, null, null, null, '70', '国内唯一不限流量音乐软件！】多米音乐android5.0.4带你进入一个全新的音乐世界。联通用户包流量畅听，扔掉数据线，再无流量压力！在这里，我们集合了众多音乐达人从上千万首歌曲中甄选出来的优质歌单，只为让你发现更多好听的音乐，安心享受音乐带来的快乐；多米音乐具有颠覆性的时尚界面，最智能的音乐搜索引擎，海量320Kps高品质音乐内容和前所未有的歌单分享体系，会让你很难相信这仅仅是一款音乐软件，来吧亲们，和多米一起体验新时代的音乐潮流！', '2013-04-10 09:51:54', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.duomi.android-20130410/com.duomi.android_175034.apk', '20130409', '20130511', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('74', null, '私密相册', '私密相册', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.simiphoto-20130410/icon/icon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.simiphoto-20130410/images/1.png', 'dj.android.simiphoto', '325', '3.0', null, '0', null, null, null, null, null, '30', 'dj.android.simiphoto', '2013-04-10 09:52:12', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.simiphoto-20130410/PhotoVault.apk', '20130403', '20130509', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('75', null, '文本编辑器', '文本编辑器', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.textEditor-20130410/icon/icon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.textEditor-20130410/images/1.png', 'dj.android.textEditor', '604', '3.0', null, '1', null, null, null, null, null, '30', 'dj.android.textEditor', '2013-04-10 09:53:51', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.textEditor-20130410/TextEditor.apk', '20130402', '20130426', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('76', null, '同花顺手机炒股票', '同花顺(300033)手机炒股股票软件是目前国内用户使用量最高、性能最稳定', 'http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/icon/201304091341251196.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/images/sy_201303271050065684.png,http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/images/sy_201303271050075941.png', 'com.hexin.plat.android', '3850', '6.9', null, '0', null, null, null, null, null, '50', '同花顺(300033)手机炒股股票软件是目前国内用户使用量最高、性能最稳定、支持券商最多并支持手机在线交易的随身免费炒股(财经/证券)软件。是拥有12年专业经验团队为您量身打造，1G光纤带宽高速行情，海量专业证券资讯，快速安全在线委托,投资理财好助手。\r\n同花顺手机炒股创新结合沪深Level-2数据，强势推出：MACD云参数选股、股价预警、股票池、决策密码、Level-2、选股模型，为您实时监控盘中大资金流向，让您随时掌握市场热点，轻松炒股决策，投资下单先人一步！ ', '2013-04-10 09:55:05', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.hexin.plat.android-20130410/com.hexin.plat.android_134126.apk', '20130409', '20130511', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('77', null, '文档扫描仪', '文档扫描仪', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/icon/icon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/images/4.png,http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/images/3.png', 'dj.android.docscanner', '6140', '3.0', null, '1', null, null, null, null, null, '30', 'dj.android.docscanner', '2013-04-10 09:55:45', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.docscanner-20130410/DocScanner.apk', '20130409', '20130425', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('78', null, '压缩大师', '压缩大师', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.arsazpaid-20130410/icon/icon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.arsazpaid-20130410/images/3.png', 'dj.android.arsazpaid', '6140', '6.3', null, '1', null, null, null, null, null, '50', 'dj.android.arsazpaid', '2013-04-10 09:56:53', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/dj.android.arsazpaid-20130410/DocScanner.apk', '20130402', '20130510', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('79', null, 'UC浏览器', 'UC浏览器是一款免费网页浏览软件,适用于以手机为主的各类手持移动终端。 ', 'http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/icon/201304101412088817.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/images/sy_201304101414030687.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/images/sy_201304101414054827.jpg', 'com.UCMobile', '9816', '9.0.0', null, '0', null, null, null, null, null, '65', 'UC浏览器是一款免费网页浏览软件,适用于以手机为主的各类手持移动终端。 ', '2013-04-10 10:01:34', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.UCMobile-20130410/com.UCMobile_141208.apk', '20130409', '20130430', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('80', null, '彩虹便签', '彩虹便签', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/icon/icon.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/images/4.png,http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/images/2.png', 'lak.dj.note', '743', '3.2.0', null, '1', null, null, null, null, null, '30', 'lak.dj.note', '2013-04-10 09:57:58', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/lak.dj.note-20130410/ColorNote.apk', '20130401', '20130503', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('81', null, '天天动听播放器', '好音质，天天动听！摇一摇，邂逅你的音乐知音！', 'http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/icon/201303291442030431.png', null, null, 'http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/images/sy_201303290917499277.jpg,http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/images/sy_201303290917508289.jpg', 'com.sds.android.ttpod', '5640', '5.1.0', null, '0', null, null, null, null, null, '55', '好音质，天天动听！摇一摇，邂逅你的音乐知音！\r\n\r\n【核心功能】\r\n1.全面支持APE、FLAC、MP3、AAC、M4A、WMA、 ALAC、WAV等各种音频格式\r\n2.专业的EQ均衡器设置\r\n3.专业的重低音、环绕声和环境音效设置\r\n4.一键红心收藏歌曲，如此简单\r\n5.独创横屏舞台，打造春晚舞台效果\r\n6.海量歌词，最新最准\r\n7.高清图片，不一样的视觉享受\r\n8.多彩皮肤，彰显你的自我个性\r\n9.桌面迷你歌词(和电脑上一样)\r\n10.功能贴心，睡眠模式、线控、甩歌方便实用', '2013-04-10 09:59:11', '2013-07-06 16:08:35', 'http://113.98.254.204:58080/ChannelReport/upload/com.sds.android.ttpod-20130410/com.sds.android.ttpod_144205.apk', '20130408', '20130511', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('82', null, '亮灯', '亮灯', 'http://127.0.0.1:8888/ChannelReport/upload/com.droidpower.flow-20130415/icon/icon.png', null, null, 'http://127.0.0.1:8888/ChannelReport/upload/com.droidpower.flow-20130415/images/1.png', 'com.droidpower.flow', '20925', '3.3', null, '0', null, null, null, null, null, '60', '亮灯（Light Up）》是一个有趣和令人上瘾的益智游戏。鲍勃是一个有才华的男孩，谁爱使灯泡有趣的拼图。在实验室，生产间，储藏室或陈列室，Bob已经准备了共有240级别的灯泡游戏。他在等待着你的挑战！\r\n\r\n游戏操作：\r\n\r\n- 与电流流动相同的颜色匹配的灯泡连接。所有的颜色配对，并填满整个板来解决每一个难题。但是请注意，电流将打破，如果他们交叉或重叠！\r\n\r\n游戏特色\r\n\r\n- 精心设计的水平，简单，容易上瘾。\r\n\r\n- 美丽和辉煌的场景\r\n\r\n- 为整个家庭添加乐趣', '2013-04-15 12:44:18', '2013-07-06 16:08:35', 'http://127.0.0.1:8888/ChannelReport/upload/com.droidpower.flow-20130415/n-Light_Up_v1_0-groupB.apk', '20130415', '20130607', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('83', null, '外星粉碎机', '外星粉碎机', 'http://127.0.0.1:8888/ChannelReport/upload/com.twodstar.ac-20130415/icon/icon.png', null, null, '', 'com.twodstar.ac', '14075', '', null, '0', null, null, null, null, null, '61', '', '2013-04-15 12:48:24', '2013-07-06 16:08:35', 'http://127.0.0.1:8888/ChannelReport/upload/com.twodstar.ac-20130415/n-Alien_Crusher_Pro_v2-groupB.apk', '20130410', '20130510', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('84', null, '相片组合', '相片组合', 'http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/icon/icon.png', null, null, 'http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/images/1.png,http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/images/2.png,http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/images/3.png', 'luxi.top.photogrid', '2928', '3.0', null, '2', null, null, null, null, null, '50', 'luxi.top.photogrid', '2013-04-22 07:03:57', '2013-07-06 16:08:35', 'http://127.0.0.1:8888/ChannelReport/upload/luxi.top.photogrid-20130422/luxi.top.photogrid.apk', '20130422', '20130522', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('85', null, '天草', '所发放', 'http://127.0.0.1:8888/ChannelReport/upload/com.cc.saeweq-20130428/icon/icon.png', null, null, 'http://127.0.0.1:8888/ChannelReport/upload/com.cc.saeweq-20130428/images/1.png', 'com.cc.saeweq', '8668', '3.3.2', null, '0', null, null, null, null, null, '50', 'sfsa', '2013-04-28 09:24:16', '2013-07-06 16:08:35', 'http://127.0.0.1:8888/ChannelReport/upload/com.cc.saeweq-20130428/com.cc.saeweq.apk', '20130428', '20130528', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('86', null, '啊啊啊啊啊', '啊啊啊啊', 'http://127.0.0.1:8888/ChannelReport/upload/aaa.bbb.ccc-20130514/icon/icon.png', null, null, 'http://127.0.0.1:8888/ChannelReport/upload/aaa.bbb.ccc-20130514/images/1.png', 'aaa.bbb.ccc', '17089', '3.0', null, '0', null, null, null, null, null, '100', '上的撒', '2013-05-21 10:19:07', '2013-07-06 16:08:35', 'http://127.0.0.1:8888/ChannelReport/upload/aaa.bbb.ccc-20130514/aaa.bbb.ccc.apk', '20130514', '20130614', '1', null);
+INSERT INTO `t_ad_rssource` VALUES ('87', null, 'afa', '司法法', 'http://127.0.0.1:8888/ChannelReport/upload/com.asdfa.d-20130521/icon/20130521182002.png', null, null, 'http://127.0.0.1:8888/ChannelReport/upload/com.asdfa.d-20130521/images/20130521182002a.png', 'com.asdfa.d', '367', '3.0', null, '0', null, null, null, null, null, '50', 'afafa', '2013-05-21 10:20:16', '2013-07-06 16:08:35', 'http://127.0.0.1:8888/ChannelReport/upload/com.asdfa.d-20130521/com.asdfa.d.apk', '20130521', '20130621', '1', null);
 
 -- ----------------------------
 -- Table structure for `t_apps`
@@ -144,6 +154,25 @@ CREATE TABLE `t_apps` (
 INSERT INTO `t_apps` VALUES ('1', 'fd62421b5824f4af33887e79462b75bb', '23', '大白菜', 'com.skycall.oem', 'drawable-mdpi#icon.png', '1', '0', '2013-06-07 00:07:20', '2013-06-05 17:58:17', '', '', '0');
 INSERT INTO `t_apps` VALUES ('2', '9a3b327c837794a67e854a2c24d32b46', '23', '小青菜', 'com.elevenbitstudios.FunkySmugglers', 'drawable-xxhdpi#icon.png', '1', '0', '2013-06-08 09:37:36', '2013-06-05 18:04:03', '', '', '1');
 INSERT INTO `t_apps` VALUES ('3', '678f1cfeaf2cfe14207d90c998acc70b', '23', '红萝卜', 'com.appspot.swisscodemonkeys.camerafx', 'drawable-ldpi#ic_launcher_camera2.png', '1', '1', '2013-06-07 00:07:10', '2013-06-07 00:06:15', '', '', '0');
+
+-- ----------------------------
+-- Table structure for `t_app_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_app_type`;
+CREATE TABLE `t_app_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(255) NOT NULL COMMENT '应用类型名称',
+  `description` varchar(500) DEFAULT NULL COMMENT '描述',
+  `parent` int(11) DEFAULT NULL COMMENT '上一级分类',
+  `visible` tinyint(4) DEFAULT NULL COMMENT '是否可见，1=可见，0=隐藏 ',
+  `order_no` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_app_type
+-- ----------------------------
+INSERT INTO `t_app_type` VALUES ('1', 'test', 'test', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for `t_company`
@@ -257,7 +286,7 @@ CREATE TABLE `t_menu` (
   `status` int(4) DEFAULT '0' COMMENT '是否有效 0-有效，1-无效',
   `order_no` varchar(50) DEFAULT '0' COMMENT '排序标示',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
@@ -284,7 +313,7 @@ INSERT INTO `t_menu` VALUES ('22', '编辑用户', null, '/user/editUser.html', 
 INSERT INTO `t_menu` VALUES ('23', '修改用户角色&状态', null, '/user/updateUserRoleAndStatus.html', '1', '0', '1', '115');
 INSERT INTO `t_menu` VALUES ('24', '重置密码', null, '/ajax/updateUser.html', '1', '0', '1', '116');
 INSERT INTO `t_menu` VALUES ('25', '检测用户名', null, '/hasUser.html', '1', '0', '1', '117');
-INSERT INTO `t_menu` VALUES ('26', '开发者应用', null, '', '0', '1', '1', '3');
+INSERT INTO `t_menu` VALUES ('26', '开发者应用', '', '', '0', '1', '1', '0');
 INSERT INTO `t_menu` VALUES ('27', '应用上传', '', '/apps/create.html', '26', '1', '1', '311');
 INSERT INTO `t_menu` VALUES ('28', '上传应用action', null, '/appInfo/addAppInfo.html', '26', '0', '1', '312');
 INSERT INTO `t_menu` VALUES ('29', '应用列表', '开发者个人应用列表', '/apps/', '26', '1', '1', '313');
@@ -312,14 +341,14 @@ INSERT INTO `t_menu` VALUES ('50', '修改支付项目action', null, '/amountIte
 INSERT INTO `t_menu` VALUES ('51', '删除支付项目', null, '/amountItem/delete.html', '1', '0', '1', '146');
 INSERT INTO `t_menu` VALUES ('52', '支付报表', '渠道本身的支付报表 —— 对外', '/report/channelAmountReport.html', '44', '0', '1', '611');
 INSERT INTO `t_menu` VALUES ('53', '支付报表', '所有渠道支付报表 —— 对内', '/report/allChannelAmountReport.html', '44', '0', '1', '612');
-INSERT INTO `t_menu` VALUES ('66', '财务中心', '', '', '0', '1', '1', '0');
-INSERT INTO `t_menu` VALUES ('67', '帐户管理', '', '', '0', '1', '1', '0');
+INSERT INTO `t_menu` VALUES ('66', '财务中心', '', '', '0', '1', '1', '3');
+INSERT INTO `t_menu` VALUES ('67', '帐户管理', '', '', '0', '1', '1', '4');
 INSERT INTO `t_menu` VALUES ('68', '财务信息', '', '/financial/overview', '66', '1', '1', '0');
 INSERT INTO `t_menu` VALUES ('69', '财务明细', '', '/financial/accounts', '66', '1', '1', '0');
 INSERT INTO `t_menu` VALUES ('70', '申请汇款', '', '/financial/remittance', '66', '1', '1', '0');
 INSERT INTO `t_menu` VALUES ('71', '汇款记录', '', '/financial/remittance_history', '66', '1', '1', '0');
-INSERT INTO `t_menu` VALUES ('72', '收入报表', '', '', '0', '1', '1', '0');
-INSERT INTO `t_menu` VALUES ('73', '广告报表', '', '', '0', '1', '1', '0');
+INSERT INTO `t_menu` VALUES ('72', '收入报表', '', '', '0', '1', '1', '2');
+INSERT INTO `t_menu` VALUES ('73', '广告报表', '', '', '0', '1', '1', '1');
 INSERT INTO `t_menu` VALUES ('74', '小时统计', '', '', '72', '0', '1', '0');
 INSERT INTO `t_menu` VALUES ('75', '每日统计', '', '/report/incoming/daily', '72', '1', '1', '0');
 INSERT INTO `t_menu` VALUES ('76', '每月统计', '', '/report/incoming/monthly', '72', '1', '1', '0');
@@ -341,6 +370,8 @@ INSERT INTO `t_menu` VALUES ('91', '添加广告渠道', '', '/adchannel/formpag
 INSERT INTO `t_menu` VALUES ('92', '修改渠道', '', '', '90', '0', '1', '0');
 INSERT INTO `t_menu` VALUES ('93', '渠道列表', '', '/adchannel/adChannelList.html', '90', '1', '1', '0');
 INSERT INTO `t_menu` VALUES ('94', '用户审核列表', '', '/accounts/userReview.html', '88', '1', '0', '0');
+INSERT INTO `t_menu` VALUES ('95', '增加应用分类', '', '/apps/formpage.html', '1', '1', '1', '0');
+INSERT INTO `t_menu` VALUES ('96', '应用分类列表', '', '/apps/appTypeList.html', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for `t_payment`
@@ -546,7 +577,7 @@ CREATE TABLE `t_role` (
   `status` int(4) DEFAULT '0' COMMENT '状态：0-有效 1-无效',
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role
@@ -566,7 +597,7 @@ CREATE TABLE `t_role_menu` (
   `role_id` int(4) NOT NULL COMMENT '角色ID',
   `menu_id` int(4) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1744 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1769 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role_menu
@@ -660,29 +691,6 @@ INSERT INTO `t_role_menu` VALUES ('1675', '6', '33');
 INSERT INTO `t_role_menu` VALUES ('1676', '6', '30');
 INSERT INTO `t_role_menu` VALUES ('1677', '6', '31');
 INSERT INTO `t_role_menu` VALUES ('1678', '6', '32');
-INSERT INTO `t_role_menu` VALUES ('1679', '1', '1');
-INSERT INTO `t_role_menu` VALUES ('1680', '1', '2');
-INSERT INTO `t_role_menu` VALUES ('1681', '1', '3');
-INSERT INTO `t_role_menu` VALUES ('1682', '1', '22');
-INSERT INTO `t_role_menu` VALUES ('1683', '1', '23');
-INSERT INTO `t_role_menu` VALUES ('1684', '1', '24');
-INSERT INTO `t_role_menu` VALUES ('1685', '1', '25');
-INSERT INTO `t_role_menu` VALUES ('1686', '1', '45');
-INSERT INTO `t_role_menu` VALUES ('1687', '1', '4');
-INSERT INTO `t_role_menu` VALUES ('1688', '1', '5');
-INSERT INTO `t_role_menu` VALUES ('1689', '1', '13');
-INSERT INTO `t_role_menu` VALUES ('1690', '1', '14');
-INSERT INTO `t_role_menu` VALUES ('1691', '1', '6');
-INSERT INTO `t_role_menu` VALUES ('1692', '1', '7');
-INSERT INTO `t_role_menu` VALUES ('1693', '1', '15');
-INSERT INTO `t_role_menu` VALUES ('1694', '1', '16');
-INSERT INTO `t_role_menu` VALUES ('1695', '1', '17');
-INSERT INTO `t_role_menu` VALUES ('1696', '1', '46');
-INSERT INTO `t_role_menu` VALUES ('1697', '1', '47');
-INSERT INTO `t_role_menu` VALUES ('1698', '1', '48');
-INSERT INTO `t_role_menu` VALUES ('1699', '1', '49');
-INSERT INTO `t_role_menu` VALUES ('1700', '1', '50');
-INSERT INTO `t_role_menu` VALUES ('1701', '1', '51');
 INSERT INTO `t_role_menu` VALUES ('1702', '2', '83');
 INSERT INTO `t_role_menu` VALUES ('1703', '2', '84');
 INSERT INTO `t_role_menu` VALUES ('1704', '2', '85');
@@ -725,6 +733,31 @@ INSERT INTO `t_role_menu` VALUES ('1740', '4', '29');
 INSERT INTO `t_role_menu` VALUES ('1741', '4', '30');
 INSERT INTO `t_role_menu` VALUES ('1742', '4', '31');
 INSERT INTO `t_role_menu` VALUES ('1743', '4', '32');
+INSERT INTO `t_role_menu` VALUES ('1744', '1', '1');
+INSERT INTO `t_role_menu` VALUES ('1745', '1', '95');
+INSERT INTO `t_role_menu` VALUES ('1746', '1', '96');
+INSERT INTO `t_role_menu` VALUES ('1747', '1', '2');
+INSERT INTO `t_role_menu` VALUES ('1748', '1', '3');
+INSERT INTO `t_role_menu` VALUES ('1749', '1', '22');
+INSERT INTO `t_role_menu` VALUES ('1750', '1', '23');
+INSERT INTO `t_role_menu` VALUES ('1751', '1', '24');
+INSERT INTO `t_role_menu` VALUES ('1752', '1', '25');
+INSERT INTO `t_role_menu` VALUES ('1753', '1', '45');
+INSERT INTO `t_role_menu` VALUES ('1754', '1', '4');
+INSERT INTO `t_role_menu` VALUES ('1755', '1', '5');
+INSERT INTO `t_role_menu` VALUES ('1756', '1', '13');
+INSERT INTO `t_role_menu` VALUES ('1757', '1', '14');
+INSERT INTO `t_role_menu` VALUES ('1758', '1', '6');
+INSERT INTO `t_role_menu` VALUES ('1759', '1', '7');
+INSERT INTO `t_role_menu` VALUES ('1760', '1', '15');
+INSERT INTO `t_role_menu` VALUES ('1761', '1', '16');
+INSERT INTO `t_role_menu` VALUES ('1762', '1', '17');
+INSERT INTO `t_role_menu` VALUES ('1763', '1', '46');
+INSERT INTO `t_role_menu` VALUES ('1764', '1', '47');
+INSERT INTO `t_role_menu` VALUES ('1765', '1', '48');
+INSERT INTO `t_role_menu` VALUES ('1766', '1', '49');
+INSERT INTO `t_role_menu` VALUES ('1767', '1', '50');
+INSERT INTO `t_role_menu` VALUES ('1768', '1', '51');
 
 -- ----------------------------
 -- Table structure for `t_temp_apps`
@@ -808,8 +841,8 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('22', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '144@qq.com', '1', '', '覃建栋', '13631661621', null, '', '2013-06-02 17:43:46', '0c1faa326ada4b5fb4bcdd0d97fbb311', '2013-07-12 11:34:32', '1');
-INSERT INTO `t_user` VALUES ('33', 'dev001', 'E10ADC3949BA59ABBE56E057F20F883E', 'dev001@gmail.com', '4', null, 'dev001', '13631661621', null, 'http://localhost:8080', '2013-07-08 00:13:23', 'e912ce18136145aeb525dddd13a7c9fb', '2013-07-12 13:36:56', '1');
+INSERT INTO `t_user` VALUES ('22', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '144@qq.com', '1', '', '覃建栋', '13631661621', null, '', '2013-06-02 17:43:46', 'c1e409cc0c15488db6922d67f7c3badc', '2013-07-13 15:54:30', '1');
+INSERT INTO `t_user` VALUES ('33', 'dev001', 'E10ADC3949BA59ABBE56E057F20F883E', 'dev001@gmail.com', '4', null, 'dev001', '13631661621', null, 'http://localhost:8080', '2013-07-08 00:13:23', '3b80686435c04fc3b276ba6f6bcb9cab', '2013-07-13 10:37:43', '1');
 INSERT INTO `t_user` VALUES ('31', 'jd_test', '4297F44B13955235245B2497399D7A93', 'qinjiandong21010@gmail.com', '6', 'Powerall networks', '覃建栋', '13631661621', null, 'http://localhost:8081/', '2013-07-07 23:19:48', '4289c363fde745d388ec1aa9e4d12069', '2013-07-07 23:40:53', '1');
 INSERT INTO `t_user` VALUES ('32', 'yygl001', 'E10ADC3949BA59ABBE56E057F20F883E', 'yygl@gmail.com', '2', '', 'yygl', '13631661621', null, 'http://localhost:8080', '2013-07-08 00:12:45', 'e149c68400e64583a044c2fe3156aeff', '2013-07-12 13:33:51', '1');
 
