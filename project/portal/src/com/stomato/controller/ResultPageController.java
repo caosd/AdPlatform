@@ -12,6 +12,6 @@ public class ResultPageController extends UserController{
 	
 	@RequestMapping(value="/success")
 	public String toView(HttpServletRequest request, Model model) {
-		return "portal/result/success";
+		return "/portal/result/success";
 	}
 }

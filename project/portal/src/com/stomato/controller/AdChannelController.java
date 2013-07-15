@@ -126,6 +126,6 @@ public class AdChannelController {
 		adChannelService.deleteAdChannel(id);
 		model.addAttribute("success", "del");
 		model.addAttribute("_goto", "/adchannel/adChannelList.html");
-		return "redirect:/portal/result/success";
+		return "redirect:/result/success";
 	}
 }

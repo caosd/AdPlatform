@@ -9,6 +9,8 @@ public interface Constant {
 	interface Configs {
 		String credentialsDirPath = "credentials";
 
+		String adresourceDirPath = "adresource";
+
 		String appsDirPath = "apps";
 
 		String tmpsDirPath = "tmps";

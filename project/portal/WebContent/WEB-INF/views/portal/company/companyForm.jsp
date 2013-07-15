@@ -33,7 +33,7 @@
                 </div>
                 </c:if>
 				<div class="form-row">
-					<label class="field-name" for="name">添加名称：</label>
+					<label class="field-name" for="name">厂商名称：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
 							<form:input path="name" class="span12"  maxlength="50" /> 

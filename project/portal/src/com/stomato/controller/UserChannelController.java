@@ -135,6 +135,6 @@ public class UserChannelController {
 		userChannelService.deleteUserChannel(id);
 		model.addAttribute("success", "del");
 		model.addAttribute("_goto", "/userchannel/userChannelList.html");
-		return "redirect:/portal/result/success";
+		return "redirect:/result/success";
 	}
 }

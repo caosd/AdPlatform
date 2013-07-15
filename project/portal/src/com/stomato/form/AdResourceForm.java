@@ -8,8 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.stomato.domain.AdResource;
 
-public class AdResourceForm{
-
+public class AdResourceForm {
 	private int id;
 
 	/**
@@ -19,7 +18,7 @@ public class AdResourceForm{
 	/**
 	 * 下载资源名称
 	 */
-	private String appName;
+	private String adName;
 
 	/**
 	 * 广告标题
@@ -64,6 +63,14 @@ public class AdResourceForm{
 	 */
 	private Integer chargeType;
 	/**
+	 * 结算方式
+	 */
+	private String clearingForm;
+	/**
+	 * 单价
+	 */
+	private Double price;
+	/**
 	 * 应用被下载次数
 	 */
 	private Integer downloads;
@@ -91,6 +98,103 @@ public class AdResourceForm{
 	private Integer status;
 	private Boolean is_del;
 
+	/***************************************************************************
+	 * 
+	 * 非持久化对象
+	 * 
+	 **************************************************************************/
+
+	private MultipartFile adIconFile;
+
+	private MultipartFile adBannerFile;
+
+	private MultipartFile desktopIconFile;
+	/**
+	 * 应用图片组(a.jpg,c.jpg,b.jpg)
+	 */
+	private MultipartFile adImagea;
+
+	private MultipartFile adImageb;
+
+	private MultipartFile adImagec;
+
+	private MultipartFile adImaged;
+
+	public MultipartFile getDesktopIconFile() {
+		return desktopIconFile;
+	}
+
+	public void setDesktopIconFile(MultipartFile desktopIconFile) {
+		this.desktopIconFile = desktopIconFile;
+	}
+
+	public MultipartFile getAdIconFile() {
+		return adIconFile;
+	}
+
+	public void setAdIconFile(MultipartFile adIconFile) {
+		this.adIconFile = adIconFile;
+	}
+
+	public MultipartFile getAdBannerFile() {
+		return adBannerFile;
+	}
+
+	public void setAdBannerFile(MultipartFile adBannerFile) {
+		this.adBannerFile = adBannerFile;
+	}
+
+	public MultipartFile getAdImagea() {
+		return adImagea;
+	}
+
+	public void setAdImagea(MultipartFile adImagea) {
+		this.adImagea = adImagea;
+	}
+
+	public MultipartFile getAdImageb() {
+		return adImageb;
+	}
+
+	public void setAdImageb(MultipartFile adImageb) {
+		this.adImageb = adImageb;
+	}
+
+	public MultipartFile getAdImagec() {
+		return adImagec;
+	}
+
+	public void setAdImagec(MultipartFile adImagec) {
+		this.adImagec = adImagec;
+	}
+
+	public MultipartFile getAdImaged() {
+		return adImaged;
+	}
+
+	public void setAdImaged(MultipartFile adImaged) {
+		this.adImaged = adImaged;
+	}
+
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
+	}
+
+	public AdResource asPojo() {
+		AdResource adResource = new AdResource();
+		BeanUtils.copyProperties(this, adResource);
+		return adResource;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -107,12 +211,12 @@ public class AdResourceForm{
 		this.channelId = channelId;
 	}
 
-	public String getAppName() {
-		return appName;
+	public String getAdName() {
+		return adName;
 	}
 
-	public void setAppName(String appName) {
-		this.appName = appName;
+	public void setAdName(String adName) {
+		this.adName = adName;
 	}
 
 	public String getAdTitle() {
@@ -291,83 +395,12 @@ public class AdResourceForm{
 		this.is_del = is_del;
 	}
 
-
-	/*************************************************************************
-	 * 
-	 * 非持久化对象
-	 * 
-	 ************************************************************************/
-
-	private MultipartFile adIconFile;
-
-	private MultipartFile adPackageFile;
-
-	/**
-	 * 应用图片组(a.jpg,c.jpg,b.jpg)
-	 */
-	private MultipartFile adImagea;
-
-	private MultipartFile adImageb;
-
-	private MultipartFile adImagec;
-
-	private MultipartFile adImaged;
-
-	public MultipartFile getAdIconFile() {
-		return adIconFile;
+	public String getClearingForm() {
+		return clearingForm;
 	}
 
-	public void setAdIconFile(MultipartFile adIconFile) {
-		this.adIconFile = adIconFile;
+	public void setClearingForm(String clearingForm) {
+		this.clearingForm = clearingForm;
 	}
 
-	public MultipartFile getAdPackageFile() {
-		return adPackageFile;
-	}
-
-	public void setAdPackageFile(MultipartFile adPackageFile) {
-		this.adPackageFile = adPackageFile;
-	}
-
-	public MultipartFile getAdImagea() {
-		return adImagea;
-	}
-
-	public void setAdImagea(MultipartFile adImagea) {
-		this.adImagea = adImagea;
-	}
-
-	public MultipartFile getAdImageb() {
-		return adImageb;
-	}
-
-	public void setAdImageb(MultipartFile adImageb) {
-		this.adImageb = adImageb;
-	}
-
-	public MultipartFile getAdImagec() {
-		return adImagec;
-	}
-
-	public void setAdImagec(MultipartFile adImagec) {
-		this.adImagec = adImagec;
-	}
-
-	public MultipartFile getAdImaged() {
-		return adImaged;
-	}
-
-	public void setAdImaged(MultipartFile adImaged) {
-		this.adImaged = adImaged;
-	}
-	@Override
-	public String toString() {
-		return new Gson().toJson(this);
-	}
-	
-	public AdResource asPojo() {
-		AdResource adResource = new AdResource();
-		BeanUtils.copyProperties(this, adResource);
-		return adResource;
-	}
 }

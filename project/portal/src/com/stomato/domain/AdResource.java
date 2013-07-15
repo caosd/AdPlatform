@@ -23,7 +23,7 @@ public class AdResource extends BaseParam {
 	/**
 	 * 下载资源名称
 	 */
-	private String appName;
+	private String adName;
 
 	/**
 	 * 广告标题
@@ -68,6 +68,14 @@ public class AdResource extends BaseParam {
 	 */
 	private Integer chargeType;
 	/**
+	 * 单价
+	 */
+	private Double price;
+	/**
+	 * 结算方式
+	 */
+	private String clearingForm;
+	/**
 	 * 应用被下载次数
 	 */
 	private Integer downloads;
@@ -93,7 +101,34 @@ public class AdResource extends BaseParam {
 	private Date endTime;
 
 	private Integer status;
-	private Boolean is_del;
+	private Boolean isDel;
+
+	/**
+	 * 展示需要
+	 */
+
+	private String adTypeStr;
+
+	private List<String> adImagesList;
+
+	public String getAdTypeStr() {
+		// adTypeStr = SysConfig.getAdType(adType);
+		return adTypeStr;
+	}
+
+	public List<String> getAdImagesList() {
+		List<String> list = new ArrayList<String>();
+		if (StringUtils.isEmpty(this.adImages)) {
+			adImagesList = null;
+		} else {
+			String[] strs = this.adImages.split(",");
+			for (String str : strs) {
+				list.add(str);
+			}
+			adImagesList = list;
+		}
+		return adImagesList;
+	}
 
 	public int getId() {
 		return id;
@@ -111,16 +146,24 @@ public class AdResource extends BaseParam {
 		this.channelId = channelId;
 	}
 
-	public String getAppName() {
-		return appName;
+	public String getAdName() {
+		return adName;
 	}
 
-	public void setAppName(String appName) {
-		this.appName = appName;
+	public void setAdName(String adName) {
+		this.adName = adName;
 	}
 
 	public String getAdTitle() {
 		return adTitle;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	public void setAdTitle(String adTitle) {
@@ -287,12 +330,12 @@ public class AdResource extends BaseParam {
 		this.status = status;
 	}
 
-	public Boolean getIs_del() {
-		return is_del;
+	public Boolean getIsDel() {
+		return isDel;
 	}
 
-	public void setIs_del(Boolean is_del) {
-		this.is_del = is_del;
+	public void setIsDel(Boolean isDel) {
+		this.isDel = isDel;
 	}
 
 	public void setAdTypeStr(String adTypeStr) {
@@ -303,31 +346,12 @@ public class AdResource extends BaseParam {
 		this.adImagesList = adImagesList;
 	}
 
-	/**
-	 * 展示需要
-	 */
-
-	private String adTypeStr;
-
-	private List<String> adImagesList;
-
-	public String getAdTypeStr() {
-		//adTypeStr = SysConfig.getAdType(adType);
-		return adTypeStr;
+	public String getClearingForm() {
+		return clearingForm;
 	}
 
-	public List<String> getAdImagesList() {
-		List<String> list = new ArrayList<String>();
-		if (StringUtils.isEmpty(this.adImages)) {
-			adImagesList = null;
-		} else {
-			String[] strs = this.adImages.split(",");
-			for (String str : strs) {
-				list.add(str);
-			}
-			adImagesList = list;
-		}
-		return adImagesList;
+	public void setClearingForm(String clearingForm) {
+		this.clearingForm = clearingForm;
 	}
 
 }

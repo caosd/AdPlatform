@@ -126,6 +126,6 @@ public class CompanyController {
 		companyService.deleteCompany(id);
 		model.addAttribute("success", "del");
 		model.addAttribute("_goto", "/company/companyList.html");
-		return "redirect:/portal/result/success";
+		return "redirect:/result/success";
 	}
 }

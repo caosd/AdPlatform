@@ -1,5 +1,8 @@
 package com.stomato.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppType {
 
 	private Integer id;
@@ -61,5 +64,17 @@ public class AppType {
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
+	/**
+	 * 非持久化对象
+	 */
+	private List<AppType> sunTypeList = new ArrayList<AppType>();
 
+	public List<AppType> getSunTypeList() {
+		return sunTypeList;
+	}
+
+	public void setSunTypeList(List<AppType> sunTypeList) {
+		this.sunTypeList = sunTypeList;
+	}
+ 
 }
