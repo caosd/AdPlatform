@@ -13,7 +13,17 @@ File Encoding         : 65001
 Date: 2013-07-15 18:47:53
 */
 
+<<<<<<< HEAD
 SET FOREIGN_KEY_CHECKS=0;
+=======
+--
+-- 数据库: `adplatform`
+--
+
+--
+-- 表的结构 `t_ad_channel`
+--
+>>>>>>> 6e6164329b3d360880593d35ce6cb4f234b9f66c
 
 -- ----------------------------
 -- Table structure for `t_ad_channel`
