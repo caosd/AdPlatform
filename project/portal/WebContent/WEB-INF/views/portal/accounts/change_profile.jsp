@@ -6,19 +6,6 @@
 <body>
 <div class="row-fluid">
    <div class="span12">
-       <!-- BEGIN THEME CUSTOMIZER-->
-       <div id="theme-change" class="hidden-phone">
-           <i class="icon-cogs"></i>
-            <span class="settings">
-                <span class="text">Theme:</span>
-                <span class="colors">
-                    <span class="color-default" data-style="default"></span>
-                    <span class="color-gray" data-style="gray"></span>
-                    <span class="color-purple" data-style="purple"></span>
-                    <span class="color-navy-blue" data-style="navy-blue"></span>
-                </span>
-            </span>
-       </div>
        <!-- END THEME CUSTOMIZER-->
        <ul class="breadcrumb">
            <li>
@@ -52,8 +39,8 @@
 	          <label class="control-label" for="email"> <fmt:message key="label.account_type"/> </label>
 	          <div class="controls">
 	               <form:select path="type" id="accountType">
-						<option value="1" ${user.type == 1 ? "selected=\"selected\"":"" }><fmt:message key="option.individual"/></option>
-						<option value="2" ${user.type == 2 ? "selected=\"selected\"":"" }><fmt:message key="option.company"/></option>
+						<option value="3" ${user.type == 3 ? "selected=\"selected\"":"" }><fmt:message key="option.individual"/></option>
+						<option value="4" ${user.type == 4 ? "selected=\"selected\"":"" }><fmt:message key="option.company"/></option>
 					</form:select>
 	          </div>
 	       </div>

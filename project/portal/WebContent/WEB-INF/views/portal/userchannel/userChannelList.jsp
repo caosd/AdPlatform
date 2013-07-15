@@ -44,7 +44,7 @@
 	              <table class="table table-striped table-bordered" id="role_table">
 	               <thead>
 	                   <tr>
-	                       <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+	                       
 	                       <th>#</th>
 	                       <th>渠道编号</th>
 	                       <th>厂商名</th>
@@ -57,7 +57,7 @@
 	               <tbody>
 	               	<c:forEach items="${userChannelList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.id }"></td>
+		            			
 		            			<td class="sorting_1">${stat.index}</td>
 		                        <td>${item.channelNo }</td>
 		                        <td>${item.companyName }</td>

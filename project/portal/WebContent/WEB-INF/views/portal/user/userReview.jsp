@@ -7,20 +7,6 @@
 <body>
 <div class="row-fluid">
    <div class="span12">
-       <!-- BEGIN THEME CUSTOMIZER-->
-       <div id="theme-change" class="hidden-phone">
-           <i class="icon-cogs"></i>
-            <span class="settings">
-                <span class="text">Theme:</span>
-                <span class="colors">
-                    <span class="color-default" data-style="default"></span>
-                    <span class="color-gray" data-style="gray"></span>
-                    <span class="color-purple" data-style="purple"></span>
-                    <span class="color-navy-blue" data-style="navy-blue"></span>
-                </span>
-            </span>
-       </div>
-       <!-- END THEME CUSTOMIZER-->
        <ul class="breadcrumb">
            <li>
                <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
@@ -67,7 +53,7 @@
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>
                     <tr>
-                        <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                        
                         <th>#</th>
                         <th>用户名</th>
                         <th>角色</th>
@@ -80,7 +66,6 @@
                 <tbody>
                 	<c:forEach items="${userList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.uid }"></td>
 		            			<td class="sorting_1">${stat.index}</td>
 		                        <td class=" ">${item.userName }</td>
 		                        <td class=" ">${item.type }</td>
@@ -89,13 +74,13 @@
 		                        <td>
 									<c:choose>
 										<c:when test="${item.status == 0}">
-											<span class="label label-warning">审核不通过</span>
+											<span class="label label">审核不通过</span>
 										</c:when>
 										<c:when test="${item.status == 1}">
-											<span class="label label-warning">等待审核</span>
+											<span class="label label-success">审核通过</span>
 										</c:when>
 										<c:otherwise>
-											<span class="label label-success">审核通过</span>
+											<span class="label label-warning">等待审核</span>
 										</c:otherwise>
 									</c:choose>
 								</td>

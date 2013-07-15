@@ -44,7 +44,6 @@
 	            <table class="table table-striped table-bordered" id="role_table">
 	               <thead>
 	                   <tr>
-	                       <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
 	                       <th>#</th>
 	                       <th>广告渠道</th>
 	                       <th>资源名称</th>
@@ -67,11 +66,10 @@
 	               <tbody>
 	               	<c:forEach items="${adResourceList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.id }"></td>
 		            			<td class="sorting_1">${stat.index}</td>
 		                        <td>${item.channelId }</td>
 		                        <td>${item.adName }</td>
-		                        <!--<td>${item.appPackage }</td>
+		                        <!--<td>${item.adPackage }</td>
 		                        <td>${item.fileSize }</td>
 		                        --><td>${item.version }</td>
 		                        <td>${item.supportPlatform }</td>
@@ -81,7 +79,7 @@
 		                        <td>${item.clearingForm }</td>
 		                        <td>${item.downloads }</td>
 		                        <td>${item.recommens }</td>
-		                        <td>${item.appRating }</td>
+		                        <td>${item.adRating }</td>
 		                        <td><fmt:formatDate value="${item.createDate }" pattern="yyyy-MM-dd" /></td>
 		                        <td>
 									<c:choose>
@@ -94,8 +92,8 @@
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/userchannel/updateUserChannel.html?id=${item.id }">编辑</a>
-		                        	<a href="javascript:void(0)" onclick="deleteData('/userchannel/deleteUserChannel.html?id=${item.id }')">删除</a>
+		                        	<a href="/adResource/updateAdResource.html?id=${item.id }">编辑</a>
+		                        	<a href="javascript:void(0)" onclick="deleteData('/adResource/deleteAdResource.html?id=${item.id }')">删除</a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>

@@ -1,203 +1,234 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
-<html>
-  <head>
-  	<title>${Title }</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script type="text/javascript" src="${ctx }/Js/calendar/WdatePicker.js"></script>
-    <script type="text/javascript" src="${ctx }/Js/jquery-1.9.0.min.js"></script>
-	<script type="text/javascript" src="${ctx }/Js/verify/common.js"></script>
-    <script type="text/javascript" src="${ctx }/Js/verify/adForm.js"></script>
-    <link rel="stylesheet" type="text/css" href="${ctx}/iframe/skin/css/base.css"/>
-    <style>
-    	textarea { border: 1px solid #ababab; }
-        .div1{
-        	font-size: 15px;
-        	margin-left: 12px;   
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<%@page import="com.stomato.domain.AppType"%>
+<head><style type="text/css">.navbar .span2{width:14%;}</style></head>
+<body>
+	<ul class="breadcrumb">
+		<li><a href="/"><i class="icon-home"></i></a><span
+			class="divider">&nbsp;</span></li>
+		<li><a href="#">资源管理</a> <span class="divider">&nbsp;</span></li>
+		<li><a href="#">资源录入</a><span class="divider-last">&nbsp;</span></li>
+	</ul>
+
+	<div class="widget">
+		<form:form commandName="adResourceForm" method="POST" class="form-horizontal form-wizard" enctype="multipart/form-data">
+			<div class="widget-header">
+				<h5>资源录入</h5>
+			</div>
+			<c:if test="${success != null}">
+                <div class="note note-danger" style="margin: 20px 30px;">
+                    <button type="button" class="close note-remove">×</button>
+                    <strong><fmt:message key="tips"/></strong> 
+                    <c:choose>
+                    	<c:when test="${success}">
+                    		添加广告资源成功。
+                    	</c:when>
+                    	<c:otherwise>
+                    		添加广告资源失败。
+                    	</c:otherwise>
+                    </c:choose>
+                </div>
+            </c:if>
+			<div class="widget-content no-padding">
+				<div class="form-row">
+					<label class="field-name" for="channelId">选择渠道：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:select path="channelId" class="span12">
+			                    <c:forEach items="${adChannerlList}" var="item" varStatus="stat">
+			                    	<option value="${item.id}">${item.channelName}</option>
+			                    </c:forEach>
+			                 </form:select>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="adName">资源名称：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:hidden path="id" value="${adResource.id}"/> 
+							<form:input path="adName" class="span12" maxlength="20" value="${adResource.adName}"/> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="adName" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="adTitle">投放标题：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:input path="adTitle" class="span12" maxlength="20" value="${adResource.adTitle}"/> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="adTitle" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="adIconFile">Icon图片：</label>
+					<div class="field">
+						<img width="50px" src="${adResource.adIcon}"/>
+						<input type="file" name="adIconFile" id="file">
+						<form:errors path="adIconFile" cssClass="error"/>
+					</div>
+				</div>
+			    <div class="form-row">
+					<label class="field-name" for="adBannerFile">Banner图片：</label>
+					<div class="field">
+						<img width="20px" src="${adResource.adBanner}"/>
+						<input type="file" name="adBannerFile" id="file">
+						<form:errors path="adBannerFile" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="desktopIconFile">桌面快捷方式图片：</label>
+					<div class="field">
+						<img width="50px" src="${adResource.desktopIcon}"/>
+						<input type="file" name="desktopIconFile" id="file">
+						<form:errors path="desktopIconFile" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name">广告截图(4个)：</label>
+					<div class="field">
+						<c:forEach items="${adResource.adImagesList}" var="iconStr" varStatus="status">
+							<c:if test="${status.index % 2 == 0}">
+								<p/>
+							</c:if>
+							<img width="250px" src="${iconStr}"/>
+						</c:forEach>
+						<input type="file" name="adImagea" id="file"/>
+						<input type="file" name="adImageb" id="file"/>
+						<input type="file" name="adImagec" id="file"/>
+						<input type="file" name="adImaged" id="file"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="adPackage">应用包名：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:input path="adPackage" class="span12" maxlength="20" value="${adResource.adPackage}"/> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="adPackage" cssClass="error"/>
+					</div>
+				</div>
+		        <div class="form-row">
+					<label class="field-name" for="fileSize">应用大小MB：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:input path="fileSize" class="span12" maxlength="20" value="${adResource.fileSize}"/> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="fileSize" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="version">应用版本：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:input path="version" class="span12" maxlength="20" value="${adResource.version}"/> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="version" cssClass="error"/>
+					</div>
+				</div>
+			    <div class="form-row">
+					<label class="field-name" for="supportPlatform">平台版本要求：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:input path="supportPlatform" class="span12" maxlength="20" value="${adResource.supportPlatform}"/> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="supportPlatform" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="appTypeId">应用分类：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:select path="appTypeId" class="span12">
+								<form:option value="0">请选择..</form:option>
+								<%
+								List<AppType> appTypeList = (List<AppType>)request.getAttribute("appTypeList");
+								for(AppType appType : appTypeList){
+									%>
+									<form:option value="<%=appType.getId() %>"><%=appType.getTypeName() %></form:option><%
+									for(AppType sunAppType : appType.getSunTypeList()){
+										%>
+										<form:option value="<%=sunAppType.getId() %>">----<%=sunAppType.getTypeName() %></form:option>
+										<%
+									}
+								}
+								%>
+			                 </form:select>
+						</div>
+						<form:errors path="appTypeId" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="chargeType">收费类型：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:select path="chargeType" class="span12">
+								<option value="0" ${adResource.chargeType==0?'selected':'' }>免费</option>
+								<option value="1" ${adResource.chargeType==1?'selected':'' }>收费</option>
+							</form:select>
+						</div>
+						<form:errors path="chargeType" cssClass="error"/>
+					</div>
+				</div>
+			    <div class="form-row">
+					<label class="field-name" for="price">单价：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:input path="price" class="span12" maxlength="20" value="${adResource.price}"/> 
+							<span class="add-on">*</span>
+						</div>
+						<form:errors path="price" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="clearingForm">结算方式：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:select path="clearingForm" class="span12">
+								<option value="CPA" ${adResource.clearingForm=="CPA" ? "selected":""}>CPA</option>
+								<option value="CPS" ${adResource.clearingForm=="CPS" ? "selected":""}>CPS</option>
+							</form:select>
+						</div>
+						<form:errors path="clearingForm" cssClass="error"/>
+					</div>
+				</div>
+			    <div class="form-row">
+					<label class="field-name" for="description">资源描述：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:textarea path="description" class="span12" rows="5" cols="70" value="${adResource.description}"/> 
+						</div>
+						<form:errors path="description" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row" style="padding-left: 180px;">
+					<button type="submit" class="button button-blue">修改资源</button>
+				</div>
+			</div>
+		</form:form>
+	</div>
+    <!-- <script>
+    (function() {
+      $("form").submit(function() {
+        var v = $("#file").val();
+        if (v.lastIndexOf(".apk") == v.length - 4) {
+            return true;
+        } else {
+            alert("请选择正确的APK文件");
         }
-    	.font1{
-    		margin-right: 5px;
-    		width: 90px;
-    	}
-    </style>
-  </head>
-  
-  <body> 
-  <div class="div1">
-  >>下载资源修改
-  </div>
-  <div style="">
-  	<form action="${ctx }/adResource/updateAdResource.html" method="post" enctype="multipart/form-data" onsubmit="return checkForm(false,'${ctx }/hasPackage.html','${adResource.adPackage}');">
-  		<input type="hidden" name="id" value="${adResource.id }"/>
-  		<table width='98%'  border='0' cellpadding='1' cellspacing='1' bgcolor='#CBD8AC' style="margin-top:8px;margin-left: 10px;">
-  			<!-- 资源名称 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	资源名称：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type='text' name='adName' id="adName" value='${adResource.adName }' style='width:250px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 广告类型 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	广告类型：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<select name="adType" id="adType" style="width: 80px;">
-  				  		<option value="0" ${adResource.adType == 0?'selected':''}>热门</option>
-  				    	<option value="1" ${adResource.adType == 1?'selected':''}>应用</option>
-  				    	<option value="2" ${adResource.adType == 2?'selected':''}>游戏</option>
-  				    </select>
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 广告语 -->
-  			<tr bgcolor='#EEF4EA'  height="80px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	<div style="padding-top: 32px">广告语：</div>
-  				  </div>
-  				  <div style="float: left;">
-  				  	<textarea name='adText' id="adText" style='width:500px;height:80px;overflow-y:auto;resize:none;'>${adResource.adText }</textarea>
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 广告图标 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	广告图标：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="file" name='adIconFile' id="adIconFile" value='' style='width:350px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 广告积分 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	广告积分：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="text" name='adPoint' id="adPoint" value='${adResource.adPoint }' style='width:50px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 状态 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	状态：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="radio" name="status" value='0' style='width:50px;border: none;' ${adResource.status == 0?'checked':''} />有效
-  				  	<input type="radio" name="status" value='1' style='width:50px;border: none;' ${adResource.status == 1?'checked':''}/>无效
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 有效时间 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	有效时间：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="text" name="startTime" id="startTime" onClick="WdatePicker()" value="${adResource.startTime }" style='width:100px' />
-  				  	-
-  				  	<input type="text" name="endTime" id="endTime" onClick="WdatePicker()" value="${adResource.endTime }" style='width:100px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 应用包名 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	应用包名：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="text" name=adPackage id="adPackage" value='${adResource.adPackage }' style='width:500px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 应用包 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	应用包：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="file" name='adPackageFile' id="adPackageFile" value='' style='width:350px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 应用版本 -->
-  			<tr bgcolor='#EEF4EA' background='${ctx}/iframe/skin/images/wbg.gif' height="30px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	应用版本：
-  				  </div>			
-  				  <div style="float: left;">
-  				  	<input type="text" name=version id="version" value='${adResource.version }' style='width:100px' />
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 应用描述 -->
-  			<tr bgcolor='#EEF4EA'  height="100px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	<div style="padding-top: 42px;">应用描述：</div>
-  				  </div>
-  				  <div style="float: left;">
-  				  	<textarea name='description' id="description" style='width:500px;height:100px;overflow-y:auto;resize:none;'>${adResource.description }</textarea>
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<!-- 应用图片 -->
-  			<tr bgcolor='#EEF4EA'  height="150px;">
-  				<td>
-  				  <div style="width: 90px;float: left;">
-  				  	<div style="padding-top: 67px;">应用图片：</div>
-  				  </div>
-  				  <div style="float: left;">
-  				    <br/>
-  				  	<input type="file" name='adImagea' id="adImagea" value='' style='width:350px' /><br/><br/>
-  				  	<input type="file" name='adImageb' id="adImageb" value='' style='width:350px' /><br/><br/>
-  				  	<input type="file" name='adImagec' id="adImagec" value='' style='width:350px' /><br/><br/>
-  				  	<input type="file" name='adImaged' id="adImaged" value='' style='width:350px' /><br/><br/>
-  				  </div>
-  				</td>
-  			</tr>
-  			
-  			<tr bgcolor='#EEF4EA'  height="30px;">
-  				<td>
-  					<div style="width: 300px;text-align: right;float: left;">
-  						<input type="reset" name="reset" value="重置" style="cursor: pointer;background-color: #F1F8B4;">
-  					</div>
-  					<div style="width: 250px;text-align: center;float: left;">
-  						<input type="submit" name="submit" id="submit" value="提交" style="cursor: pointer;background-color: #F1F8B4;">
-  					</div>
-  				</td>
-  			</tr>
-  		</table>
-  	</form>
-  </div>  
-  </body>
-</html>
+        return false;
+      });
+    })();
+    </script> -->
+</body>

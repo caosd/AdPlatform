@@ -40,10 +40,10 @@ public interface Constant {
 	}
 	//用户状态
 	interface UserStatus{
-		int newRegist = 1;
+		int newRegist = 3;
 
-		int noPASS = 1;
+		int noPASS = 0;
 		
-		int approved = 2;
+		int approved = 1;
 	}
 }

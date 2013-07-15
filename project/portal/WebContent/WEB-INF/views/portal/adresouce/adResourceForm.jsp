@@ -25,10 +25,10 @@
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
                     	<c:when test="${success}">
-                    		添加用户渠道成功。
+                    		添加广告资源成功。
                     	</c:when>
                     	<c:otherwise>
-                    		添加用户渠道失败。
+                    		添加广告资源失败。
                     	</c:otherwise>
                     </c:choose>
                 </div>
@@ -97,13 +97,13 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="appPackage">应用包名：</label>
+					<label class="field-name" for="adPackage">应用包名：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="appPackage" class="span12" maxlength="20" /> 
+							<form:input path="adPackage" class="span12" maxlength="20" /> 
 							<span class="add-on">*</span>
 						</div>
-						<form:errors path="appPackage" cssClass="error"/>
+						<form:errors path="adPackage" cssClass="error"/>
 					</div>
 				</div>
 		        <div class="form-row">

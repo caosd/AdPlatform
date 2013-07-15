@@ -3,6 +3,7 @@ package com.stomato.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,7 +88,7 @@ public class AdResourceController {
 		/**
 		 * 上传文件路径
 		 */
-		String realPath = request.getSession().getServletContext().getRealPath("/upload");
+		String realPath = request.getSession().getServletContext().getRealPath(configService.loadConfig(Constant.Configs.filesDirPath)+"/upload");
 		File uploadDir = new File(realPath);
 		if(!uploadDir.exists()){
 			uploadDir.mkdir();
@@ -110,7 +111,7 @@ public class AdResourceController {
 		/**
 		 * ad package & name 应用包 & 包名
 		 */
-		String adPackageName = adResourceForm.getAppPackage().trim();
+		String adPackageName = adResourceForm.getAdPackage().trim();
 		if(StringUtils.isEmpty(adPackageName)){
 			logger.debug("推送消息栏图片不能为空！");
 			request.setAttribute("content", "推送消息栏图片不能为空！");
@@ -231,10 +232,14 @@ public class AdResourceController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/getAdResource.html")
-	public String getAdResource(int id,HttpServletRequest request){
+	@RequestMapping(value="/updateAdResource.html")
+	public String getAdResource(@ModelAttribute("adResourceForm")AdResourceForm adResourceForm,int id,Model model){
 		AdResource adResource = adResourceService.getAdResource(id);
-		request.setAttribute("adResource", adResource);
+		List<AppType> appTypeList = appTypeService.getListFillSun();
+		List<AdChannel> adChannerlList = adChannelService.listAdChannel(null);
+		model.addAttribute("appTypeList", appTypeList);
+		model.addAttribute("adChannerlList", adChannerlList);
+		model.addAttribute("adResource", adResource);
 		return "portal/adresouce/adResourceUpdate";
 	}
 	
@@ -269,7 +274,6 @@ public class AdResourceController {
 		request.setAttribute("pageBean", baseParam);
 		return "portal/adresouce/adResourceList";
 	}
-	
 	/**
 	 * 修改下载资源
 	 * @param adResource
@@ -278,51 +282,48 @@ public class AdResourceController {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/updateAdResource.html")
-	public String adResourceUpdate(AdResource adResource,HttpServletRequest request) throws ParseException, IOException{
-		return null;
-		/*String path = request.getSession().getServletContext().getContextPath();
+	@RequestMapping(value="/updateAdResource.html",method=RequestMethod.POST)
+	public String adResourceUpdate(@Valid @ModelAttribute("adResourceForm")AdResourceForm adResourceForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
+		String path = request.getSession().getServletContext().getContextPath();
 		StringBuffer showpath = new StringBuffer(configService.loadConfig(Constant.Configs.filesDirPath)).append(path.trim());
 		showpath.append("/upload");
-		*//**
+		/**
 		 * 上传文件路径
-		 *//*
-		String realPath = request.getSession().getServletContext().getRealPath("/upload");
-		AdResource oldAdResource = adResourceService.getAdResource(adResource.getId());
-		*//**
+		 */
+		String realPath = request.getSession().getServletContext().getRealPath(configService.loadConfig(Constant.Configs.filesDirPath)+"/upload");
+		AdResource oldAdResource = adResourceService.getAdResource(adResourceForm.getId());
+		/**
 		 * 有效日期
-		 *//*
-		if(adResource.getStartTime()==null){
-			adResource.setStartTime(DateUtils.getDateUTC());
+		 */
+		if(adResourceForm.getStartTime()==null){
+			adResourceForm.setStartTime(oldAdResource.getStartTime());
 		}
-		if(adResource.getEndTime()==null){
-			logger.debug("有效结束日期不能为空！");
-			request.setAttribute("content", "有效结束日期不能为空！");
-			return "msg/error";
+		if(adResourceForm.getEndTime()==null){
+			adResourceForm.setEndTime(oldAdResource.getEndTime());
 		}
-		if(adResource.getStartTime().getTime()>adResource.getEndTime().getTime()){
+		if(adResourceForm.getStartTime().getTime()>adResourceForm.getEndTime().getTime()){
 			logger.debug("有效开始日期不能大于结束日期！");
 			request.setAttribute("content", "有效开始日期不能大于结束日期！");
 			return "msg/error";
 		}
-		*//**
+		/**
 		 * ad package & name 应用包 & 包名
-		 *//*
+		 */
 		
-		String adPackageName = adResource.getAppPackage().trim();
+		String adPackageName = adResourceForm.getAdPackage().trim();
 		if(StringUtils.isEmpty(adPackageName)){
 			logger.debug("应用包名不能为空！");
 			request.setAttribute("content", "应用包名不能为空！");
 			return "msg/error";
 		}
 		String adPackageDirPath = "";
-		if(!adPackageName.equals(oldAdResource.getAppPackage())){
+		if(!adPackageName.equals(oldAdResource.getAdPackage())){
 			adPackageDirPath ="/"+adPackageName+"-"+DateUtils.getDateStr(DateUtils.patternB);
 			File adPackageDir = new File(realPath+adPackageDirPath);
 	        if(!adPackageDir.exists()){
 	        	adPackageDir.mkdir();
 	        }
-	        String oldAdPackageDirPath = "/"+oldAdResource.getAppPackage()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
+	        String oldAdPackageDirPath = "/"+oldAdResource.getAdPackage()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
 	        File oldAdPackageDir = new File(realPath+oldAdPackageDirPath);
 	        for(File file:oldAdPackageDir.listFiles()){
 	        	if(file.isDirectory()){
@@ -334,13 +335,13 @@ public class AdResourceController {
 	        
 	        oldAdPackageDir.delete();
 	        
-	        oldAdResource.setAdIcon(oldAdResource.getAdIcon().replaceFirst(oldAdResource.getAppPackage(), adPackageName));
-	        oldAdResource.setApkUrl(oldAdResource.getApkUrl().replaceFirst(oldAdResource.getAppPackage(), adPackageName));
+	        oldAdResource.setAdIcon(oldAdResource.getAdIcon().replaceFirst(oldAdResource.getAdPackage(), adPackageName));
+	        oldAdResource.setApkUrl(oldAdResource.getApkUrl().replaceFirst(oldAdResource.getAdPackage(), adPackageName));
 	        
 	        String adImagesArr[] = oldAdResource.getAdImages().split(",");
 	        StringBuffer adImages = new StringBuffer("");
 	        for(String aa: adImagesArr){
-	        	aa.replaceFirst(oldAdResource.getAppPackage(), adPackageName);
+	        	aa.replaceFirst(oldAdResource.getAdPackage(), adPackageName);
 	        	if(adImages.length()>1){
 					adImages.append(",");
 				}
@@ -349,25 +350,31 @@ public class AdResourceController {
 	        oldAdResource.setAdImages(adImages.toString());
 	        oldAdResource.setCreateDate(new Date());
 		}else{
-			adPackageDirPath = "/"+oldAdResource.getAppPackage()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getItime());
+			adPackageDirPath = "/"+oldAdResource.getAdPackage()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
 		}
-		
-		MultipartFile adPackageFile = adResource.getAppPackage();
-        if(adPackageFile.isEmpty()){
-        	adResource.setFileSize(oldAdResource.getFileSize());
-        	adResource.setApkUrl(oldAdResource.getApkUrl());
-        }else{
-        	adResource.setFileSize(adPackageFile.getSize()/1024);
-        	String newname = adPackageName+StringUtils.getSuffix(adPackageFile.getOriginalFilename());
-        	FileUtils.copyInputStreamToFile(adPackageFile.getInputStream(), new File(realPath+adPackageDirPath, newname));
-			adResource.setApkUrl(showpath.toString()+adPackageDirPath+"/"+newname);
-        }
-        *//**
+        
+        /**
 		 * ad icon
-		 *//*
-		MultipartFile adIcon = adResource.getAdIconFile();
+		 */
+		MultipartFile adBannerFile = adResourceForm.getAdBannerFile();
+		if(adBannerFile.isEmpty()){
+			adResourceForm.setAdBanner(oldAdResource.getAdBanner());
+		}else{
+			String adIconDirPath = adPackageDirPath+"/icon";
+			File adIconDir = new File(realPath+adIconDirPath);
+			if(!adIconDir.exists()){
+				adIconDir.mkdir();
+			}
+			String newname = DateUtils.getDateStr(DateUtils.patternB)+StringUtils.getSuffix(adBannerFile.getOriginalFilename());
+			FileUtils.copyInputStreamToFile(adBannerFile.getInputStream(), new File(realPath+adIconDirPath, newname));
+			adResourceForm.setAdBanner(showpath.toString()+adIconDirPath+"/"+newname);
+		}
+        /**
+		 * ad icon
+		 */
+		MultipartFile adIcon = adResourceForm.getAdIconFile();
 		if(adIcon.isEmpty()){
-			adResource.setAdIcon(oldAdResource.getAdIcon());
+			adResourceForm.setAdIcon(oldAdResource.getAdIcon());
 		}else{
 			String adIconDirPath = adPackageDirPath+"/icon";
 			File adIconDir = new File(realPath+adIconDirPath);
@@ -377,21 +384,21 @@ public class AdResourceController {
 	//		String newname = "icon"+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
-			adResource.setAdIcon(showpath.toString()+adIconDirPath+"/"+newname);
+			adResourceForm.setAdIcon(showpath.toString()+adIconDirPath+"/"+newname);
 		}
-		*//**
+		/**
 		 * 应用图片组(a.jpg,c.jpg,b.jpg)
-		 *//*
+		 */
 		String adImagesDirPath = adPackageDirPath+"/images";
 		File adImagesDir = new File(realPath+adImagesDirPath);
 		if(!adImagesDir.exists()){
 			adImagesDir.mkdir();
 		}
 		StringBuffer adImages = new StringBuffer("") ;
-		MultipartFile adImagea = adResource.getAdImagea();
-		MultipartFile adImageb = adResource.getAdImageb();
-		MultipartFile adImagec = adResource.getAdImagec();
-		MultipartFile adImaged = adResource.getAdImaged();
+		MultipartFile adImagea = adResourceForm.getAdImagea();
+		MultipartFile adImageb = adResourceForm.getAdImageb();
+		MultipartFile adImagec = adResourceForm.getAdImagec();
+		MultipartFile adImaged = adResourceForm.getAdImaged();
 		String newname = "" ;
 		if(!adImagea.isEmpty()){
 			newname = DateUtils.getDateStr(DateUtils.patternF)+"a"+StringUtils.getSuffix(adImagea.getOriginalFilename());
@@ -423,13 +430,13 @@ public class AdResourceController {
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(adImages.length()>1){
-			adResource.setAdImages(adImages.toString());
+			adResourceForm.setAdImages(adImages.toString());
 		}else{
-			adResource.setAdImages(oldAdResource.getAdImages());
+			adResourceForm.setAdImages(oldAdResource.getAdImages());
 		}
-		adResource.setItime(oldAdResource.getItime());
+		AdResource adResource = adResourceForm.asPojo();
 		adResourceService.updateAdResource(adResource);
-		request.setAttribute("content", "修改信息成功!");
-		return "msg/success";*/
+		request.setAttribute("success", true);
+		return getAdResource(adResourceForm, adResourceForm.getId(), model);
 	}
 }

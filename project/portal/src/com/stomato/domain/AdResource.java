@@ -46,7 +46,7 @@ public class AdResource extends BaseParam {
 	/**
 	 * 应用包名
 	 */
-	private String appPackage;
+	private String adPackage;
 	/**
 	 * 应用文件大小
 	 */
@@ -86,7 +86,7 @@ public class AdResource extends BaseParam {
 	/**
 	 * 应用推荐等级
 	 */
-	private Integer appRating;
+	private Integer adRating;
 	/**
 	 * 描述
 	 */
@@ -202,14 +202,6 @@ public class AdResource extends BaseParam {
 		this.adImages = adImages;
 	}
 
-	public String getAppPackage() {
-		return appPackage;
-	}
-
-	public void setAppPackage(String appPackage) {
-		this.appPackage = appPackage;
-	}
-
 	public Integer getFileSize() {
 		return fileSize;
 	}
@@ -232,14 +224,6 @@ public class AdResource extends BaseParam {
 
 	public void setSupportPlatform(String supportPlatform) {
 		this.supportPlatform = supportPlatform;
-	}
-
-	public Integer getAppTypeId() {
-		return appTypeId;
-	}
-
-	public void setAppTypeId(Integer appTypeId) {
-		this.appTypeId = appTypeId;
 	}
 
 	public Integer getChargeType() {
@@ -266,12 +250,28 @@ public class AdResource extends BaseParam {
 		this.recommens = recommens;
 	}
 
-	public Integer getAppRating() {
-		return appRating;
+	public String getAdPackage() {
+		return adPackage;
 	}
 
-	public void setAppRating(Integer appRating) {
-		this.appRating = appRating;
+	public void setAdPackage(String adPackage) {
+		this.adPackage = adPackage;
+	}
+
+	public Integer getAppTypeId() {
+		return appTypeId;
+	}
+
+	public void setAppTypeId(Integer appTypeId) {
+		this.appTypeId = appTypeId;
+	}
+
+	public Integer getAdRating() {
+		return adRating;
+	}
+
+	public void setAdRating(Integer adRating) {
+		this.adRating = adRating;
 	}
 
 	public String getDescription() {

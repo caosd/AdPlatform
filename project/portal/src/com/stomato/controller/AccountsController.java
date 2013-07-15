@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.stomato.constant.Constant;
 import com.stomato.domain.Payment;
 import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
@@ -239,6 +240,8 @@ public class AccountsController extends UserController {
 				}
 			}
 			User user = userForm.asPojo();
+			//不需审核
+			user.setStatus(Constant.UserStatus.approved);
 			accountsService.addUser(user);
 			user = accountsService.getUser(user);
 			UserAccount userAccount = new UserAccount();

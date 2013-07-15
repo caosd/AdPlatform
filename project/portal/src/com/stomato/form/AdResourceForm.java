@@ -2,6 +2,7 @@ package com.stomato.form;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,11 +19,13 @@ public class AdResourceForm {
 	/**
 	 * 下载资源名称
 	 */
+	@NotEmpty
 	private String adName;
 
 	/**
 	 * 广告标题
 	 */
+	@NotEmpty
 	private String adTitle;
 
 	/**
@@ -41,7 +44,8 @@ public class AdResourceForm {
 	/**
 	 * 应用包名
 	 */
-	private String appPackage;
+	@NotEmpty
+	private String adPackage;
 	/**
 	 * 应用文件大小
 	 */
@@ -49,10 +53,12 @@ public class AdResourceForm {
 	/**
 	 * 应用版本
 	 */
+	@NotEmpty
 	private String version;
 	/**
 	 * 应用支持平台
 	 */
+	@NotEmpty
 	private String supportPlatform;
 	/**
 	 * 应用分类编号ID
@@ -81,7 +87,7 @@ public class AdResourceForm {
 	/**
 	 * 应用推荐等级
 	 */
-	private Integer appRating;
+	private Integer adRating;
 	/**
 	 * 描述
 	 */
@@ -259,14 +265,6 @@ public class AdResourceForm {
 		this.adImages = adImages;
 	}
 
-	public String getAppPackage() {
-		return appPackage;
-	}
-
-	public void setAppPackage(String appPackage) {
-		this.appPackage = appPackage;
-	}
-
 	public Integer getFileSize() {
 		return fileSize;
 	}
@@ -289,14 +287,6 @@ public class AdResourceForm {
 
 	public void setSupportPlatform(String supportPlatform) {
 		this.supportPlatform = supportPlatform;
-	}
-
-	public Integer getAppTypeId() {
-		return appTypeId;
-	}
-
-	public void setAppTypeId(Integer appTypeId) {
-		this.appTypeId = appTypeId;
 	}
 
 	public Integer getChargeType() {
@@ -323,12 +313,28 @@ public class AdResourceForm {
 		this.recommens = recommens;
 	}
 
-	public Integer getAppRating() {
-		return appRating;
+	public String getAdPackage() {
+		return adPackage;
 	}
 
-	public void setAppRating(Integer appRating) {
-		this.appRating = appRating;
+	public void setAdPackage(String adPackage) {
+		this.adPackage = adPackage;
+	}
+
+	public Integer getAppTypeId() {
+		return appTypeId;
+	}
+
+	public void setAppTypeId(Integer appTypeId) {
+		this.appTypeId = appTypeId;
+	}
+
+	public Integer getAdRating() {
+		return adRating;
+	}
+
+	public void setAdRating(Integer adRating) {
+		this.adRating = adRating;
 	}
 
 	public String getDescription() {
