@@ -439,4 +439,21 @@ public class AdResourceController {
 		request.setAttribute("success", true);
 		return getAdResource(adResourceForm, adResourceForm.getId(), model);
 	}
+	/**
+	 * 查询回收站列表
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/listRecycle.html")
+	public String recycleList(@ModelAttribute("adResource")AdResource adResource,BindingResult result,HttpServletRequest request){
+		adResource.setIsDel(true);
+		int total = adResourceService.listTotal(adResource);
+		BaseParam baseParam = new BaseParam(request,total);
+		baseParam.setParam(adResource);
+		
+		List<AdResource> adResourceList = adResourceService.listAdResource(baseParam);
+		request.setAttribute("adResourceList", adResourceList);
+		request.setAttribute("pageBean", baseParam);
+		return "portal/adresouce/adResourceRecycleList";
+	}
 }

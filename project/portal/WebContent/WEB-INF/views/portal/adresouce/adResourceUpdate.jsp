@@ -11,13 +11,13 @@
 		<li><a href="/"><i class="icon-home"></i></a><span
 			class="divider">&nbsp;</span></li>
 		<li><a href="#">资源管理</a> <span class="divider">&nbsp;</span></li>
-		<li><a href="#">资源录入</a><span class="divider-last">&nbsp;</span></li>
+		<li><a href="#">修改资源信息</a><span class="divider-last">&nbsp;</span></li>
 	</ul>
 
 	<div class="widget">
 		<form:form commandName="adResourceForm" method="POST" class="form-horizontal form-wizard" enctype="multipart/form-data">
 			<div class="widget-header">
-				<h5>资源录入</h5>
+				<h5>修改资源信息</h5>
 			</div>
 			<c:if test="${success != null}">
                 <div class="note note-danger" style="margin: 20px 30px;">
@@ -25,10 +25,10 @@
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
                     	<c:when test="${success}">
-                    		添加广告资源成功。
+                    		修改资源信息成功。
                     	</c:when>
                     	<c:otherwise>
-                    		添加广告资源失败。
+                    		修改资源信息失败。
                     	</c:otherwise>
                     </c:choose>
                 </div>

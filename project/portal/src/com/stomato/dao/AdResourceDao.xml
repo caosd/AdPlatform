@@ -85,7 +85,7 @@
 			#{startTime},
 			#{endTime},
 			1,
-			1)
+			0)
 	</insert>
 	
 	<select id="hasPackage" parameterType="string" resultType="int" >
@@ -158,6 +158,14 @@
 		<if test="adName != null">
 		 	and ad_name like '%${adName}%'
 		</if>
+		<choose>
+			<when test="isDel != null">
+				and is_del=#{isDel}
+			</when>
+			<otherwise>
+				and is_del=0
+			</otherwise>
+		</choose>
 	</select>
 	<select id="listAdResource" parameterType="com.stomato.domain.BaseParam" resultMap="adResource" >
 		select  id,
@@ -192,6 +200,14 @@
 			<if test="param.adName != null">
 			 	and ad_name like '%${param.adName}%'
 			</if>
+			<choose>
+				<when test="param.isDel != null">
+					and is_del=#{param.isDel}
+				</when>
+				<otherwise>
+					and is_del=0
+				</otherwise>
+			</choose>
 		</if>
 		order by modify_date asc
 		<if test="slimt != null">limit #{slimt},#{pageSize}</if>

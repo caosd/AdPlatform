@@ -10,12 +10,12 @@
 		<li><a href="/"><i class="icon-home"></i></a><span
 			class="divider">&nbsp;</span></li>
 		<li><a href="#">资源管理</a> <span class="divider">&nbsp;</span></li>
-		<li><a href="#">资源列表</a><span class="divider-last">&nbsp;</span></li>
+		<li><a href="#">回收站</a><span class="divider-last">&nbsp;</span></li>
 	</ul>
 
 	<div class="widget">
 		<div class="widget-header">
-			<h5>资源列表</h5>
+			<h5>回收站</h5>
 		</div>
 		<div class="widget-content">
 		   <div class="row-fluid">
@@ -92,14 +92,7 @@
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/adResource/updateAdResource.html?id=${item.id }">编辑</a>
-		                        	<c:if test="${item.status==1}">
-		                        		<a href="javascript:void(0)" onclick="deleteData('/adResource/deleteAdResource.html?id=${item.id }')">下架</a>
-		                        	</c:if>
-		                        	<c:if test="${item.status==0}">
-		                        		<a href="javascript:void(0)" onclick="deleteData('/adResource/deleteAdResource.html?id=${item.id }')">上架</a>
-		                        	</c:if>
-		                        	<a href="javascript:void(0)" onclick="deleteData('/adResource/deleteAdResource.html?id=${item.id }')">删除</a>
+		                        	<a href="javascript:void(0)" onclick="deleteData('/adResource/deleteAdResource.html?id=${item.id }')">还原</a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>

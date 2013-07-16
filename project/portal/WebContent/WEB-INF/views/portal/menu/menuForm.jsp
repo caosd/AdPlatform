@@ -63,7 +63,7 @@
 	       <div class="control-group">
               <label class="control-label">是否可见:</label>
               <div class="controls">
-                 <form:checkbox path="visible" value="1"/>
+                 <form:checkbox path="visible" value="1" checked="checked"/>
               </div>
            </div>
 	       <div class="control-group">
