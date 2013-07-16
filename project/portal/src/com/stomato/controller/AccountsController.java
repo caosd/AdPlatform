@@ -337,7 +337,7 @@ public class AccountsController extends UserController {
 		model.addAttribute("totalcount", total);
 		model.addAttribute("pageNum", param.getPageNum());
 		model.addAttribute("userList", userList);
-		return "portal/user/userReview";
+		return "portal/user/userReviewList";
 	}
 	/**
 	 * 用户审核通过
@@ -372,5 +372,21 @@ public class AccountsController extends UserController {
 		accountsService.updateUser(user);
 		model.addAttribute("success", true);
 		return "redirect:/accounts/userReviewList.html";
+	}
+	/**
+	 * 用户审核不通过，向用户发送驳回理由
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/userRebut.html",method=RequestMethod.GET)
+	public String rebutUser(int id,Model model){
+		User user = accountsService.getUserByUid(id);
+		model.addAttribute("user", user);
+		return "portal/user/userRebut";
+	}
+	@RequestMapping(value="/userRebut.html",method=RequestMethod.POST)
+	public String rebutUser(HttpServletRequest request,Model model){
+		model.addAttribute("success", true);
+		return "portal/user/userRebut";
 	}
 }

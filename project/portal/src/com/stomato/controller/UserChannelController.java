@@ -54,7 +54,7 @@ public class UserChannelController {
 	public String addUserChannel(@Valid @ModelAttribute("userChannelForm")UserChannelForm userChannelForm, BindingResult result,HttpServletRequest request,Model model) {
 		
 		if(result.hasErrors()){
-			return "portal/userchannel/userChannelForm";
+			return fromPage(userChannelForm,result, model);
 		}
 		UserChannel userChannel = userChannelForm.asPojo();
 		Company company = companyService.getCompany(userChannel.getCompanyId());

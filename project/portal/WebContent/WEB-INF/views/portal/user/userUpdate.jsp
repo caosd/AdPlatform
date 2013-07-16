@@ -22,10 +22,12 @@
 	  </div>
 	  <div class="widget-body form" style="display: block;">
 	  	<c:if test="${content != null}">
-		  	<div class="alert alert-success">
-		         <strong>${content}</strong>
-		    </div>
-	    </c:if>
+            <div class="note note-danger" style="margin: 20px 30px;">
+                <button type="button" class="close note-remove">×</button>
+                <strong><fmt:message key="tips"/></strong> 
+                ${content}
+            </div>
+        </c:if>
 	    <!-- BEGIN FORM-->
 	    <form:form commandName="profileForm" method="POST" class="form-horizontal">
 	       <div class="control-group">
