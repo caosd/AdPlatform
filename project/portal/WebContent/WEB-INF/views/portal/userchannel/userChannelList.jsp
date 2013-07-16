@@ -74,8 +74,9 @@
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/userchannel/updateUserChannel.html?id=${item.id }">编辑</a>
-		                        	<a href="javascript:void(0)" onclick="deleteData('/userchannel/deleteUserChannel.html?id=${item.id }')">删除</a>
+		                        	<a href="javascript:void(0)" onclick="openPushBtn(${item.id },'${item.channelNo }')"> 打开 </a>
+		                        	<a href="javascript:void(0)" onclick="closePushBtn(${item.id },'${item.channelNo }')"> 关闭 </a>
+		                        	<a href="javascript:void(0)" onclick="deleteData('/userchannel/deleteUserChannel.html?id=${item.id }')"> 删除 </a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>
@@ -86,4 +87,22 @@
 	           </div>
 		</div>
 	</div>
+<script type="text/javascript">
+  /*
+  *打开推送
+  */
+  function openPushBtn(id,channelNo) {
+  		if(confirm("确认打开["+channelNo+"]推送吗？")){
+     		window.location.href = "/userchannel/openPushChannel.html?id="+id;
+     	}
+  };
+  /*
+  *关闭推送
+  */
+  function closePushBtn(id,channelNo) {
+  		if(confirm("确认关闭["+channelNo+"]推送吗？")){
+     		window.location.href = "/userchannel/closePushChannel.html?id="+id;
+     	}
+  };
+</script>
 </body>

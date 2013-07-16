@@ -314,7 +314,7 @@ public class AccountsController extends UserController {
 		model.addAttribute("content", "编辑用户成功！");
 		return "portal/user/userUpdate";
 	}
-	@RequestMapping(value="/userReview.html")
+	@RequestMapping(value="/userReviewList.html")
 	public String listToReview(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,Model model){
 		/*if(flag == 1){
 			user.setRoleId(5);
@@ -338,5 +338,39 @@ public class AccountsController extends UserController {
 		model.addAttribute("pageNum", param.getPageNum());
 		model.addAttribute("userList", userList);
 		return "portal/user/userReview";
+	}
+	/**
+	 * 用户审核通过
+	 * @param id
+	 * @param model
+	 */
+	@RequestMapping(value="/userApproved.html")
+	public String approvedUser(int id,Model model){
+		User user = accountsService.getUserByUid(id);
+		if( user == null ){
+			model.addAttribute("success", false);
+			return "redirect:/accounts/userReviewList.html";
+		}
+		user.setStatus(Constant.UserStatus.approved);
+		accountsService.updateUser(user);
+		model.addAttribute("success", false);
+		return "redirect:/accounts/userReviewList.html";
+	}
+	/**
+	 * 用户审核通过
+	 * @param id
+	 * @param model
+	 */
+	@RequestMapping(value="/userNoPass.html")
+	public String noPassUser(int id,Model model){
+		User user = accountsService.getUserByUid(id);
+		if( user == null ){
+			model.addAttribute("success", false);
+			return "redirect:/accounts/userReviewList.html";
+		}
+		user.setStatus(Constant.UserStatus.noPASS);
+		accountsService.updateUser(user);
+		model.addAttribute("success", true);
+		return "redirect:/accounts/userReviewList.html";
 	}
 }

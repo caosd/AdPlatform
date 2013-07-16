@@ -85,8 +85,8 @@
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/accounts/editUser.html?id=${item.uid }">通过</a>
-		                        	<a href="/accounts/resetPw.html?id=${item.uid }">不通过</a>
+		                        	<a href="javascript:void(0)" onclick="approvedBtn(${item.uid },'${item.userName }')"> 通过 </a>
+		                        	<a href="javascript:void(0)" onclick="noPassBtn(${item.uid },'${item.userName }')"> 不通过 </a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>
@@ -100,4 +100,22 @@
         <!-- END EXAMPLE TABLE widget-->
     </div>
 </div>
+<script type="text/javascript">
+  /*
+  *打开推送
+  */
+  function approvedBtn(id,userName) {
+  		if(confirm("确认打开["+userName+"]推送吗？")){
+     		window.location.href = "/userchannel/openPushChannel.html?id="+id;
+     	}
+  };
+  /*
+  *关闭推送
+  */
+  function noPassBtn(id,userName) {
+  		if(confirm("确认关闭["+userName+"]推送吗？")){
+     		window.location.href = "/userchannel/closePushChannel.html?id="+id;
+     	}
+  };
+</script>
 </body>

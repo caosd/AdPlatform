@@ -137,4 +137,27 @@ public class UserChannelController {
 		model.addAttribute("_goto", "/userchannel/userChannelList.html");
 		return "redirect:/result/success";
 	}
+	 
+	@RequestMapping(value="/openPushChannel.html")
+	public String openPush(int id,@ModelAttribute("userChannel")UserChannel form,BindingResult result,HttpServletRequest request,Model model){
+		UserChannel userChannel = userChannelService.getUserChannel(id);
+		if( userChannel == null){
+			model.addAttribute("success", false);
+			return "redirect:/userchannel/userChannelList.html";
+		}
+		userChannelService.openPushChannel(userChannel);
+		model.addAttribute("success", true);
+		return "redirect:/userchannel/userChannelList.html";
+	}
+	@RequestMapping(value="/closePushChannel.html")
+	public String closenPush(int id,@ModelAttribute("userChannel")UserChannel form,BindingResult result,HttpServletRequest request,Model model){
+		UserChannel userChannel = userChannelService.getUserChannel(id);
+		if( userChannel == null){
+			model.addAttribute("success", false);
+			return "redirect:/userchannel/userChannelList.html";
+		}
+		userChannelService.closePushChannel(userChannel);
+		model.addAttribute("success", true);
+		return "redirect:/userchannel/userChannelList.html";
+	}
 }
