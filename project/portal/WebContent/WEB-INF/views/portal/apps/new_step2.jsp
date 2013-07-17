@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../includes/config.jsp"%>
-<head><style type="text/css">.navbar .span2{width:14%;}</style></head>
 <body>
 
     <ul class="breadcrumb">
@@ -23,24 +22,20 @@
                 <div class="navbar steps">
                     <div class="navbar-inner">
                         <ul class="row-fluid nav nav-pills">
-                            <li class="span2 active"><a href="#tab1" data-toggle="tab"
+                            <li class="span3 active"><a href="#tab1" data-toggle="tab"
                                 class="step active"> <span class="number">1</span> <span
                                     class="desc"><i class="icon-ok"></i> 分析应用 </span>
                             </a></li>
-                            <li class="span2 active "><a href="#tab2" data-toggle="tab"
+                            <li class="span3 active "><a href="#tab2" data-toggle="tab"
                                 class="step active"> <span class="number">2</span> <span
                                     class="desc"><i class="icon-ok"></i> 修改信息 </span>
                             </a></li>
-                            <li class="span2"><a href="#tab3" data-toggle="tab"
+                            <li class="span3"><a href="#tab3" data-toggle="tab"
                                 class="step"> <span class="number">3</span> <span
                                     class="desc"><i class="icon-ok"></i> 下载SDK </span>
                             </a></li>
-                            <li class="span2"><a href="#tab4" data-toggle="tab"
-                                class="step"> <span class="number">4</span> <span
-                                    class="desc"><i class="icon-ok"></i> 上传应用 </span>
-                            </a></li>
-                            <li class="span2 "><a href="#tab4" data-toggle="tab"
-                                class="step active"> <span class="number">5</span> <span
+                            <li class="span3"><a href="#tab4" data-toggle="tab"
+                                class="step active"> <span class="number">4</span> <span
                                     class="desc"><i class="icon-ok"></i> 添加成功 </span>
                             </a></li>
                         </ul>
@@ -48,7 +43,7 @@
                 </div>
                 <div id="bar" class="progress progress-striped"
                     style="margin: 30px 20px;">
-                    <div class="bar" style="width: 40%;"></div>
+                    <div class="bar" style="width: 50%;"></div>
                 </div>
                 <h4 style="margin: 50px 30px 10px 30px;">第二步，补充应用信息</h4>
                 <c:if test="${appKeyError}">
