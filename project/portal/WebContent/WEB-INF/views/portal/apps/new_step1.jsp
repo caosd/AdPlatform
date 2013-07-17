@@ -73,7 +73,7 @@
 						<input type="file" name="file" id="file">
 					</div>
 				</div>
-				<div class="form-row" style="padding-left: 180px;">
+				<div class="form-row" style="padding-left: 208px;">
 					<button type="submit" class="button button-blue">上传应用</button>
 				</div>
 			</div>

@@ -2,6 +2,7 @@ package com.stomato.controller;
 
 import java.io.File;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
@@ -29,7 +31,7 @@ import com.stomato.validator.CredentialValidation;
 import com.stomato.validator.RegistrationValidation;
 
 @Controller
-@RequestMapping("/signup.html")
+@RequestMapping("/")
 public class RegistrationController {
 	
 	Logger logger = Logger.getLogger(this.getClass().getName());
@@ -49,21 +51,22 @@ public class RegistrationController {
 	@Autowired
 	private ConfigService configService;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/register.html", method = RequestMethod.GET)
 	public String showRegistration(@ModelAttribute("regForm") RegistrationForm form) {
-		return "backend/accounts/sign_up";
+		return "portal/register";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/register.html", method = RequestMethod.POST)
 	public String processRegistration(@Valid @ModelAttribute("regForm") RegistrationForm form,
 											 BindingResult result,
-											 @RequestParam("credentialsPhoto") MultipartFile credentialsPhoto,
-											 @RequestParam("credentialsNo") String credentialsNo,
-											 Model model) {
+											 @RequestParam("file1") MultipartFile file1,
+											 @RequestParam("file2") MultipartFile file2,
+											 Model model,
+											 HttpServletRequest request) {
 		registrationValidation.validate(form, result);
-		model.addAttribute("userType", form.getType());
 		if (result.hasErrors()) {
-			return "backend/accounts/sign_up";
+			model.addAttribute("type", form.getType());
+			return "portal/register";
 		}
 		
 		User verifier = new User();
@@ -72,12 +75,14 @@ public class RegistrationController {
 		verifier = accountsService.verify(verifier);
 		if (verifier != null) {
 			if (form.getEmail().equals(verifier.getEmail())) {
+				model.addAttribute("type", form.getType());
 				result.rejectValue("email", "error.email_is_exist", "This email address has been registered.");
-				return "backend/accounts/sign_up";
+				return "portal/register";
 			}
 			if (form.getUserName().equals(verifier.getUserName())) {
+				model.addAttribute("type", form.getType());
 				result.rejectValue("userName", "error.username_is_exist", "This username has been registered.");
-				return "backend/accounts/sign_up";
+				return "portal/register";
 			}
 		}
 		
@@ -91,26 +96,56 @@ public class RegistrationController {
 		userAccount.setBalance(0d);
 		userAccountService.addUserAccount(userAccount);
 		if (user.getType() == AccountTypeEnum.Company.value()) {
+			String credentialsNo = request.getParameter("credentialsNo");
 			Credentials credentials = new Credentials();
 			credentials.setUid(user.getUid());
 			credentials.setCredentialsType(Constant.CredentialsType.businessLicense);
 			credentials.setCredentialsNo(credentialsNo);
 			try{
-				String suffix = CredentialValidation.IMG_SUFFIXS.get(credentialsPhoto.getContentType());
-				String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", user.getUid(),Constant.Configs.credentialsDirPath,credentials.getCredentialsType(),credentialsNo,"photo1",suffix);
-				File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", Constant.fileSeparator));
-				if (!targetFile.exists()) {
-					boolean made = targetFile.mkdirs();
-					logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
+				if (file1.getSize() > 0) {
+					String surfix = CredentialValidation.IMG_SUFFIXS.get(file1.getContentType());
+					if (null != surfix) {
+						String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", user.getUid(),Constant.Configs.credentialsDirPath,credentials.getCredentialsType(),credentialsNo,"photo1",surfix);
+						File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", Constant.fileSeparator));
+						if (!targetFile.exists()) {
+							boolean made = targetFile.mkdirs();
+							logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
+						}
+						file1.transferTo(targetFile);
+						credentials.setCredentialsPhoto1(String.format("%s_%s_%s.%s", credentials.getCredentialsType(),credentialsNo,"photo1",surfix));
+					}
 				}
-				credentialsPhoto.transferTo(targetFile);
-				credentials.setCredentialsPhoto1(String.format("%s_%s_%s.%s", credentials.getCredentialsType(),credentialsNo,"photo1",suffix));
+				if (file2.getSize() > 0) {
+					String surfix = CredentialValidation.IMG_SUFFIXS.get(file2.getContentType());
+					if (null != surfix) {
+						String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", user.getUid(),Constant.Configs.credentialsDirPath,credentials.getCredentialsType(),credentialsNo,"photo2",surfix);
+						File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", Constant.fileSeparator));
+						if (!targetFile.exists()) {
+							boolean made = targetFile.mkdirs();
+							logger.info("result[" + made + "] create dirs:" + targetFile.getPath());
+						}
+						file2.transferTo(targetFile);
+						credentials.setCredentialsPhoto2(String.format("%s_%s_%s.%s", credentials.getCredentialsType(),credentialsNo,"photo2",surfix));
+					}
+				}
 			}catch(Exception error){
 				logger.error("[Upload Error] " + error.getMessage());
 			}
 			this.credentialsService.addCredentials(credentials);
 		}
 		
-		return "redirect:/accounts/sign-up?success=true";
+		return "redirect:/notify2.html";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/checkreg.html")
+	public Object checkreg(HttpServletRequest request) {
+		String email = request.getParameter("email");
+		String userName = request.getParameter("userName");
+		User verifier = new User();
+		verifier.setEmail(email);
+		verifier.setUserName(userName);
+		verifier = accountsService.verify(verifier);
+		return verifier != null;
 	}
 }

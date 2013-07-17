@@ -179,4 +179,8 @@ public class PortalController extends UserController {
 		return "portal/recover/reset_pwd_unsuccess";
 	}
 	
+	@RequestMapping("/notify2.html")
+	public String notify2() {
+		return "portal/notify2";
+	}
 }
