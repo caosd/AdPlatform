@@ -219,6 +219,7 @@ public class AdResourceController {
 		adResourceForm.setAdImages(adImages.toString());
 		adResourceForm.setStatus(1);
 		AdResource adResource = adResourceForm.asPojo();
+		adResource.setStatus(Constant.AdResourceStatus.offShelf);
 		adResourceService.addAdResource(adResource);
 		//清空表单
 		BeanUtils.copyProperties(new AdResourceForm(), adResourceForm);
@@ -270,7 +271,15 @@ public class AdResourceController {
 		baseParam.setParam(adResource);
 		
 		List<AdResource> adResourceList = adResourceService.listAdResource(baseParam);
+		
+		AdChannel adChannel = new AdChannel();
+		adChannel.setEnable(true);
+		BaseParam adChannelParame = new BaseParam();
+		adChannelParame.setParam(adChannel);
+		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelParame);
 		request.setAttribute("adResourceList", adResourceList);
+		request.setAttribute("adChannelList", adChannelList);
+		request.setAttribute("appTypeList", appTypeService.listAppType(null));
 		request.setAttribute("pageBean", baseParam);
 		return "portal/adresouce/adResourceList";
 	}
@@ -439,6 +448,53 @@ public class AdResourceController {
 		request.setAttribute("success", true);
 		return getAdResource(adResourceForm, adResourceForm.getId(), model);
 	}
+	
+	@RequestMapping("/onShelf.html")
+	public String onShelfAdResource(int id,Model model){
+		AdResource resource = adResourceService.getAdResource(id);
+		if( Constant.AdResourceStatus.onShelf != resource.getStatus() ){
+			resource.setStatus(Constant.AdResourceStatus.onShelf);
+			adResourceService.updateAdResource(resource);
+		}
+		return "redirect:/adResource/adResourceList.html";
+	}
+	@RequestMapping("/offShelf.html")
+	public String offShelfAdResource(int id,Model model){
+		AdResource resource = adResourceService.getAdResource(id);
+		if( Constant.AdResourceStatus.offShelf != resource.getStatus() ){
+			resource.setStatus(Constant.AdResourceStatus.offShelf);
+			adResourceService.updateAdResource(resource);
+		}
+		return "redirect:/adResource/adResourceList.html";
+	}
+	@RequestMapping("/recomm.html")
+	public String recommAdResource(int id,Model model){
+		AdResource resource = adResourceService.getAdResource(id);
+		if( !resource.getRecom() ){
+			resource.setRecom(true);
+			adResourceService.updateAdResource(resource);
+		}
+		return "redirect:/adResource/adResourceList.html";
+	}
+	@RequestMapping("/cancelRecomm.html")
+	public String cancelRecommAdResource(int id,Model model){
+		AdResource resource = adResourceService.getAdResource(id);
+		if( resource.getRecom() ){
+			resource.setRecom(false);
+			adResourceService.updateAdResource(resource);
+		}
+		return "redirect:/adResource/adResourceList.html";
+	}
+	@RequestMapping("/deleteAdResource.html")
+	public String deleteAdResource(int id,Model model){
+		AdResource resource = adResourceService.getAdResource(id);
+		if( !resource.getIsDel() ){
+			resource.setIsDel(true);
+			resource.setStatus(Constant.AdResourceStatus.offShelf);
+			adResourceService.updateAdResource(resource);
+		}
+		return "redirect:/adResource/adResourceList.html";
+	}
 	/**
 	 * 查询回收站列表
 	 * @param model
@@ -451,9 +507,26 @@ public class AdResourceController {
 		BaseParam baseParam = new BaseParam(request,total);
 		baseParam.setParam(adResource);
 		
+		AdChannel adChannel = new AdChannel();
+		adChannel.setEnable(true);
+		BaseParam adChannelParame = new BaseParam();
+		adChannelParame.setParam(adChannel);
+		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelParame);
 		List<AdResource> adResourceList = adResourceService.listAdResource(baseParam);
+		
+		request.setAttribute("adChannelList", adChannelList);
+		request.setAttribute("appTypeList", appTypeService.listAppType(null));
 		request.setAttribute("adResourceList", adResourceList);
 		request.setAttribute("pageBean", baseParam);
 		return "portal/adresouce/adResourceRecycleList";
+	}
+	@RequestMapping("/recover.html")
+	public String recoverAdResource(int id,Model model){
+		AdResource resource = adResourceService.getAdResource(id);
+		if( resource.getIsDel() ){
+			resource.setIsDel(false);
+			adResourceService.updateAdResource(resource);
+		}
+		return "redirect:/adResource/listRecycle.html";
 	}
 }

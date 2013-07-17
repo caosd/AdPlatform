@@ -102,6 +102,7 @@ public class AdResource extends BaseParam {
 
 	private Integer status;
 	private Boolean isDel;
+	private Boolean recom;
 
 	/**
 	 * 展示需要
@@ -168,6 +169,14 @@ public class AdResource extends BaseParam {
 
 	public void setAdTitle(String adTitle) {
 		this.adTitle = adTitle;
+	}
+
+	public Boolean getRecom() {
+		return recom;
+	}
+
+	public void setRecom(Boolean recom) {
+		this.recom = recom;
 	}
 
 	public String getAdIcon() {

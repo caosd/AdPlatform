@@ -67,14 +67,31 @@
 	               	<c:forEach items="${adResourceList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 		            			<td class="sorting_1">${stat.index}</td>
-		                        <td>${item.channelId }</td>
+		                        <td>
+								<c:forEach items="${adChannelList}" var="adChannel" >
+		                        	<c:if test="${adChannel.id == item.channelId}">
+		                        		${adChannel.channelName }
+		                        	</c:if>
+		                        </c:forEach>
+								</td>
 		                        <td>${item.adName }</td>
 		                        <!--<td>${item.adPackage }</td>
 		                        <td>${item.fileSize }</td>
 		                        --><td>${item.version }</td>
 		                        <td>${item.supportPlatform }</td>
-		                        <td>${item.appTypeId }</td>
-		                        <td>${item.chargeType }</td>
+		                        <td>
+								<c:forEach items="${appTypeList}" var="appType" >
+		                        	<c:if test="${appType.id == item.appTypeId}">
+		                        		${appType.typeName }
+		                        	</c:if>
+		                        </c:forEach>
+								</td>
+		                        <td>
+								<c:choose>
+		                        		<c:when test="${item.chargeType == 0 }">免费</c:when>
+		                        		<c:otherwise>收费</c:otherwise>
+		                        </c:choose>
+								</td>
 		                        <td>${item.price }</td>
 		                        <td>${item.clearingForm }</td>
 		                        <td>${item.downloads }</td>
@@ -92,7 +109,7 @@
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="javascript:void(0)" onclick="deleteData('/adResource/deleteAdResource.html?id=${item.id }')">还原</a>
+		                        	<a href="/adResource/recover.html?id=${item.id }">还原</a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>

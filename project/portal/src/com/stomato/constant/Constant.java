@@ -46,4 +46,11 @@ public interface Constant {
 		
 		int approved = 1;
 	}
+	//广告资源状态
+	interface AdResourceStatus{
+		//上架
+		int onShelf = 1;
+		//下架
+		int offShelf = 0;
+	}
 }
