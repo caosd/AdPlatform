@@ -43,7 +43,7 @@
 			<if test="channelNo != null">channel_no=#{channelNo},</if>
 			<if test="description != null">description=#{description},</if>
 			<if test="status != null">status=#{status},</if>
-			last_update_time=now
+			last_update_time=now()
 		</set>
         where id = #{id}
 	</update>
@@ -77,7 +77,7 @@
 			 	and channel_no like '%${param.channelNo}%'
 			</if>
 		</if>
-		order by last_update_time asc
+		order by last_update_time desc
 		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
 	</select>
 </mapper>

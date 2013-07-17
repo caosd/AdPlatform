@@ -2389,7 +2389,13 @@ header #phoneNav img {
 	line-height: 14px;
 	margin-top: 5px;
 }
-
+.widget .widget-body .control-group .error {
+	font-size: 12px;
+	color: #a73939;
+	display: block;
+	line-height: 14px;
+	margin-top: 5px;
+}
 /* Calendar event widget */
 
 .calendar-event-list .external-event {

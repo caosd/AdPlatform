@@ -29,7 +29,7 @@ public class AdChannelController {
 	@Autowired
 	private AdChannelService adChannelService ;
 	/**
-	 * goto 进入天津渠道页面
+	 * goto 进入渠道页面
 	 * @return
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.GET)

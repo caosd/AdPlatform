@@ -22,6 +22,19 @@ public class UserChannelService {
 	public void updateUserChannel(UserChannel UserChannel) {
 		userChannelDao.updateUserChannel(UserChannel);
 	}
+	
+	public void openPushChannel(UserChannel userChannel){
+		if( userChannel != null ){
+			userChannel.setStatus(1);
+			userChannelDao.updateUserChannel(userChannel);
+		}
+	}
+	public void closePushChannel(UserChannel userChannel){
+		if( userChannel != null ){
+			userChannel.setStatus(0);
+			userChannelDao.updateUserChannel(userChannel);
+		}
+	}
 	public void deleteUserChannel(int id) {
 		userChannelDao.deleteUserChannel(id);
 	}

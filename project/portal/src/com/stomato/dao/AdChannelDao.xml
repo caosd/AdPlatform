@@ -50,7 +50,7 @@
 	</update>
 	
 	<update id="deleteAdChannel" parameterType="int">
-		update t_ad_channel set is_del=#{1} where id = #{id}
+		update t_ad_channel set is_del=1 where id = #{id}
 	</update>
 	
 	<select id="listTotal" parameterType="com.stomato.domain.BaseParam" resultType="int" >

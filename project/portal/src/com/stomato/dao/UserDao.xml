@@ -34,7 +34,7 @@
 	</update>
 	
 	<update id="updateUser" parameterType="com.stomato.domain.User">
-		update t_user set type=#{type},company=#{company},contact_name=#{contactName},contact_tel=#{contactTel},qq=#{qq},website=#{website}
+		update t_user set status=#{status},type=#{type},company=#{company},contact_name=#{contactName},contact_tel=#{contactTel},qq=#{qq},website=#{website}
 		where uid=#{uid}
 	</update>
 	

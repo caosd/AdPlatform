@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.stomato.constant.Constant;
 import com.stomato.domain.Payment;
 import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
@@ -239,6 +240,8 @@ public class AccountsController extends UserController {
 				}
 			}
 			User user = userForm.asPojo();
+			//不需审核
+			user.setStatus(Constant.UserStatus.approved);
 			accountsService.addUser(user);
 			user = accountsService.getUser(user);
 			UserAccount userAccount = new UserAccount();
@@ -311,7 +314,7 @@ public class AccountsController extends UserController {
 		model.addAttribute("content", "编辑用户成功！");
 		return "portal/user/userUpdate";
 	}
-	@RequestMapping(value="/userReview.html")
+	@RequestMapping(value="/userReviewList.html")
 	public String listToReview(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,Model model){
 		/*if(flag == 1){
 			user.setRoleId(5);
@@ -334,6 +337,56 @@ public class AccountsController extends UserController {
 		model.addAttribute("totalcount", total);
 		model.addAttribute("pageNum", param.getPageNum());
 		model.addAttribute("userList", userList);
-		return "portal/user/userReview";
+		return "portal/user/userReviewList";
+	}
+	/**
+	 * 用户审核通过
+	 * @param id
+	 * @param model
+	 */
+	@RequestMapping(value="/userApproved.html")
+	public String approvedUser(int id,Model model){
+		User user = accountsService.getUserByUid(id);
+		if( user == null ){
+			model.addAttribute("success", false);
+			return "redirect:/accounts/userReviewList.html";
+		}
+		user.setStatus(Constant.UserStatus.approved);
+		accountsService.updateUser(user);
+		model.addAttribute("success", false);
+		return "redirect:/accounts/userReviewList.html";
+	}
+	/**
+	 * 用户审核通过
+	 * @param id
+	 * @param model
+	 */
+	@RequestMapping(value="/userNoPass.html")
+	public String noPassUser(int id,Model model){
+		User user = accountsService.getUserByUid(id);
+		if( user == null ){
+			model.addAttribute("success", false);
+			return "redirect:/accounts/userReviewList.html";
+		}
+		user.setStatus(Constant.UserStatus.noPASS);
+		accountsService.updateUser(user);
+		model.addAttribute("success", true);
+		return "redirect:/accounts/userReviewList.html";
+	}
+	/**
+	 * 用户审核不通过，向用户发送驳回理由
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/userRebut.html",method=RequestMethod.GET)
+	public String rebutUser(int id,Model model){
+		User user = accountsService.getUserByUid(id);
+		model.addAttribute("user", user);
+		return "portal/user/userRebut";
+	}
+	@RequestMapping(value="/userRebut.html",method=RequestMethod.POST)
+	public String rebutUser(HttpServletRequest request,Model model){
+		model.addAttribute("success", true);
+		return "portal/user/userRebut";
 	}
 }

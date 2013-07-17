@@ -30,20 +30,6 @@ int length = roleMenuIdList.size();
 </script>
 <div class="row-fluid">
    <div class="span12">
-       <!-- BEGIN THEME CUSTOMIZER-->
-       <div id="theme-change" class="hidden-phone">
-           <i class="icon-cogs"></i>
-            <span class="settings">
-                <span class="text">Theme:</span>
-                <span class="colors">
-                    <span class="color-default" data-style="default"></span>
-                    <span class="color-gray" data-style="gray"></span>
-                    <span class="color-purple" data-style="purple"></span>
-                    <span class="color-navy-blue" data-style="navy-blue"></span>
-                </span>
-            </span>
-       </div>
-       <!-- END THEME CUSTOMIZER-->
        <ul class="breadcrumb">
            <li>
                <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
@@ -61,10 +47,12 @@ int length = roleMenuIdList.size();
 	 </div>
 	  <div class="widget-body form" style="display: block;">
 	  	<c:if test="${content != null}">
-		  	<div class="alert alert-success">
-		         <strong>${content}</strong>
-		    </div>
-	    </c:if>
+            <div class="note note-danger" style="margin: 20px 30px;">
+                <button type="button" class="close note-remove">×</button>
+                <strong><fmt:message key="tips"/></strong> 
+                ${content}
+            </div>
+        </c:if>
 	    <!-- BEGIN FORM-->
 	    <form id="roleMenuForm" method="POST" class="form-horizontal">
 	    	<input type="hidden" name="id" value="${role.id}"/>

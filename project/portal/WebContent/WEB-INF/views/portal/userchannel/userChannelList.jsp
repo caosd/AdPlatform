@@ -44,7 +44,7 @@
 	              <table class="table table-striped table-bordered" id="role_table">
 	               <thead>
 	                   <tr>
-	                       <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+	                       
 	                       <th>#</th>
 	                       <th>渠道编号</th>
 	                       <th>厂商名</th>
@@ -57,7 +57,7 @@
 	               <tbody>
 	               	<c:forEach items="${userChannelList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.id }"></td>
+		            			
 		            			<td class="sorting_1">${stat.index}</td>
 		                        <td>${item.channelNo }</td>
 		                        <td>${item.companyName }</td>
@@ -74,8 +74,9 @@
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/userchannel/updateUserChannel.html?id=${item.id }">编辑</a>
-		                        	<a href="javascript:void(0)" onclick="deleteData('/userchannel/deleteUserChannel.html?id=${item.id }')">删除</a>
+		                        	<a href="javascript:void(0)" onclick="openPushBtn(${item.id },'${item.channelNo }')"> 打开 </a>
+		                        	<a href="javascript:void(0)" onclick="closePushBtn(${item.id },'${item.channelNo }')"> 关闭 </a>
+		                        	<a href="javascript:void(0)" onclick="deleteData('/userchannel/deleteUserChannel.html?id=${item.id }')"> 删除 </a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>
@@ -86,4 +87,22 @@
 	           </div>
 		</div>
 	</div>
+<script type="text/javascript">
+  /*
+  *打开推送
+  */
+  function openPushBtn(id,channelNo) {
+  		if(confirm("确认打开["+channelNo+"]推送吗？")){
+     		window.location.href = "/userchannel/openPushChannel.html?id="+id;
+     	}
+  };
+  /*
+  *关闭推送
+  */
+  function closePushBtn(id,channelNo) {
+  		if(confirm("确认关闭["+channelNo+"]推送吗？")){
+     		window.location.href = "/userchannel/closePushChannel.html?id="+id;
+     	}
+  };
+</script>
 </body>

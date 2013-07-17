@@ -9,31 +9,17 @@
 	<ul class="breadcrumb">
 		<li><a href="/"><i class="icon-home"></i></a><span
 			class="divider">&nbsp;</span></li>
-		<li><a href="#">应用管理</a> <span class="divider">&nbsp;</span></li>
-		<li><a href="#">添加应用分类</a><span class="divider-last">&nbsp;</span></li>
+		<li><a href="#">资源管理</a> <span class="divider">&nbsp;</span></li>
+		<li><a href="#">回收站</a><span class="divider-last">&nbsp;</span></li>
 	</ul>
 
 	<div class="widget">
 		<div class="widget-header">
-			<h5>添加应用分类</h5>
+			<h5>回收站</h5>
 		</div>
 		<div class="widget-content">
-		<c:if test="${success != null}">
-           <div class="note note-danger" style="margin: 20px 30px;">
-               <button type="button" class="close note-remove">×</button>
-               <strong><fmt:message key="tips"/></strong> 
-               <c:choose>
-               	<c:when test="${success=='del'}">
-               		删除类成功。
-               	</c:when>
-               	<c:otherwise>
-               		未知操作结果。
-               	</c:otherwise>
-               </c:choose>
-           </div>
-           </c:if>
 		   <div class="row-fluid">
-	          		<form:form id="searchForm" commandName="appType" method="post">
+	          		<form:form id="searchForm" commandName="adResource" method="post">
 	           		<div class="span3">
 	           			<div id="table_length" class="dataTables_length">
 	           				<label>
@@ -47,7 +33,7 @@
 	           			</div>
 	           		</div>
 	           		<div class="span3">
-		                    <label>分类名称: <form:input path="typeName" type="text" aria-controls="role_table" class="input-medium"/></label>
+		                    <label>资源名称: <form:input path="adName" type="text" class="input-medium"/></label>
 	                </div>
 					<div class="span3">
 						<button type="submit" class="btn btn-inverse">查询</button>
@@ -55,35 +41,58 @@
 					</div>
 				</form:form>
 			</div>
-	              <table class="table table-striped table-bordered" id="role_table">
+	            <table class="table table-striped table-bordered" id="role_table">
 	               <thead>
 	                   <tr>
-	                       
 	                       <th>#</th>
-	                       <th>分类名</th>
-	                       <th>是否显示</th>
+	                       <th>广告渠道</th>
+	                       <th>资源名称</th>
+	                       <!--<th>应用包名</th>
+	                       <th>文件大小</th>
+	                       --><th>应用版本</th>
+	                       <th>支持平台</th>
+	                       <th>应用分类</th>
+	                       <th>收费类型</th>
+	                       <th>单价</th>
+	                       <th>结算方式</th>
+	                       <th>下载次数</th>
+	                       <th>推荐数</th>
+	                       <th>推荐等级</th>
+	                       <th>创建日期</th>
+	                       <th>状态</th>
 	                       <th>操作</th>
 	                   </tr>
 	               </thead>
 	               <tbody>
-	               	<c:forEach items="${appTypeList}" var="item" varStatus="stat">
+	               	<c:forEach items="${adResourceList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			
 		            			<td class="sorting_1">${stat.index}</td>
-		                        <td>${item.typeName }</td>
+		                        <td>${item.channelId }</td>
+		                        <td>${item.adName }</td>
+		                        <!--<td>${item.adPackage }</td>
+		                        <td>${item.fileSize }</td>
+		                        --><td>${item.version }</td>
+		                        <td>${item.supportPlatform }</td>
+		                        <td>${item.appTypeId }</td>
+		                        <td>${item.chargeType }</td>
+		                        <td>${item.price }</td>
+		                        <td>${item.clearingForm }</td>
+		                        <td>${item.downloads }</td>
+		                        <td>${item.recommens }</td>
+		                        <td>${item.adRating }</td>
+		                        <td><fmt:formatDate value="${item.createDate }" pattern="yyyy-MM-dd" /></td>
 		                        <td>
 									<c:choose>
-										<c:when test="${item.visible}">
-											<span class="label label-success">显示</span>
+										<c:when test="${item.status==1}">
+											<span class="label label-success">上架</span>
 										</c:when>
 										<c:otherwise>
-											<span class="label label-warning">隐藏</span>
+											<span class="label label-warning">下架</span>
 										</c:otherwise>
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/apps/updateAppType.html?id=${item.id }">编辑</a>
-		                        	<a href="javascript:void(0)" onclick="deleteData('/apps/deleteAppType.html?id=${item.id }')">删除</a>
+		                        	<a href="javascript:void(0)" onclick="deleteData('/adResource/deleteAdResource.html?id=${item.id }')">还原</a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>

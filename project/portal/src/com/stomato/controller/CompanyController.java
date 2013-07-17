@@ -93,7 +93,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value="/updateCompany.html",method=RequestMethod.GET)
-	public String companyUpdate(@ModelAttribute("companyForm")CompanyForm form,int id,Model model) throws ParseException, IOException{
+	public String companyUpdate(@ModelAttribute("companyForm")CompanyForm form,int id,Model model){
 		Company company = companyService.getCompany(id);
 		model.addAttribute("company",company);
 		return "portal/company/companyUpdate";
@@ -109,12 +109,13 @@ public class CompanyController {
 	@RequestMapping(value="/updateCompany.html",method=RequestMethod.POST)
 	public String companyUpdate(@Valid @ModelAttribute("companyForm")CompanyForm form, BindingResult result,HttpServletRequest request,Model model){
 		if( result.hasErrors()){
+			model.addAttribute("company", form.asPojo());
 			return "portal/company/companyUpdate";
 		}
 		Company company = form.asPojo();
 		companyService.updateCompany(company);
 		model.addAttribute("success", true);
-		return "portal/company/companyUpdate";
+		return companyUpdate(form, company.getId(), model);
 	}
 	/**
 	 * 删除渠道，数据库标识删除

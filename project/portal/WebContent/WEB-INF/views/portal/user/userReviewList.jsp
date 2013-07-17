@@ -7,20 +7,6 @@
 <body>
 <div class="row-fluid">
    <div class="span12">
-       <!-- BEGIN THEME CUSTOMIZER-->
-       <div id="theme-change" class="hidden-phone">
-           <i class="icon-cogs"></i>
-            <span class="settings">
-                <span class="text">Theme:</span>
-                <span class="colors">
-                    <span class="color-default" data-style="default"></span>
-                    <span class="color-gray" data-style="gray"></span>
-                    <span class="color-purple" data-style="purple"></span>
-                    <span class="color-navy-blue" data-style="navy-blue"></span>
-                </span>
-            </span>
-       </div>
-       <!-- END THEME CUSTOMIZER-->
        <ul class="breadcrumb">
            <li>
                <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
@@ -67,12 +53,17 @@
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>
                     <tr>
-                        <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                        
                         <th>#</th>
+                        <th>注册时间</th>
+                        <th>帐号类型</th>
                         <th>用户名</th>
-                        <th>角色</th>
-                        <th>录入时间</th>
-                        <th>最后登录时间</th>
+                        <th>电子邮件</th>
+                        <th>公司名称</th>
+                        <th>联系人</th>
+                        <th>联系电话</th>
+                        <th>QQ号码</th>
+                        <th>网站地址</th>
                         <th>状态</th>
                         <th>操作</th>
                     </tr>
@@ -80,28 +71,33 @@
                 <tbody>
                 	<c:forEach items="${userList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.uid }"></td>
 		            			<td class="sorting_1">${stat.index}</td>
-		                        <td class=" ">${item.userName }</td>
-		                        <td class=" ">${item.type }</td>
 		                        <td class=" "><fmt:formatDate value="${item.createtime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-		                        <td class=" "><fmt:formatDate value="${item.loginTokenTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		            			<td class=" ">${item.type }</td>
+		                        <td class=" ">${item.userName }</td>
+		                        <td class=" ">${item.email }</td>
+		                        <td class=" ">${item.company }</td>
+		                        <td class=" ">${item.contactName }</td>
+		                        <td class=" ">${item.contactTel }</td>
+		                        <td class=" ">${item.qq }</td>
+		                        <td class=" ">${item.website }</td>
 		                        <td>
 									<c:choose>
 										<c:when test="${item.status == 0}">
-											<span class="label label-warning">审核不通过</span>
+											<span class="label label">审核不通过</span>
 										</c:when>
 										<c:when test="${item.status == 1}">
-											<span class="label label-warning">等待审核</span>
+											<span class="label label-success">审核通过</span>
 										</c:when>
 										<c:otherwise>
-											<span class="label label-success">审核通过</span>
+											<span class="label label-warning">等待审核</span>
 										</c:otherwise>
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/accounts/editUser.html?id=${item.uid }">通过</a>
-		                        	<a href="/accounts/resetPw.html?id=${item.uid }">不通过</a>
+		                        	<a href="javascript:void(0)" onclick="approvedBtn(${item.uid },'${item.userName }')"> 通过 </a>
+		                        	<a href="javascript:void(0)" onclick="noPassBtn(${item.uid },'${item.userName }')"> 不通过 </a>
+		                        	<a href="javascript:void(0)" onclick="rebutBtn(${item.uid },'${item.userName }')"> 驳回 </a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>
@@ -115,4 +111,28 @@
         <!-- END EXAMPLE TABLE widget-->
     </div>
 </div>
+<script type="text/javascript">
+  /*
+  *审核通过
+  */
+  function approvedBtn(id,userName) {
+  		if(confirm("确认用户["+userName+"]审核通过？")){
+     		window.location.href = "/accounts/userApproved.html?id="+id;
+     	}
+  };
+  /*
+  *审核不通过
+  */
+  function noPassBtn(id,userName) {
+  		if(confirm("确认用户["+userName+"]审核不通过？")){
+     		window.location.href = "/accounts/userNoPass.html?id="+id;
+     	}
+  };
+  /*
+   *审核不通过驳回
+   */
+   function rebutBtn(id) {
+      	window.location.href = "/accounts/userRebut.html?id="+id;
+   };
+</script>
 </body>

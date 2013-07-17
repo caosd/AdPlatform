@@ -7,19 +7,6 @@
 <body>
 <div class="row-fluid">
    <div class="span12">
-       <!-- BEGIN THEME CUSTOMIZER-->
-       <div id="theme-change" class="hidden-phone">
-           <i class="icon-cogs"></i>
-            <span class="settings">
-                <span class="text">Theme:</span>
-                <span class="colors">
-                    <span class="color-default" data-style="default"></span>
-                    <span class="color-gray" data-style="gray"></span>
-                    <span class="color-purple" data-style="purple"></span>
-                    <span class="color-navy-blue" data-style="navy-blue"></span>
-                </span>
-            </span>
-       </div>
        <!-- END THEME CUSTOMIZER-->
        <ul class="breadcrumb">
            <li>
@@ -42,6 +29,7 @@
 			</div>
             <div class="widget-body">
             	<div class="row-fluid">
+            		<form id="exportForm" method="post" style="display:none" action="/apps/exportExcel.html"></form>
             		<form id="searchForm" method="post">
             			<div class="span3">
 	            			<div id="table_length" class="dataTables_length">
@@ -60,6 +48,7 @@
 	                    </div>
 						<div class="span3">
 							<button type="submit" class="btn btn-inverse">查询</button>
+							<button type="button" id="excel_but" class="btn btn-inverse">导出Excel</button>
 							<input name="pageNum" type="hidden" id="pageNum"/>
 						</div>
 					</form>
@@ -67,7 +56,7 @@
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>
                     <tr>
-                        <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                        
                         <th>#</th>
                         <th width="16%"><fmt:message key="applist_name"/></th>
 						<th width="8%"><fmt:message key="applist_total"/></th>
@@ -98,4 +87,14 @@
         <!-- END EXAMPLE TABLE widget-->
     </div>
 </div>
+<script>
+    (function() {
+    	//导出excel
+    	$('#excel_but').bind("click",function(event,data) {
+    		var postData = jQuery(currGridElementId).jqGrid("getGridParam","postData");
+    		var params = "page="+postData.page+"&rows="+postData.rows;
+    		$("#exportForm").submit();
+    	});
+    })();
+    </script>
 </body>
