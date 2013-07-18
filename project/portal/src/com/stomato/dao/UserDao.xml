@@ -26,7 +26,7 @@
 		select * from t_user where uid=#{uid}
 	</select>
 	<select id="getUser" parameterType="com.stomato.domain.User" resultMap="user" >
-		select * from t_user where account_name=#{userName} and (account_pwd=md5(#{password}) or login_token=#{loginToken})
+		select * from t_user where account_name=#{userName} and (account_pwd=md5(#{password}) or login_token=#{loginToken}) and status=1
 	</select>
 	
 	<update id="updateLoginToken" parameterType="com.stomato.domain.User">
