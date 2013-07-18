@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,7 @@ import com.stomato.domain.RemittanceParam;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;
+import com.stomato.exception.AdPlatformException;
 import com.stomato.form.CredentialForm;
 import com.stomato.form.RemittanceParamForm;
 import com.stomato.form.ReportParamForm;
@@ -242,5 +244,33 @@ public class FinancialController extends UserController{
 		model.addAttribute("pageNum", form.getPageNum());
 		model.addAttribute("remittanceList", remittanceList);
 		return "portal/financial/remittance_history";
+	}
+	
+	@RequestMapping(value="/{id}/remittance_complete")
+	public String remittanceComplete(@PathVariable int id,HttpServletRequest request, Model model) {
+		try {
+			this.remittanceService.remittanceProcess(id);
+		} catch (AdPlatformException e) {
+			model.addAttribute("msg",e.getMessage());
+		}
+		model.addAttribute("success",true);
+		return "redirect:/financial/remittance_list";
+	}
+	
+	@RequestMapping("/remittance_list")
+	public String remittance_list(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
+		RemittanceParam remittanceParam= form.asPojo();
+		int total = this.remittanceService.getRemittanceCount(remittanceParam);
+		int pageTotal = SysConfig.getPageTotal(total, remittanceParam.getPageSize());
+		if(pageTotal<remittanceParam.getPageNum()){ remittanceParam.setPageNum(1); } 
+		int start = (remittanceParam.getPageNum()-1)*remittanceParam.getPageSize();
+		remittanceParam.setSlimt(start);
+		
+		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(remittanceParam);
+		model.addAttribute("pageTotal", pageTotal);
+		model.addAttribute("totalcount", total);
+		model.addAttribute("pageNum", form.getPageNum());
+		model.addAttribute("remittanceList", remittanceList);
+		return "portal/financial/remittance_list";
 	}
 }

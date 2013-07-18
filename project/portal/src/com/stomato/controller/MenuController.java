@@ -60,7 +60,7 @@ public class MenuController {
 		}
 		menuService.addMenu(menu);
 		BeanUtils.copyProperties(new MenuForm(), menuForm);
-		request.setAttribute("content", "添加菜单项成功！");
+		request.setAttribute("msg", "添加菜单项成功！");
 		request.setAttribute("parentMenus",menuService.listParentMenu());
 		return "portal/menu/menuForm";
 	}
@@ -78,7 +78,7 @@ public class MenuController {
 		Menu menu = menuService.getMenu(id);
 		if (StringUtils.isEmpty(menu.getName())) {
 			logger.debug("菜单项不存在！");
-			request.setAttribute("content", "菜单项不存在！");
+			request.setAttribute("msg", "菜单项不存在！");
 			return "portal/menu/menuUpdate";
 		}
 		request.setAttribute("parentMenus",menuService.listParentMenu());
@@ -103,7 +103,7 @@ public class MenuController {
 			menu.setVisible(0);
 		}
 		menuService.updateMenu(menu);
-		request.setAttribute("content", "修改菜单信息成功！");
+		request.setAttribute("msg", "修改菜单信息成功！");
 		request.setAttribute("parentMenus",menuService.listParentMenu());
 		request.setAttribute("menu", menu);
 		return "portal/menu/menuUpdate";

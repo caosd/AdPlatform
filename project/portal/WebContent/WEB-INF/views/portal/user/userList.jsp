@@ -66,7 +66,6 @@
                 <tbody>
                 	<c:forEach items="${userList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.uid }"></td>
 		            			<td class="sorting_1">${stat.index}</td>
 		                        <td class=" ">${item.userName }</td>
 		                        <td class=" ">${item.type }</td>

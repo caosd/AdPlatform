@@ -21,9 +21,9 @@
 		<h5>添加菜单</h5>
 	  </div>
 	  <div class="widget-body form" style="display: block;">
-	  	<c:if test="${content != null}">
+	  	<c:if test="${msg != null}">
 		  	<div class="alert alert-success">
-		         <strong>${content}</strong>
+		         <strong>${msg}</strong>
 		    </div>
 	    </c:if>
 	    <!-- BEGIN FORM-->

@@ -103,6 +103,17 @@ public class StringUtils {
 		}
 		return 0L;
 	}
+	public static boolean getBooleanParameter(HttpServletRequest request,String key) {
+		String value = request.getParameter(key);
+		if (value != null) {
+			try {
+				return Boolean.parseBoolean(value.trim());
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		return false;
+	}
 	public static String getStringParameter(HttpServletRequest request,String key, boolean isNull) throws Exception {
 		String value = request.getParameter(key);
 		if (isEmpty(value)) {

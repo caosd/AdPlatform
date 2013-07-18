@@ -12,12 +12,12 @@ import com.stomato.domain.RemittanceParam;
  */
 public class RemittanceParamForm extends BaseParam{
 
-	private int uid;
+	private Integer uid;
 	
-	public int getUid() {
+	public Integer getUid() {
 		return uid;
 	}
-	public void setUid(int uid) {
+	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 	@Override

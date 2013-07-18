@@ -21,6 +21,12 @@ public class UserAccountsService {
 		return accountDao.getUserAccountByUser(user);
 	}
 	
+	public UserAccount getUserAccountByUid(int uid){
+		User user = new User();
+		user.setUid(uid);
+		return accountDao.getUserAccountByUser(user);
+	}
+	
 	public void updateUserAccount(UserAccount userAccount){
 		accountDao.updateUserAccount(userAccount);
 	}

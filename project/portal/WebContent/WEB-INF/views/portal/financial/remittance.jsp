@@ -22,16 +22,20 @@
 		<h5>申请汇款</h5>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
-		<c:if test="${not empty error}">
-            <div class="protip warn">
-              <strong>提示：</strong> <fmt:message key="${error}"></fmt:message>
-            </div>
-        </c:if>
-        <c:if test="${not empty success}">
-            <div class="protip success">
-              <strong>提示：</strong> <fmt:message key="${success}"></fmt:message>
-            </div>
-        </c:if>
+		  <c:if test="${error != null || success != null}">
+                <div class="note note-danger" style="margin: 20px 30px;">
+                    <button type="button" class="close note-remove">×</button>
+                    <strong><fmt:message key="tips"/></strong> 
+                    <c:choose>
+                    	<c:when test="${error != null}">
+                    		<strong>提示：</strong> <fmt:message key="${error}"></fmt:message>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<strong>提示：</strong> <fmt:message key="${success}"></fmt:message>
+                    	</c:otherwise>
+                    </c:choose>
+                </div>
+          </c:if>
         <div class="protip warn">
           <a href="javascript:;" class="close" data-dismiss="alert">&times;</a>
           <strong>好消息!</strong> 2012年全年由酷果代交税款 ( 包括0.5%的手续费 )

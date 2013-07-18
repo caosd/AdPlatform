@@ -68,7 +68,6 @@
                 <tbody>
                 	<c:forEach items="${applist}" var="app" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${item.uid }"></td>
 		            			<td class="sorting_1">${stat.index}</td>
 		                        <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
 								<td class=app_amounts>-</td>
