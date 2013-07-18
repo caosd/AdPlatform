@@ -100,6 +100,8 @@
 							</c:if>
 							<img width="250px" src="${iconStr}"/>
 						</c:forEach>
+					</div>
+					<div class="field">
 						<input type="file" name="adImagea" id="file"/>
 						<input type="file" name="adImageb" id="file"/>
 						<input type="file" name="adImagec" id="file"/>

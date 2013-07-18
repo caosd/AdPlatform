@@ -69,7 +69,6 @@
                 <tbody>
                 	<c:forEach items="${remittanceList}" var="remittance" varStatus="stat">
 						<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-						<td class="sorting_1"><input type="checkbox" class="checkboxes" value="${remittance.id }"></td>
 						<td>${stat.index}</td>
 						<th>${remittance.bankAccount }</th>
 						<td>${remittance.bankCard }</td>

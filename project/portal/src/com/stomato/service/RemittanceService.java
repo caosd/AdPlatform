@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.stomato.dao.RemittanceDao;
 import com.stomato.domain.Remittance;
 import com.stomato.domain.RemittanceParam;
+import com.stomato.domain.UserAccount;
+import com.stomato.exception.AdPlatformException;
 
 /**
  * 申请汇款Service实现类
@@ -21,6 +23,8 @@ public class RemittanceService {
 	
 	@Autowired
 	private RemittanceDao remittanceDao;
+	@Autowired
+	private UserAccountsService accountsService;
 
 	public Remittance getRemittance(int id) {
 		return this.remittanceDao.getRemittance(id);
@@ -46,8 +50,17 @@ public class RemittanceService {
 		this.remittanceDao.updateRemittance(remittance);
 	}
 	
-	public void remittanceComplete(int id) {
-		this.remittanceDao.remittanceComplete(id);
+	public void remittanceProcess(int id) throws AdPlatformException {
+		Remittance remittance = this.getRemittance(id);
+		UserAccount userAccount = this.accountsService.getUserAccountByUid(remittance.getUid());
+		double balance = userAccount.getBalance()-remittance.getMoney();
+		if( balance < 0){
+			throw new AdPlatformException(null, "", "balance_insuf");
+		}else{
+			userAccount.setBalance(balance);
+			this.accountsService.updateUserAccount(userAccount);
+			this.remittanceDao.remittanceComplete(id);
+		}
 	}
 
 	public void addRemittance(Remittance remittance) {

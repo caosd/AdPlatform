@@ -105,19 +105,13 @@ public class AdResourceController {
 		}
 		if(adResourceForm.getStartTime().getTime()>adResourceForm.getEndTime().getTime()){
 			logger.debug("有效开始日期不能大于结束日期！");
-			request.setAttribute("content", "有效开始日期不能大于结束日期！");
+			request.setAttribute("msg", "有效开始日期不能大于结束日期！");
 			return "portal/adresouce/adResourceForm";
 		}
 		/**
 		 * ad package & name 应用包 & 包名
 		 */
-		String adPackageName = adResourceForm.getAdPackage().trim();
-		if(StringUtils.isEmpty(adPackageName)){
-			logger.debug("推送消息栏图片不能为空！");
-			request.setAttribute("content", "推送消息栏图片不能为空！");
-			return "portal/adresouce/adResourceForm";
-		}
-		String adPackageDirPath ="/"+adPackageName+"-"+DateUtils.getDateStr(DateUtils.patternB);
+		String adPackageDirPath ="/"+adResourceForm.getChannelId()+"-"+DateUtils.getDateStr(DateUtils.patternB);
 		File adPackageDir = new File(realPath+adPackageDirPath);
         if(!adPackageDir.exists()){
         	adPackageDir.mkdir();
@@ -312,27 +306,21 @@ public class AdResourceController {
 		}
 		if(adResourceForm.getStartTime().getTime()>adResourceForm.getEndTime().getTime()){
 			logger.debug("有效开始日期不能大于结束日期！");
-			request.setAttribute("content", "有效开始日期不能大于结束日期！");
+			request.setAttribute("msg", "有效开始日期不能大于结束日期！");
 			return "msg/error";
 		}
 		/**
 		 * ad package & name 应用包 & 包名
 		 */
-		
-		String adPackageName = adResourceForm.getAdPackage().trim();
-		if(StringUtils.isEmpty(adPackageName)){
-			logger.debug("应用包名不能为空！");
-			request.setAttribute("content", "应用包名不能为空！");
-			return "msg/error";
-		}
+ 
 		String adPackageDirPath = "";
-		if(!adPackageName.equals(oldAdResource.getAdPackage())){
-			adPackageDirPath ="/"+adPackageName+"-"+DateUtils.getDateStr(DateUtils.patternB);
+		if(adResourceForm.getChannelId() != oldAdResource.getChannelId()){
+			adPackageDirPath ="/"+adResourceForm.getChannelId()+"-"+DateUtils.getDateStr(DateUtils.patternB);
 			File adPackageDir = new File(realPath+adPackageDirPath);
 	        if(!adPackageDir.exists()){
 	        	adPackageDir.mkdir();
 	        }
-	        String oldAdPackageDirPath = "/"+oldAdResource.getAdPackage()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
+	        String oldAdPackageDirPath = "/"+oldAdResource.getChannelId()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
 	        File oldAdPackageDir = new File(realPath+oldAdPackageDirPath);
 	        for(File file:oldAdPackageDir.listFiles()){
 	        	if(file.isDirectory()){
@@ -344,13 +332,13 @@ public class AdResourceController {
 	        
 	        oldAdPackageDir.delete();
 	        
-	        oldAdResource.setAdIcon(oldAdResource.getAdIcon().replaceFirst(oldAdResource.getAdPackage(), adPackageName));
-	        oldAdResource.setApkUrl(oldAdResource.getApkUrl().replaceFirst(oldAdResource.getAdPackage(), adPackageName));
+	        oldAdResource.setAdIcon(oldAdResource.getAdIcon().replaceFirst(oldAdResource.getChannelId()+"", adResourceForm.getChannelId()+""));
+	        oldAdResource.setApkUrl(oldAdResource.getApkUrl().replaceFirst(oldAdResource.getChannelId()+"", adResourceForm.getChannelId()+""));
 	        
 	        String adImagesArr[] = oldAdResource.getAdImages().split(",");
 	        StringBuffer adImages = new StringBuffer("");
 	        for(String aa: adImagesArr){
-	        	aa.replaceFirst(oldAdResource.getAdPackage(), adPackageName);
+	        	aa.replaceFirst(oldAdResource.getChannelId()+"", adResourceForm.getChannelId()+"");
 	        	if(adImages.length()>1){
 					adImages.append(",");
 				}
@@ -359,7 +347,7 @@ public class AdResourceController {
 	        oldAdResource.setAdImages(adImages.toString());
 	        oldAdResource.setCreateDate(new Date());
 		}else{
-			adPackageDirPath = "/"+oldAdResource.getAdPackage()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
+			adPackageDirPath = "/"+oldAdResource.getChannelId()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
 		}
         
         /**

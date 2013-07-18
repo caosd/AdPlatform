@@ -59,12 +59,12 @@ public class RoleController {
 			return "portal/role/roleForm";
 		}
 		if( roleService.getRoleByName( roleForm.getRoleName() ) != null ){
-			request.setAttribute("content", "角色名称已存在,添加失败!");
+			request.setAttribute("msg", "角色名称已存在,添加失败!");
 			return "portal/role/roleForm";
 		}
 		roleService.addRole(roleForm.asPojo());
 		roleForm.setRoleName("");
-		request.setAttribute("content", "添加角色信息成功!");
+		request.setAttribute("msg", "添加角色信息成功!");
 		return "portal/role/roleForm";
 	}
 	
@@ -104,7 +104,7 @@ public class RoleController {
 	public String roleMenuPage(int id,HttpServletRequest request){
 		Role role = roleService.getRole(id);
 		if(role == null || StringUtils.isEmpty(role.getRoleName())){
-			request.setAttribute("content", "角色不存在！");
+			request.setAttribute("msg", "角色不存在！");
 			logger.error("角色不存在！id="+id);
 			return "msg/error";
 		}
@@ -134,7 +134,7 @@ public class RoleController {
 	@RequestMapping(value="/roleFormpage.html",method=RequestMethod.POST)
 	public String setRoleMenu(int id,Integer[] menuIdArr,HttpServletRequest request){
 		roleMenuService.editRoleMenu(id, menuIdArr);
-		request.setAttribute("content", "修改角色权限成功");
+		request.setAttribute("msg", "修改角色权限成功");
 		return roleMenuPage(id, request);
 	}
 }

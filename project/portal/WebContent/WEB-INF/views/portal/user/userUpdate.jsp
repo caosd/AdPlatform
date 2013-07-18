@@ -21,11 +21,11 @@
 		  <h5>编辑用户</h5>
 	  </div>
 	  <div class="widget-body form" style="display: block;">
-	  	<c:if test="${content != null}">
+	  	<c:if test="${msg != null}">
             <div class="note note-danger" style="margin: 20px 30px;">
                 <button type="button" class="close note-remove">×</button>
                 <strong><fmt:message key="tips"/></strong> 
-                ${content}
+                ${msg}
             </div>
         </c:if>
 	    <!-- BEGIN FORM-->
