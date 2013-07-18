@@ -14,6 +14,7 @@
 <script src="/js/uniform/jquery.uniform.js"></script>
 <script src="/js/bootstrap-chosen/chosen.jquery.min.js"></script>
 <script src="/js/masked-input/jquery.maskedinput.js"></script>
+<script src="/js/ibutton/jquery.ibutton.js"></script>
 <!-- ie8 fixes -->
 <!--[if lt IE 9]>
 <script src="js/excanvas.min.js"></script>

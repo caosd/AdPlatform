@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
 import com.stomato.domain.App;
+import com.stomato.domain.AppBusiness;
 import com.stomato.domain.AppType;
 import com.stomato.domain.PushTest;
 import com.stomato.domain.ReportParam;
@@ -40,6 +41,7 @@ import com.stomato.helper.AirHelper;
 import com.stomato.helper.AppHelper;
 import com.stomato.helper.BuildExampleHelper;
 import com.stomato.helper.FileHelper;
+import com.stomato.service.AppBusinessService;
 import com.stomato.service.AppService;
 import com.stomato.service.AppTypeService;
 import com.stomato.service.ConfigService;
@@ -77,6 +79,10 @@ public class AppsController extends UserController {
 	
 	@Autowired
 	private AppTypeService appTypeService;
+	
+	@Autowired
+	private AppBusinessService appBusinessService;
+	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
@@ -330,9 +336,27 @@ public class AppsController extends UserController {
 			return "redirect:/apps/create";
 		}
 		
+		String appName = request.getParameter("appName");
+		String typeStr = request.getParameter("type");
+		if (StringUtils.isEmpty(appName)) {
+			model.addAttribute("app", tempApp);
+			model.addAttribute("icon", request.getParameter("appIcon"));
+			model.addAttribute("appTypeList", appTypeService.getListFillSun());
+			model.addAttribute("appNameEmpty", true);
+			return "portal/apps/new_step2";
+		}
+		if (StringUtils.isEmpty(typeStr) || !NumberUtils.isNumberic(typeStr)) {
+			model.addAttribute("app", tempApp);
+			model.addAttribute("icon", request.getParameter("appIcon"));
+			model.addAttribute("appTypeList", appTypeService.getListFillSun());
+			model.addAttribute("appTypeError", true);
+			return "portal/apps/new_step2";
+		}
+		
 		String icon = request.getParameter("appIcon");
 		if (StringUtils.isEmpty(icon)) {
 			logger.info("[APP ICON] No icon " + appKey);
+			icon = "";
 		}
 		icon = icon.replace("%23", "#");
 		File iconFile = new File(icon);
@@ -346,9 +370,13 @@ public class AppsController extends UserController {
 			logger.info("[APP ICON] Transfered " + appKey);
 		} else {
 			logger.info("[APP ICON] Not found " + appKey);
+			model.addAttribute("app", tempApp);
+			model.addAttribute("icon", request.getParameter("appIcon"));
+			model.addAttribute("appTypeList", appTypeService.getListFillSun());
+			model.addAttribute("iconError", true);
+			return "portal/apps/new_step2";
 		}
 
-		String appName = request.getParameter("appName");
 		App app = new App();
 		app.setPkg(tempApp.getPkg());
 		app.setName(appName);
@@ -357,7 +385,12 @@ public class AppsController extends UserController {
 		app.setStatus(Constant.AppStatus.infoCompleted);
 		app.setIcon(icon);
 		app.setCreateTime(new Date());
+		app.setType(Integer.parseInt(typeStr));
 		appService.addApp(app);
+		
+		AppBusiness appBusiness = new AppBusiness();
+		appBusiness.setAppId(app.getId());
+		appBusinessService.add(appBusiness);
 		
 		//删除反编译资源
 		String rmFolder = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
@@ -383,6 +416,27 @@ public class AppsController extends UserController {
 		
 		model.addAttribute("app", app);
 		return "portal/apps/new_step3";
+	}
+	
+	@RequestMapping(value="/{appKey}/download_sdk", method=RequestMethod.POST)
+	public String post_create3(@PathVariable String appKey, 
+			boolean allowPush, boolean allowRichPush, boolean allowLBS,
+			HttpServletRequest request, Model model) {
+		Object obj = request.getAttribute("app");
+		
+		if (null == obj) {
+			return "redirect:/apps/create";
+		}
+		
+		App app = (App) obj;
+		AppBusiness appBusiness = new AppBusiness();
+		appBusiness.setAppId(app.getId());
+		appBusiness.setAllowPush(allowPush);
+		appBusiness.setAllowRichPush(allowRichPush);
+		appBusiness.setAllowLBS(allowLBS);
+		appBusinessService.update(appBusiness);
+		
+		return "redirect:/apps/"+app.getKey()+"/create_done";
 	}
 	
 	@RequestMapping(value="/{appKey}/build_sdk", method=RequestMethod.GET)
@@ -482,29 +536,6 @@ public class AppsController extends UserController {
 	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.GET)
 	public String pushsetting(@PathVariable String appKey, HttpServletRequest request) {
 		return "portal/apps/pushsetting";
-	}
-	
-	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.POST)
-	public String _pushsetting(@PathVariable String appKey,
-							   @RequestParam("allow-push") boolean allowPush,
-							   @RequestParam("allow-trustee") boolean allowTrustee, 
-							   HttpServletRequest request,
-							   Model model) {
-		User user = this.lookup(request);
-		
-		App app = new App();
-		app.setUid(user.getUid());
-		app.setKey(appKey);
-		app.setAllowPush(allowPush);
-		app.setAllowTrustee(allowTrustee);
-		
-		String delayPushInterval = request.getParameter("delay_push_interval");
-		if (NumberUtils.isNumberic(delayPushInterval)) {
-			app.setDelayPushInterval(Integer.parseInt(delayPushInterval));
-		}
-		
-		appService.updateApp(app);
-		return "redirect:/apps/"+appKey+"/push/setting";
 	}
 	
 	@RequestMapping(value="/{appKey}/rich-push", method=RequestMethod.GET)

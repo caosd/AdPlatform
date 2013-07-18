@@ -145,3 +145,7 @@ div.ibutton-label-off span {
   opacity: 0.6;
   cursor: default;
 }
+
+.ibutton-container label {
+	display: inline;
+}

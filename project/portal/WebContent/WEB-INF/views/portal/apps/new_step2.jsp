@@ -46,11 +46,22 @@
                     <div class="bar" style="width: 50%;"></div>
                 </div>
                 <h4 style="margin: 50px 30px 10px 30px;">第二步，补充应用信息</h4>
-                <c:if test="${appKeyError}">
+                <c:if test="${appNameEmpty}">
                 <div class="note note-danger" style="margin: 20px 30px;">
                     <button type="button" class="close note-remove">×</button>
-                    <strong><fmt:message key="tips"/></strong> 
-                    <c:if test="${param.packageExisted}">appKey不存在。</c:if>
+                    <strong><fmt:message key="tips"/></strong> 应用名称不能为空。
+                </div>
+                </c:if>
+                <c:if test="${appTypeError}">
+                <div class="note note-danger" style="margin: 20px 30px;">
+                    <button type="button" class="close note-remove">×</button>
+                    <strong><fmt:message key="tips"/></strong> 应用类型不能为空。
+                </div>
+                </c:if>
+                <c:if test="${iconError}">
+                <div class="note note-danger" style="margin: 20px 30px;">
+                    <button type="button" class="close note-remove">×</button>
+                    <strong><fmt:message key="tips"/></strong> 应用图片不存在。
                 </div>
                 </c:if>
                 <div class="form-row">
@@ -71,7 +82,7 @@
                 <div class="form-row">
                     <label class="field-name">应用类型：</label>
                     <div class="field">
-	                    <select data-placeholder="请选择一个分类" class="chosen span6" tabindex="-1">
+	                    <select name="type" data-placeholder="请选择一个分类" class="chosen span6" tabindex="-1">
 	                        <option value="">请选择一个分类</option>
 	                    <c:forEach var="appType" items="${appTypeList }">
 	                        <optgroup label="${appType.typeName }">

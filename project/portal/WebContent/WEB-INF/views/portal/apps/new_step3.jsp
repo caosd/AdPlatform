@@ -12,7 +12,7 @@
     </ul>
 
     <div class="widget">
-        <form method="GET" class="form-horizontal form-wizard" action="/apps/${app.key }/create_done">
+        <form method="POST" class="form-horizontal form-wizard">
             <div class="widget-header">
                 <h5>上传应用</h5>
             </div>
@@ -65,8 +65,26 @@
                         <a class="button button-turquoise" href="/apps/${app.key}/build_sdk">自动生成</a>
                     </div>
                 </div>
+                <div class="form-row">
+                    <label class="field-name">推送广告：</label>
+                    <div class="field">
+                        <input type="checkbox" name="allowPush" class="toggle" value="true"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="field-name">富媒体广告：</label>
+                    <div class="field">
+                        <input type="checkbox" name="allowRichPush" class="toggle" value="true"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="field-name">LBS线下广告：</label>
+                    <div class="field">
+                        <input type="checkbox" name="allowLBS" class="toggle" value="true"/>
+                    </div>
+                </div>
                 <div class="form-row" style="padding-left: 208px;">
-                    <button type="submit" class="button button-blue">已经下载完毕SDK</button>
+                    <button type="submit" class="button button-blue">开通业务</button>
                 </div>
             </div>
         </form>

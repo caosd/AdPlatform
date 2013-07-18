@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.AppBusinessDao">
+
+	<resultMap type="com.stomato.domain.AppBusiness" id="appBusiness">
+        <result property="appId" column="app_id" />
+        <result property="allowPush" column="allow_push" />
+        <result property="allowRichPush" column="allow_richpush" />
+        <result property="allowLBS" column="allow_lbs" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.stomato.domain.AppBusiness">
+		insert into t_app_business(app_id, allow_push, allow_richpush, allow_lbs)
+					        values(#{appId}, #{allowPush}, #{allowRichPush}, #{allowLBS})
+	</insert>
+
+	<update id ="update" parameterType="com.stomato.domain.AppBusiness">
+	    update t_app_business
+	       set allow_push=#{allowPush}
+	         , allow_richpush=#{allowRichPush}
+	         , allow_lbs=#{allowLBS}
+	     where app_id=#{appId}
+	</update>
+</mapper>

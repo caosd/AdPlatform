@@ -2175,7 +2175,12 @@ var App = function () {
             $('.element').tooltip();
             
             //uniform
-            $('input[type="checkbox"], input[type="radio"], select.uniform, input[type="file"]').uniform();
+            $('input[type="checkbox"], input[type="radio"], select.uniform, input[type="file"]').not(".toggle").uniform();
+            
+            $("input.toggle").iButton({
+                resizeHandle: "auto",
+                resizeContainer: "auto"
+            }); 
             
             //note
             $('.note-remove').click(function() {$(this).parent(".note").fadeOut();})
