@@ -70,6 +70,9 @@
 				</div>
 				<div class="form-row" style="padding-left: 208px;">
 					<button type="submit" class="button button-blue">上传应用</button>
+					<div class="progress progress-striped progress-danger" style="display: none;height: 10px;width: 200px; margin-bottom: 0;">
+	                    <div style="width: 50%;" class="bar"></div>
+	                </div>
 				</div>
 			</div>
 		</form>
@@ -79,6 +82,7 @@
       $("form").submit(function() {
         var v = $("#file").val();
         if (v.lastIndexOf(".apk") == v.length - 4) {
+        	$("button[type=submit]").attr('disabled', 'disabled').next().css("display", "inline-block").addClass("active");
             return true;
         } else {
             alert("请选择正确的APK文件");

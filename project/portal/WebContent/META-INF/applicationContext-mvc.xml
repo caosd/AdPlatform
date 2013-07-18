@@ -43,7 +43,7 @@
     <mvc:resources mapping="/js/**" location="/media/js/" />
     <mvc:resources mapping="/img/**" location="/media/img/" />
     <mvc:resources mapping="/font/**" location="/media/font/" />
-    <mvc:resources mapping="/html/**" location="/html/" />
+    <mvc:resources mapping="/html/**" location="/media/html/" />
     <mvc:resources mapping="/files/**" location="/files/" />
     <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 

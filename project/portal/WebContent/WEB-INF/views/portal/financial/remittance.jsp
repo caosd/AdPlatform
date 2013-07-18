@@ -28,18 +28,14 @@
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
                     	<c:when test="${error != null}">
-                    		<strong>提示：</strong> <fmt:message key="${error}"></fmt:message>
+                    	<fmt:message key="${error}"></fmt:message>
                     	</c:when>
                     	<c:otherwise>
-                    		<strong>提示：</strong> <fmt:message key="${success}"></fmt:message>
+                    	<fmt:message key="${success}"></fmt:message>
                     	</c:otherwise>
                     </c:choose>
                 </div>
           </c:if>
-        <div class="protip warn">
-          <a href="javascript:;" class="close" data-dismiss="alert">&times;</a>
-          <strong>好消息!</strong> 2012年全年由酷果代交税款 ( 包括0.5%的手续费 )
-        </div>
 		<div class="bare-box">
            <h3>公告: </h3>
            <ul>
@@ -71,24 +67,23 @@
                        ${credentials.bankName}：${credentials.bankCard}
                      </c:if>
                      <c:if test="${empty credentials.bankCard }">
-                                                                                                           您还未设置账户信息, <a href="/financial/overview">现在就去填写。</a>
+                        您还未设置账户信息, <a href="/financial/overview">现在就去填写。</a>
                      </c:if>
                   </div>
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" > 产品合作<br/>责任协议 </label>
+	          <label class="control-label" > 产品合作责任协议 </label>
 	          <div class="controls">
 	             <iframe src="/html/RemittanceAgreement.html" frameborder="0" scrolling="no" style="width: 100%; height: 350px; border: 2px;"></iframe>
                  <div class="agreementlbl">
-                     <label for="yes"><input  name="agree" id="yes" type="radio" value="1">&nbsp;已经阅读并同意</label>
-                     <label for="no"><input name="agree" id="no" type="radio" value="2" checked="checked">&nbsp;我不同意</label>
+                     <label for="yes" style="display: inline;"><input  name="agree" id="yes" type="radio" value="1">&nbsp;已经阅读并同意</label>
+                     <label for="no" style="display: inline;padding-left: 20px;"><input name="agree" id="no" type="radio" value="2" checked="checked">&nbsp;我不同意</label>
                  </div>
 	          </div>
 	       </div>
 	       <div class="form-actions">
-	          <button type="submit" class="btn btn-success">保存</button>
-	          <button type="button" class="btn">取消</button>
+	          <button type="submit" class="button button-blue">保存信息</button>
 	       </div>
 	    </form>
 	    <!-- END FORM-->
