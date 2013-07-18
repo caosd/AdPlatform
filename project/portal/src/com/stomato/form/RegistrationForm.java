@@ -23,8 +23,6 @@ public class RegistrationForm {
 	@Email
 	private String email;
 	
-	@Min(1)
-	@Max(2)
 	private Integer type;
 	
 	private String company;

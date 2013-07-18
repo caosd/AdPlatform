@@ -72,7 +72,7 @@
                     <label class="field-name" for="password">应用图标：</label>
                     <div class="field">
                         <ul class="thumbnails" style="margin-bottom: 0;">
-                        <c:forEach items="${icons}" var="icon">
+                        <%-- <c:forEach items="${icons}" var="icon">
                             <li class="span3">
                                 <div class="thumbnail well" style="background-color: #F1F1F1">
                                     <img src="${imgServer }${icon }" />
@@ -85,7 +85,16 @@
 	                                </div>
                                 </div>
                             </li>
-                        </c:forEach>
+                        </c:forEach> --%>
+                        <li class="span3">
+                            <div class="thumbnail well" style="background-color: #F1F1F1">
+                                <img src="${imgServer }${icon }" width="60" />
+                                <div class="caption">
+                                    <p style="text-align:center;">${fn:replace(fn:split(icon, "/")[fn:length(fn:split(icon, "/"))-1], "%23", "/") }</p>
+                                    <input type="radio" name="appIcon" value="${icon }" checked="checked" style="display: none;" />
+                                </div>
+                            </div>
+                        </li>
                         </ul>
                     </div>
                 </div>
@@ -98,7 +107,7 @@
 
     <script>
     (function() {
-      $(".thumbnail-choose").click(function() {
+      /* $(".thumbnail-choose").click(function() {
     	$(".thumbnail").css({'border': 'none', 'background': 'none'});
     	$(this).next().find("input[name=appIcon]").attr("checked", "checked");
     	$(this).parent().parent().parent('.thumbnail').css({'background': '#B3D9F7'});
@@ -110,7 +119,7 @@
         	$(".thumbnail").css({border: '1px solid #FFF400'});
         }
         return false;
-      });
+      }); */
     })();
     </script>
 </body>

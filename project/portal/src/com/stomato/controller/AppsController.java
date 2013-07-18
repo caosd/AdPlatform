@@ -3,6 +3,8 @@ package com.stomato.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -437,7 +439,33 @@ public class AppsController extends UserController {
 		List<String> icons = new ArrayList<String>();
 		try {
 			icons = FileHelper.readFiles(diroot + appKey + Constant.Configs.appIconDirSuffix + fileSeparator + tempApp.getPkg());
-			model.addAttribute("icons", icons);
+			//从最高分辨率选起
+			String[] tempArr = new String[6];
+			for (String path : icons) {
+				if (null != path) {
+					if (path.indexOf("drawable-xxhdpi") > 0) {
+						tempArr[0] = path;
+					} else if (path.indexOf("drawable-xhdpi") > 0) {
+						tempArr[1] = path;
+					} else if (path.indexOf("drawable-hdpi") > 0) {
+						tempArr[2] = path;
+					} else if (path.indexOf("drawable-mdpi") > 0) {
+						tempArr[3] = path;
+					} else if (path.indexOf("drawable-ldpi") > 0) {
+						tempArr[4] = path;
+					} else {
+						tempArr[5] = path;
+					}
+				}
+			}
+			String icon = null;
+			for (String s : tempArr) {
+				if (null != s) {
+					icon = s;
+					break;
+				}
+			}
+			model.addAttribute("icon", icon);
 		} catch (IOException e) {
 			logger.error(e);
 		}

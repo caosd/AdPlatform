@@ -13,6 +13,11 @@ public class RegistrationValidation {
 
 	public void validate(Object target, Errors errors) {
 		RegistrationForm form = (RegistrationForm) target;
+		
+		if (form.getType() != 3 || form.getType() != 4) {
+			errors.rejectValue("type", "error.register_role_type");
+		}
+		
 		if (!(form.getPassword()).equals(form.getConfirmPassword())) {
 			errors.rejectValue("confirmPassword", "error.password_twice_not_match", "Password and Confirm Password Not match.");
 		}
