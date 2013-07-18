@@ -10,6 +10,8 @@ public class App {
 	
 	private int uid;
 	
+	private int type;
+	
 	private String key;
 	
 	private String name;
@@ -129,5 +131,13 @@ public class App {
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 }

@@ -67,14 +67,14 @@
                 </thead>
                 <tbody>
                 	<c:forEach items="${applist}" var="app" varStatus="stat">
-		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1">${stat.index+1}</td>
-		                        <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
-								<td class=app_amounts>-</td>
-								<td class="app_online">- / -</td>
-								<td class="app_new">- / -</td>
-								<td class="app_earnings">-</td>
-		                    </tr>
+            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
+            			<td class="sorting_1">${stat.index+1}</td>
+                        <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
+						<td class=app_amounts>-</td>
+						<td class="app_online">- / -</td>
+						<td class="app_new">- / -</td>
+						<td class="app_earnings">-</td>
+                    </tr>
 		           </c:forEach>
                 </tbody>
             </table>

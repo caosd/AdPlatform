@@ -3,15 +3,10 @@ package com.stomato.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
 import com.stomato.domain.App;
+import com.stomato.domain.AppType;
 import com.stomato.domain.PushTest;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.TempApp;
@@ -45,6 +41,7 @@ import com.stomato.helper.AppHelper;
 import com.stomato.helper.BuildExampleHelper;
 import com.stomato.helper.FileHelper;
 import com.stomato.service.AppService;
+import com.stomato.service.AppTypeService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.PushTestService;
 import com.stomato.service.TempAppService;
@@ -52,7 +49,6 @@ import com.stomato.service.UserImeiService;
 import com.stomato.utils.FileUtils;
 import com.stomato.utils.NumberUtils;
 import com.stomato.utils.StringUtils;
-import com.stomato.validator.AppValidation;
 
 @Controller
 @RequestMapping("/apps")
@@ -78,6 +74,9 @@ public class AppsController extends UserController {
 	
 	@Autowired
 	private PushTestService pushTestService;
+	
+	@Autowired
+	private AppTypeService appTypeService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
@@ -307,6 +306,9 @@ public class AppsController extends UserController {
 				}
 			}
 			model.addAttribute("icon", icon);
+			
+			List<AppType> appTypeList = appTypeService.getListFillSun();
+			model.addAttribute("appTypeList", appTypeList);
 		} catch (IOException e) {
 			logger.error(e);
 		}

@@ -69,6 +69,21 @@
                     </div>
                 </div>
                 <div class="form-row">
+                    <label class="field-name">应用类型：</label>
+                    <div class="field">
+	                    <select data-placeholder="请选择一个分类" class="chosen span6" tabindex="-1">
+	                        <option value="">请选择一个分类</option>
+	                    <c:forEach var="appType" items="${appTypeList }">
+	                        <optgroup label="${appType.typeName }">
+	                        <c:forEach var="appType2" items="${appType.sunTypeList }">
+	                            <option value="${appType2.id }">${appType2.typeName }</option>
+	                        </c:forEach>
+	                        </optgroup>
+	                    </c:forEach>
+	                    </select>
+                    </div>
+                </div>
+                <div class="form-row">
                     <label class="field-name" for="password">应用图标：</label>
                     <div class="field">
                         <ul class="thumbnails" style="margin-bottom: 0;">
@@ -98,7 +113,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="form-row" style="padding-left: 180px;">
+                <div class="form-row" style="padding-left: 208px;">
                     <button type="submit" class="button button-blue">提交信息</button>
                 </div>
             </div>
