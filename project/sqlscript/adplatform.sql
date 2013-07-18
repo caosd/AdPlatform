@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `t_config` (
 
 INSERT INTO `t_config` (`cmd_name`, `cmd_value`, `last_update_time`) VALUES
 ('released_sdk', 'sa_sdk_0.2.4.zip', '2013-01-06 02:16:03'),
-('files_path', '/files', '2013-05-28 08:59:14');
+('files_path', '/home/sd/files', '2013-05-28 08:59:14');
 
 -- --------------------------------------------------------
 
