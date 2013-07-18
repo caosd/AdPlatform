@@ -53,8 +53,6 @@
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>
                     <tr>
-                        
-                        <th>#</th>
                         <th>注册时间</th>
                         <th>帐号类型</th>
                         <th>用户名</th>
@@ -71,7 +69,6 @@
                 <tbody>
                 	<c:forEach items="${userList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1">${stat.index}</td>
 		                        <td class=" "><fmt:formatDate value="${item.createtime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 		            			<td class=" ">${item.type }</td>
 		                        <td class=" ">${item.userName }</td>

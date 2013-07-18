@@ -9,6 +9,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.stomato.domain.Menu;
 import com.stomato.domain.User;
@@ -16,15 +17,15 @@ import com.stomato.service.MenuService;
 import com.stomato.utils.SpringContextUtil;
 import com.stomato.utils.StringUtils;
 
+@Component
 public class MenuTag extends BodyTagSupport {
 
 	private Logger logger = Logger.getLogger(MenuTag.class);
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Override
 	public int doEndTag() throws JspException {
-		logger.debug("menu tag start");
 		HttpSession session = pageContext.getSession();
 		User user = (User) session.getAttribute("user");
 		if (user == null)
@@ -65,7 +66,6 @@ public class MenuTag extends BodyTagSupport {
 			logger.debug("初始化菜单出错！");
 			e.printStackTrace();
 		}
-		logger.debug("menu tag end");
 		return EVAL_PAGE;
 	}
 

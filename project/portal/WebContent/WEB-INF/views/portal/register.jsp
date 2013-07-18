@@ -211,7 +211,7 @@ div.uploader {width:292px;max-width:292px;}
 	    	var rid = $(this).attr("data-rid");
 	    	$(this).addClass("active").siblings().removeClass("active");
 	    	$("#type").val(rid);
-	    	if (rid == "1") {
+	    	if (rid == "3") {
 	    		$("#extrafields").hide();
 	    	} else {
 	    		$("#extrafields").show();
@@ -266,8 +266,8 @@ div.uploader {width:292px;max-width:292px;}
 	    	}
 	    	return true;
 	    }
-        <c:if test="${type == 1}">$("#rtype li:first-child").trigger("click");</c:if>
-        <c:if test="${type == 2}">$("#rtype li:last-child").trigger("click");</c:if>
+        <c:if test="${type == 3}">$("#rtype li:first-child").trigger("click");</c:if>
+        <c:if test="${type == 4}">$("#rtype li:last-child").trigger("click");</c:if>
 	</script>
 </body>
 </html>

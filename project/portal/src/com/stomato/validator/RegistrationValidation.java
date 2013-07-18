@@ -14,8 +14,8 @@ public class RegistrationValidation {
 	public void validate(Object target, Errors errors) {
 		RegistrationForm form = (RegistrationForm) target;
 		
-		if (form.getType() != 3 || form.getType() != 4) {
-			errors.rejectValue("type", "error.register_role_type");
+		if (form.getType() < 3 || form.getType() > 4) {
+			errors.rejectValue("type", "error.register_role_typexxx", "角色类型不存在");
 		}
 		
 		if (!(form.getPassword()).equals(form.getConfirmPassword())) {
@@ -37,7 +37,7 @@ public class RegistrationValidation {
 			Pattern p = Pattern.compile("^((http(s)?:\\/\\/)?[\\w-]+\\.)+[\\w-]+(\\/[\\w- .\\/?%&=]*)?");
 			Matcher m = p.matcher("http://www.baidu.com");
 			if (!m.find()) {
-				errors.rejectValue("website", "error.url_format", "");
+				errors.rejectValue("website", "error.url_formatxxx", "网站格式错误，例如http://www.google.com");
 			}
 		}
 	}
