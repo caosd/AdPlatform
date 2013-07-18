@@ -3,9 +3,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.util.List"%>
-<%@page import="com.stomato.domain.AppType"%>
-<head><style type="text/css">.navbar .span2{width:14%;}</style></head>
+<head>
+<style type="text/css">
+.navbar .span2{width:14%;}
+.input-append input{width: 235px;}
+select{width:250px;}
+textarea {width:600px;}
+.add-on{color: red;}
+</style>
+</head>
 <body>
 	<ul class="breadcrumb">
 		<li><a href="/"><i class="icon-home"></i></a><span
@@ -38,7 +44,7 @@
 					<label class="field-name" for="channelId">选择渠道：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:select path="channelId" class="span12">
+							<form:select path="channelId" class="chosen">
 			                    <c:forEach items="${adChannerlList}" var="item" varStatus="stat">
 			                    	<option value="${item.id}">${item.channelName}</option>
 			                    </c:forEach>
@@ -51,7 +57,7 @@
 					<div class="field">
 						<div class="input-prepend input-append">
 							<form:hidden path="id" value="${adResource.id}"/> 
-							<form:input path="adName" class="span12" maxlength="20" value="${adResource.adName}"/> 
+							<form:input path="adName" maxlength="50" value="${adResource.adName}"/> 
 							<span class="add-on">*</span>
 						</div>
 						<form:errors path="adName" cssClass="error"/>
@@ -61,7 +67,7 @@
 					<label class="field-name" for="adTitle">投放标题：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="adTitle" class="span12" maxlength="20" value="${adResource.adTitle}"/> 
+							<form:input path="adTitle" maxlength="100" value="${adResource.adTitle}"/> 
 							<span class="add-on">*</span>
 						</div>
 						<form:errors path="adTitle" cssClass="error"/>
@@ -103,7 +109,7 @@
 					</div>
 					<div class="field">
 						<input type="file" name="adImagea" id="file"/>
-						<input type="file" name="adImageb" id="file"/>
+						<input type="file" name="adImageb" id="file"/><br/><br/>
 						<input type="file" name="adImagec" id="file"/>
 						<input type="file" name="adImaged" id="file"/>
 					</div>
@@ -112,18 +118,18 @@
 					<label class="field-name" for="adPackage">应用包名：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="adPackage" class="span12" maxlength="20" value="${adResource.adPackage}"/> 
+							<form:input path="adPackage" maxlength="50" value="${adResource.adPackage}"/> 
 							<span class="add-on">*</span>
 						</div>
 						<form:errors path="adPackage" cssClass="error"/>
 					</div>
 				</div>
 		        <div class="form-row">
-					<label class="field-name" for="fileSize">应用大小MB：</label>
+					<label class="field-name" for="fileSize">应用大小：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="fileSize" class="span12" maxlength="20" value="${adResource.fileSize}"/> 
-							<span class="add-on">*</span>
+							<form:input path="fileSize" maxlength="50" value="${adResource.fileSize}"/> 
+							<span class="add-on">* 单位（MB）</span>
 						</div>
 						<form:errors path="fileSize" cssClass="error"/>
 					</div>
@@ -132,7 +138,7 @@
 					<label class="field-name" for="version">应用版本：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="version" class="span12" maxlength="20" value="${adResource.version}"/> 
+							<form:input path="version" maxlength="50" value="${adResource.version}"/> 
 							<span class="add-on">*</span>
 						</div>
 						<form:errors path="version" cssClass="error"/>
@@ -142,7 +148,7 @@
 					<label class="field-name" for="supportPlatform">平台版本要求：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="supportPlatform" class="span12" maxlength="20" value="${adResource.supportPlatform}"/> 
+							<form:input path="supportPlatform" maxlength="3000" value="${adResource.supportPlatform}"/> 
 							<span class="add-on">*</span>
 						</div>
 						<form:errors path="supportPlatform" cssClass="error"/>
@@ -151,35 +157,25 @@
 				<div class="form-row">
 					<label class="field-name" for="appTypeId">应用分类：</label>
 					<div class="field">
-						<div class="input-prepend input-append">
-							<form:select path="appTypeId" class="span12">
-								<form:option value="0">请选择..</form:option>
-								<%
-								List<AppType> appTypeList = (List<AppType>)request.getAttribute("appTypeList");
-								for(AppType appType : appTypeList){
-									%>
-									<form:option value="<%=appType.getId() %>"><%=appType.getTypeName() %></form:option><%
-									for(AppType sunAppType : appType.getSunTypeList()){
-										%>
-										<form:option value="<%=sunAppType.getId() %>">----<%=sunAppType.getTypeName() %></form:option>
-										<%
-									}
-								}
-								%>
-			                 </form:select>
-						</div>
+						<form:select path="appTypeId" data-placeholder="请选择一个分类" class="chosen" tabindex="-1">
+                        <c:forEach var="appType" items="${appTypeList }">
+                            <optgroup label="${appType.typeName }">
+                            <c:forEach var="appType2" items="${appType.sunTypeList }">
+                                <option value="${appType2.id }">${appType2.typeName }</option>
+                            </c:forEach>
+                            </optgroup>
+                        </c:forEach>
+                        </form:select>
 						<form:errors path="appTypeId" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
 					<label class="field-name" for="chargeType">收费类型：</label>
 					<div class="field">
-						<div class="input-prepend input-append">
-							<form:select path="chargeType" class="span12">
-								<option value="0" ${adResource.chargeType==0?'selected':'' }>免费</option>
-								<option value="1" ${adResource.chargeType==1?'selected':'' }>收费</option>
-							</form:select>
-						</div>
+						<form:select path="chargeType" class="chosen">
+							<option value="0" ${adResource.chargeType==0?'selected':'' }>免费</option>
+							<option value="1" ${adResource.chargeType==1?'selected':'' }>收费</option>
+						</form:select>
 						<form:errors path="chargeType" cssClass="error"/>
 					</div>
 				</div>
@@ -187,8 +183,8 @@
 					<label class="field-name" for="price">单价：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="price" class="span12" maxlength="20" value="${adResource.price}"/> 
-							<span class="add-on">*</span>
+							<form:input path="price" maxlength="20" value="${adResource.price}"/> 
+							<span class="add-on">* 单位（元）</span>
 						</div>
 						<form:errors path="price" cssClass="error"/>
 					</div>
@@ -196,12 +192,10 @@
 				<div class="form-row">
 					<label class="field-name" for="clearingForm">结算方式：</label>
 					<div class="field">
-						<div class="input-prepend input-append">
-							<form:select path="clearingForm" class="span12">
-								<option value="CPA" ${adResource.clearingForm=="CPA" ? "selected":""}>CPA</option>
-								<option value="CPS" ${adResource.clearingForm=="CPS" ? "selected":""}>CPS</option>
-							</form:select>
-						</div>
+						<form:select path="clearingForm" class="chosen">
+							<option value="CPA" ${adResource.clearingForm=="CPA" ? "selected":""}>CPA</option>
+							<option value="CPS" ${adResource.clearingForm=="CPS" ? "selected":""}>CPS</option>
+						</form:select>
 						<form:errors path="clearingForm" cssClass="error"/>
 					</div>
 				</div>
@@ -209,12 +203,12 @@
 					<label class="field-name" for="description">资源描述：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:textarea path="description" class="span12" rows="5" cols="70" value="${adResource.description}"/> 
+							<form:textarea path="description" rows="5" cols="70" value="${adResource.description}" maxlength="3000"/> 
 						</div>
 						<form:errors path="description" cssClass="error"/>
 					</div>
 				</div>
-				<div class="form-row" style="padding-left: 180px;">
+				<div class="form-row" style="padding-left: 208px;">
 					<button type="submit" class="button button-blue">修改资源</button>
 				</div>
 			</div>

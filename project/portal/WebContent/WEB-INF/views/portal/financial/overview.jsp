@@ -4,7 +4,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
-<style>div.uploader{margin-right: 4px;}</style>
+<style>
+div.uploader{margin-right: 4px;}
+input{width:235px;}
+select{width:250px;}
+.file {
+display: inline-block;
+width: 250px;
+height: 35px;
+*zoom: 1;
+*display: inline;
+}
+</style>
 </head>
 <body>
 <div class="row-fluid">
@@ -60,8 +71,8 @@
 	    <form:form commandName="credentialForm" method="POST" class="form-horizontal" enctype="multipart/form-data">
 	       <div class="control-group">
 	          <label class="control-label" for="credentialsType"> 证件类型 </label>
-	          <div class="controls">
-	             <form:select path="credentialsType" id="credentialsType">
+	          <div class="controls noSearch">
+	             <form:select path="credentialsType" id="credentialsType" class="chosen">
                      <form:option value="1" selected="${credentials.credentialsType == 1 ? 'selected':'' }">居民身份证</form:option>
                      <form:option value="2" selected="${credentials.credentialsType == 2 ? 'selected':'' }">个体工商营业执照</form:option>
                  </form:select>
@@ -79,13 +90,13 @@
 	          <label class="control-label"> 证件上传 </label>
 	          <div class="controls">
                   <img width="250px" src="${empty credentials.credentialsPhoto1?"":imgServer}${empty credentials.credentialsPhoto1? '/img/identity_front.gif':credentials.credentialsPhoto1 }" class="identity_tile"/>
-                  <img width="250px" src="${empty credentials.credentialsPhoto2?"":imgServer}${empty credentials.credentialsPhoto2? '/img/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile"/>
+                  <img width="250px" src="${empty credentials.credentialsPhoto2?"":imgServer}${empty credentials.credentialsPhoto2? '/img/identity_behind.gif':credentials.credentialsPhoto2 }" class="identity_tile" style="margin-left: 30px;"/>
                   <div>
                       <a href="javascript:void(0);" class="file">
-                          <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file1" type="file" id="fileCtrl1" value=""/>
+                          <input title="仅支持jpg,gif,png格式" name="file1" type="file" id="fileCtrl1" value=""/>
                       </a>
-                      <a href="javascript:void(0);" class="file">
-                          <input title="仅支持jpg,gif,png,jpeg格式" size="3" name="file2" type="file" id="fileCtrl2" value=""/>
+                      <a href="javascript:void(0);" class="file" style="margin-left: 30px;">
+                          <input title="仅支持jpg,gif,png格式" name="file2" type="file" id="fileCtrl2" value=""/>
                       </a>
                   </div>
                   <div>
@@ -97,7 +108,7 @@
 	       <div class="control-group">
 	          <label class="control-label" for="cardBank"> 开户银行 </label>
 	          <div class="controls">
-	             <form:select id="cardBank" path="bankName" style="width:176px;">
+	             <form:select id="cardBank" path="bankName" class="chosen">
                     <option value="中国工商银行" <c:out value="${credentials.bankName eq '中国工商银行' ? 'selected':'' }"/>>中国工商银行</option>
                     <option value="中国农业银行" <c:out value="${credentials.bankName eq '中国农业银行' ? 'selected':'' }"/>>中国农业银行</option>
                     <option value="中国建设银行" <c:out value="${credentials.bankName eq '中国建设银行' ? 'selected':'' }"/>>中国建设银行</option>
@@ -132,7 +143,7 @@
 	       <div class="control-group">
 	          <label class="control-label" for="bankCard"> 银行卡号 </label>
 	          <div class="controls">
-	             <form:input type="text" path="bankCard" style="width:200px" value="${credentials.bankCard }"/>
+	             <form:input type="text" path="bankCard" value="${credentials.bankCard }"/>
                  <span class="info">银行卡的户名必须同姓名一致!</span>
                  <form:errors path="bankCard" cssClass="error"/>
 	          </div>
@@ -140,7 +151,7 @@
 	       <div class="control-group">
 	          <label class="control-label" for="bankAccount"> 开户人姓名 </label>
 	          <div class="controls">
-	             <form:input type="text" path="bankAccount" style="width:200px" value="${credentials.bankAccount }"/>
+	             <form:input type="text" path="bankAccount" value="${credentials.bankAccount }"/>
                  <span class="info2">办理此银行卡时所用真实姓名，请与身份证保持一致!</span>
                  <form:errors path="bankAccount" cssClass="error"/>
 	          </div>
@@ -148,14 +159,13 @@
 	       <div class="control-group">
 	          <label class="control-label" for="bankAddress"> 银行地址 </label>
 	          <div class="controls">
-	             <form:input type="text" path="bankAddress" style="width:200px" value="${credentials.bankAddress }"/>
+	             <form:input type="text" path="bankAddress" value="${credentials.bankAddress }"/>
                  <span class="info">格式为：xx省,xx市/县,xx支行/分行</span>
                  <form:errors path="bankAddress" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="form-actions">
-	          <button type="submit" class="btn btn-success">保存</button>
-	          <button type="button" class="btn">取消</button>
+	          <button type="submit" class="button button-blue">保存信息</button>
 	       </div>
 	    </form:form>
 	    <!-- END FORM-->

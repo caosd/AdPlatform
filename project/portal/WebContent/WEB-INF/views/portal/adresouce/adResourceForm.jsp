@@ -104,7 +104,7 @@ textarea {width:600px;}
 					<label class="field-name" for="adPackage">应用包名：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="adPackage" maxlength="20" /> 
+							<form:input path="adPackage" maxlength="50" /> 
 							<span class="add-on">*</span>
 						</div>
 						<form:errors path="adPackage" cssClass="error"/>
