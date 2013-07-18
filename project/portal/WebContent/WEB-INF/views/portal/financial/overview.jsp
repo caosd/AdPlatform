@@ -3,6 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<head>
+<style>div.uploader{margin-right: 4px;}</style>
+</head>
 <body>
 <div class="row-fluid">
    <div class="span12">
@@ -130,7 +133,7 @@
 	          <label class="control-label" for="bankCard"> 银行卡号 </label>
 	          <div class="controls">
 	             <form:input type="text" path="bankCard" style="width:200px" value="${credentials.bankCard }"/>
-                 <span class="info">为确保结算安全，该项信息不能修改，如需变更，请联系客服!<br/>银行卡的户名必须同姓名一致!</span>
+                 <span class="info">银行卡的户名必须同姓名一致!</span>
                  <form:errors path="bankCard" cssClass="error"/>
 	          </div>
 	       </div>
@@ -146,7 +149,7 @@
 	          <label class="control-label" for="bankAddress"> 银行地址 </label>
 	          <div class="controls">
 	             <form:input type="text" path="bankAddress" style="width:200px" value="${credentials.bankAddress }"/>
-                 <span class="info">格式为：xx省,xx市/县,xx支行/分行　　　请认真核对<br/>为确保结算安全，该项信息不能修改，如需变更，请联系客服!</span>
+                 <span class="info">格式为：xx省,xx市/县,xx支行/分行</span>
                  <form:errors path="bankAddress" cssClass="error"/>
 	          </div>
 	       </div>

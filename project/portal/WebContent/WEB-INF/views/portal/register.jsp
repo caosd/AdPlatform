@@ -122,10 +122,10 @@ div.uploader {width:292px;max-width:292px;}
 
 			<form:form commandName="regForm" method="post" enctype="multipart/form-data" onsubmit="return checkform();">
 			    <div class="form-tab">
-                    <form:hidden path="type" id="type" value="1" style="display: none;"/>
+                    <form:hidden path="type" id="type" value="3" style="display: none;"/>
 	                <ol class="carousel-indicators clearfix" id="rtype">
-		                <li data-rid="1" class="active"><em>个人开发者</em></li>
-		                <li data-rid="2" style="margin-left: 20px;"><em>公司</em></li>
+		                <li data-rid="3" class="active"><em>个人开发者</em></li>
+		                <li data-rid="4" style="margin-left: 20px;"><em>公司</em></li>
 		            </ol>
                 </div>
 			    
@@ -161,7 +161,7 @@ div.uploader {width:292px;max-width:292px;}
 	                
 	                <div class="form-row span6">
 	                    <label class="lbl">联系人员：<span class="error"><form:errors path="contactName"></form:errors></span></label>
-	                    <form:input path="contactName" placeholder="输入您的邮箱地址" />
+	                    <form:input path="contactName" placeholder="" />
 	                </div>
                 </div>
                 

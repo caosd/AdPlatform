@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
 import com.stomato.domain.App;
+import com.stomato.domain.AppType;
 import com.stomato.domain.PushTest;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.TempApp;
@@ -43,6 +41,7 @@ import com.stomato.helper.AppHelper;
 import com.stomato.helper.BuildExampleHelper;
 import com.stomato.helper.FileHelper;
 import com.stomato.service.AppService;
+import com.stomato.service.AppTypeService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.PushTestService;
 import com.stomato.service.TempAppService;
@@ -50,15 +49,12 @@ import com.stomato.service.UserImeiService;
 import com.stomato.utils.FileUtils;
 import com.stomato.utils.NumberUtils;
 import com.stomato.utils.StringUtils;
-import com.stomato.validator.AppValidation;
 
 @Controller
 @RequestMapping("/apps")
 public class AppsController extends UserController {
 	
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
-	
-	private final Pattern imeiPattern = Pattern.compile("^.{10,24}$");
 	
 	private final String fileSeparator = System.getProperty("file.separator");
 	
@@ -74,13 +70,13 @@ public class AppsController extends UserController {
 	private UserImeiService userImeiService;
 	
 	@Autowired
-	private AppValidation appValidation;
-	
-	@Autowired
 	private ConfigService configService;
 	
 	@Autowired
 	private PushTestService pushTestService;
+	
+	@Autowired
+	private AppTypeService appTypeService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
@@ -91,52 +87,6 @@ public class AppsController extends UserController {
 		return "portal/apps/applist";
 	}
 	
-	@RequestMapping(value="/new", method=RequestMethod.GET)
-	public String showNewAppForm(@ModelAttribute("appForm") AppForm form) {
-		return "portal/apps/createForm";
-	}
-	
-	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public String addApp(@Valid @ModelAttribute("appForm") AppForm form, BindingResult result, HttpServletRequest request, Model model) {
-		appValidation.validate(form, result);
-		if (result.hasErrors()) {
-			return "portal/apps/createForm";
-		}
-		
-		User user = this.lookup(request);
-		boolean ready = true;//AppHelper.syncPackage(user.getUid(), form.getPkg());
-		if (!ready) {
-			model.addAttribute("failedWithDuplicatePackage", true);
-			return "portal/apps/createForm";
-		}
-		
-		String appKey = AppHelper.generateAppKey(user.getUserName());
-		App app = form.asPojo();
-		app.setUid(user.getUid());
-		app.setKey(appKey);
-		int appId = new Random().nextInt(1000);//AppHelper.syncApp(app);
-		
-		if (appId > 0) {
-			app.setId(appId);
-			int c = appService.addApp(app);
-			if (c == 1) {
-				form = null;
-				return "redirect:/apps/" + appKey + "/detail";
-			}
-		}
-		
-		model.addAttribute("failed", true);
-		return "portal/apps/createForm";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/validation", method=RequestMethod.GET)
-	public Object addApp(@RequestParam String pkg, HttpServletRequest request) {
-		//User user = this.lookup(request);
-		//return AppHelper.syncPackage(user.getUid(), pkg);
-		return true;
-	}
-
 	@RequestMapping(value="/{appKey}/detail", method=RequestMethod.GET)
 	public String getApp(@PathVariable String appKey, HttpServletRequest request, Model model) {
 		App app = (App) request.getAttribute("app");
@@ -244,114 +194,6 @@ public class AppsController extends UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/{appKey}/ajax_update_user_imei", method=RequestMethod.POST)
-	public Object updateUserImei(@RequestParam int id, @RequestParam String imei, @RequestParam String description, HttpServletRequest request) {
-		User user = this.lookup(request);
-		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getUid(), app.getId());
-		userImei.setImei(imei);
-		userImei.setDescription(description);
-		
-		return userImeiService.updateUserImei(userImei) == 1;
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value="/{appKey}/ajax_delete_user_imei", method=RequestMethod.POST)
-	public Object deleteUserImei(@RequestParam int id, HttpServletRequest request) {
-		User user = this.lookup(request);
-		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getUid(), app.getId());
-		userImei.setId(id);
-		
-		return userImeiService.deleteUserImei(userImei) == 1;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/{appKey}/ajax_add_user_imei", method=RequestMethod.POST)
-	public Object addUserImei(@RequestParam String imei, @RequestParam String description, Model model, HttpServletRequest request) {
-		Matcher m = imeiPattern.matcher(imei);
-		if (!m.find()) {
-			return false;
-		}
-		User user = this.lookup(request);
-		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getUid(), app.getId());
-		userImei.setImei(imei);
-		userImei.setDescription(description);
-		try {
-			userImeiService.addUserImei(userImei);
-			return userImei.getId();
-		} catch(Exception ex) {
-			//数据库设置了uid+appId+imei的唯一组合键，捕获该异常。
-			logger.error(ex.getMessage());
-			return false;
-		}
-	}
-	
-	/*
-	N = 0    成功
-	  = 100  缺少参数
-	  = 101  包名错误，不允许推广告
-	  = 102  设置的uid 不存在
-	  = 103  sdk 版本 不允许推广告
-	 */
-	@ResponseBody
-	@RequestMapping(value="/{appKey}/ajax_start_user_imei", method=RequestMethod.POST)
-	public Object startUserImei(@RequestParam int id, Model model, HttpServletRequest request) {
-		int errCode = -1;
-		User user = this.lookup(request);
-		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getUid(), app.getId());
-		userImei.setId(id);
-		
-		userImei = userImeiService.getUserImei(userImei);
-		if (userImei != null) {
-			AppHelper appHelper = new AppHelper();
-			long pushUid = appHelper.getPushUidByImei(userImei.getImei(), app.getPkg());
-			if (pushUid > 0) {
-				errCode = appHelper.startPush(pushUid, app.getPkg());
-				if (errCode == 0) {
-					userImei.setStatus(errCode);
-					userImei.setPushUid(pushUid);
-					userImeiService.updateUserImei(userImei);
-				}
-			} else if (pushUid == 0) {
-				errCode = 102; 
-			}
-		}
-		return errCode;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/{appKey}/ajax_stop_user_imei", method=RequestMethod.POST)
-	public Object stopUserImei(@RequestParam int id, Model model, HttpServletRequest request) {
-		int errCode = -1;
-		User user = this.lookup(request);
-		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getUid(), app.getId());
-		userImei.setId(id);
-		
-		userImei = userImeiService.getUserImei(userImei);
-		if (userImei != null) {
-			AppHelper appHelper = new AppHelper();
-			long pushUid = userImei.getPushUid();
-			if (pushUid > 0) {
-				errCode = appHelper.stopPush(pushUid);
-				if (errCode == 0) {
-					errCode = 1;
-					userImei.setStatus(1);
-					userImei.setPushUid(0);
-					userImeiService.updateUserImei(userImei);
-				}
-			} else {
-				errCode = 102;
-			}
-		}
-		return errCode;
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="/ajax_summary", method=RequestMethod.GET)
 	public Object summary(HttpServletRequest request) {
 		User user = this.lookup(request);
@@ -437,7 +279,36 @@ public class AppsController extends UserController {
 		List<String> icons = new ArrayList<String>();
 		try {
 			icons = FileHelper.readFiles(diroot + appKey + Constant.Configs.appIconDirSuffix + fileSeparator + tempApp.getPkg());
-			model.addAttribute("icons", icons);
+			//从最高分辨率选起
+			String[] tempArr = new String[6];
+			for (String path : icons) {
+				if (null != path) {
+					if (path.indexOf("drawable-xxhdpi") > 0) {
+						tempArr[0] = path;
+					} else if (path.indexOf("drawable-xhdpi") > 0) {
+						tempArr[1] = path;
+					} else if (path.indexOf("drawable-hdpi") > 0) {
+						tempArr[2] = path;
+					} else if (path.indexOf("drawable-mdpi") > 0) {
+						tempArr[3] = path;
+					} else if (path.indexOf("drawable-ldpi") > 0) {
+						tempArr[4] = path;
+					} else {
+						tempArr[5] = path;
+					}
+				}
+			}
+			String icon = null;
+			for (String s : tempArr) {
+				if (null != s) {
+					icon = s;
+					break;
+				}
+			}
+			model.addAttribute("icon", icon);
+			
+			List<AppType> appTypeList = appTypeService.getListFillSun();
+			model.addAttribute("appTypeList", appTypeList);
 		} catch (IOException e) {
 			logger.error(e);
 		}

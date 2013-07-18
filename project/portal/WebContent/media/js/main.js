@@ -2272,4 +2272,9 @@ var App = function () {
 jQuery(document).ready(function() {
     // initiate layout and plugins
     App.init();
+    
+    var pageScript = $("#jscript").val();
+    if (pageScript) {
+    	$.getScript('/js/pages/'+pageScript);
+    }
 });

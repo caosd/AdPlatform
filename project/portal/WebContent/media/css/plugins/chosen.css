@@ -14,8 +14,16 @@
   border-top: 0;
   position: absolute;
   top: 29px;
-  left: 0;
+  left: -9999px;
   z-index: 1010;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.chzn-container.chzn-with-drop .chzn-drop {
+left: 0;
 }
 
 /* @group Single Chosen */
@@ -298,12 +306,14 @@
 
 .chzn-container .chzn-results .group-result {
   cursor: default;
-  color: #999;
+  color: #0BA7D8;
   font-weight: bold;
+  font-size: 14px;
+  background: #DCEAF0;
 }
 
 .chzn-container .chzn-results .group-option {
-  padding-left: 15px;
+  padding-left: 20px;
 }
 
 .chzn-container-multi .chzn-drop .result-selected {

@@ -69,10 +69,25 @@
                     </div>
                 </div>
                 <div class="form-row">
+                    <label class="field-name">应用类型：</label>
+                    <div class="field">
+	                    <select data-placeholder="请选择一个分类" class="chosen span6" tabindex="-1">
+	                        <option value="">请选择一个分类</option>
+	                    <c:forEach var="appType" items="${appTypeList }">
+	                        <optgroup label="${appType.typeName }">
+	                        <c:forEach var="appType2" items="${appType.sunTypeList }">
+	                            <option value="${appType2.id }">${appType2.typeName }</option>
+	                        </c:forEach>
+	                        </optgroup>
+	                    </c:forEach>
+	                    </select>
+                    </div>
+                </div>
+                <div class="form-row">
                     <label class="field-name" for="password">应用图标：</label>
                     <div class="field">
                         <ul class="thumbnails" style="margin-bottom: 0;">
-                        <c:forEach items="${icons}" var="icon">
+                        <%-- <c:forEach items="${icons}" var="icon">
                             <li class="span3">
                                 <div class="thumbnail well" style="background-color: #F1F1F1">
                                     <img src="${imgServer }${icon }" />
@@ -85,11 +100,20 @@
 	                                </div>
                                 </div>
                             </li>
-                        </c:forEach>
+                        </c:forEach> --%>
+                        <li class="span3">
+                            <div class="thumbnail well" style="background-color: #F1F1F1">
+                                <img src="${imgServer }${icon }" width="60" />
+                                <div class="caption">
+                                    <p style="text-align:center;">${fn:replace(fn:split(icon, "/")[fn:length(fn:split(icon, "/"))-1], "%23", "/") }</p>
+                                    <input type="radio" name="appIcon" value="${icon }" checked="checked" style="display: none;" />
+                                </div>
+                            </div>
+                        </li>
                         </ul>
                     </div>
                 </div>
-                <div class="form-row" style="padding-left: 180px;">
+                <div class="form-row" style="padding-left: 208px;">
                     <button type="submit" class="button button-blue">提交信息</button>
                 </div>
             </div>
@@ -98,7 +122,7 @@
 
     <script>
     (function() {
-      $(".thumbnail-choose").click(function() {
+      /* $(".thumbnail-choose").click(function() {
     	$(".thumbnail").css({'border': 'none', 'background': 'none'});
     	$(this).next().find("input[name=appIcon]").attr("checked", "checked");
     	$(this).parent().parent().parent('.thumbnail').css({'background': '#B3D9F7'});
@@ -110,7 +134,7 @@
         	$(".thumbnail").css({border: '1px solid #FFF400'});
         }
         return false;
-      });
+      }); */
     })();
     </script>
 </body>

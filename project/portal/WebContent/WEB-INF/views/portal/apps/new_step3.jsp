@@ -65,8 +65,8 @@
                         <a class="button button-turquoise" href="/apps/${app.key}/build_sdk">自动生成</a>
                     </div>
                 </div>
-                <div class="form-row" style="padding-left: 180px;">
-                    <button type="submit" class="button button-blue">集成SDK完毕，上传应用</button>
+                <div class="form-row" style="padding-left: 208px;">
+                    <button type="submit" class="button button-blue">已经下载完毕SDK</button>
                 </div>
             </div>
         </form>
