@@ -73,11 +73,25 @@ public class AppsController extends UserController {
 	
 	
 	@RequestMapping(value="")
-	public String main(HttpServletRequest request, Model model) {
+	public String main(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
-		List<App> applist = appService.getAppList(user.getUid());
+		app.setUid(user.getUid());
+		int total = appService.listTotal(app);
+		BaseParam baseParam = new BaseParam(request,total);
+		baseParam.setParam(app);
+		List<App> applist  = appService.listApps(baseParam);
+		model.addAttribute("pageBean", baseParam);
 		model.addAttribute("applist", applist);
-		
+		return "portal/apps/applist";
+	}
+	@RequestMapping(value="/list")
+	public String list(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
+		int total = appService.listTotal(app);
+		BaseParam baseParam = new BaseParam(request,total);
+		baseParam.setParam(app);
+		List<App> applist  = appService.listApps(baseParam);
+		model.addAttribute("pageBean", baseParam);
+		model.addAttribute("applist", applist);
 		return "portal/apps/applist";
 	}
 	
@@ -130,7 +144,7 @@ public class AppsController extends UserController {
 		app.setUid(user.getUid());
 		appService.deleteApp(app);
 		
-		return "redirect:/apps";
+		return "redirect:/apps/";
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
@@ -417,6 +431,11 @@ public class AppsController extends UserController {
 						+ fileSeparator;
 		model.addAttribute("iconDir", iconDir);
 		return "portal/apps/new_step5";
+	}
+	
+	@RequestMapping(value="/export-excel", method=RequestMethod.GET)
+	public String exportExcel(){
+		return null;
 	}
 	
 }

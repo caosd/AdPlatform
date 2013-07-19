@@ -21,4 +21,8 @@ public interface AppDao {
 	void deleteApp(App app);
 	
 	int checkAppPackage(App app);
+
+	int listTotal(App app);
+
+	List<App> listApps(BaseParam baseParam);
 }

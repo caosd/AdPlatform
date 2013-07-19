@@ -250,7 +250,7 @@ public class AccountsController extends UserController {
 			userAccountService.addUserAccount(userAccount);
 			//清空表单
 			BeanUtils.copyProperties(new UserForm(), userForm);
-			model.addAttribute("content", "添加用户成功！");
+			model.addAttribute("success", true);
 		}
 		return "portal/user/userForm";
 	}
@@ -311,7 +311,7 @@ public class AccountsController extends UserController {
 		
 		model.addAttribute("editUser", user);
 		model.addAttribute("role", roleService.getRole(user.getType()));
-		model.addAttribute("content", "编辑用户成功！");
+		model.addAttribute("success", true);
 		return "portal/user/userUpdate";
 	}
 	@RequestMapping(value="/userReviewList.html")
