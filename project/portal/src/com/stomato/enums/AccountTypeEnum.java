@@ -1,9 +1,9 @@
 package com.stomato.enums;
 
 public enum AccountTypeEnum {
-	Individual(1),//个人
+	Individual(3),//个人
 	
-	Company(2);
+	Company(4);
 	
 	private final int value;
 	private AccountTypeEnum(final int value) {

@@ -90,7 +90,6 @@ public class RegistrationController {
 		user.setStatus(Constant.UserStatus.newRegist);
 		accountsService.addUser(user);
 		
-		user = accountsService.getUser(user);
 		UserAccount userAccount = new UserAccount();
 		userAccount.setUid(user.getUid());
 		userAccount.setBalance(0d);
