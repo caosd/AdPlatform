@@ -8,14 +8,14 @@
 	<ul class="breadcrumb">
 		<li><a href="/"><i class="icon-home"></i></a><span
 			class="divider">&nbsp;</span></li>
-		<li><a href="#">应用管理</a> <span class="divider">&nbsp;</span></li>
-		<li><a href="#">修改应用分类</a><span class="divider-last">&nbsp;</span></li>
+		<li><a href="#">广告渠道管理</a> <span class="divider">&nbsp;</span></li>
+		<li><a href="#">添加广告渠道</a><span class="divider-last">&nbsp;</span></li>
 	</ul>
 
 	<div class="widget">
 		<form:form commandName="adChannelForm" method="POST" class="form-horizontal form-wizard">
 			<div class="widget-header">
-				<h5>修改应用分类</h5>
+				<h5>添加广告渠道</h5>
 			</div>
 			<div class="widget-content no-padding">
 				<c:if test="${success != null}">
@@ -24,10 +24,10 @@
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
                     	<c:when test="${success}">
-                    		修改应用分类成功。
+                    		修改渠道成功。
                     	</c:when>
                     	<c:otherwise>
-                    		修改应用分类失败。
+                    		修改渠道失败。
                     	</c:otherwise>
                     </c:choose>
                 </div>

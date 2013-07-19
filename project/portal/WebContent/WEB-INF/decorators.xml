@@ -29,6 +29,7 @@
         <pattern>/report/*</pattern>
         <pattern>/errors/*</pattern>
         <pattern>/result/*</pattern>
+        <pattern>/adpush/*</pattern>
     </decorator>
 
 </decorators>

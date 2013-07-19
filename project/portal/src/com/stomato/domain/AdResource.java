@@ -91,6 +91,11 @@ public class AdResource extends BaseParam {
 	 * 描述
 	 */
 	private String description;
+	/**
+	 * 语言
+	 */
+	private String language;
+
 	private Date modifyDate;
 
 	private Date createDate;
@@ -99,6 +104,10 @@ public class AdResource extends BaseParam {
 
 	private Date startTime;
 	private Date endTime;
+	/**
+	 * 上架时间
+	 */
+	private Date shelfDate;
 
 	private Integer status;
 	private Boolean isDel;
@@ -147,6 +156,14 @@ public class AdResource extends BaseParam {
 		this.channelId = channelId;
 	}
 
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 	public String getAdName() {
 		return adName;
 	}
@@ -157,6 +174,14 @@ public class AdResource extends BaseParam {
 
 	public String getAdTitle() {
 		return adTitle;
+	}
+
+	public Date getShelfDate() {
+		return shelfDate;
+	}
+
+	public void setShelfDate(Date shelfDate) {
+		this.shelfDate = shelfDate;
 	}
 
 	public Double getPrice() {

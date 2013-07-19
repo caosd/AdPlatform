@@ -22,10 +22,12 @@
 		<result property="downloads" column="downloads" />
 		<result property="recommens" column="recommens" />
 		<result property="adRating" column="ad_rating" />
+		<result property="language" column="language" />
 		<result property="description" column="description" />
 		<result property="modifyDate" column="modify_date" />
 		<result property="createDate" column="create_date" />
 		<result property="apkUrl" column="apk_url" />
+		<result property="shelfDate" column="shelf_date" />
 		<result property="startTime" column="start_time" />
 		<result property="endTime" column="end_time" />
 		<result property="status" column="status" />
@@ -53,10 +55,12 @@
 			downloads, 
 			recommens, 
 			ad_rating, 
+			language,
 			description, 
 			modify_date, 
 			create_date, 
 			apk_url, 
+			shelfDate,
 			start_time, 
 			end_time, 
 			status,
@@ -80,10 +84,12 @@
 			#{downloads},
 			#{recommens},
 			#{adRating},
+			#{language},
 			#{description},
 			#{modifyDate},
 			now(),
 			#{apkUrl},
+			#{shelf_date},
 			#{startTime},
 			#{endTime},
 			1,
@@ -114,11 +120,13 @@
 				clearing_form, 
 				downloads, 
 				recommens, 
-				ad_rating, 
+				ad_rating,
+				language, 
 				description, 
 				modify_date, 
 				create_date, 
 				apk_url, 
+				shelf_date,
 				start_time, 
 				end_time, 
 				status, 
@@ -147,8 +155,10 @@
 			<if test="downloads != null">downloads = #{downloads},</if>
 			<if test="recommens != null">recommens = #{recommens},</if>
 			<if test="adRating != null">ad_rating = #{adRating},</if>
+			<if test="language != null">language = #{language},</if>
 			<if test="description != null">description = #{description},</if>
 			<if test="apkUrl != null">apk_url = #{apkUrl},</if>
+			<if test="shelfDate != null">shelf_date = #{shelfDate},</if>
 			<if test="startTime != null">start_time = #{startTime},</if>
 			<if test="endTime != null">end_time = #{endTime},</if>
 			<if test="status != null">status = #{status},</if>
@@ -192,10 +202,12 @@
 				downloads, 
 				recommens, 
 				ad_rating, 
+				language,
 				description, 
 				modify_date, 
 				create_date, 
 				apk_url, 
+				shelf_date,
 				start_time, 
 				end_time, 
 				status, 

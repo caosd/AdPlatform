@@ -199,6 +199,16 @@ textarea {width:600px;}
 						<form:errors path="clearingForm" cssClass="error"/>
 					</div>
 				</div>
+				<div class="form-row">
+					<label class="field-name" for="language">语言：</label>
+					<div class="field noSearch">
+						<form:select path="language" class="chosen">
+							<form:option value="en" ${adResource.language=="en" ? "selected":""}>英文</form:option>
+							<form:option value="zh" ${adResource.language=="zh" ? "selected":""}>中文</form:option>
+						</form:select>
+						<form:errors path="language" cssClass="error"/>
+					</div>
+				</div>
 			    <div class="form-row">
 					<label class="field-name" for="description">资源描述：</label>
 					<div class="field">

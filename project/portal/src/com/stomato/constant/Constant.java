@@ -53,4 +53,9 @@ public interface Constant {
 		//下架
 		int offShelf = 0;
 	}
+	//广告推送控制
+	interface AdPushStatus{
+		boolean open = true;
+		boolean close = false;
+	}
 }
