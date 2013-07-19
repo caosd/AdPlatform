@@ -1,9 +1,7 @@
 
 DROP DATABASE IF EXISTS `adplatform`;
 
-CREATE DATABASE `adplatform`
-    CHARACTER SET 'utf8'
-    COLLATE 'utf8_general_ci';
+CREATE DATABASE `adplatform`;
 
 USE `adplatform`;
 
