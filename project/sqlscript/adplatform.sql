@@ -147,10 +147,33 @@ CREATE TABLE IF NOT EXISTS `t_app_type` (
 --
 
 INSERT INTO `t_app_type` (`id`, `type_name`, `description`, `parent`, `visible`, `order_no`) VALUES
-(3, '游戏', '游侠分类', 0, 1, 0),
-(4, '应用', '应用分类', 0, 1, 1),
-(5, '过山车', '', 3, 1, 1),
-(6, '超级射击', '', 3, 1, 2);
+(1, '应用', '应用分类', 0, 1, 1),
+(2, '游戏', '游戏分类', 0, 1, 0),
+
+(3, '系统工具', '', 1, 1, 1),
+(4, '实用工具', '', 1, 1, 2),
+(5, '社交通信', '', 1, 1, 2),
+(6, '旅行天气', '', 1, 1, 2),
+(7, '影音漫画', '', 1, 1, 2),
+(8, '商务财经', '', 1, 1, 2),
+(9, '生活助手', '', 1, 1, 2),
+(10, '学习人文', '', 1, 1, 2),
+(11, '美化壁纸', '', 1, 1, 2),
+(12, '阅读资讯', '', 1, 1, 2),
+(13, '网络通讯', '', 1, 1, 2),
+(14, '电子书', '', 1, 1, 2),
+(15, '手机安全', '', 1, 1, 2),
+(16, '应用商店', '', 1, 1, 2),
+(17, '其它', '', 1, 1, 2),
+
+(18, '休闲益智', '', 2, 1, 2),
+(19, '策略棋牌', '', 2, 1, 2),
+(20, '角色扮演', '', 2, 1, 2),
+(21, '动作格斗', '', 2, 1, 2),
+(22, '射击飞行', '', 2, 1, 2),
+(23, '体育竞技', '', 2, 1, 2),
+(24, '网游游戏', '', 2, 1, 2),
+(25, '模拟游戏', '', 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -813,3 +836,17 @@ CREATE TABLE IF NOT EXISTS `t_user_channel` (
   PRIMARY KEY (`id`),
   KEY `T_CHANNEL_USER_LAST_UPDATE_TIME_IDX` (`last_update_time`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000; 
+
+--
+-- 表的结构 `t_app_business`
+--
+
+DROP TABLE IF EXISTS `t_app_business`;
+CREATE  TABLE `t_app_business` (
+  `app_id` INT NOT NULL ,
+  `allow_push` BIT NULL DEFAULT 0 ,
+  `allow_richpush` BIT NULL DEFAULT 0 ,
+  `allow_lbs` BIT NULL DEFAULT 0 ,
+  PRIMARY KEY (`app_id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+
