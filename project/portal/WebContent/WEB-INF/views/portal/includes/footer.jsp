@@ -15,6 +15,10 @@
 <script src="/js/bootstrap-chosen/chosen.jquery.min.js"></script>
 <script src="/js/masked-input/jquery.maskedinput.js"></script>
 <script src="/js/ibutton/jquery.ibutton.js"></script>
+<script src="/js/datatable/jquery.dataTables.js"></script>
+<script src="/js/datatable/jquery.dataTables.js"></script>
+<script src="/js/range-picker/daterangepicker.js"></script>
+<script src="/js/range-picker/date.js"></script>
 <!-- ie8 fixes -->
 <!--[if lt IE 9]>
 <script src="js/excanvas.min.js"></script>

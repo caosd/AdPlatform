@@ -41,7 +41,6 @@ import com.stomato.service.AppService;
 import com.stomato.service.AppTypeService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.TempAppService;
-import com.stomato.service.UserImeiService;
 import com.stomato.utils.FileUtils;
 import com.stomato.utils.NumberUtils;
 import com.stomato.utils.StringUtils;
@@ -71,7 +70,6 @@ public class AppsController extends UserController {
 	@Autowired
 	private AppBusinessService appBusinessService;
 	
-	
 	@RequestMapping(value="")
 	public String main(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
@@ -84,6 +82,7 @@ public class AppsController extends UserController {
 		model.addAttribute("applist", applist);
 		return "portal/apps/applist";
 	}
+	
 	@RequestMapping(value="/list")
 	public String list(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
 		int total = appService.listTotal(app);

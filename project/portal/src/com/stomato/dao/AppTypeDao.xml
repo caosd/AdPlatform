@@ -70,7 +70,7 @@
 				and visible = #{param.visible}
 			</if>
 		</if>
-		order by type_name asc
+		order by order_no asc
 		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
 	</select>
 </mapper>

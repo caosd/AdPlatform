@@ -3956,6 +3956,7 @@ ul.wizard li.finish {
 .default-table th {
   padding-left: 15px;
   padding-right: 15px;
+  outline: 0;
 }
 
 .default-table tbody tr:last-child {

@@ -44,7 +44,7 @@ public class PageTag extends BodyTagSupport{
 				if(pageNum == 1){
 			    	sb.append("<li class='prev disabled'><a href='javascript:void(0)'>← Prev</a></li>");
 			    }else{
-			    	sb.append("<li class='prev active'><a href='javascript:void(0)' onclick='perPage();'>← Prev</a></li>");
+			    	sb.append("<li class='prev active'><a href='javascript:void(0)' onclick='prevPage();'>← Prev</a></li>");
 			    } 
 				
 				if(pageNum == pageTotal){

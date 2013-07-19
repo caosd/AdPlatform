@@ -1847,20 +1847,22 @@ var App = function () {
             return;
         }
 
-        $('.date-range').daterangepicker();
-
-        $('#dashboard-report-range').daterangepicker({
+        //datepicker
+        $('#reportrange').daterangepicker({
             ranges: {
-                'Today': ['today', 'today'],
-                'Yesterday': ['yesterday', 'yesterday'],
-                'Last 7 Days': [Date.today().add({
+                '今天': ['today', 'today'],
+                '昨天': ['yesterday', 'yesterday'],
+                '最近7天': [Date.today().add({
                     days: -6
                 }), 'today'],
-                'Last 30 Days': [Date.today().add({
+                '最近15天': [Date.today().add({
+                    days: -14
+                }), 'today'],
+                '最近30天': [Date.today().add({
                     days: -29
                 }), 'today'],
-                'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
-                'Last Month': [Date.today().moveToFirstDayOfMonth().add({
+                '本月': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
+                '上个月': [Date.today().moveToFirstDayOfMonth().add({
                     months: -1
                 }), Date.today().moveToFirstDayOfMonth().add({
                     days: -1
@@ -1868,7 +1870,7 @@ var App = function () {
             },
             opens: 'left',
             format: 'MM/dd/yyyy',
-            separator: ' to ',
+            separator: ' 到 ',
             startDate: Date.today().add({
                 days: -29
             }),
@@ -1876,83 +1878,25 @@ var App = function () {
             minDate: '01/01/2012',
             maxDate: '12/31/2014',
             locale: {
-                applyLabel: 'Submit',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom Range',
+                applyLabel: '选择',
+                fromLabel: '从',
+                toLabel: '到',
+                customRangeLabel: '自定义范围',
                 daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
                 firstDay: 1
             },
             showWeekNumbers: true,
-            buttonClasses: ['btn-danger']
+            buttonClasses: ['button-blue']
         },
 
         function (start, end) {
-            App.blockUI(jQuery("#page"));
-            setTimeout(function () {
-                App.unblockUI(jQuery("#page"));
-                $.gritter.add({
-                    title: 'Dashboard',
-                    text: 'Dashboard date range updated.'
-                });
-                App.scrollTo();
-            }, 1000);
-            $('#dashboard-report-range span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-
+            $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
         });
 
-        $('#dashboard-report-range span').html(Date.today().add({
+        $('#reportrange span').html(Date.today().add({
             days: -29
         }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
-
-        $('#form-date-range').daterangepicker({
-            ranges: {
-                'Today': ['today', 'today'],
-                'Yesterday': ['yesterday', 'yesterday'],
-                'Last 7 Days': [Date.today().add({
-                    days: -6
-                }), 'today'],
-                'Last 30 Days': [Date.today().add({
-                    days: -29
-                }), 'today'],
-                'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
-                'Last Month': [Date.today().moveToFirstDayOfMonth().add({
-                    months: -1
-                }), Date.today().moveToFirstDayOfMonth().add({
-                    days: -1
-                })]
-            },
-            opens: 'right',
-            format: 'MM/dd/yyyy',
-            separator: ' to ',
-            startDate: Date.today().add({
-                days: -29
-            }),
-            endDate: Date.today(),
-            minDate: '01/01/2012',
-            maxDate: '12/31/2014',
-            locale: {
-                applyLabel: 'Submit',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom Range',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                firstDay: 1
-            },
-            showWeekNumbers: true,
-            buttonClasses: ['btn-danger']
-        },
-
-        function (start, end) {
-            $('#form-date-range span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-        });
-
-        $('#form-date-range span').html(Date.today().add({
-            days: -29
-        }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
-
 
         if (!jQuery().datepicker || !jQuery().timepicker) {
             return;
@@ -1997,89 +1941,6 @@ var App = function () {
                 disableFadeOut: true
             });
         });
-    }
-
-    var handleFormWizards = function () {
-        if (!jQuery().bootstrapWizard) {
-            return;
-        }
-
-        $('#form_wizard_1').bootstrapWizard({
-            'nextSelector': '.button-next',
-            'previousSelector': '.button-previous',
-            onTabClick: function (tab, navigation, index) {
-                alert('on tab click disabled');
-                return false;
-            },
-            onNext: function (tab, navigation, index) {
-                var total = navigation.find('li').length;
-                var current = index + 1;
-                // set wizard title
-                $('.step-title', $('#form_wizard_1')).text('Step ' + (index + 1) + ' of ' + total);
-                // set done steps
-                jQuery('li', $('#form_wizard_1')).removeClass("done");
-                var li_list = navigation.find('li');
-                for (var i = 0; i < index; i++) {
-                    jQuery(li_list[i]).addClass("done");
-                }
-
-                if (current == 1) {
-                    $('#form_wizard_1').find('.button-previous').hide();
-                } else {
-                    $('#form_wizard_1').find('.button-previous').show();
-                }
-
-                if (current >= total) {
-                    $('#form_wizard_1').find('.button-next').hide();
-                    $('#form_wizard_1').find('.button-submit').show();
-                } else {
-                    $('#form_wizard_1').find('.button-next').show();
-                    $('#form_wizard_1').find('.button-submit').hide();
-                }
-                App.scrollTo($('.page-title'));
-            },
-            onPrevious: function (tab, navigation, index) {
-                var total = navigation.find('li').length;
-                var current = index + 1;
-                // set wizard title
-                $('.step-title', $('#form_wizard_1')).text('Step ' + (index + 1) + ' of ' + total);
-                // set done steps
-                jQuery('li', $('#form_wizard_1')).removeClass("done");
-                var li_list = navigation.find('li');
-                for (var i = 0; i < index; i++) {
-                    jQuery(li_list[i]).addClass("done");
-                }
-
-                if (current == 1) {
-                    $('#form_wizard_1').find('.button-previous').hide();
-                } else {
-                    $('#form_wizard_1').find('.button-previous').show();
-                }
-
-                if (current >= total) {
-                    $('#form_wizard_1').find('.button-next').hide();
-                    $('#form_wizard_1').find('.button-submit').show();
-                } else {
-                    $('#form_wizard_1').find('.button-next').show();
-                    $('#form_wizard_1').find('.button-submit').hide();
-                }
-
-                App.scrollTo($('.page-title'));
-            },
-            onTabShow: function (tab, navigation, index) {
-                var total = navigation.find('li').length;
-                var current = index + 1;
-                var $percent = (current / total) * 100;
-                $('#form_wizard_1').find('.bar').css({
-                    width: $percent + '%'
-                });
-            }
-        });
-
-        $('#form_wizard_1').find('.button-previous').hide();
-        $('#form_wizard_1 .button-submit').click(function () {
-            alert('Finished!');
-        }).hide();
     }
 
     var handleTagsInput = function () {
@@ -2160,6 +2021,18 @@ var App = function () {
             }
         })
     }
+    
+    //查询表单提交
+    var handleSubmitSearch = function() {
+    	$("#searchForm").submit(function() {
+    		var starttime = $("input[name=daterangepicker_start]").val();
+    		var endtime = $("input[name=daterangepicker_end]").val();
+    		$("#search_start").val(starttime);
+    		$("#search_end").val(endtime);
+    		return true;
+    	});
+    }
+    
 
     return {
 
@@ -2177,10 +2050,18 @@ var App = function () {
             //uniform
             $('input[type="checkbox"], input[type="radio"], select.uniform, input[type="file"]').not(".toggle").uniform();
             
+            //toogle button
             $("input.toggle").iButton({
                 resizeHandle: "auto",
                 resizeContainer: "auto"
             }); 
+            
+            //datatable
+            $(".dataTable").dataTable({
+            	'bPaginate': false,
+            	'bFilter': false,
+            	'bInfo': false
+            });
             
             //note
             $('.note-remove').click(function() {$(this).parent(".note").fadeOut();})
@@ -2210,8 +2091,8 @@ var App = function () {
             handleFixInputPlaceholderForIE(); // fixes/enables html5 placeholder attribute for IE9, IE8
             handleGoTop(); //handles scroll to top functionality in the footer
             handleAccordions();
-            handleFormWizards();
             handleSidebarToggler();
+            handleSubmitSearch();
 
         },
 

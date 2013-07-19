@@ -1,4 +1,4 @@
-function perPage(){
+function prevPage(){
 	var pageNum = $('#pageNum').val();
 	pageNum=parseInt(pageNum)- 1;
 	$('#pageNum').val(pageNum);
@@ -20,7 +20,7 @@ function deleteData(url){
 
 $(document).ready(function(){ 
 	//页面查询列表，选择一页显示的行数
-	$('#searchForm select[name=pageSize]').change(function(){ 
-		$("#searchForm").submit();
-	}) 
+//	$('#searchForm select[name=pageSize]').change(function(){ 
+//		$("#searchForm").submit();
+//	}) 
 })

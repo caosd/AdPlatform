@@ -1,95 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="/page" prefix="p" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/page" prefix="p"%>
 <body>
-<div class="row-fluid">
-   <div class="span12">
-       <!-- END THEME CUSTOMIZER-->
-       <ul class="breadcrumb">
-           <li>
-               <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
-           </li>
-           <li>
-               <a href="#">开发者应用</a> <span class="divider">&nbsp;</span>
-           </li>
-           <li><a href="#"><fmt:message key="applist_title"/></a><span class="divider-last">&nbsp;</span></li>
-       </ul>
-   </div>
-</div>
-<!-- BEGIN ADVANCED TABLE widget-->
-<div class="row-fluid">
-    <div class="span12">
-        <!-- BEGIN EXAMPLE TABLE widget-->
-        <div class="widget">
-			<div class="widget-header">
-				<h5><fmt:message key="applist_title"/></h5>
-			</div>
-            <div class="widget-body">
-            	<div class="row-fluid">
-	            	<form:form id="searchForm" commandName="app" method="post">
-		           		<div class="span3">
-		           			<div id="table_length" class="dataTables_length">
-		           				<label>
-		           					<select name="pageSize" size="1" class="input-mini">
-		           						<option value="10" ${pageBean.pageSize==10 ? "selected":"" }>10</option>
-		           						<option value="25" ${pageBean.pageSize==25 ? "selected":"" }>25</option>
-		           						<option value="50" ${pageBean.pageSize==50 ? "selected":"" }>50</option>
-		           						<option value="100" ${pageBean.pageSize==100 ? "selected":"" }>100</option>
-		           					</select>
-		           				</label>
-		           			</div>
-		           		</div>
-		           		<div class="span3">
-			                    <label>应用名: <form:input path="name" type="text" class="input-medium"/></label>
-		                </div>
-						<div class="span3">
-							<button type="submit" class="btn btn-inverse">查询</button>
-							<button type="button" id="excel_but" class="btn btn-inverse">导出Excel</button>
-							<input name="pageNum" type="hidden" aria-controls="role_table" id="pageNum" value="${pageBean.pageNum}"/>
-						</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<!-- END THEME CUSTOMIZER-->
+			<ul class="breadcrumb">
+				<li><a href="/"><i class="icon-home"></i></a><span
+					class="divider">&nbsp;</span></li>
+				<li><a href="#">开发者应用</a> <span class="divider">&nbsp;</span></li>
+				<li><a href="#">应用列表</a><span class="divider-last">&nbsp;</span></li>
+			</ul>
+		</div>
+	</div>
+	<!-- BEGIN ADVANCED TABLE widget-->
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget">
+				<div class="widget-header">
+					<h5><fmt:message key="applist_title" /></h5>
+					<form:form id="searchForm" commandName="app" method="post" class="form-inline">
+                    <input name="pageNum" type="hidden" id="pageNum" value="${pageBean.pageNum}" />
+                    <input name="startDatestr" type="hidden" id="search_date" value="${pageBean.startDatestr}" />
+                    <input name="endDatestr" type="hidden" id="search_end" value="${pageBean.endDatestr}" />
+					<ul class="widget-nav">
+						<li id="reportrange">
+						    <img src="/img/icon/14x14/light/calendar.png" alt=""> <span></span>
+						</li>
+						<li>
+							<%@include file="../includes/pagesize.jsp" %>
+						</li>
+						<li class="search-col"><form:input path="name" type="text" class="search-input" maxlength="20" placeholder="应用名查询"/></li>
+						<li class="search-col"><button type="submit" class="button button-turquoise small-button">查询</button></li>
+						<li id="export-excel"><a href="javascript:;"><img src="/img/icon/14x14/light/download4.png" title="导出excel"></a></li>
+					</ul>
 					</form:form>
 				</div>
-                <table class="table table-striped table-bordered" id="role_table">
-                <thead>
-                    <tr>
-                        <th width="16%"><fmt:message key="applist_name"/></th>
-						<th width="8%"><fmt:message key="applist_total"/></th>
-						<th width="16%"><fmt:message key="applist_active"/></th>
-						<th width="18%"><fmt:message key="applist_new"/></th>
-						<th class="last" width="10%"><fmt:message key="applist_earnings"/></th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<c:forEach items="${applist}" var="app" varStatus="stat">
-            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-                        <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
-						<td class=app_amounts>-</td>
-						<td class="app_online">- / -</td>
-						<td class="app_new">- / -</td>
-						<td class="app_earnings">-</td>
-					</tr>
-		           </c:forEach>
-                </tbody>
-            </table>
-            <div class="row-fluid">
-            	<p:page pageNum="${pageBean.pageNum}" pageTotal="${pageBean.pageTotal}"></p:page>
-            </div>
-          </div>
-        </div>
-        <!-- END EXAMPLE TABLE widget-->
-    </div>
-</div>
-<script>
-    (function() {
-    	//导出excel
-    	$('#excel_but').bind("click",function(event,data) {
-    		var postData = jQuery(currGridElementId).jqGrid("getGridParam","postData");
-    		var params = "page="+postData.page+"&rows="+postData.rows;
-    		$("#exportForm").submit();
-    	});
-    })();
-    </script>
+				<div class="widget-body table-container">
+					<div class="dataTables_wrapper">
+						<table class="default-table stripped turquoise dataTable">
+							<thead>
+								<tr align="left">
+									<th class="sorting" width="16%">应用名称</th>
+									<th class="sorting" width="8%">应用分类</th>
+									<th class="sorting" width="16%"><fmt:message key="applist_active" /></th>
+									<th class="sorting" width="18%"><fmt:message key="applist_new" /></th>
+									<th class="sorting" width="10%"><fmt:message key="applist_earnings" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${applist}" var="app" varStatus="stat">
+									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
+										<td class="app_name"><a href="/apps/${app.key }/detail">${app.name}</a></td>
+										<td class=app_amounts>-</td>
+										<td class="app_online">- / -</td>
+										<td class="app_new">- / -</td>
+										<td class="app_earnings">-</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="tableFooter">
+							<p:page pageNum="${pageBean.pageNum}" pageTotal="${pageBean.pageTotal}"></p:page>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
