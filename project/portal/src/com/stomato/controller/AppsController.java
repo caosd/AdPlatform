@@ -22,20 +22,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.AppBusiness;
 import com.stomato.domain.AppType;
-import com.stomato.domain.PushTest;
-import com.stomato.domain.ReportParam;
+import com.stomato.domain.BaseParam;
 import com.stomato.domain.TempApp;
 import com.stomato.domain.User;
-import com.stomato.domain.UserImei;
-import com.stomato.enums.ReportTypeEnum;
-import com.stomato.exception.ParameterException;
 import com.stomato.form.AppForm;
 import com.stomato.helper.AirHelper;
 import com.stomato.helper.AppHelper;
@@ -45,7 +40,6 @@ import com.stomato.service.AppBusinessService;
 import com.stomato.service.AppService;
 import com.stomato.service.AppTypeService;
 import com.stomato.service.ConfigService;
-import com.stomato.service.PushTestService;
 import com.stomato.service.TempAppService;
 import com.stomato.service.UserImeiService;
 import com.stomato.utils.FileUtils;
@@ -69,13 +63,7 @@ public class AppsController extends UserController {
 	private TempAppService tempAppService;
 	
 	@Autowired
-	private UserImeiService userImeiService;
-	
-	@Autowired
 	private ConfigService configService;
-	
-	@Autowired
-	private PushTestService pushTestService;
 	
 	@Autowired
 	private AppTypeService appTypeService;
@@ -84,13 +72,21 @@ public class AppsController extends UserController {
 	private AppBusinessService appBusinessService;
 	
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(value="")
 	public String main(HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
 		List<App> applist = appService.getAppList(user.getUid());
 		model.addAttribute("applist", applist);
 		
 		return "portal/apps/applist";
+	}
+	
+	@RequestMapping(value="/listAll.html")
+	public String listAll(@ModelAttribute("param") AppForm form, HttpServletRequest request, Model model) {
+		List<App> applist = appService.getAllAppList(form);
+		model.addAttribute("applist", applist);
+		
+		return "portal/apps/allapplist";
 	}
 	
 	@RequestMapping(value="/{appKey}/detail", method=RequestMethod.GET)
@@ -135,80 +131,6 @@ public class AppsController extends UserController {
 		appService.deleteApp(app);
 		
 		return "redirect:/apps";
-	}
-	
-	@RequestMapping(value="/{appKey}/reports", method=RequestMethod.GET)
-	public String showReports(@PathVariable String appKey, Model model, HttpServletRequest request) {
-		return "portal/apps/reports/reports";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/{appKey}/reports/data", method=RequestMethod.GET)
-	public Object processData(@PathVariable String appKey, @RequestParam String url, @RequestParam String start, @RequestParam String end, @RequestParam int precision, HttpServletRequest request) {
-		User user = this.lookup(request);
-		App app = (App)request.getAttribute("app");
-		
-		Map<String, Object> data = new HashMap<String, Object>();
-		Date startDate = null;//DateUtils.parseDate(start + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
-		Date endDate = null;//DateUtils.parseDate(end + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
-		
-		if (startDate == null || endDate == null) {
-			return null;
-		}
-		
-		data.put("app", appKey);
-		data.put("start", startDate);
-		data.put("end", endDate);
-		
-		ReportParam rptParam = new ReportParam();
-		rptParam.setUid(user.getUid());
-		rptParam.setAppId(app.getId());
-		rptParam.set_startDate(startDate);
-		rptParam.set_endDate(endDate);
-		rptParam.setReportType(ReportTypeEnum.from(precision));//must set after date
-		
-		List<long[]> rptData = new ArrayList<long[]>();
-		if ("/apps/new/".equals(url)) {
-			rptParam.setCode("sm_user_new");
-		} else if ("/apps/active/".equals(url)) {
-			rptParam.setCode("sm_user_active");
-		} else if ("/apps/online/".equals(url)) {
-			rptParam.setCode("sm_user_online");
-		} else if ("/apps/earnings/".equals(url)) {
-			rptParam.setCode("sm_earnings");
-		}
-		//rptData = ReportUtils.convert(appService.getReportData(rptParam));
-		data.put(rptParam.getCode(), rptData);
-		return data;
-	}
-	
-	@RequestMapping(value="/{appKey}/reports/earnings", method=RequestMethod.GET)
-	public String earngins(@PathVariable String appKey, Model model) {
-		return "portal/apps/reports/earnings";
-	}
-	
-	@RequestMapping(value="/{appKey}/push", method=RequestMethod.GET)
-	public String push(Model model, HttpServletRequest request) {
-		User user = this.lookup(request);
-		App app = (App) request.getAttribute("app");
-		UserImei userImei = new UserImei(user.getUid(), app.getId());
-		
-		List<UserImei> list = userImeiService.getAllUserImei(userImei);
-		model.addAttribute("userImeiList", list);
-		
-		return "portal/apps/push";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/ajax_summary", method=RequestMethod.GET)
-	public Object summary(HttpServletRequest request) {
-		User user = this.lookup(request);
-		return null;//appService.getSummaryReport(user.getUid());
-	}
-	
-	@RequestMapping(value="/{appKey}/uploads", method=RequestMethod.GET)
-	public String showUploadApp() {
-		return "portal/apps/uploads";
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
@@ -495,63 +417,6 @@ public class AppsController extends UserController {
 						+ fileSeparator;
 		model.addAttribute("iconDir", iconDir);
 		return "portal/apps/new_step5";
-	}
-	
-	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.GET)
-	public String showPushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
-		int uid = this.lookup(request).getUid();
-		PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
-		model.addAttribute("pushTest", pushTest);
-		return "portal/apps/pushtest";
-	}
-	
-	@RequestMapping(value="/{appKey}/push/test", method=RequestMethod.POST)
-	public String processPushtest(@PathVariable String appKey, HttpServletRequest request,Model model) {
-		int uid = this.lookup(request).getUid();
-		PushTest pushTest = this.pushTestService.getPushTest(uid, appKey);
-		try{
-			String testKey = this.getStringParameter(request, "testKey", false);
-			String desc = this.getStringParameter(request, "desc", true);
-			
-			if(pushTest == null){
-				pushTest = new PushTest();
-				pushTest.setAppKey(appKey);
-				pushTest.setUid(uid);
-				pushTest.setDesc(desc);
-				pushTest.setTestKey(testKey);
-				this.pushTestService.addPushTest(pushTest);
-			}else{
-				pushTest.setDesc(desc);
-				pushTest.setTestKey(testKey);
-				this.pushTestService.updatePushTest(pushTest);
-			}
-		}catch (ParameterException error) {
-			model.addAttribute("error", error.getMessage());
-			logger.error(error.getMessage());
-		}
-		model.addAttribute("pushTest", pushTest);
-		return "portal/apps/pushtest";
-	}
-	
-	@RequestMapping(value="/{appKey}/push/setting", method=RequestMethod.GET)
-	public String pushsetting(@PathVariable String appKey, HttpServletRequest request) {
-		return "portal/apps/pushsetting";
-	}
-	
-	@RequestMapping(value="/{appKey}/rich-push", method=RequestMethod.GET)
-	public String richpush(@PathVariable String appKey, HttpServletRequest request) {
-		return "portal/apps/richpush";
-	}
-	
-	@RequestMapping(value="/{appKey}/rich-push", method=RequestMethod.POST)
-	public String _richpush(@PathVariable String appKey, HttpServletRequest request, Model model) {
-		model.addAttribute("success", true);
-		return "portal/apps/richpush";
-	}
-	
-	@RequestMapping(value="/{appKey}/preview", method=RequestMethod.GET)
-	public String preview(@PathVariable String appKey, HttpServletRequest request) {
-		return "redirect:/html/previews/rich.html";
 	}
 	
 }

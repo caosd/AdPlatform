@@ -2,6 +2,7 @@ package com.stomato.dao;
 
 import java.util.List;
 import com.stomato.domain.App;
+import com.stomato.domain.BaseParam;
 
 public interface AppDao {
 	
@@ -12,6 +13,8 @@ public interface AppDao {
 	List<App> getAppList(int uid);
 	
 	List<App> getLastedAppList(int uid);
+	
+	List<App> getAllAppList(BaseParam param);
 	
 	void updateApp(App app);
 	

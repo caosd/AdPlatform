@@ -28,30 +28,26 @@
 				<h5><fmt:message key="applist_title"/></h5>
 			</div>
             <div class="widget-body">
-            	<div class="row-fluid">
-            		<form id="exportForm" method="post" style="display:none" action="/apps/exportExcel.html"></form>
-            		<form id="searchForm" method="post">
-            			<div class="span3">
-	            			<div id="table_length" class="dataTables_length">
-	            				<label>
-	            					<select name="pageSize" size="1" class="input-mini">
-	            						<option value="10">10</option>
-	            						<option value="25">25</option>
-	            						<option value="50">50</option>
-	            						<option value="100">100</option>
-	            					</select>
-	            				</label>
-	            			</div>
-	            		</div>
-	            		<div class="span3">
-			                    <label>应用名: <input name="name" type="text" class="input-medium"/></label>
-	                    </div>
-						<div class="span3">
-							<button type="submit" class="btn btn-inverse">查询</button>
-							<button type="button" id="excel_but" class="btn btn-inverse">导出Excel</button>
-							<input name="pageNum" type="hidden" id="pageNum"/>
-						</div>
-					</form>
+            	<div class="row-fluid" style="margin-bottom: 5px;">
+            		<form:form id="searchForm" commandName="param" method="post">
+                        <div class="span3">
+                            <div id="table_length" class="dataTables_length noSearch">
+                                <form:select path="pageSize" size="1" class="input-mini chosen">
+                                    <form:option value="10">10</form:option>
+                                    <form:option value="25">25</form:option>
+                                    <form:option value="50">50</form:option>
+                                    <form:option value="100">100</form:option>
+                                </form:select>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <label>应用名称: <form:input path="name" type="text" aria-controls="role_table" class="input-medium"/></label>
+                        </div>
+                        <div class="span3">
+                            <button type="submit" class="button button-turquoise small-button">查询</button>
+                            <form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
+                        </div>
+                    </form:form>
 				</div>
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>
@@ -83,14 +79,4 @@
         <!-- END EXAMPLE TABLE widget-->
     </div>
 </div>
-<script>
-    (function() {
-    	//导出excel
-    	$('#excel_but').bind("click",function(event,data) {
-    		var postData = jQuery(currGridElementId).jqGrid("getGridParam","postData");
-    		var params = "page="+postData.page+"&rows="+postData.rows;
-    		$("#exportForm").submit();
-    	});
-    })();
-    </script>
 </body>

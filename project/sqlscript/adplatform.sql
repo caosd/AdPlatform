@@ -312,7 +312,7 @@ INSERT INTO `t_menu` (`id`, `menuname`, `description`, `path`, `parent`, `visibl
 (30, '查询应用', NULL, '/appInfo/selectAppInfo.html', 26, 0, 1, '314'),
 (31, '修改应用', NULL, '/appInfo/updateAppInfo.html', 26, 0, 1, '315'),
 (32, '删除应用', NULL, '/appInfo/deleteAppInfo.html', 26, 0, 1, '316'),
-(33, '应用列表', '所有开发者应用列表', '/appInfo/listAppInfoAll.html', 26, 1, 1, '313'),
+(33, '应用列表', '所有开发者应用列表', '/apps/listAll.html', 26, 1, 1, '313'),
 (34, 'SDK报表', NULL, '', 0, 1, 1, '4'),
 (35, '用户报表', NULL, '/report/userDayReport.html', 34, 0, 1, '411'),
 (36, '应用安装上报报表', NULL, '/report/appInstallReport.html', 34, 0, 1, '412'),
