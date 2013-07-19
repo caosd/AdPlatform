@@ -29,29 +29,28 @@
 			</div>
             <div class="widget-body">
             	<div class="row-fluid">
-            		<form id="exportForm" method="post" style="display:none" action="/apps/exportExcel.html"></form>
-            		<form id="searchForm" method="post">
-            			<div class="span3">
-	            			<div id="table_length" class="dataTables_length">
-	            				<label>
-	            					<select name="pageSize" size="1" class="input-mini">
-	            						<option value="10">10</option>
-	            						<option value="25">25</option>
-	            						<option value="50">50</option>
-	            						<option value="100">100</option>
-	            					</select>
-	            				</label>
-	            			</div>
-	            		</div>
-	            		<div class="span3">
-			                    <label>应用名: <input name="name" type="text" class="input-medium"/></label>
-	                    </div>
+	            	<form:form id="searchForm" commandName="app" method="post">
+		           		<div class="span3">
+		           			<div id="table_length" class="dataTables_length">
+		           				<label>
+		           					<select name="pageSize" size="1" class="input-mini">
+		           						<option value="10" ${pageBean.pageSize==10 ? "selected":"" }>10</option>
+		           						<option value="25" ${pageBean.pageSize==25 ? "selected":"" }>25</option>
+		           						<option value="50" ${pageBean.pageSize==50 ? "selected":"" }>50</option>
+		           						<option value="100" ${pageBean.pageSize==100 ? "selected":"" }>100</option>
+		           					</select>
+		           				</label>
+		           			</div>
+		           		</div>
+		           		<div class="span3">
+			                    <label>应用名: <form:input path="name" type="text" class="input-medium"/></label>
+		                </div>
 						<div class="span3">
 							<button type="submit" class="btn btn-inverse">查询</button>
 							<button type="button" id="excel_but" class="btn btn-inverse">导出Excel</button>
-							<input name="pageNum" type="hidden" id="pageNum"/>
+							<input name="pageNum" type="hidden" aria-controls="role_table" id="pageNum" value="${pageBean.pageNum}"/>
 						</div>
-					</form>
+					</form:form>
 				</div>
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>
@@ -66,17 +65,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                	<c:forEach items="${applist}" var="app" varStatus="stat">
-<<<<<<< HEAD
-		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="sorting_1">${stat.index}</td>
-		                        <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
-								<td class=app_amounts>-</td>
-								<td class="app_online">- / -</td>
-								<td class="app_new">- / -</td>
-								<td class="app_earnings">-</td>
-		                    </tr>
-=======
+                	<c:forEach items="${applist}" var="app" varStatus="stat"> 
             		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
             			<td class="sorting_1">${stat.index+1}</td>
                         <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
@@ -84,13 +73,12 @@
 						<td class="app_online">- / -</td>
 						<td class="app_new">- / -</td>
 						<td class="app_earnings">-</td>
-                    </tr>
->>>>>>> 55fb80308b4c72479db6603fcaade8baac5d4e7d
+					</tr>
 		           </c:forEach>
                 </tbody>
             </table>
             <div class="row-fluid">
-            	<p:page pageNum="${pageNum}" pageTotal="${pageTotal}"></p:page>
+            	<p:page pageNum="${pageBean.pageNum}" pageTotal="${pageBean.pageTotal}"></p:page>
             </div>
           </div>
         </div>

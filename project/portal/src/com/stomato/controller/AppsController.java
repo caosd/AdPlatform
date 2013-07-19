@@ -29,6 +29,7 @@ import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.AppBusiness;
 import com.stomato.domain.AppType;
+import com.stomato.domain.BaseParam;
 import com.stomato.domain.PushTest;
 import com.stomato.domain.ReportParam;
 import com.stomato.domain.TempApp;
@@ -84,12 +85,26 @@ public class AppsController extends UserController {
 	private AppBusinessService appBusinessService;
 	
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
-	public String main(HttpServletRequest request, Model model) {
+	@RequestMapping(value="")
+	public String main(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
-		List<App> applist = appService.getAppList(user.getUid());
+		app.setUid(user.getUid());
+		int total = appService.listTotal(app);
+		BaseParam baseParam = new BaseParam(request,total);
+		baseParam.setParam(app);
+		List<App> applist  = appService.listApps(baseParam);
+		model.addAttribute("pageBean", baseParam);
 		model.addAttribute("applist", applist);
-		
+		return "portal/apps/applist";
+	}
+	@RequestMapping(value="/list")
+	public String list(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
+		int total = appService.listTotal(app);
+		BaseParam baseParam = new BaseParam(request,total);
+		baseParam.setParam(app);
+		List<App> applist  = appService.listApps(baseParam);
+		model.addAttribute("pageBean", baseParam);
+		model.addAttribute("applist", applist);
 		return "portal/apps/applist";
 	}
 	
@@ -134,7 +149,7 @@ public class AppsController extends UserController {
 		app.setUid(user.getUid());
 		appService.deleteApp(app);
 		
-		return "redirect:/apps";
+		return "redirect:/apps/";
 	}
 	
 	@RequestMapping(value="/{appKey}/reports", method=RequestMethod.GET)
@@ -552,6 +567,10 @@ public class AppsController extends UserController {
 	@RequestMapping(value="/{appKey}/preview", method=RequestMethod.GET)
 	public String preview(@PathVariable String appKey, HttpServletRequest request) {
 		return "redirect:/html/previews/rich.html";
+	}
+	@RequestMapping(value="/export-excel", method=RequestMethod.GET)
+	public String exportExcel(){
+		return null;
 	}
 	
 }

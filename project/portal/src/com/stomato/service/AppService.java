@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AppDao;
 import com.stomato.domain.App;
+import com.stomato.domain.BaseParam;
 
 @Service
 public class AppService {
@@ -30,7 +31,13 @@ public class AppService {
 	public App getApp(App app) {
 		return appDao.getApp(app);
 	}
-
+	
+	public int listTotal(App app){
+		return appDao.listTotal(app);
+	}
+	public List<App> listApps(BaseParam baseParam){
+		return appDao.listApps(baseParam);
+	}
 	public List<App> getAppList(int uid) {
 		return appDao.getAppList(uid);
 	}

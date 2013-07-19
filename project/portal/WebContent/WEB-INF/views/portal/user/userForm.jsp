@@ -21,11 +21,14 @@
 		<h5>添加用户</h5>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
-	    <c:if test="${msg != null}">
+	    <c:if test="${success != null}">
             <div class="note note-danger" style="margin: 20px 30px;">
                 <button type="button" class="close note-remove">×</button>
-                <strong><fmt:message key="tips"/></strong> 
-                ${msg}
+                <strong><fmt:message key="tips"/></strong>
+                <c:choose>
+                	<c:when test="${success}">添加用户成功</c:when>
+                	<c:otherwise>添加用户失败</c:otherwise>
+                </c:choose>
             </div>
         </c:if>
 	    <!-- BEGIN FORM-->
@@ -69,14 +72,14 @@
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" for="contactName">contactName:</label>
+	          <label class="control-label" for="contactName">联系人:</label>
 	          <div class="controls">
 	             <form:input path="contactName" type="text" class="span6" id="contactName"/>
 	             <form:errors path="contactName" cssClass="error"/>
 	          </div>
 	       </div>
 	       <div class="control-group">
-	          <label class="control-label" for="contactTel">contactTel:</label>
+	          <label class="control-label" for="contactTel">联系电话:</label>
 	          <div class="controls">
 	             <form:input path="contactTel" type="text" class="span6" id="contactTel"/>
 	             <form:errors path="contactTel" cssClass="error"/>

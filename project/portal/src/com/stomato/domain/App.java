@@ -5,27 +5,27 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 public class App {
-	
+
 	private int id;
-	
-	private int uid;
-	
-	private int type;
-	
+
+	private Integer uid;
+
+	private Integer type;
+
 	private String key;
-	
+
 	private String name;
-	
+
 	private String pkg;
-	
+
 	private String icon;
-	
-	private int status;
+
+	private Integer status;
 
 	private Date lastUpdateTime;
-	
+
 	private Date createTime;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -34,12 +34,20 @@ public class App {
 		this.id = id;
 	}
 
-	public int getUid() {
+	public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(int uid) {
+	public void setUid(Integer uid) {
 		this.uid = uid;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public String getKey() {
@@ -66,6 +74,22 @@ public class App {
 		this.pkg = pkg;
 	}
 
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public Date getLastUpdateTime() {
 		return lastUpdateTime;
 	}
@@ -81,31 +105,7 @@ public class App {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
-	public String getIcon() {
-		return icon;
-	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-	
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-	
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

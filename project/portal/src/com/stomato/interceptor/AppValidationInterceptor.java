@@ -35,6 +35,10 @@ public class AppValidationInterceptor extends HandlerInterceptorAdapter {
 				User user = this.lookup(request);
 				App app = new App();
 				app.setKey(appKey);
+				//modify by jd, spadmin和开发者共用一个页面，暂不过滤spadmin用户
+				/*if( user.getType() != 2 ){
+				   app.setUid(user.getUid());
+				}*/
 				app.setUid(user.getUid());
 				app = appService.getApp(app);
 				if (app != null) {
