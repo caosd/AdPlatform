@@ -27,7 +27,7 @@
 	<select id="getAppList" parameterType="int" resultMap="app" >
 		select id,app_key,uid,name,pkg,last_update_time,icon,status,create_time,type from t_apps where uid=#{uid} and is_del=0 order by id asc;
 	</select>
-	<select id="listTotal" parameterType="com.stomato.domain.App" resultType="int" >
+	<select id="listTotal" parameterType="com.stomato.domain.FormParam" resultType="int" >
 		select count(1) from t_apps where is_del=0
 		<if test="name != null">
 		 	and name like '%${name}%'
@@ -35,19 +35,23 @@
 		<if test="uid != null">
 		 	and uid = #{uid}
 		</if>
-	</select>
-	<select id="listApps" parameterType="com.stomato.domain.BaseParam" resultMap="app" >
-		select  id,app_key,uid,name,pkg,last_update_time,icon,status,create_time,type from t_apps where is_del=0
-		<if test="param != null">
-			<if test="param.name != null">
-			 	and name like '%${param.name}%'
-			</if>
-			<if test="param.uid != null">
-			 	and uid = #{param.uid}
-			</if>
+		<if test="startDate != null">
+		    and create_time between #{startDate} and #{endDate}
 		</if>
-		order by create_time asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+	</select>
+	<select id="listApps" parameterType="com.stomato.domain.FormParam" resultMap="app" >
+		select  id,app_key,uid,name,pkg,last_update_time,icon,status,create_time,type from t_apps where is_del=0
+		<if test="name != null">
+		 	and name like '%${name}%'
+		</if>
+		<if test="uid != null">
+		 	and uid = #{uid}
+		</if>
+		<if test="startDate != null">
+            and create_time between #{startDate} and #{endDate}
+        </if>
+		order by id asc
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 	<select id="getLastedAppList" parameterType="int" resultMap="app" >
 		select id,app_key,uid,name,pkg,last_update_time,icon,status,create_time,type from t_apps where uid=#{uid} and is_del=0 order by id desc limit 0,5;

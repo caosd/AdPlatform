@@ -1869,14 +1869,14 @@ var App = function () {
                 })]
             },
             opens: 'left',
-            format: 'MM/dd/yyyy',
+            format: 'yyyy-MM-dd',
             separator: ' 到 ',
             startDate: Date.today().add({
                 days: -29
             }),
             endDate: Date.today(),
-            minDate: '01/01/2012',
-            maxDate: '12/31/2014',
+            minDate: '01/07/2013',
+            maxDate: '12/31/2018',
             locale: {
                 applyLabel: '选择',
                 fromLabel: '从',
@@ -1889,14 +1889,22 @@ var App = function () {
             showWeekNumbers: true,
             buttonClasses: ['button-blue']
         },
-
+        
         function (start, end) {
-            $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+            $('#reportrange span').html(start.toString('yyyy年MM月dd日') + ' - ' + end.toString('yyyy年MM月dd日'));
+            $("#search_start").val(start.toString('yyyy-MM-dd'));
+    		$("#search_end").val(end.toString('yyyy-MM-dd'));
         });
-
-        $('#reportrange span').html(Date.today().add({
-            days: -29
-        }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
+        
+        var searchStart = $("#search_start").val();
+        var searchEnd = $("#search_end").val();
+        if (searchStart && searchEnd) {
+        	 $('#reportrange span').html(new Date(searchStart).toString('yyyy年MM月dd日') + ' - ' + new Date(searchEnd).toString('yyyy年MM月dd日'));
+        } else {
+	        $('#reportrange span').html(Date.today().add({
+	            days: -29
+	        }).toString('yyyy年MM月dd日') + ' - ' + Date.today().toString('yyyy年MM月dd日'));
+        }
 
         if (!jQuery().datepicker || !jQuery().timepicker) {
             return;
@@ -2022,18 +2030,6 @@ var App = function () {
         })
     }
     
-    //查询表单提交
-    var handleSubmitSearch = function() {
-    	$("#searchForm").submit(function() {
-    		var starttime = $("input[name=daterangepicker_start]").val();
-    		var endtime = $("input[name=daterangepicker_end]").val();
-    		$("#search_start").val(starttime);
-    		$("#search_end").val(endtime);
-    		return true;
-    	});
-    }
-    
-
     return {
 
         //main function to initiate template pages
@@ -2092,7 +2088,6 @@ var App = function () {
             handleGoTop(); //handles scroll to top functionality in the footer
             handleAccordions();
             handleSidebarToggler();
-            handleSubmitSearch();
 
         },
 

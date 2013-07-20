@@ -9,15 +9,16 @@ import org.springframework.stereotype.Service;
 import com.stomato.dao.AppDao;
 import com.stomato.domain.App;
 import com.stomato.domain.BaseParam;
+import com.stomato.domain.FormParam;
 
 @Service
 public class AppService {
-	
+
 	Logger logger = Logger.getLogger(this.getClass().getName());
-	
+
 	@Autowired
 	private AppDao appDao;
-	
+
 	public int addApp(App app) {
 		return appDao.addApp(app);
 	}
@@ -25,35 +26,37 @@ public class AppService {
 	public App getApp(App app) {
 		return appDao.getApp(app);
 	}
-	
-	public int listTotal(App app){
-		return appDao.listTotal(app);
+
+	public int listTotal(FormParam formParam) {
+		return appDao.listTotal(formParam);
 	}
-	public List<App> listApps(BaseParam baseParam){
-		return appDao.listApps(baseParam);
+
+	public List<App> listApps(FormParam formParam) {
+		return appDao.listApps(formParam);
 	}
+
 	public List<App> getAppList(int uid) {
 		return appDao.getAppList(uid);
 	}
-	
+
 	public List<App> getLastedAppList(int uid) {
 		return appDao.getLastedAppList(uid);
 	}
-	
+
 	public List<App> getAllAppList(BaseParam param) {
 		return appDao.getAllAppList(param);
 	}
-	
+
 	public void updateApp(App app) {
 		appDao.updateApp(app);
 	}
-	
+
 	public void deleteApp(App app) {
 		appDao.deleteApp(app);
 	}
-	
+
 	public boolean checkAppPackage(App app) {
 		return appDao.checkAppPackage(app) == 1;
 	}
-	
+
 }

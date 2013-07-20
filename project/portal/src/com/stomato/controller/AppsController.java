@@ -28,7 +28,7 @@ import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.AppBusiness;
 import com.stomato.domain.AppType;
-import com.stomato.domain.BaseParam;
+import com.stomato.domain.FormParam;
 import com.stomato.domain.TempApp;
 import com.stomato.domain.User;
 import com.stomato.form.AppForm;
@@ -71,25 +71,10 @@ public class AppsController extends UserController {
 	private AppBusinessService appBusinessService;
 	
 	@RequestMapping(value="")
-	public String main(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
+	public String myapplist(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
-		app.setUid(user.getUid());
-		int total = appService.listTotal(app);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(app);
-		List<App> applist  = appService.listApps(baseParam);
-		model.addAttribute("pageBean", baseParam);
-		model.addAttribute("applist", applist);
-		return "portal/apps/applist";
-	}
-	
-	@RequestMapping(value="/list")
-	public String list(@ModelAttribute("app") App app,BindingResult result,HttpServletRequest request, Model model) {
-		int total = appService.listTotal(app);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(app);
-		List<App> applist  = appService.listApps(baseParam);
-		model.addAttribute("pageBean", baseParam);
+		formParam.setUid(user.getUid());
+		List<App> applist  = appService.listApps(formParam);
 		model.addAttribute("applist", applist);
 		return "portal/apps/applist";
 	}

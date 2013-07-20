@@ -22,10 +22,10 @@
 			<div class="widget">
 				<div class="widget-header">
 					<h5><fmt:message key="applist_title" /></h5>
-					<form:form id="searchForm" commandName="app" method="post" class="form-inline">
-                    <input name="pageNum" type="hidden" id="pageNum" value="${pageBean.pageNum}" />
-                    <input name="startDatestr" type="hidden" id="search_date" value="${pageBean.startDatestr}" />
-                    <input name="endDatestr" type="hidden" id="search_end" value="${pageBean.endDatestr}" />
+					<form:form id="searchForm" commandName="formParam" method="post" class="form-inline">
+                    <form:hidden path="pageIndex"/>
+                    <form:hidden path="startDate" id="search_start" />
+                    <form:hidden path="endDate" id="search_end" />
 					<ul class="widget-nav">
 						<li id="reportrange">
 						    <img src="/img/icon/14x14/light/calendar.png" alt=""> <span></span>
