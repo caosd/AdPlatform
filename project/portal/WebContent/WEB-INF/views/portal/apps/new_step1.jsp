@@ -43,7 +43,7 @@
 					style="margin: 30px 20px;">
 					<div class="bar" style="width: 25%;"></div>
 				</div>
-				<h4 style="margin: 50px 30px 10px 30px;">第一步，提交应用进行应用信息提取</h4>
+				<h4 style="margin: 50px 30px 10px 30px;">第一步，上传应用进行应用信息提取</h4>
 				<c:if test="${param.packageExisted || param.unpackError || param.emptyFile}">
                 <div class="note note-danger" style="margin: 20px 30px;">
                     <button type="button" class="close note-remove">×</button>
@@ -57,7 +57,7 @@
 					<label class="field-name">应用名称：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<input class="span12" type="text" name="appName" value="${appName }" maxlength="20" /> 
+							<input class="span12" type="text" name="appName" value="" maxlength="20" /> 
 							<span class="add-on">不能超过20个字符</span>
 						</div>
 					</div>
@@ -66,10 +66,34 @@
 					<label class="field-name" for="password">您的应用：</label>
 					<div class="field">
 						<input type="file" name="file" id="file">
+						<div class="widget" style="width: 248px; margin: 0;">
+							<div class="upload-files">
+								<div class="uploading-files">
+									<div class="uploading">
+										<div class="media-type">
+											<img src="/img/icon/14x14/light/file.png" alt=""> <span></span>
+										</div>
+										<div class="action">
+											<a href="#" data-toggle="n-tooltip"><img
+												src="/img/icon/14x14/light/pause.png" alt=""></a>
+										</div>
+										<div class="file-info">
+											<div class="progress thin progress-striped"
+												style="height: 6px; margin-bottom: 0; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;">
+												<div class="bar" style="width: 17%;"></div>
+											</div>
+										</div>
+									</div>
+									<div class="uploading-footer">
+										<span>文件上传完毕</span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="form-row" style="padding-left: 208px;">
-					<button type="submit" class="button button-blue">上传应用</button>
+					<button type="submit" class="button button-blue">提取信息</button>
 					<div class="progress progress-striped progress-danger" style="display: none;height: 10px;width: 200px; margin-bottom: 0;">
 	                    <div style="width: 50%;" class="bar"></div>
 	                </div>
@@ -77,18 +101,8 @@
 			</div>
 		</form>
 	</div>
-    <script>
-    (function() {
-      $("form").submit(function() {
-        var v = $("#file").val();
-        if (v.lastIndexOf(".apk") == v.length - 4) {
-        	$("button[type=submit]").attr('disabled', 'disabled').next().css("display", "inline-block").addClass("active");
-            return true;
-        } else {
-            alert("请选择正确的APK文件");
-        }
-        return false;
-      });
-    })();
-    </script>
+	<script src="/js/jquery.form.js" charset="utf-8"></script>
+	<script>
+		
+	</script>
 </body>

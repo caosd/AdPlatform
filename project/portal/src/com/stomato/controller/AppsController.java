@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stomato.constant.Constant;
@@ -74,6 +75,7 @@ public class AppsController extends UserController {
 	public String myapplist(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
 		formParam.setUid(user.getUid());
+		formParam.setPageTotal(appService.listTotal(formParam));
 		List<App> applist  = appService.listApps(formParam);
 		model.addAttribute("applist", applist);
 		return "portal/apps/applist";
@@ -136,10 +138,11 @@ public class AppsController extends UserController {
 		return "portal/apps/new_step1";
 	}
 	
-	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String _create1(@RequestParam MultipartFile file, HttpServletRequest request, Model model) {
+	@ResponseBody
+	@RequestMapping(value="/create_upload", method=RequestMethod.POST)
+	public Object createUpload(@RequestParam MultipartFile file, HttpServletRequest request) {
 		User user = this.lookup(request);
-		String appName = request.getParameter("appName");
+		Map<String, Object> returns = new HashMap<String, Object>();
 		
 		if (file.getSize() > 0) {
 			String appKey = AppHelper.generateAppKey(user.getUserName());
@@ -154,37 +157,61 @@ public class AppsController extends UserController {
 			try {
 				file.transferTo(targetFile);
 				
-				String packageName = AirHelper.air(request.getSession().getServletContext().getRealPath("/"), tf);
-				if (null == packageName) {
-					model.addAttribute("unpackError", true);
-					return "redirect:/apps/create";
-				}
+				returns.put("status", 1);
+				returns.put("key", appKey);
 				
-				App app = new App();
-				app.setUid(user.getUid());
-				app.setPkg(packageName);
-				boolean packageExisted = appService.checkAppPackage(app);
-				
-				if (packageExisted) {
-					model.addAttribute("packageExisted", true);
-					return "redirect:/apps/create";
-				}
-				
-				TempApp tempApp = new TempApp();
-				tempApp.setUid(user.getUid());
-				tempApp.setKey(appKey);
-				tempApp.setPkg(packageName);
-				tempApp.setName(appName);
-				tempAppService.addApp(tempApp);
-				
-				return "redirect:/apps/create/" + appKey;
+				Thread.sleep(10*1000);
 			} catch (Exception e) {
 				logger.error("[Upload Error] " + e.getMessage());
+				returns.put("status", 0);
+				returns.put("message", "上传失败");
 			}
-			model.addAttribute("unpackError", true);
+			
 		} else {
-			model.addAttribute("emptyFile", true);
+			returns.put("status", 0);
+			returns.put("message", "文件错误");
 		}
+		
+		return returns;
+	}
+	
+	@RequestMapping(value="/create", method=RequestMethod.POST)
+	public String _create1(HttpServletRequest request, Model model) {
+		User user = this.lookup(request);
+		String appName = request.getParameter("appName");
+		String appKey = request.getParameter("appKey");
+		
+		String diroot = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator + Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;
+		String tf = diroot + appKey + apkSuffix;
+		try {
+			String packageName = AirHelper.air(request.getSession().getServletContext().getRealPath("/"), tf);
+			if (null == packageName) {
+				model.addAttribute("unpackError", true);
+				return "redirect:/apps/create";
+			}
+			
+			App app = new App();
+			app.setUid(user.getUid());
+			app.setPkg(packageName);
+			boolean packageExisted = appService.checkAppPackage(app);
+			
+			if (packageExisted) {
+				model.addAttribute("packageExisted", true);
+				return "redirect:/apps/create";
+			}
+			
+			TempApp tempApp = new TempApp();
+			tempApp.setUid(user.getUid());
+			tempApp.setKey(appKey);
+			tempApp.setPkg(packageName);
+			tempApp.setName(appName);
+			tempAppService.addApp(tempApp);
+			
+			return "redirect:/apps/create/" + appKey;
+		} catch (Exception e) {
+			logger.error("[UnPack Error] " + e.getMessage());
+		}
+		model.addAttribute("unpackError", true);
 		return "redirect:/apps/create";
 	}
 	

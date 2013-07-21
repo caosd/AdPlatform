@@ -9,13 +9,13 @@ public class FormParam {
 	private String endDate;
 	
 	//每页展示数量
-	private int pageSize = 15;
+	private int pageSize = 1;
 	
 	//总数
 	private int pageTotal;
 	
 	//当前页数，1开始
-	private int pageIndex = 1;
+	private int pageNum = 1;
 	
 	//数据库查询偏移量
 	private int offset;
@@ -58,19 +58,19 @@ public class FormParam {
 		this.pageTotal = pageTotal;
 	}
 
-	public int getPageIndex() {
-		return pageIndex;
+	public int getPageNum() {
+		return pageNum;
 	}
 
-	public void setPageIndex(int pageIndex) {
-		if (pageIndex <= 0) {
-			pageIndex = 1;
+	public void setPageNum(int pageNum) {
+		if (pageNum <= 0) {
+			pageNum = 1;
 		}
-		this.pageIndex = pageIndex;
+		this.pageNum = pageNum;
 	}
 
 	public int getOffset() {
-		this.setOffset((this.getPageIndex() - 1) * this.getPageSize());
+		this.setOffset((this.getPageNum() - 1) * this.getPageSize());
 		return offset;
 	}
 

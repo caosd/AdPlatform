@@ -23,7 +23,7 @@
 				<div class="widget-header">
 					<h5><fmt:message key="applist_title" /></h5>
 					<form:form id="searchForm" commandName="formParam" method="post" class="form-inline">
-                    <form:hidden path="pageIndex"/>
+                    <form:hidden path="pageNum" id="pageNum"/>
                     <form:hidden path="startDate" id="search_start" />
                     <form:hidden path="endDate" id="search_end" />
 					<ul class="widget-nav">
@@ -64,7 +64,7 @@
 							</tbody>
 						</table>
 						<div class="tableFooter">
-							<p:page pageNum="${pageBean.pageNum}" pageTotal="${pageBean.pageTotal}"></p:page>
+							<p:page pageNum="${formParam.pageNum}" pageTotal="${formParam.pageTotal}"></p:page>
 						</div>
 					</div>
 				</div>

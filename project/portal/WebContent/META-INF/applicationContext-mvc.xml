@@ -63,13 +63,6 @@
             <mvc:mapping path="/dashboard.html"/>
 			<bean class="com.stomato.interceptor.UserInterceptor" />
 		</mvc:interceptor>
-        <mvc:interceptor>
-	        <mvc:mapping path="/accounts/**" />
-            <mvc:mapping path="/apps/**" />
-            <mvc:mapping path="/financial/**" />
-            <mvc:mapping path="/report/**" />
-			<bean class="com.stomato.interceptor.InjectAppsInterceptor" />
-		</mvc:interceptor>
 		<mvc:interceptor>
 		    <mvc:mapping path="/apps/*/**"/>
 		    <bean class="com.stomato.interceptor.AppValidationInterceptor" />
