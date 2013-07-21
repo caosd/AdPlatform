@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.AdPushDao">
+
+	<resultMap type="com.stomato.domain.AdPush" id="adPush">
+        <result property="id" column="id" />
+        <result property="adresourceId" column="adresource_id" />
+        <result property="pushDate" column="push_date" />
+        <result property="firstPush" column="first_push" />
+        <result property="maxPush" column="max_push" />
+        <result property="realPush" column="real_push" />
+        <result property="money" column="money" />
+        <result property="status" column="status" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.stomato.domain.AdPush">
+		insert into t_ad_push(adresource_id, first_push, max_push, real_push,money,push_date,status)
+		 				values(#{adresourceId}, #{firstPush}, #{maxPush}, #{realPush},#{money},{pushDate},1)
+	</insert>
+
+	<update id ="update" parameterType="com.stomato.domain.AdPush">
+	    update t_ad_push
+	       set first_push=#{first_push}
+	         , max_push=#{maxPush}
+	         , money=#{money}
+	         , status=#{status}
+	     where id=#{id}
+	</update>
+	<select id="get" parameterType="int" resultMap="adPush" >
+		select id, adresource_id, first_push, max_push, real_push,money,push_date,status
+		from t_ad_push where id=#{id} 
+	</select>
+	<select id="listTotal" parameterType="com.stomato.domain.AdPush" resultType="int">
+		select count(1) from t_ad_push where 1=1
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
+		</if>
+	</select>
+	<select id="list" parameterType="com.stomato.domain.BaseParam" resultMap="adPush" >
+		select  id, adresource_id, first_push, max_push, real_push,money,push_date,status
+		from t_ad_push where 1=1 
+		<if test="param != null">
+			<if test="param.adresourceId != null">
+			 	and adresource_id = #{param.adresourceId}
+			</if>
+		</if>
+		order by pushDate asc
+		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+	</select>
+	<select id="getListMap" parameterType="com.stomato.domain.BaseParam" resultType="map" >
+		SELECT
+			push.id,
+		    push.push_date,
+		    resource.shelf_date,
+		    channel.channel_name,
+		    resource.ad_name,
+			resource.price,
+			push.first_push,
+			push.max_push,
+			push.real_push,
+			push.money,
+			push.money/push.real_push as arpu,
+			push.status
+		FROM
+			t_ad_push push,
+			t_ad_resource resource,
+			t_ad_channel channel
+		WHERE
+			push.adresource_id = resource.id and resource.channel_id = channel.id
+		<if test="param != null">
+			<if test="param.adresourceId != null">
+			 	and adresource_id = #{param.adresourceId}
+			</if>
+		</if>
+		order by push_date asc
+		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+	</select>
+</mapper>

@@ -10,9 +10,9 @@ import com.stomato.domain.BaseParam;
  */
 public interface BaseDao<T> {
 
-	public void add(T bean);
+	public int add(T bean);
 
-	public void update(T bean);
+	public int update(T bean);
 
 	public List<T> list(BaseParam param);
 

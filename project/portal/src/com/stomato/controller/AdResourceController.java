@@ -442,6 +442,7 @@ public class AdResourceController {
 		AdResource resource = adResourceService.getAdResource(id);
 		if( Constant.AdResourceStatus.onShelf != resource.getStatus() ){
 			resource.setStatus(Constant.AdResourceStatus.onShelf);
+			resource.setShelfDate(new Date());
 			adResourceService.updateAdResource(resource);
 		}
 		return "redirect:/adResource/adResourceList.html";
