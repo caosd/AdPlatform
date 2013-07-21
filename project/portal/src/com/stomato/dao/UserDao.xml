@@ -18,7 +18,7 @@
         <result property="status" column="status" />
 	</resultMap>
 	
-	<insert id="addUser" parameterType="com.stomato.domain.User">
+	<insert id="addUser" parameterType="com.stomato.domain.User" useGeneratedKeys="true" keyProperty="uid">
 		insert into t_user(account_name, account_pwd, type, email, company, contact_name, contact_tel, qq, website, createtime,status)
 					values(#{userName}, md5(#{password}), #{type}, #{email},#{company}, #{contactName}, #{contactTel}, #{qq}, #{website}, now(),#{status})
 	</insert>

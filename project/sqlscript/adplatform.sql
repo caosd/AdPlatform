@@ -14,16 +14,16 @@ USE `adplatform`;
 DROP TABLE IF EXISTS `t_ad_channel`;
 CREATE TABLE IF NOT EXISTS `t_ad_channel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `channel_name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `contact_tel` varchar(13) COLLATE utf8_bin NOT NULL,
-  `qq` varchar(15) COLLATE utf8_bin NOT NULL,
-  `contact_name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `description` varchar(500) COLLATE utf8_bin NOT NULL,
+  `channel_name` varchar(255) NOT NULL,
+  `contact_tel` varchar(13) NOT NULL,
+  `qq` varchar(15) NOT NULL,
+  `contact_name` varchar(255) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `enable` int(2) NOT NULL,
   `create_time` datetime NOT NULL,
   `is_del` tinyint(2) NOT NULL COMMENT '数据删除标识，0=未删除，1=已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1000;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
 
 --
 -- 表的结构 `t_ad_resource`
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `t_ad_rssource` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ad_package` (`app_package`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
 
 --
 -- 表的结构 `t_apps`
@@ -147,10 +147,33 @@ CREATE TABLE IF NOT EXISTS `t_app_type` (
 --
 
 INSERT INTO `t_app_type` (`id`, `type_name`, `description`, `parent`, `visible`, `order_no`) VALUES
-(3, '游戏', '游侠分类', 0, 1, 0),
-(4, '应用', '应用分类', 0, 1, 1),
-(5, '过山车', '', 3, 1, 1),
-(6, '超级射击', '', 3, 1, 2);
+(1, '应用', '应用分类', 0, 1, 1),
+(2, '游戏', '游戏分类', 0, 1, 0),
+
+(3, '系统工具', '', 1, 1, 1),
+(4, '实用工具', '', 1, 1, 2),
+(5, '社交通信', '', 1, 1, 3),
+(6, '旅行天气', '', 1, 1, 4),
+(7, '影音漫画', '', 1, 1, 5),
+(8, '商务财经', '', 1, 1, 6),
+(9, '生活助手', '', 1, 1, 7),
+(10, '学习人文', '', 1, 1, 8),
+(11, '美化壁纸', '', 1, 1, 9),
+(12, '阅读资讯', '', 1, 1, 10),
+(13, '网络通讯', '', 1, 1, 11),
+(14, '电子书', '', 1, 1, 12),
+(15, '手机安全', '', 1, 1, 13),
+(16, '应用商店', '', 1, 1, 14),
+(17, '其它', '', 1, 1, 15),
+
+(18, '休闲益智', '', 2, 1, 16),
+(19, '策略棋牌', '', 2, 1, 17),
+(20, '角色扮演', '', 2, 1, 18),
+(21, '动作格斗', '', 2, 1, 19),
+(22, '射击飞行', '', 2, 1, 20),
+(23, '体育竞技', '', 2, 1, 21),
+(24, '网游游戏', '', 2, 1, 22),
+(25, '模拟游戏', '', 2, 1, 23);
 
 -- --------------------------------------------------------
 
@@ -204,11 +227,11 @@ CREATE TABLE IF NOT EXISTS `t_company` (
 
 DROP TABLE IF EXISTS `t_config`;
 CREATE TABLE IF NOT EXISTS `t_config` (
-  `cmd_name` varchar(100) COLLATE utf8_bin NOT NULL,
-  `cmd_value` varchar(300) COLLATE utf8_bin DEFAULT NULL,
+  `cmd_name` varchar(100) NOT NULL,
+  `cmd_value` varchar(300) DEFAULT NULL,
   `last_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cmd_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `t_config`
@@ -250,16 +273,16 @@ DROP TABLE IF EXISTS `t_extra_applist`;
 CREATE TABLE IF NOT EXISTS `t_extra_applist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ord` int(11) DEFAULT NULL COMMENT '顺序',
-  `name` varchar(45) COLLATE utf8_bin DEFAULT NULL,
-  `size` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `version` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `size` varchar(20) DEFAULT NULL,
+  `version` varchar(20) DEFAULT NULL,
   `previews_counts` tinyint(4) DEFAULT NULL,
-  `description` varchar(1000) COLLATE utf8_bin DEFAULT NULL,
-  `download_url` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `download_counts` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `download_url` varchar(255) DEFAULT NULL,
+  `download_counts` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_order` (`ord`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1000;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
 
 --
 -- 表的结构 `t_menu`
@@ -312,7 +335,7 @@ INSERT INTO `t_menu` (`id`, `menuname`, `description`, `path`, `parent`, `visibl
 (30, '查询应用', NULL, '/appInfo/selectAppInfo.html', 26, 0, 1, '314'),
 (31, '修改应用', NULL, '/appInfo/updateAppInfo.html', 26, 0, 1, '315'),
 (32, '删除应用', NULL, '/appInfo/deleteAppInfo.html', 26, 0, 1, '316'),
-(33, '应用列表', '所有开发者应用列表', '/appInfo/listAppInfoAll.html', 26, 1, 1, '313'),
+(33, '应用列表', '所有开发者应用列表', '/apps/listAll.html', 26, 1, 1, '313'),
 (34, 'SDK报表', NULL, '', 0, 1, 1, '4'),
 (35, '用户报表', NULL, '/report/userDayReport.html', 34, 0, 1, '411'),
 (36, '应用安装上报报表', NULL, '/report/appInstallReport.html', 34, 0, 1, '412'),
@@ -486,13 +509,13 @@ CREATE TABLE IF NOT EXISTS `t_report_monthly` (
 
 DROP TABLE IF EXISTS `t_reset_pwd`;
 CREATE TABLE IF NOT EXISTS `t_reset_pwd` (
-  `email` varchar(100) COLLATE utf8_bin NOT NULL,
-  `token` varchar(80) COLLATE utf8_bin NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `token` varchar(80) NOT NULL,
   `expire_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `enable` bit(1) NOT NULL COMMENT '0 is enable',
   PRIMARY KEY (`email`),
   UNIQUE KEY `id_token` (`token`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -722,17 +745,17 @@ CREATE TABLE IF NOT EXISTS `t_temp_apps` (
 
 DROP TABLE IF EXISTS `t_transfer_history`;
 CREATE TABLE IF NOT EXISTS `t_transfer_history` (
-  `transfer_no` varchar(32) COLLATE utf8_bin NOT NULL COMMENT 'trade no, 32 md5.',
+  `transfer_no` varchar(32) NOT NULL COMMENT 'trade no, 32 md5.',
   `uid` int(11) NOT NULL,
   `pay_type` tinyint(1) NOT NULL COMMENT '1: paypal,   2: wire',
-  `pay_info` varchar(1000) COLLATE utf8_bin NOT NULL COMMENT 'payment details',
+  `pay_info` varchar(1000) NOT NULL COMMENT 'payment details',
   `transfer_amount` double NOT NULL DEFAULT '0',
   `create_date` datetime NOT NULL,
   `last_update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`transfer_no`),
   UNIQUE KEY `trade_no_UNIQUE` (`transfer_no`),
   KEY `id_uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -743,23 +766,23 @@ CREATE TABLE IF NOT EXISTS `t_transfer_history` (
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE IF NOT EXISTS `t_user` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-  `account_name` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '帐户名称',
-  `account_pwd` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '帐户密码',
-  `email` varchar(100) COLLATE utf8_bin NOT NULL,
+  `account_name` varchar(20) NOT NULL COMMENT '帐户名称',
+  `account_pwd` varchar(32) NOT NULL COMMENT '帐户密码',
+  `email` varchar(100) NOT NULL,
   `type` tinyint(4) NOT NULL COMMENT '角色类型',
-  `company` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '公司名称',
-  `contact_name` varchar(45) COLLATE utf8_bin DEFAULT NULL,
-  `contact_tel` varchar(45) COLLATE utf8_bin DEFAULT NULL,
-  `qq` varchar(20) COLLATE utf8_bin DEFAULT NULL,
-  `website` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `company` varchar(100) DEFAULT NULL COMMENT '公司名称',
+  `contact_name` varchar(45) DEFAULT NULL,
+  `contact_tel` varchar(45) DEFAULT NULL,
+  `qq` varchar(20) DEFAULT NULL,
+  `website` varchar(45) DEFAULT NULL,
   `createtime` datetime NOT NULL COMMENT '注册日期',
-  `login_token` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `login_token` varchar(50) DEFAULT NULL,
   `login_token_time` datetime DEFAULT NULL,
   `status` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`account_name`),
   UNIQUE KEY `id_UNIQUE` (`uid`),
   UNIQUE KEY `id_email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1350080;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1350080;
 
 --
 -- 转存表中的数据 `t_user`
@@ -778,11 +801,11 @@ INSERT INTO `t_user` (`uid`, `account_name`, `account_pwd`, `email`, `type`, `co
 
 DROP TABLE IF EXISTS `t_user_account`;
 CREATE TABLE IF NOT EXISTS `t_user_account` (
-  `uid` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '用户',
+  `uid` varchar(20) NOT NULL COMMENT '用户',
   `balance` double NOT NULL COMMENT '余额',
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新日期',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `t_user_account`
@@ -813,3 +836,17 @@ CREATE TABLE IF NOT EXISTS `t_user_channel` (
   PRIMARY KEY (`id`),
   KEY `T_CHANNEL_USER_LAST_UPDATE_TIME_IDX` (`last_update_time`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000; 
+
+--
+-- 表的结构 `t_app_business`
+--
+
+DROP TABLE IF EXISTS `t_app_business`;
+CREATE  TABLE `t_app_business` (
+  `app_id` INT NOT NULL ,
+  `allow_push` BIT NULL DEFAULT 0 ,
+  `allow_richpush` BIT NULL DEFAULT 0 ,
+  `allow_lbs` BIT NULL DEFAULT 0 ,
+  PRIMARY KEY (`app_id`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+

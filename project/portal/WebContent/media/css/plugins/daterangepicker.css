@@ -248,14 +248,14 @@
   cursor: pointer; 
   padding: 0 !important;
   height: 13px;
-  background: url(../../img/forms/calendarArrows.png) no-repeat;
+  background: url(/img/forms/calendarArrows.png) no-repeat;
   background-position: 0 0;
   float: left;
   margin-left: 10px;
 }
 
 .daterangepicker thead tr:first-child .prev:hover {
-  background: url(../../img/forms/calendarArrows-over.png) no-repeat;
+  background: url(/img/forms/calendarArrows-over.png) no-repeat;
 }
 
 .daterangepicker thead tr:first-child .next {
@@ -264,14 +264,14 @@
   cursor: pointer; 
   padding: 0 !important;
   height: 13px;
-  background: url(../../img/forms/calendarArrows.png) no-repeat;
+  background: url(/img/forms/calendarArrows.png) no-repeat;
   background-position: -8px 0;
   float: right;
   margin-right: 10px;
 }
 
 .daterangepicker thead tr:first-child .next:hover {
-  background: transparent url(../../img/forms/calendarArrows-over.png) no-repeat;
+  background: transparent url(/img/forms/calendarArrows-over.png) no-repeat;
   background-position: -8px 0;
 }
 

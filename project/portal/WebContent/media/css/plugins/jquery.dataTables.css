@@ -155,11 +155,13 @@ div.dataTables_wrapper .tableHeader, div.dataTables_wrapper .tableFooter {
 
 div.dataTables_wrapper .tableHeader {
 	padding: 12px 0 !important;
+	height: 25px;
 }
 
 div.dataTables_wrapper .tableFooter {
 	border-top: 1px solid #d2d2d2;
 	padding: 12px 0 !important;
+	height: 30px;
 }
 
 /*
