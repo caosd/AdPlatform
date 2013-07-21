@@ -14,7 +14,7 @@ public class FormParam {
 	private String endDate;
 	
 	//每页展示数量
-	private int pageSize = 1;
+	private int pageSize = 15;
 	
 	//总数
 	private int pageTotal;
