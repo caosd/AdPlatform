@@ -12,7 +12,8 @@
 	</ul>
 
 	<div class="widget">
-		<form method="POST" class="form-horizontal form-wizard" action="/apps/create" enctype="multipart/form-data">
+		<form id="appForm" method="POST" class="form-horizontal form-wizard" action="/apps/create" enctype="multipart/form-data">
+		    <input type="hidden" name="appKey" id="appKey" />
 			<div class="widget-header">
 				<h5>上传应用</h5>
 			</div>
@@ -65,26 +66,26 @@
 				<div class="form-row">
 					<label class="field-name" for="password">您的应用：</label>
 					<div class="field">
-						<input type="file" name="file" id="file">
-						<div class="widget" style="width: 248px; margin: 0;">
+						<input type="file" name="file" id="file" disabled="disabled">
+						<div class="widget" id="uploadFiles" style="width: 248px; margin: 0;display: none;">
 							<div class="upload-files">
 								<div class="uploading-files">
 									<div class="uploading">
 										<div class="media-type">
-											<img src="/img/icon/14x14/light/file.png" alt=""> <span></span>
+											<img src="/img/icon/14x14/light/file.png" alt=""> <span id="uploadFileName"></span>
 										</div>
 										<div class="action">
-											<a href="#" data-toggle="n-tooltip"><img
-												src="/img/icon/14x14/light/pause.png" alt=""></a>
+											<a href="javascript:;" data-toggle="n-tooltip" id="abortUpload" title="取消上传"><img src="/img/icon/14x14/light/stop.png" alt=""></a>
+											<a href="javascript:;" data-toggle="n-tooltip" id="playUpload" title="开始上传" style="display:none"><img src="/img/icon/14x14/light/play.png" alt=""></a>
 										</div>
 										<div class="file-info">
 											<div class="progress thin progress-striped"
 												style="height: 6px; margin-bottom: 0; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;">
-												<div class="bar" style="width: 17%;"></div>
+												<div id="uploadBar" class="bar" style="width: 0%;"></div>
 											</div>
 										</div>
 									</div>
-									<div class="uploading-footer">
+									<div class="uploading-footer" style="display: none;">
 										<span>文件上传完毕</span>
 									</div>
 								</div>
@@ -93,16 +94,11 @@
 					</div>
 				</div>
 				<div class="form-row" style="padding-left: 208px;">
-					<button type="submit" class="button button-blue">提取信息</button>
-					<div class="progress progress-striped progress-danger" style="display: none;height: 10px;width: 200px; margin-bottom: 0;">
-	                    <div style="width: 50%;" class="bar"></div>
-	                </div>
+					<button type="submit" class="button button-blue" id="submitForm">提取信息</button>
+					<span style="color:#006b8e;display: none;" id="submitInfo"><img src="/img/loader01.gif"/>分析应用大约需要至少10s的时间（具体根据文件大小而定），请耐心等候。</span>
 				</div>
 			</div>
 		</form>
 	</div>
-	<script src="/js/jquery.form.js" charset="utf-8"></script>
-	<script>
-		
-	</script>
+	<input type="hidden" id="jscript" value="uploadApp.js"/>
 </body>

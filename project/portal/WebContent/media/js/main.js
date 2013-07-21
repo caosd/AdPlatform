@@ -2030,6 +2030,24 @@ var App = function () {
         })
     }
     
+    var handlePowertips = function() {
+    	$('a[data-toggle=n-tooltip]').powerTip({
+            placement: 'n' // north-east tooltip position
+        });
+
+        $('a[data-toggle=e-tooltip]').powerTip({
+            placement: 'e' // north-east tooltip position
+        });
+
+        $('a[data-toggle=s-tooltip]').powerTip({
+            placement: 's' // north-east tooltip position
+        });
+
+        $('a[data-toggle=w-tooltip]').powerTip({
+            placement: 'w' // north-east tooltip position
+        });
+    }
+    
     return {
 
         //main function to initiate template pages
@@ -2088,6 +2106,7 @@ var App = function () {
             handleGoTop(); //handles scroll to top functionality in the footer
             handleAccordions();
             handleSidebarToggler();
+            handlePowertips();
 
         },
 
