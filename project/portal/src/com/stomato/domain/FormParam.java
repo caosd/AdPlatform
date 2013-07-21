@@ -1,5 +1,10 @@
 package com.stomato.domain;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.stomato.utils.DateUtils;
+
 public class FormParam {
 	
 	//查询起始日期
@@ -25,6 +30,9 @@ public class FormParam {
 	private String name;
 	
 	public String getStartDate() {
+		if (null == startDate) {
+			startDate = new SimpleDateFormat("yyyy-MM-dd").format(DateUtils.getInstance().getSomeDaysBeforeAfter(new Date(), -29));
+		}
 		return startDate;
 	}
 
@@ -33,6 +41,9 @@ public class FormParam {
 	}
 
 	public String getEndDate() {
+		if (null == endDate) {
+			endDate = DateUtils.getDateStr("yyyy-MM-dd");
+		}
 		return endDate;
 	}
 
