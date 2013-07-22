@@ -71,4 +71,12 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript">
+	//导出excel
+	(function() {
+      $('#export-excel').bind("click",function(event,data) {
+			$("#searchForm").attr("action", "/apps/export-excel").submit();
+		});
+    })();
+</script>
 </body>

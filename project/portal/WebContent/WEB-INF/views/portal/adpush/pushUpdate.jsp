@@ -8,14 +8,14 @@
 	<ul class="breadcrumb">
 		<li><a href="/"><i class="icon-home"></i></a><span
 			class="divider">&nbsp;</span></li>
-		<li><a href="#">广告渠道管理</a> <span class="divider">&nbsp;</span></li>
-		<li><a href="#">添加广告渠道</a><span class="divider-last">&nbsp;</span></li>
+		<li><a href="#">广告控制管理</a> <span class="divider">&nbsp;</span></li>
+		<li><a href="#">编辑广告推送控制</a><span class="divider-last">&nbsp;</span></li>
 	</ul>
 
 	<div class="widget">
-		<form:form commandName="adChannelForm" method="POST" class="form-horizontal form-wizard">
+		<form:form commandName="adPushForm" method="POST" class="form-horizontal form-wizard">
 			<div class="widget-header">
-				<h5>添加广告渠道</h5>
+				<h5>编辑广告推送控制</h5>
 			</div>
 			<div class="widget-content no-padding">
 				<c:if test="${success != null}">
@@ -24,74 +24,64 @@
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
                     	<c:when test="${success}">
-                    		修改渠道成功。
+                    		修改广告推送控制成功。
                     	</c:when>
                     	<c:otherwise>
-                    		修改渠道失败。
+                    		修改广告推送控制失败。
                     	</c:otherwise>
                     </c:choose>
                 </div>
                 </c:if>
 				<div class="form-row">
-					<label class="field-name" for="channelName">渠道名称：</label>
+					<label class="field-name" for="firstPush">是否首推：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="channelName" class="span12"  maxlength="20" value="${adChannel.channelName }"/> 
-							<span class="add-on">不能超过20个字符</span>
+							<form:checkbox path="firstPush" class="span12"/>
 						</div>
-						<form:errors path="channelName" cssClass="error"/>
+						<form:errors path="firstPush" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="contactName">联系人：</label>
+					<label class="field-name" for="maxPush">设置最大推送量：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="contactName" class="span12" maxlength="20" value="${adChannel.contactName }"/> 
+							<form:input path="maxPush" class="span12"/> 
 							<span class="add-on">*</span>
 						</div>
-						<form:errors path="contactName" cssClass="error"/>
+						<form:errors path="maxPush" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="contactTel">联系电话：</label>
+					<label class="field-name" for="status">开通/关闭该业务：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="contactTel" class="span12" maxlength="20" value="${adChannel.contactTel }"/> 
-							<span class="add-on">*</span>
+							<form:checkbox path="status" class="span12"/>
 						</div>
-						<form:errors path="contactTel" cssClass="error"/>
+						<form:errors path="status" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="qq">QQ：</label>
+					<label class="field-name" for="money">设置实际收入：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="qq" class="span12" maxlength="20" value="${adChannel.qq }"/> 
+							<form:input path="money" class="span12" maxlength="20"/> 
 							<span class="add-on"></span>
 						</div>
-						<form:errors path="qq" cssClass="error"/>
+						<form:errors path="money" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for=description>渠道描述：</label>
+					<label class="field-name" for="pushDateStr">推送日期：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="description" class="span12" value="${adChannel.description }"/> 
+							<form:input path="pushDateStr" class="span12"/> 
 							<span class="add-on"></span>
 						</div>
-						<form:errors path="description" cssClass="error"/>
-					</div>
-				</div>
-				<div class="form-row">
-					<label class="field-name" for="enable">是否启用：</label>
-					<div class="field">
-						<div class="input-prepend input-append">
-							<input type="checkbox" name="enable" class="span12" ${adChannel.enable?'checked="checked"':'' } value="1"/>
-						</div>
+						<form:errors path="pushDateStr" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row" style="padding-left: 180px;">
-					<button type="submit" class="button button-blue">添加渠道</button>
+					<button type="submit" class="button button-blue">保存修改</button>
 				</div>
 			</div>
 		</form:form>

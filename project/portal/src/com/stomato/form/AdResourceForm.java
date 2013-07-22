@@ -92,6 +92,10 @@ public class AdResourceForm {
 	 * 描述
 	 */
 	private String description;
+	/**
+	 * 语言
+	 */
+	private String language;
 	private Date modifyDate;
 
 	private Date createDate;
@@ -407,6 +411,14 @@ public class AdResourceForm {
 
 	public void setClearingForm(String clearingForm) {
 		this.clearingForm = clearingForm;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

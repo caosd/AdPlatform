@@ -18,37 +18,53 @@
 		insert into t_ad_push(adresource_id, first_push, max_push, real_push,money,push_date,status)
 		 				values(#{adresourceId}, #{firstPush}, #{maxPush}, #{realPush},#{money},{pushDate},1)
 	</insert>
-
+	<delete id="delete" parameterType="int">
+		delete from t_ad_push where id = #{id}
+	</delete>
 	<update id ="update" parameterType="com.stomato.domain.AdPush">
 	    update t_ad_push
-	       set first_push=#{first_push}
-	         , max_push=#{maxPush}
-	         , money=#{money}
-	         , status=#{status}
+	    <set>
+	    	<if test="adresourceId != null">adresource_id=#{adresourceId},</if>
+	    	<if test="pushDate != null">push_date=#{pushDate},</if>
+	    	<if test="firstPush != null">first_push=#{firstPush},</if>
+	    	<if test="maxPush != null">max_push=#{maxPush},</if>
+	    	<if test="realPush != null">real_push=#{realPush},</if>
+	    	<if test="money != null">money=#{money},</if>
+	    	<if test="status != null">status=#{status}</if>
+	    </set>
 	     where id=#{id}
 	</update>
 	<select id="get" parameterType="int" resultMap="adPush" >
 		select id, adresource_id, first_push, max_push, real_push,money,push_date,status
 		from t_ad_push where id=#{id} 
 	</select>
-	<select id="listTotal" parameterType="com.stomato.domain.AdPush" resultType="int">
-		select count(1) from t_ad_push where 1=1
+	<select id="listTotal" parameterType="com.stomato.domain.FormParam" resultType="int">
+		<!-- select count(1) from t_ad_push where 1=1
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
+		</if> -->
+		SELECT
+			count(1)
+		FROM
+			t_ad_push push,
+			t_ad_resource resource,
+			t_ad_channel channel
+		WHERE
+			push.adresource_id = resource.id and resource.channel_id = channel.id
 		<if test="adresourceId != null">
 		 	and adresource_id = #{adresourceId}
 		</if>
 	</select>
-	<select id="list" parameterType="com.stomato.domain.BaseParam" resultMap="adPush" >
+	<select id="list" parameterType="com.stomato.domain.FormParam" resultMap="adPush" >
 		select  id, adresource_id, first_push, max_push, real_push,money,push_date,status
 		from t_ad_push where 1=1 
-		<if test="param != null">
-			<if test="param.adresourceId != null">
-			 	and adresource_id = #{param.adresourceId}
-			</if>
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
 		</if>
 		order by pushDate asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
-	<select id="getListMap" parameterType="com.stomato.domain.BaseParam" resultType="map" >
+	<select id="getListMap" parameterType="com.stomato.domain.FormParam" resultType="map" >
 		SELECT
 			push.id,
 		    push.push_date,
@@ -68,12 +84,10 @@
 			t_ad_channel channel
 		WHERE
 			push.adresource_id = resource.id and resource.channel_id = channel.id
-		<if test="param != null">
-			<if test="param.adresourceId != null">
-			 	and adresource_id = #{param.adresourceId}
-			</if>
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
 		</if>
 		order by push_date asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

@@ -1,5 +1,4 @@
 package com.stomato.controller;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,7 +74,7 @@ public class AppsController extends UserController {
 	public String myapplist(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request, Model model) {
 		User user = this.lookup(request);
 		formParam.setUid(user.getUid());
-		formParam.setPageTotal(appService.listTotal(formParam));
+		formParam.setTotalCount(appService.listTotal(formParam));
 		List<App> applist  = appService.listApps(formParam);
 		model.addAttribute("applist", applist);
 		return "portal/apps/applist";
@@ -444,9 +443,16 @@ public class AppsController extends UserController {
 		return "portal/apps/new_step5";
 	}
 	
-	@RequestMapping(value="/export-excel", method=RequestMethod.GET)
-	public String exportExcel(){
-		return null;
+	@RequestMapping(value="/export-excel")
+	public void exportExcel(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request, Model model){
+	/*	User user = this.lookup(request);
+		formParam.setUid(user.getUid());
+		formParam.setTotalCount(appService.listTotal(formParam));
+		List<App> applist  = appService.listApps(formParam);
+		 
+		ExcelUtils.export2Excel(columns, listData)
+
+		*/
 	}
-	
+
 }

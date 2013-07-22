@@ -36,7 +36,7 @@ public class PageTag extends BodyTagSupport{
 	    	JspWriter out=pageContext.getOut();
 			StringBuilder sb = new StringBuilder();
 			if(pageTotal == 0){
-				sb.append("<span style='float: right;'>没有记录</span>");
+				//sb.append("<span style='float: right;'>没有记录</span>");
 			}else{
 				sb.append("<div class='span6'><div class='dataTables_info' id='sample_1_info'><span>第").append(pageNum).append("/").append(pageTotal).append("页</span></div></div>");
 				sb.append("<div class='span6'><div class='dataTables_paginate paging_bootstrap pagination'><ul>");

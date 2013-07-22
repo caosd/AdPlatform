@@ -3954,8 +3954,8 @@ ul.wizard li.finish {
 
 .default-table td,
 .default-table th {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
   outline: 0;
 }
 

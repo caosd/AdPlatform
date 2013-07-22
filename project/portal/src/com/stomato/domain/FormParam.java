@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.stomato.utils.DateUtils;
+import com.stomato.vo.SysConfig;
 
 public class FormParam {
 	
@@ -18,6 +19,9 @@ public class FormParam {
 	
 	//总数
 	private int pageTotal;
+	
+	//总行数
+	private int totalCount = 0;
 	
 	//当前页数，1开始
 	private int pageNum = 1;
@@ -61,7 +65,16 @@ public class FormParam {
 		}
 	}
 
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
 	public int getPageTotal() {
+		pageTotal = SysConfig.getPageTotal(totalCount, getPageSize());
 		return pageTotal;
 	}
 
@@ -70,6 +83,7 @@ public class FormParam {
 	}
 
 	public int getPageNum() {
+		if(pageTotal<pageNum){ pageNum = 1;} 
 		return pageNum;
 	}
 
