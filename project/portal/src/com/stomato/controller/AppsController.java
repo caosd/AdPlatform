@@ -158,8 +158,6 @@ public class AppsController extends UserController {
 				
 				returns.put("status", 1);
 				returns.put("key", appKey);
-				
-				Thread.sleep(10*1000);
 			} catch (Exception e) {
 				logger.error("[Upload Error] " + e.getMessage());
 				returns.put("status", 0);

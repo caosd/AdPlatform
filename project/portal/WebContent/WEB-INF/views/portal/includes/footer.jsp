@@ -9,16 +9,15 @@
     </div>
 </div>
 <!-- BEGIN JAVASCRIPTS -->
-<script src="/js/jquery-1.8.3.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/uniform/jquery.uniform.js"></script>
 <script src="/js/bootstrap-chosen/chosen.jquery.min.js"></script>
 <script src="/js/masked-input/jquery.maskedinput.js"></script>
 <script src="/js/ibutton/jquery.ibutton.js"></script>
 <script src="/js/datatable/jquery.dataTables.js"></script>
-<script src="/js/datatable/jquery.dataTables.js"></script>
 <script src="/js/range-picker/daterangepicker.js"></script>
 <script src="/js/range-picker/date.js"></script>
+<script src="/js/powertip/jquery.powertip.js"></script>
 <!-- ie8 fixes -->
 <!--[if lt IE 9]>
 <script src="js/excanvas.min.js"></script>
