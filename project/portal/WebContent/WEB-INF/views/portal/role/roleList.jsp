@@ -53,8 +53,6 @@
                 <table class="table table-striped table-bordered" id="role_table">
                 <thead>
                     <tr>
-                        
-                        <th>#</th>
                         <th>角色名称</th>
                         <th>录入时间</th>
                         <th>状态</th>
@@ -64,8 +62,6 @@
                 <tbody>
                 	<c:forEach items="${roleList}" var="item" varStatus="stat">
 		            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-		            			<td class="  sorting_1"><input type="checkbox" class="checkboxes" value="${item.id }"></td>
-		            			<td class="sorting_1">${stat.index}</td>
 		                        <td class=" ">${item.roleName }</td>
 		                        <td class=" "><fmt:formatDate value="${item.createDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 		                        <td>

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,7 +102,7 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="/roleFormpage.html",method=RequestMethod.GET)
-	public String roleMenuPage(int id,HttpServletRequest request){
+	public String roleMenuPage(int id,HttpServletRequest request, Model model){
 		Role role = roleService.getRole(id);
 		if(role == null || StringUtils.isEmpty(role.getRoleName())){
 			request.setAttribute("msg", "角色不存在！");
@@ -119,9 +120,9 @@ public class RoleController {
 				menu.setSunMenu(sunMenuList);
 			}
 		}
-		request.setAttribute("roleMenuIdList", roleMenuIdList);
-		request.setAttribute("menuList", menuList);
-		request.setAttribute("role", role);
+		model.addAttribute("selected", roleMenuIdList);
+		model.addAttribute("menuList", menuList);
+		model.addAttribute("role", role);
 		return "portal/role/roleMenu" ;
 	}
 	
@@ -132,9 +133,9 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="/roleFormpage.html",method=RequestMethod.POST)
-	public String setRoleMenu(int id,Integer[] menuIdArr,HttpServletRequest request){
+	public String setRoleMenu(int id,Integer[] menuIdArr,HttpServletRequest request, Model model){
 		roleMenuService.editRoleMenu(id, menuIdArr);
 		request.setAttribute("msg", "修改角色权限成功");
-		return roleMenuPage(id, request);
+		return roleMenuPage(id, request, model);
 	}
 }
