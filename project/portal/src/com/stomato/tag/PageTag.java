@@ -42,15 +42,15 @@ public class PageTag extends BodyTagSupport{
 				sb.append("<div class='span6'><div class='dataTables_paginate paging_bootstrap pagination'><ul>");
 				
 				if(pageNum == 1){
-			    	sb.append("<li class='prev disabled'><a href='javascript:void(0)'>← Prev</a></li>");
+			    	sb.append("<li class='prev disabled'><a href='javascript:;'>← Prev</a></li>");
 			    }else{
-			    	sb.append("<li class='prev active'><a href='javascript:void(0)' onclick='prevPage();'>← Prev</a></li>");
+			    	sb.append("<li class='prev'><a href='javascript:;' onclick='prevPage();'>← Prev</a></li>");
 			    } 
 				
 				if(pageNum == pageTotal){
-					sb.append("<li class='next disabled'><a href='javascript:void(0)'>Next → </a></li>");
+					sb.append("<li class='next disabled'><a href='javascript:;'>Next → </a></li>");
 				}else{
-					sb.append("<li class='next active'><a href='javascript:void(0)' onclick='nextPage();'>Next → </a></li>");
+					sb.append("<li class='next'><a href='javascript:;' onclick='nextPage();'>Next → </a></li>");
 				}
 				sb.append("</ul></div></div>");
 			}

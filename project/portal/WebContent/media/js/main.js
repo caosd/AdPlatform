@@ -2178,3 +2178,23 @@ jQuery(document).ready(function() {
     	$.getScript('/js/pages/'+pageScript);
     }
 });
+
+function prevPage(){
+	var pageNum = $('#pageNum').val();
+	pageNum=parseInt(pageNum)- 1;
+	$('#pageNum').val(pageNum);
+	$('#searchForm').submit();
+}
+
+function nextPage(){
+	var pageNum = $('#pageNum').val();
+	pageNum=parseInt(pageNum) +1;
+	$('#pageNum').val(pageNum);
+	$('#searchForm').submit();
+}
+
+function deleteData(url){
+	if(confirm("确认删除该记录？")){
+		$("#searchForm").attr("action", url).submit();
+	}
+}

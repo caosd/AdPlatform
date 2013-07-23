@@ -30,9 +30,8 @@ public class IndexController {
 	private ExtraAppService extraAppService;
 	
 	@RequestMapping("/")
-	public ModelAndView index(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		model.put("pushAdsDisplay", indexService.getIndexCount());
-		return new ModelAndView("index", model);
+	public String index(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		return "redirect:/login.html";
 	}
 	
 	@RequestMapping("/aboutus")
