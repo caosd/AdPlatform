@@ -1,6 +1,8 @@
 package com.stomato.controller;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,6 +43,7 @@ import com.stomato.service.AppService;
 import com.stomato.service.AppTypeService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.TempAppService;
+import com.stomato.utils.ExcelUtils;
 import com.stomato.utils.FileUtils;
 import com.stomato.utils.NumberUtils;
 import com.stomato.utils.StringUtils;
@@ -426,7 +429,6 @@ public class AppsController extends UserController {
 				logger.error("[Upload Error] " + e.getMessage());
 			}
 		}
-		
 		model.addAttribute("failed", true);
 		return "redirect:/apps/" + appKey + "/upload_app";
 	}
@@ -442,15 +444,29 @@ public class AppsController extends UserController {
 	}
 	
 	@RequestMapping(value="/export-excel")
-	public void exportExcel(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request, Model model){
-	/*	User user = this.lookup(request);
+	public void myExportExcel(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request,HttpServletResponse response){
+		response.reset();
+	    response.setContentType("APPLICATION/vnd.ms-excel");
+	    String fileName;
+		try {
+			fileName = URLEncoder.encode("应用列表","UTF-8");
+		    if(fileName.length()>150){//解决IE 6.0 bug
+		        fileName=new String("应用列表".getBytes("GBK"),"ISO-8859-1");
+		    }
+		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
+		} catch (UnsupportedEncodingException e) {}
+	       
+		User user = this.lookup(request);
 		formParam.setUid(user.getUid());
 		formParam.setTotalCount(appService.listTotal(formParam));
 		List<App> applist  = appService.listApps(formParam);
-		 
-		ExcelUtils.export2Excel(columns, listData)
-
-		*/
+		Map<String,List<App>> beans = new HashMap<String, List<App>>();
+		beans.put("applist", applist);
+		try{
+			String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/app_report.xls";
+			ExcelUtils.export2Excel(tempFile, beans, response.getOutputStream());
+		}catch(IOException ioError){
+			logger.error("导出Excel异常",ioError);
+		}
 	}
-
 }

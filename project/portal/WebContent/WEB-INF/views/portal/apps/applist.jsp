@@ -74,8 +74,11 @@
 <script type="text/javascript">
 	//导出excel
 	(function() {
-      $('#export-excel').bind("click",function(event,data) {
-			$("#searchForm").attr("action", "/apps/export-excel").submit();
+        $('#export-excel').bind("click",function(event,data) {
+        	$form = $("#searchForm");
+        	url = $form.attr("action");
+        	$form.attr("action", "/apps/export-excel").submit();
+        	$form.attr("action",url);
 		});
     })();
 </script>
