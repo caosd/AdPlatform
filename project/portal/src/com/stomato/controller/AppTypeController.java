@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -93,11 +94,10 @@ public class AppTypeController {
 		return "portal/apps/appTypeList";
 	}
 
-	@RequestMapping(value="/updateAppType.html",method=RequestMethod.GET)
-	public String AppTypeUpdate(@ModelAttribute("appTypeForm")AppTypeForm form,int id,Model model) throws ParseException, IOException{
-
+	@RequestMapping(value="/{id}/updateAppType.html",method=RequestMethod.GET)
+	public String AppTypeUpdate(@PathVariable int id,@ModelAttribute("appTypeForm")AppTypeForm form,BindingResult result) throws ParseException, IOException{
 		AppType appType = appTypeService.getAppType(id);
-		model.addAttribute("appType",appType);
+		BeanUtils.copyProperties(appType, form);
 		return "portal/apps/appTypeUpdate";
 	}
 	/**
@@ -108,23 +108,24 @@ public class AppTypeController {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/updateAppType.html",method=RequestMethod.POST)
-	public String AppTypeUpdate(@Valid @ModelAttribute("AppTypeForm")AppTypeForm form, BindingResult result,HttpServletRequest request,Model model) throws ParseException, IOException{
+	@RequestMapping(value="/{id}/updateAppType.html",method=RequestMethod.POST)
+	public String AppTypeUpdate(@PathVariable int id,@Valid @ModelAttribute("appTypeForm")AppTypeForm form, BindingResult result,HttpServletRequest request,Model model) throws ParseException, IOException{
 		if( result.hasErrors()){
 			return "portal/apps/appTypeUpdate";
 		}
+		form.setId(id);
 		AppType appType = form.asPojo();
 		appTypeService.updateAppType(appType);
 		model.addAttribute("success", true);
-		return "portal/apps/appTypeUpdate";
+		return AppTypeUpdate(id, form, result);
 	}
 	/**
 	 * 删除渠道，数据库标识删除
 	 * @param id
 	 * @return
 	 */
-	 @RequestMapping(value="/deleteAppType.html")
-	public String adChanelDelete(@ModelAttribute("appType")AppType appType,int id,BindingResult result,HttpServletRequest request,Model model){
+	 @RequestMapping(value="/{id}/deleteAppType.html")
+	public String adChanelDelete(@PathVariable int id,@ModelAttribute("appType")AppType appType,BindingResult result,HttpServletRequest request,Model model){
 		appTypeService.deleteAppType(id);
 		model.addAttribute("success", "del");
 		model.addAttribute("_goto", "/apps/appTypeList.html");

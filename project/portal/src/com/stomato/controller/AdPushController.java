@@ -51,7 +51,6 @@ public class AdPushController {
 	public String update(@PathVariable int id,@ModelAttribute("adPushForm")AdPushForm adPushForm,BindingResult result) throws ParseException, IOException{
 		AdPush adPush = adPushService.get(id);
 		BeanUtils.copyProperties(adPush, adPushForm);
-		//model.addAttribute("adPush",adPush);
 		return "portal/adpush/pushUpdate";
 	}
 	@RequestMapping(value="/{id}/update.html",method=RequestMethod.POST)

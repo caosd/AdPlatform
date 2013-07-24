@@ -13,7 +13,7 @@
 	</ul>
 
 	<div class="widget">
-		<form:form commandName="adChannelForm" method="POST" class="form-horizontal form-wizard">
+		<form:form commandName="appTypeForm" method="POST" class="form-horizontal form-wizard">
 			<div class="widget-header">
 				<h5>修改应用分类</h5>
 			</div>
@@ -27,71 +27,64 @@
                     		修改应用分类成功。
                     	</c:when>
                     	<c:otherwise>
-                    		修改应用分类失败。
+                    		未知操作。
                     	</c:otherwise>
                     </c:choose>
                 </div>
                 </c:if>
 				<div class="form-row">
-					<label class="field-name" for="channelName">渠道名称：</label>
+					<label class="field-name" for="typeName">分类名称：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="channelName" class="span12"  maxlength="20" value="${adChannel.channelName }"/> 
+							<form:input path="typeName" class="span12"  maxlength="20" /> 
 							<span class="add-on">不能超过20个字符</span>
 						</div>
-						<form:errors path="channelName" cssClass="error"/>
+						<form:errors path="typeName" cssClass="error"/>
 					</div>
 				</div>
-				<div class="form-row">
-					<label class="field-name" for="contactName">联系人：</label>
+			    <div class="form-row">
+					<label class="field-name" for="parent">上级分类：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="contactName" class="span12" maxlength="20" value="${adChannel.contactName }"/> 
-							<span class="add-on">*</span>
+							<form:select path="parent" class="span12">
+								<option value="0">一级分类</option>
+			                    <c:forEach items="${appTypeList}" var="item" varStatus="stat">
+			                    	<option value="${item.id}">${item.typeName}</option>
+			                    </c:forEach>
+			                 </form:select>
 						</div>
-						<form:errors path="contactName" cssClass="error"/>
+						<form:errors path="parent" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="contactTel">联系电话：</label>
+					<label class="field-name" for="description">描述：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="contactTel" class="span12" maxlength="20" value="${adChannel.contactTel }"/> 
-							<span class="add-on">*</span>
-						</div>
-						<form:errors path="contactTel" cssClass="error"/>
-					</div>
-				</div>
-				<div class="form-row">
-					<label class="field-name" for="qq">QQ：</label>
-					<div class="field">
-						<div class="input-prepend input-append">
-							<form:input path="qq" class="span12" maxlength="20" value="${adChannel.qq }"/> 
-							<span class="add-on"></span>
-						</div>
-						<form:errors path="qq" cssClass="error"/>
-					</div>
-				</div>
-				<div class="form-row">
-					<label class="field-name" for=description>渠道描述：</label>
-					<div class="field">
-						<div class="input-prepend input-append">
-							<form:input path="description" class="span12" value="${adChannel.description }"/> 
-							<span class="add-on"></span>
+							<form:input path="description" class="span12" maxlength="50" /> 
 						</div>
 						<form:errors path="description" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row">
-					<label class="field-name" for="enable">是否启用：</label>
+					<label class="field-name" for="orderNo">排序编号：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<input type="checkbox" name="enable" class="span12" ${adChannel.enable?'checked="checked"':'' } value="1"/>
+							<form:input path="orderNo" class="span12" maxlength="20" /> 
 						</div>
+						<form:errors path="orderNo" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="visible">是否显示：</label>
+					<div class="field">
+						<div class="input-prepend input-append">
+							<form:checkbox path="visible" class="span12" checked="checked" value="1"/>
+						</div>
+						<form:errors path="visible" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-row" style="padding-left: 180px;">
-					<button type="submit" class="button button-blue">添加渠道</button>
+					<button type="submit" class="button button-blue">保存修改</button>
 				</div>
 			</div>
 		</form:form>

@@ -37,7 +37,7 @@
 			<if test="description != null">description=#{description},</if>
 			<if test="parent != null">parent=#{parent},</if>
 			<if test="visible != null">visible=#{visible},</if>
-			<if test="order_no != null">order_no=#{order_no}</if>
+			<if test="orderNo != null">order_no=#{orderNo}</if>
 		</set>
         where id = #{id}
 	</update>

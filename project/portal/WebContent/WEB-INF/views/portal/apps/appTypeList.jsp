@@ -82,8 +82,8 @@
 									</c:choose>
 								</td>
 		                        <td class=" ">
-		                        	<a href="/apps/updateAppType.html?id=${item.id }">编辑</a>
-		                        	<a href="javascript:void(0)" onclick="deleteData('/apps/deleteAppType.html?id=${item.id }')">删除</a>
+		                        	<a href="/apps/${item.id }/updateAppType.html">编辑</a>
+		                        	<a href="javascript:void(0)" onclick="deleteData('/apps/${item.id }/deleteAppType.html')">删除</a>
 		                        </td>
 		                    </tr>
 		           </c:forEach>
