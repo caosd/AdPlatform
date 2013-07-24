@@ -1,7 +1,12 @@
 package com.stomato.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +27,6 @@ import com.stomato.domain.App;
 import com.stomato.domain.Credentials;
 import com.stomato.domain.Remittance;
 import com.stomato.domain.RemittanceParam;
-import com.stomato.domain.ReportParam;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;
 import com.stomato.exception.AdPlatformException;
@@ -35,6 +39,7 @@ import com.stomato.service.CredentialsService;
 import com.stomato.service.RemittanceService;
 import com.stomato.service.ReportService;
 import com.stomato.service.UserAccountsService;
+import com.stomato.utils.ExcelUtils;
 import com.stomato.utils.StringUtils;
 import com.stomato.validator.CredentialValidation;
 import com.stomato.vo.SysConfig;
@@ -149,23 +154,14 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/accounts")
-	public String accounts(@ModelAttribute("reportParamForm") ReportParamForm reportParamForm,HttpServletRequest request,Model model) {
-		ReportParam param = reportParamForm.asPojo();
+	public String accounts(@ModelAttribute("reportParamForm") ReportParamForm formParam,BindingResult result,HttpServletRequest request,Model model) {
 		User user = this.lookup(request);
-		param.setUid(user.getUid());
-		
+		formParam.setUid(user.getUid());
 		List<App> appList = this.appService.getAppList(user.getUid());
 		if( appList.size() > 0 ){
-			int total = this.reportService.getDailyReportCount(param);
-			int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
-			if(pageTotal<param.getPageNum()){ param.setPageNum(1); }
-			int start = (param.getPageNum()-1)*param.getPageSize();
-			param.setSlimt(start);
-
-			request.setAttribute("pageTotal", pageTotal);
-			request.setAttribute("totalcount", total);
-			request.setAttribute("pageNum", param.getPageNum());
-			request.setAttribute("dailyList", this.reportService.getAccountsReport(param));
+			int total = this.reportService.getDailyReportCount(formParam);
+			formParam.setTotalCount(total);
+			request.setAttribute("dailyList", this.reportService.getAccountsReport(formParam));
 		}
 		model.addAttribute("appList", appList);
 		return "portal/financial/accounts";
@@ -272,5 +268,30 @@ public class FinancialController extends UserController{
 		model.addAttribute("pageNum", form.getPageNum());
 		model.addAttribute("remittanceList", remittanceList);
 		return "portal/financial/remittance_list";
+	}
+	@RequestMapping(value="/export-excel")
+	public void exportExcel(@ModelAttribute("reportParamForm") ReportParamForm formParam,BindingResult result,HttpServletResponse response,HttpServletRequest request){
+		response.reset();
+	    response.setContentType("APPLICATION/vnd.ms-excel");
+	    String fileName;
+		try {
+			fileName = URLEncoder.encode("财务明细报表","UTF-8");
+		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
+		} catch (UnsupportedEncodingException e) {}
+		User user = this.lookup(request);
+		formParam.setUid(user.getUid());
+		int total = this.reportService.getDailyReportCount(formParam);
+		formParam.setTotalCount(total);
+		List<Map<String,Object>> dailyList = this.reportService.getAccountsReport(formParam);
+		
+		Map<String,Object> beans = new HashMap<String,Object>();
+		beans.put("dailyList", dailyList);
+		beans.put("formParam", formParam);
+		try{
+			String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/financial_report.xls";
+			ExcelUtils.export2Excel(tempFile, beans, response.getOutputStream());
+		}catch(IOException ioError){
+			logger.error("导出Excel异常",ioError);
+		}
 	}
 }

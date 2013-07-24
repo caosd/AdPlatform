@@ -92,9 +92,12 @@
 			#{shelfDate},
 			#{startTime},
 			#{endTime},
-			1,
+			0,
 			0,
 			0)
+		 <selectKey  keyProperty="id" resultType="int"> 
+		    SELECT @@IDENTITY as ID
+		 </selectKey>
 	</insert>
 	
 	<select id="hasPackage" parameterType="string" resultType="int" >

@@ -44,21 +44,59 @@
 						<table class="default-table stripped turquoise dataTable">
 							<thead>
 								<tr align="left">
-									<th class="sorting" width="16%">应用名称</th>
-									<th class="sorting" width="8%">应用分类</th>
-									<th class="sorting" width="16%"><fmt:message key="applist_active" /></th>
-									<th class="sorting" width="18%"><fmt:message key="applist_new" /></th>
-									<th class="sorting" width="10%"><fmt:message key="applist_earnings" /></th>
+									<th class="sorting">#</th>
+									<th class="sorting">应用名称</th>
+									<th class="sorting">创建日期</th>
+									<th class="sorting">天数</th>
+									<th class="sorting">总收入</th>
+									<th class="sorting">发布</th>
+									<th class="sorting">推送状态</th>
+									<th class="sorting">推送收入</th>
+									<th class="sorting">富媒体状态</th>
+									<th class="sorting">富媒体收入</th>
+									<th class="sorting">LBS状态</th>
+									<th class="sorting">LBS收入</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${applist}" var="app" varStatus="stat">
 									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
-										<td class="app_name"><a href="/apps/${app.key }/detail">${app.name}</a></td>
-										<td class=app_amounts>-</td>
-										<td class="app_online">- / -</td>
-										<td class="app_new">- / -</td>
-										<td class="app_earnings">-</td>
+										<td>${stat.index+1}</td>
+										<td class="app_name"><a href="/apps/${app.appKey }/detail">${app.name}</a></td>
+										<td><fmt:formatDate value="${app.createTime }" pattern="yyyy-MM-dd" /></td>
+										<td>-</td>
+										<td>-</td>
+										<td>-</td>
+										<td><c:choose>
+												<c:when test="${app.allowPush }">
+													<span class="label label-success">已开通</span>
+												</c:when>
+												<c:otherwise>
+													<span class="label label-warning">未开通</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>-</td>
+										<td><c:choose>
+												<c:when test="${app.allowRichpush}">
+													<span class="label label-success">已开通</span>
+												</c:when>
+												<c:otherwise>
+													<span class="label label-warning">未开通</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>-</td>
+										<td><c:choose>
+												<c:when test="${app.allowLbs}">
+													<span class="label label-success">已开通</span>
+												</c:when>
+												<c:otherwise>
+													<span class="label label-warning">未开通</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>-</td>
 									</tr>
 								</c:forEach>
 							</tbody>

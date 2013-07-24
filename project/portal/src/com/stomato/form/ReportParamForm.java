@@ -1,35 +1,22 @@
 package com.stomato.form;
 
-import org.springframework.beans.BeanUtils;
-
 import com.google.gson.Gson;
-import com.stomato.domain.BaseParam;
-import com.stomato.domain.ReportParam;
+import com.stomato.domain.FormParam;
 
-public class ReportParamForm extends BaseParam{
-	
-	private int uid;
-	
+public class ReportParamForm extends FormParam {
+
 	private int appId;
-	
+
 	private String code;
 
-	public int getUid() {
-		return uid;
-	}
-
-	public void setUid(int uid) {
-		this.uid = uid;
+	public void setAppId(int appId) {
+		this.appId = appId;
 	}
 
 	public int getAppId() {
 		return appId;
 	}
 
-	public void setAppId(int appId) {
-		this.appId = appId;
-	}
-	
 	public String getCode() {
 		return code;
 	}
@@ -37,15 +24,9 @@ public class ReportParamForm extends BaseParam{
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
+
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);
-	}
-	
-	public ReportParam asPojo() {
-		ReportParam reportParam = new ReportParam();
-		BeanUtils.copyProperties(this, reportParam);
-		return reportParam;
 	}
 }

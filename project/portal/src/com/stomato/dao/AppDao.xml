@@ -53,19 +53,57 @@
 		order by id asc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
+	<select id="getAppListForMap" parameterType="com.stomato.domain.FormParam" resultType="map" >
+		SELECT
+			tb1.id,
+			tb1.app_key AS appKey,
+			tb1.uid,
+			tb1.name,
+			tb1.pkg,
+			tb1.last_update_time AS lastUpdateTime,
+			tb1.icon,
+			tb1.status,
+			tb1.create_time as createTime,
+			tb1.type,
+		  tb2.allow_lbs as allowLbs,
+			tb2.allow_push as allowPush,
+		  tb2.allow_richpush as allowRichpush
+		FROM
+			t_apps as tb1 ,
+		  t_app_business as tb2
+		WHERE
+		  tb1.id = tb2.app_id
+		  and is_del = 0
+		<if test="name != null">
+		 	and name like '%${name}%'
+		</if>
+		<if test="uid != null">
+		 	and uid = #{uid}
+		</if>
+		<if test="startDate != null">
+            and create_time between #{startDate} and #{endDate}
+        </if>
+		order by id asc
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
+	</select>
 	<select id="getLastedAppList" parameterType="int" resultMap="app" >
 		select id,app_key,uid,name,pkg,last_update_time,icon,status,create_time,type from t_apps where uid=#{uid} and is_del=0 order by id desc limit 0,5;
 	</select>
 	
-	<select id="getAllAppList" parameterType="com.stomato.domain.BaseParam" resultMap="app" >
+	<select id="getAllAppList" parameterType="com.stomato.domain.FormParam" resultMap="app" >
         select id,app_key,uid,name,pkg,last_update_time,icon,status,create_time,type from t_apps 
         where is_del=0 
-        <if test="param != null">
-            <if test="param.name != null">
-                and name like '%${param.name}%'
-            </if>
+        <if test="name != null">
+		 	and name like '%${name}%'
+		</if>
+		<if test="uid != null">
+		 	and uid = #{uid}
+		</if>
+		<if test="startDate != null">
+            and create_time between #{startDate} and #{endDate}
         </if>
-        <if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		order by id asc
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
     </select>
 	
 	<select id="checkAppPackage" parameterType="com.stomato.domain.App" resultType="int">

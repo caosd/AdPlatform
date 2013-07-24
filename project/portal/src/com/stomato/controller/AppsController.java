@@ -78,16 +78,16 @@ public class AppsController extends UserController {
 		User user = this.lookup(request);
 		formParam.setUid(user.getUid());
 		formParam.setTotalCount(appService.listTotal(formParam));
-		List<App> applist  = appService.listApps(formParam);
+		List<Map<String,Object>> applist  = appService.getAppListForMap(formParam);
 		model.addAttribute("applist", applist);
 		return "portal/apps/applist";
 	}
 	
 	@RequestMapping(value="/listAll.html")
-	public String listAll(@ModelAttribute("param") AppForm form, HttpServletRequest request, Model model) {
-		List<App> applist = appService.getAllAppList(form);
+	public String listAll(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request, Model model) {
+		formParam.setTotalCount(appService.listTotal(formParam));
+		List<Map<String,Object>> applist  = appService.getAppListForMap(formParam);
 		model.addAttribute("applist", applist);
-		
 		return "portal/apps/allapplist";
 	}
 	
@@ -432,7 +432,6 @@ public class AppsController extends UserController {
 		model.addAttribute("failed", true);
 		return "redirect:/apps/" + appKey + "/upload_app";
 	}
-	
 	@RequestMapping(value="/{appKey}/create_done", method=RequestMethod.GET)
 	public String create_done(@PathVariable String appKey, Model model, HttpServletRequest request) {
 		User user = this.lookup(request);
@@ -442,9 +441,17 @@ public class AppsController extends UserController {
 		model.addAttribute("iconDir", iconDir);
 		return "portal/apps/new_step5";
 	}
-	
 	@RequestMapping(value="/export-excel")
 	public void myExportExcel(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request,HttpServletResponse response){
+		User user = this.lookup(request);
+		formParam.setUid(user.getUid());
+		exportExcel(formParam, request, response);
+	}
+	@RequestMapping(value="/all/export-excel")
+	public void exportExcel(@ModelAttribute("formParam") FormParam formParam,BindingResult result,HttpServletRequest request,HttpServletResponse response){
+	    exportExcel(formParam, request, response);
+	}
+	private void exportExcel(FormParam formParam,HttpServletRequest request,HttpServletResponse response){
 		response.reset();
 	    response.setContentType("APPLICATION/vnd.ms-excel");
 	    String fileName;
@@ -456,12 +463,11 @@ public class AppsController extends UserController {
 		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
 		} catch (UnsupportedEncodingException e) {}
 	       
-		User user = this.lookup(request);
-		formParam.setUid(user.getUid());
 		formParam.setTotalCount(appService.listTotal(formParam));
-		List<App> applist  = appService.listApps(formParam);
-		Map<String,List<App>> beans = new HashMap<String, List<App>>();
+		List<Map<String,Object>> applist  = appService.getAppListForMap(formParam);
+		Map<String,Object> beans = new HashMap<String,Object>();
 		beans.put("applist", applist);
+		beans.put("formParam", formParam);
 		try{
 			String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/app_report.xls";
 			ExcelUtils.export2Excel(tempFile, beans, response.getOutputStream());

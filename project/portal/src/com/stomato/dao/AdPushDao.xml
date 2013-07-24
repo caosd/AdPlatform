@@ -15,8 +15,41 @@
 	</resultMap>
 	
 	<insert id="add" parameterType="com.stomato.domain.AdPush">
-		insert into t_ad_push(adresource_id, first_push, max_push, real_push,money,push_date,status)
-		 				values(#{adresourceId}, #{firstPush}, #{maxPush}, #{realPush},#{money},{pushDate},1)
+		insert into t_ad_push(adresource_id
+			<if test="firstPush != null">
+				,first_push
+			</if>
+			<if test="maxPush != null">
+				,max_push
+			</if>
+			<if test="realPush != null">
+				,real_push
+			</if>
+			<if test="money != null">
+				,money
+			</if>
+			<if test="pushDate != null">
+				,push_date
+			</if>
+			,status
+		)
+		values(#{adresourceId}
+		<if test="firstPush != null">
+				,#{firstPush}
+			</if>
+			<if test="maxPush != null">
+				,#{maxPush}
+			</if>
+			<if test="realPush != null">
+				,#{realPush}
+			</if>
+			<if test="money != null">
+				,#{money}
+			</if>
+			<if test="pushDate != null">
+				,#{pushDate}
+			</if>
+			,1)
 	</insert>
 	<delete id="delete" parameterType="int">
 		delete from t_ad_push where id = #{id}

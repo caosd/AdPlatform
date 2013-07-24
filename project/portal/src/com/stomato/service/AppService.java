@@ -1,6 +1,7 @@
 package com.stomato.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AppDao;
 import com.stomato.domain.App;
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.FormParam;
 
 @Service
@@ -34,6 +34,10 @@ public class AppService {
 	public List<App> listApps(FormParam formParam) {
 		return appDao.listApps(formParam);
 	}
+	
+	public List<Map<String,Object>> getAppListForMap(FormParam formParam){
+		return appDao.getAppListForMap(formParam);
+	}
 
 	public List<App> getAppList(int uid) {
 		return appDao.getAppList(uid);
@@ -43,7 +47,7 @@ public class AppService {
 		return appDao.getLastedAppList(uid);
 	}
 
-	public List<App> getAllAppList(BaseParam param) {
+	public List<App> getAllAppList(FormParam param) {
 		return appDao.getAllAppList(param);
 	}
 

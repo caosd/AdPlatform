@@ -111,10 +111,10 @@
 								</td>
 		                        <td class=" ">
 		                        	<a href="/adResource/updateAdResource.html?id=${item.id }">编辑</a>
-		                        	<c:if test="${item.status==1}">
+		                        	<c:if test="${item.status==0}">
 		                        		<a href="/adResource/offShelf.html?id=${item.id }">下架</a>
 		                        	</c:if>
-		                        	<c:if test="${item.status==0}">
+		                        	<c:if test="${item.status==1}">
 		                        		<a href="/adResource/onShelf.html?id=${item.id }">上架</a>
 		                        	</c:if>
 		                        	<c:choose>

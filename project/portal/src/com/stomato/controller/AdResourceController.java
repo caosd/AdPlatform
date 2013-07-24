@@ -211,7 +211,6 @@ public class AdResourceController {
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		adResourceForm.setAdImages(adImages.toString());
-		adResourceForm.setStatus(1);
 		AdResource adResource = adResourceForm.asPojo();
 		adResource.setStatus(Constant.AdResourceStatus.offShelf);
 		adResourceService.addAdResource(adResource);

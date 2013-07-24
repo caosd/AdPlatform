@@ -63,8 +63,26 @@
 								<c:forEach items="${adPushList}" var="item" varStatus="stat">
 									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
 										<td>${stat.index}</td>
-										<td><fmt:formatDate value="${item.push_date }" pattern="yyyy-MM-dd" /></td>
-				                        <td><fmt:formatDate value="${item.shelf_date }" pattern="yyyy-MM-dd" /></td>
+										<td>
+											<c:choose>
+												<c:when test="${item.push_date==null}">
+													未设置
+												</c:when>
+												<c:otherwise>
+													<fmt:formatDate value="${item.push_date }" pattern="yyyy-MM-dd" />
+												</c:otherwise>
+											</c:choose>
+										</td>
+				                        <td>
+				                        	<c:choose>
+												<c:when test="${item.shelf_date==null}">
+													未上架
+												</c:when>
+												<c:otherwise>
+				                        			<fmt:formatDate value="${item.shelf_date }" pattern="yyyy-MM-dd" />
+												</c:otherwise>
+											</c:choose>
+				                        </td>
 				                        <td>${item.channel_name }</td>
 				                        <td>${item.ad_name }</td>
 				                        <td>${item.price }</td>
@@ -107,4 +125,15 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript">
+	//导出excel
+	(function() {
+        $('#export-excel').bind("click",function(event,data) {
+        	$form = $("#searchForm");
+        	url = $form.attr("action");
+        	$form.attr("action", "/adpush/export-excel").submit();
+        	$form.attr("action",url);
+		});
+    })();
+</script>
 </body>

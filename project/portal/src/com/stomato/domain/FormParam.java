@@ -27,9 +27,9 @@ public class FormParam {
 	private int pageNum = 1;
 	
 	//数据库查询偏移量
-	private int offset;
+	private Integer offset;
 	
-	private int uid;
+	private Integer uid;
 	
 	private String name;
 	
@@ -103,11 +103,11 @@ public class FormParam {
 		this.offset = offset;
 	}
 	
-	public int getUid() {
+	public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(int uid) {
+	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 

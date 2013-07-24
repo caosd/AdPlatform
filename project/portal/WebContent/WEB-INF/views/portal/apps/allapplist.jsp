@@ -1,82 +1,123 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="/page" prefix="p" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/page" prefix="p"%>
 <body>
-<div class="row-fluid">
-   <div class="span12">
-       <!-- END THEME CUSTOMIZER-->
-       <ul class="breadcrumb">
-           <li>
-               <a href="/"><i class="icon-home"></i></a><span class="divider">&nbsp;</span>
-           </li>
-           <li>
-               <a href="#">开发者应用</a> <span class="divider">&nbsp;</span>
-           </li>
-           <li><a href="#"><fmt:message key="applist_title"/></a><span class="divider-last">&nbsp;</span></li>
-       </ul>
-   </div>
-</div>
-<!-- BEGIN ADVANCED TABLE widget-->
-<div class="row-fluid">
-    <div class="span12">
-        <!-- BEGIN EXAMPLE TABLE widget-->
-        <div class="widget">
-			<div class="widget-header">
-				<h5><fmt:message key="applist_title"/></h5>
-			</div>
-            <div class="widget-body">
-            	<div class="row-fluid" style="margin-bottom: 5px;">
-            		<form:form id="searchForm" commandName="param" method="post">
-                        <div class="span3">
-                            <div id="table_length" class="dataTables_length noSearch">
-                                <form:select path="pageSize" size="1" class="input-mini chosen">
-                                    <form:option value="10">10</form:option>
-                                    <form:option value="25">25</form:option>
-                                    <form:option value="50">50</form:option>
-                                    <form:option value="100">100</form:option>
-                                </form:select>
-                            </div>
-                        </div>
-                        <div class="span3">
-                            <label>应用名称: <form:input path="name" type="text" aria-controls="role_table" class="input-medium"/></label>
-                        </div>
-                        <div class="span3">
-                            <button type="submit" class="button button-turquoise small-button">查询</button>
-                            <form:input path="pageNum" type="hidden" aria-controls="role_table"  id="pageNum"/>
-                        </div>
-                    </form:form>
+	<div class="row-fluid">
+		<div class="span12">
+			<!-- END THEME CUSTOMIZER-->
+			<ul class="breadcrumb">
+				<li><a href="/"><i class="icon-home"></i></a><span
+					class="divider">&nbsp;</span></li>
+				<li><a href="#">开发者应用</a> <span class="divider">&nbsp;</span></li>
+				<li><a href="#">应用列表</a><span class="divider-last">&nbsp;</span></li>
+			</ul>
+		</div>
+	</div>
+	<!-- BEGIN ADVANCED TABLE widget-->
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget">
+				<div class="widget-header">
+					<h5><fmt:message key="applist_title" /></h5>
+					<form:form id="searchForm" commandName="formParam" method="post" class="form-inline">
+                    <form:hidden path="pageNum" id="pageNum"/>
+                    <form:hidden path="startDate" id="search_start" />
+                    <form:hidden path="endDate" id="search_end" />
+					<ul class="widget-nav">
+						<li id="reportrange">
+						    <img src="/img/icon/14x14/light/calendar.png" alt=""> <span></span>
+						</li>
+						<li>
+							<%@include file="../includes/pagesize.jsp" %>
+						</li>
+						<li class="search-col"><form:input path="name" type="text" class="search-input" maxlength="20" placeholder="应用名查询"/></li>
+						<li class="search-col"><button type="submit" class="button button-turquoise small-button">查询</button></li>
+						<li id="export-excel"><a href="javascript:;"><img src="/img/icon/14x14/light/download4.png" title="导出excel"></a></li>
+					</ul>
+					</form:form>
 				</div>
-                <table class="table table-striped table-bordered" id="role_table">
-                <thead>
-                    <tr>
-                        <th width="16%"><fmt:message key="applist_name"/></th>
-						<th width="8%"><fmt:message key="applist_total"/></th>
-						<th width="16%"><fmt:message key="applist_active"/></th>
-						<th width="18%"><fmt:message key="applist_new"/></th>
-						<th class="last" width="10%"><fmt:message key="applist_earnings"/></th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<c:forEach items="${applist}" var="app" varStatus="stat">
-            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-                        <td class="app_name"><a href="/apps/${app.key }/detail">${app.name }</a></td>
-						<td class=app_amounts>-</td>
-						<td class="app_online">- / -</td>
-						<td class="app_new">- / -</td>
-						<td class="app_earnings">-</td>
-                    </tr>
-		           </c:forEach>
-                </tbody>
-            </table>
-            <div class="row-fluid">
-            	<p:page pageNum="${pageNum}" pageTotal="${pageTotal}"></p:page>
-            </div>
-          </div>
-        </div>
-        <!-- END EXAMPLE TABLE widget-->
-    </div>
-</div>
+				<div class="widget-body table-container">
+					<div class="dataTables_wrapper">
+						<table class="default-table stripped turquoise dataTable">
+							<thead>
+								<tr align="left">
+									<th class="sorting">#</th>
+									<th class="sorting">应用名称</th>
+									<th class="sorting">创建日期</th>
+									<th class="sorting">天数</th>
+									<th class="sorting">总收入</th>
+									<th class="sorting">发布</th>
+									<th class="sorting">推送状态</th>
+									<th class="sorting">推送收入</th>
+									<th class="sorting">富媒体状态</th>
+									<th class="sorting">富媒体收入</th>
+									<th class="sorting">LBS状态</th>
+									<th class="sorting">LBS收入</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${applist}" var="app" varStatus="stat">
+									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
+										<td>${stat.index+1}</td>
+										<td class="app_name"><a href="/apps/${app.appKey }/detail">${app.name}</a></td>
+										<td><fmt:formatDate value="${app.createTime }" pattern="yyyy-MM-dd" /></td>
+										<td>-</td>
+										<td>-</td>
+										<td>-</td>
+										<td><c:choose>
+												<c:when test="${app.allowPush }">
+													<span class="label label-success">已开通</span>
+												</c:when>
+												<c:otherwise>
+													<span class="label label-warning">未开通</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>-</td>
+										<td><c:choose>
+												<c:when test="${app.allowRichpush}">
+													<span class="label label-success">已开通</span>
+												</c:when>
+												<c:otherwise>
+													<span class="label label-warning">未开通</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>-</td>
+										<td><c:choose>
+												<c:when test="${app.allowLbs}">
+													<span class="label label-success">已开通</span>
+												</c:when>
+												<c:otherwise>
+													<span class="label label-warning">未开通</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>-</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="tableFooter">
+							<p:page pageNum="${formParam.pageNum}" pageTotal="${formParam.pageTotal}"></p:page>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	//导出excel
+	(function() {
+        $('#export-excel').bind("click",function(event,data) {
+        	$form = $("#searchForm");
+        	url = $form.attr("action");
+        	$form.attr("action", "/apps/export-excel").submit();
+        	$form.attr("action",url);
+		});
+    })();
+</script>
 </body>

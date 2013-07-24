@@ -1,13 +1,18 @@
 package com.stomato.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +27,13 @@ import com.stomato.domain.AdPush;
 import com.stomato.form.AdPushForm;
 import com.stomato.form.AdPushFormParam;
 import com.stomato.service.AdPushService;
+import com.stomato.utils.ExcelUtils;
 
 @Controller
 @RequestMapping(value="/adpush")
 public class AdPushController {
+	
+	private static final Logger logger = Logger.getLogger(AdPushController.class);
 
 	@Autowired
 	private AdPushService adPushService;
@@ -71,4 +79,28 @@ public class AdPushController {
 		return "redirect:/result/success";
 	}*/
 	
+	@RequestMapping(value="/export-excel")
+	public void exportExcel(@ModelAttribute("formParam") AdPushFormParam formParam,BindingResult result,HttpServletRequest request,HttpServletResponse response){
+		response.reset();
+	    response.setContentType("APPLICATION/vnd.ms-excel");
+	    String fileName;
+		try {
+			fileName = URLEncoder.encode("Push广告管理报表","UTF-8");
+		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
+		} catch (UnsupportedEncodingException e) {}
+		  
+		int total = adPushService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<Map<String,Object>> adPushList = adPushService.getListMap(formParam);
+		
+		Map<String,Object> beans = new HashMap<String,Object>();
+		beans.put("adPushList", adPushList);
+		beans.put("formParam", formParam);
+		try{
+			String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/adpush_report.xls";
+			ExcelUtils.export2Excel(tempFile, beans, response.getOutputStream());
+		}catch(IOException ioError){
+			logger.error("导出Excel异常",ioError);
+		}
+	}
 }

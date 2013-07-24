@@ -19,4 +19,8 @@ public class AppBusinessService {
 	public boolean update(AppBusiness appBusiness) {
 		return appBusinessDao.update(appBusiness) > 0;
 	}
+	
+	public AppBusiness getAppBusiness(int appId){
+		return appBusinessDao.get(appId);
+	}
 }

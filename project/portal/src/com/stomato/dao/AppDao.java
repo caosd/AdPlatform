@@ -1,8 +1,9 @@
 package com.stomato.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.stomato.domain.App;
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.FormParam;
 
 public interface AppDao {
@@ -15,7 +16,7 @@ public interface AppDao {
 
 	List<App> getLastedAppList(int uid);
 
-	List<App> getAllAppList(BaseParam param);
+	List<App> getAllAppList(FormParam formParam);
 
 	void updateApp(App app);
 
@@ -26,4 +27,6 @@ public interface AppDao {
 	int listTotal(FormParam formParam);
 
 	List<App> listApps(FormParam formParam);
+
+	List<Map<String, Object>> getAppListForMap(FormParam formParam);
 }

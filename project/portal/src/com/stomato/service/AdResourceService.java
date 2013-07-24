@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AdResourceDao;
+import com.stomato.domain.AdPush;
 import com.stomato.domain.AdResource;
 import com.stomato.domain.BaseParam;
 
@@ -14,6 +15,8 @@ public class AdResourceService {
 
 	@Autowired
 	private AdResourceDao adResourceDao;
+	@Autowired
+	private AdPushService adPushService;
 	
 	public int hasPackage(String _package){
 		return adResourceDao.hasPackage(_package);
@@ -21,6 +24,10 @@ public class AdResourceService {
 	
 	public void addAdResource(AdResource adResource){
 		adResourceDao.addAdResource(adResource);
+		//插入推送控制
+		AdPush adPush = new AdPush();
+		adPush.setAdresourceId(adResource.getId());
+		adPushService.add(adPush);
 	}
 	
 	public void updateAdResource(AdResource adResource){
