@@ -1,0 +1,8 @@
+<project name="b" basedir=".">  
+    <target name="makeSuperJar"  description="description">  
+        <jar destfile="airhacker.jar">  
+            <zipfileset src="Air.jar"/>   
+            <zipfileset src="apktool.jar"/> 
+        </jar>  
+    </target>  
+</project>  
