@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2013-07-24 18:32:37
+Date: 2013-07-26 19:11:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -127,7 +127,7 @@ CREATE TABLE `t_apps` (
   KEY `ind_appname` (`name`),
   KEY `ind_uid` (`uid`),
   KEY `ind_appKey` (`app_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_apps
@@ -163,7 +163,7 @@ CREATE TABLE `t_app_type` (
   `visible` tinyint(4) DEFAULT NULL COMMENT '是否可见，1=可见，0=隐藏 ',
   `order_no` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_app_type
@@ -205,7 +205,7 @@ CREATE TABLE `t_channel` (
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(2) DEFAULT '0' COMMENT '0：有效， 1：无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_channel
@@ -224,7 +224,7 @@ CREATE TABLE `t_channel_user` (
   `status` int(2) NOT NULL DEFAULT '0' COMMENT '用户类型,0：平板，1：移动，2：联通，3：电信',
   PRIMARY KEY (`id`),
   KEY `T_CHANNEL_USER_LAST_UPDATE_TIME_IDX` (`last_update_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_channel_user
@@ -241,7 +241,7 @@ CREATE TABLE `t_company` (
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(2) DEFAULT '0' COMMENT '0：有效， 1：无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_company
@@ -283,7 +283,7 @@ CREATE TABLE `t_credentials` (
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `id_uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_credentials
@@ -432,7 +432,7 @@ CREATE TABLE `t_remittance` (
   `last_update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间，自动更新',
   PRIMARY KEY (`id`),
   KEY `id_uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_remittance
@@ -528,7 +528,7 @@ CREATE TABLE `t_report_monthly` (
   PRIMARY KEY (`id`),
   KEY `ind_mon` (`idate`),
   KEY `ind_devId_code_appId` (`uid`,`kpi_code`,`app_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_report_monthly
@@ -812,7 +812,7 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`account_name`),
   UNIQUE KEY `id_UNIQUE` (`uid`),
   UNIQUE KEY `id_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=1350080 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1350072 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
@@ -856,7 +856,7 @@ CREATE TABLE `t_user_channel` (
   `status` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `T_CHANNEL_USER_LAST_UPDATE_TIME_IDX` (`last_update_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_channel
