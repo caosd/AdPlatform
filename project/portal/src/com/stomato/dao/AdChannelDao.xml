@@ -53,13 +53,16 @@
 		update t_ad_channel set is_del=1 where id = #{id}
 	</update>
 	
-	<select id="listTotal" parameterType="com.stomato.domain.BaseParam" resultType="int" >
+	<select id="listTotal" parameterType="com.stomato.form.AdChannelFormParam" resultType="int" >
 		select count(1) from t_ad_channel where is_del=0
 		<if test="channelName != null">
 		 	and channel_name like '%${channelName}%'
 		</if>
+		<if test="startDate != null">
+            and create_time between #{startDate} and #{endDate}
+        </if>
 	</select>
-	<select id="listAdChannel" parameterType="com.stomato.domain.BaseParam" resultMap="adChannel" >
+	<select id="listAdChannel" parameterType="com.stomato.form.AdChannelFormParam" resultMap="adChannel" >
 		select  id,
 				channel_name,
 				contact_tel,
@@ -69,12 +72,13 @@
 				enable,
 				create_time
 				from t_ad_channel where is_del=0
-		<if test="param != null">
-			<if test="param.channelName != null">
-			 	and channel_name like '%${param.channelName}%'
-			</if>
+		<if test="channelName != null">
+		 	and channel_name like '%${channelName}%'
 		</if>
+		<if test="startDate != null">
+            and create_time between #{startDate} and #{endDate}
+        </if>
 		order by create_time asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

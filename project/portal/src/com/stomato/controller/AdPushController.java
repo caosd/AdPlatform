@@ -47,7 +47,6 @@ public class AdPushController {
 	 */
 	@RequestMapping(value="/list.html")
 	public String adPushList(@ModelAttribute("formParam") AdPushFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
-		
 		int total = adPushService.listTotal(formParam);
 		formParam.setTotalCount(total);
 		List<Map<String,Object>> adPushList = adPushService.getListMap(formParam);

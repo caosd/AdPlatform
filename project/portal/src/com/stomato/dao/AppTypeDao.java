@@ -3,7 +3,7 @@ package com.stomato.dao;
 import java.util.List;
 
 import com.stomato.domain.AppType;
-import com.stomato.domain.FormParam;
+import com.stomato.form.AppTypeFormParam;
 
 public interface AppTypeDao {
 
@@ -13,9 +13,9 @@ public interface AppTypeDao {
 	
 	public void deleteAppType(int id);
 
-	public List<AppType> listAppType(FormParam param);
+	public List<AppType> listAppType(AppTypeFormParam param);
 
-	public int listTotal(FormParam param);
+	public int listTotal(AppTypeFormParam param);
 
 	public AppType getAppType(int id);
 }

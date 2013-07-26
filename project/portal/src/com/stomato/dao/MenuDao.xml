@@ -41,7 +41,7 @@
 		</if>
 		<if test="visible != null">and visible = #{visible}</if>
 		order by order_no asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 	<select id="listParentMenu" resultMap="menu" >
 		SELECT

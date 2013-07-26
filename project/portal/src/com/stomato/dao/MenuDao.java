@@ -3,7 +3,7 @@ package com.stomato.dao;
 import java.util.List;
 
 import com.stomato.domain.Menu;
-import com.stomato.domain.MenuParam;
+import com.stomato.form.MenuFormParam;
 
 
 public interface MenuDao {
@@ -16,11 +16,11 @@ public interface MenuDao {
 	
 	void addMenu(Menu menu);
 	
-	int listTotal(MenuParam menuParam);
+	int listTotal(MenuFormParam formParam);
 	
 	List<Menu> listMenuByIds(List<Integer> list);
 	
-	List<Menu> listMenu(MenuParam menuParam);
+	List<Menu> listMenu(MenuFormParam formParam);
 	
 	List<Menu> listParentMenu();
 	

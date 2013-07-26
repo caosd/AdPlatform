@@ -56,7 +56,7 @@
 								<c:forEach items="${userChannelList}" var="item" varStatus="stat">
 					            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 					            			
-					            			<td class="sorting_1">${stat.index}</td>
+					            			<td class="sorting_1">${stat.index+1}</td>
 					                        <td>${item.channelNo }</td>
 					                        <td>${item.companyName }</td>
 					                        <td>${item.description }</td>

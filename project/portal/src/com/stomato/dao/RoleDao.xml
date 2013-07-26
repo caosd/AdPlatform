@@ -23,9 +23,7 @@
 		<if test="roleName != null">
 			and role_name like '%${roleName}%'
 		</if>
-		<if test="slimt != null">
-			limit #{slimt},#{pageSize}
-		</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 	<select id="listTotal" parameterType="com.stomato.domain.RoleParam" resultType="int">
 		select count(1) from t_role where 1=1

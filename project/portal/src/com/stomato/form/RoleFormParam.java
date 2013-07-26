@@ -3,29 +3,47 @@ package com.stomato.form;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.google.gson.Gson;
 import com.stomato.utils.DateUtils;
 import com.stomato.vo.SysConfig;
 
-public class UserChannelFormParam {
+public class RoleFormParam{
 
-	private String channelNo;
+	private int id;
+	@NotEmpty
+	private String roleName;
 
-	private String companyId;
+	private int status;
 
-	public String getCompanyId() {
-		return companyId;
+	public int getId() {
+		return id;
 	}
 
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getChannelNo() {
-		return channelNo;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setChannelNo(String channelNo) {
-		this.channelNo = channelNo;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
 	}
 
 	// ////////分页///////
@@ -122,4 +140,5 @@ public class UserChannelFormParam {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
+
 }

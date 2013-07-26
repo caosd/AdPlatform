@@ -3,7 +3,7 @@ package com.stomato.dao;
 import java.util.List;
 
 import com.stomato.domain.Company;
-import com.stomato.domain.FormParam;
+import com.stomato.form.CompanyFormParam;
 
 public interface CompanyDao {
 
@@ -13,9 +13,9 @@ public interface CompanyDao {
 	
 	public void deleteCompany(int id);
 
-	public List<Company> listCompany(FormParam formParam);
+	public List<Company> listCompany(CompanyFormParam formParam);
 
-	public int listTotal(FormParam formParam);
+	public int listTotal(CompanyFormParam formParam);
 
 	public Company getCompany(int id);
 }

@@ -3,7 +3,7 @@ package com.stomato.dao;
 import java.util.List;
 
 import com.stomato.domain.AdChannel;
-import com.stomato.domain.FormParam;
+import com.stomato.form.AdChannelFormParam;
 
 public interface AdChannelDao {
 
@@ -13,9 +13,9 @@ public interface AdChannelDao {
 	
 	public void deleteAdChannel(int id);
 
-	public List<AdChannel> listAdChannel(FormParam param);
+	public List<AdChannel> listAdChannel(AdChannelFormParam param);
 
-	public int listTotal(FormParam param);
+	public int listTotal(AdChannelFormParam param);
 
 	public AdChannel getAdChannel(int id);
 }

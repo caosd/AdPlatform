@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.UserChannelDao;
-import com.stomato.domain.FormParam;
 import com.stomato.domain.UserChannel;
+import com.stomato.form.UserChannelFormParam;
 
 @Service
 public class UserChannelService {
@@ -38,11 +38,11 @@ public class UserChannelService {
 	public void deleteUserChannel(int id) {
 		userChannelDao.deleteUserChannel(id);
 	}
-	public List<UserChannel> listUserChannel(FormParam formParam) {
+	public List<UserChannel> listUserChannel(UserChannelFormParam formParam) {
 		return userChannelDao.listUserChannel(formParam);
 	}
 
-	public int listTotal(FormParam formParam) {
+	public int listTotal(UserChannelFormParam formParam) {
 		return userChannelDao.listTotal(formParam);
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.RoleDao;
 import com.stomato.domain.Role;
-import com.stomato.domain.RoleParam;
+import com.stomato.form.RoleFormParam;
 
 @Service
 public class RoleService {
@@ -23,11 +23,11 @@ public class RoleService {
 		return roleDao.getRole(id);
 	}
 	
-	public int listTotal(RoleParam param){
+	public int listTotal(RoleFormParam param){
 		return roleDao.listTotal(param);
 	}
 	
-	public List<Role> listRole(RoleParam param){
+	public List<Role> listRole(RoleFormParam param){
 		return roleDao.listRole(param);
 	}
 	/**
@@ -36,7 +36,7 @@ public class RoleService {
 	 * @return
 	 */
 	public Role getRoleByName(String name){
-		RoleParam param = new RoleParam();
+		RoleFormParam param = new RoleFormParam();
 		param.setRoleName(name);
 		List<Role> resultList =  roleDao.listRole(param);
 		if( null != resultList && resultList.size() > 0){

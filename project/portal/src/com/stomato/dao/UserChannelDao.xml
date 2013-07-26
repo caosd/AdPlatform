@@ -50,7 +50,7 @@
 	<delete id="deleteUserChannel" parameterType="int">
 		delete from t_user_channel where id = #{id}
 	</delete>
-	<select id="listTotal" parameterType="com.stomato.domain.BaseParam" resultType="int" >
+	<select id="listTotal" parameterType="com.stomato.form.UserChannelFormParam" resultType="int" >
 		select count(1) from t_user_channel where 1=1
 		<if test="companyId != null">
 		 	and company_id like '%${companyId}%'
@@ -59,7 +59,7 @@
 		 	and channel_no like '%${channelNo}%'
 		</if>
 	</select>
-	<select id="listUserChannel" parameterType="com.stomato.domain.BaseParam" resultMap="UserChannel" >
+	<select id="listUserChannel" parameterType="com.stomato.form.UserChannelFormParam" resultMap="UserChannel" >
 		select  id,
 				company_id,
 				company_name,

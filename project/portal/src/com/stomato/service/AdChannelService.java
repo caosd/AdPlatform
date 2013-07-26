@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AdChannelDao;
 import com.stomato.domain.AdChannel;
-import com.stomato.domain.FormParam;
+import com.stomato.form.AdChannelFormParam;
 
 @Service
 public class AdChannelService {
@@ -25,10 +25,10 @@ public class AdChannelService {
 	public void deleteAdChannel(int id) {
 		adChannelDao.deleteAdChannel(id);
 	}
-	public List<AdChannel> listAdChannel(FormParam param) {
+	public List<AdChannel> listAdChannel(AdChannelFormParam param) {
 		return adChannelDao.listAdChannel(param);
 	}
-	public int listTotal(FormParam param) {
+	public int listTotal(AdChannelFormParam param) {
 		return adChannelDao.listTotal(param);
 	}
 

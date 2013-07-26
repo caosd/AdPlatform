@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AppTypeDao;
 import com.stomato.domain.AppType;
-import com.stomato.domain.FormParam;
+import com.stomato.form.AppTypeFormParam;
 
 @Service
 public class AppTypeService {
@@ -26,11 +26,11 @@ public class AppTypeService {
 	public void deleteAppType(int id) {
 		appTypeDao.deleteAppType(id);
 	}
-	public List<AppType> listAppType(FormParam param) {
+	public List<AppType> listAppType(AppTypeFormParam param) {
 		return appTypeDao.listAppType(param);
 	}
 
-	public int listTotal(FormParam param) {
+	public int listTotal(AppTypeFormParam param) {
 		return appTypeDao.listTotal(param);
 	}
 
@@ -38,20 +38,16 @@ public class AppTypeService {
 		return appTypeDao.getAppType(id);
 	}
 	public List<AppType> getListByParent(){
-		BaseParam param = new BaseParam();
-		AppType appType = new AppType();
-		appType.setVisible(true);
-		appType.setParent(0);
-		param.setParam(appType);
-		return appTypeDao.listAppType(param);
+		AppTypeFormParam formParam = new AppTypeFormParam();
+		formParam.setVisible(true);
+		formParam.setParent(0);
+		return appTypeDao.listAppType(formParam);
 	}
 	
 	public List<AppType> getListFillSun(){
-		BaseParam base = new BaseParam();
-		AppType param = new AppType();
-		param.setVisible(true);
-		base.setParam(param);
-		List<AppType> appTypeList = appTypeDao.listAppType(base);
+		AppTypeFormParam formParam = new AppTypeFormParam();
+		formParam.setVisible(true);
+		List<AppType> appTypeList = appTypeDao.listAppType(formParam);
 		
 		List<AppType> levelList = new ArrayList<AppType>();
 		for (AppType appType : appTypeList) {

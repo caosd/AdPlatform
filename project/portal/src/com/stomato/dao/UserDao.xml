@@ -58,15 +58,19 @@
 		<if test="userName != null">
 			and account_name like '%${userName}%'
 		</if>
+		<if test="startDate != null">
+            and createtime between #{startDate} and #{endDate}
+        </if>
 	</select>
 	<select id="listUser" parameterType="com.stomato.domain.UserParam" resultMap="user" >
 		select * from t_user where 1=1
 		<if test="userName != null">
 			and account_name like'%${userName}%'
 		</if>
+		<if test="startDate != null">
+            and createtime between #{startDate} and #{endDate}
+        </if>
 		order by login_token_time desc
-		<if test="slimt != null">
-			limit #{slimt},#{pageSize}
-		</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

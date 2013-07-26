@@ -1,8 +1,6 @@
 package com.stomato.dao;
 
 import java.util.List;
-
-import com.stomato.domain.FormParam;
 /**
  * 通用Dao
  * @author  jiandong
@@ -16,9 +14,9 @@ public interface BaseDao<T> {
 
 	public int update(T bean);
 
-	public List<T> list(FormParam formParam);
+	public List<T> list(Object formParam);
 
-	public int listTotal(FormParam formParam);
+	public int listTotal(Object formParam);
 
 	public T get(int id);
 }

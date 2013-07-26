@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.stomato.domain.AdPush;
-import com.stomato.domain.FormParam;
+import com.stomato.form.AdPushFormParam;
 
 /**
  * 推送广告资源控制
@@ -13,5 +13,5 @@ import com.stomato.domain.FormParam;
  */
 public interface AdPushDao extends BaseDao<AdPush> {
 
-	List<Map<String,Object>> getListMap(FormParam formParam);
+	List<Map<String,Object>> getListMap(AdPushFormParam formParam);
 }

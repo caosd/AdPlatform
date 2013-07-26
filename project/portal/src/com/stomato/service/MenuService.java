@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.MenuDao;
 import com.stomato.domain.Menu;
-import com.stomato.domain.MenuParam;
 import com.stomato.domain.User;
+import com.stomato.form.MenuFormParam;
 
 @Service
 public class MenuService {
@@ -35,12 +35,12 @@ public class MenuService {
 		return menuDao.getMenu(id);
 	}
 	
-	public int listTotal(MenuParam menuParam){
-		return menuDao.listTotal(menuParam);
+	public int listTotal(MenuFormParam formParam){
+		return menuDao.listTotal(formParam);
 	}
 	
-	public List<Menu> listMenu(MenuParam menuParam ){
-		return menuDao.listMenu(menuParam);
+	public List<Menu> listMenu(MenuFormParam formParam ){
+		return menuDao.listMenu(formParam);
 	}
 	
 	public List<Menu> listParentMenu(){

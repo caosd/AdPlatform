@@ -3,21 +3,21 @@ package com.stomato.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.stomato.domain.FormParam;
+import com.stomato.form.ReportFormParam;
 
 public interface ReportDao {
 	
-	List<Map<String,Object>>  getHourlyReport(FormParam param);
+	List<Map<String,Object>>  getHourlyReport(ReportFormParam param);
 	
-	List<Map<String,Object>>  getAccountsReport(FormParam param);
+	List<Map<String,Object>>  getAccountsReport(ReportFormParam param);
 	
-	List<Map<String,Object>>  getDailyReport(FormParam param);
+	List<Map<String,Object>>  getDailyReport(ReportFormParam param);
 	
-	Integer getDailyReportCount(FormParam param);
+	Integer getDailyReportCount(ReportFormParam param);
 	
-	List<Map<String,Object>>  getMonthlyReport(FormParam param);
+	List<Map<String,Object>>  getMonthlyReport(ReportFormParam param);
 
-	Integer getMonthlyReportCount(FormParam param);
+	Integer getMonthlyReportCount(ReportFormParam param);
 	
-	List<Map<String, Object>> getSummaryReport(FormParam param);
+	List<Map<String, Object>> getSummaryReport(ReportFormParam param);
 }

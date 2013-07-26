@@ -45,7 +45,7 @@
 	<select id="getRemittanceListByApplyStatus" parameterType="int" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} and status=0
 	</select>
-	<select id="getRemittanceListByUser" parameterType="com.stomato.domain.FormParam" resultMap="remittance" >
+	<select id="getRemittanceListByUser" parameterType="com.stomato.form.RemittanceFormParam" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} 
 		<if test="startDate != null">
             and create_time between #{startDate} and #{endDate}
@@ -53,7 +53,7 @@
 		order by id asc 
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
-	<select id="getRemittanceList" parameterType="com.stomato.domain.FormParam" resultMap="remittance" >
+	<select id="getRemittanceList" parameterType="com.stomato.form.RemittanceFormParam" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance 
 		where 1=1
 		<if test="startDate != null">
@@ -62,7 +62,7 @@
 		order by status,create_time asc 
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
-	<select id="getRemittanceCount" parameterType="com.stomato.domain.FormParam" resultType="int" >
+	<select id="getRemittanceCount" parameterType="com.stomato.form.RemittanceFormParam" resultType="int" >
 		select count(1) from t_remittance 
 		where 1=1
 		<if test="uid != null">

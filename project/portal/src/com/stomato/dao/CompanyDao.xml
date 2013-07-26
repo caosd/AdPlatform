@@ -37,7 +37,7 @@
 		delete from t_company where id = #{id}
 	</delete>
 	
-	<select id="listTotal" parameterType="com.stomato.domain.FormParam" resultType="int" >
+	<select id="listTotal" parameterType="com.stomato.form.CompanyFormParam" resultType="int" >
 		select count(1) from t_company where 1=1
 		<if test="name != null">
 		 	and name like '%${name}%'
@@ -49,7 +49,7 @@
             and create_date between #{startDate} and #{endDate}
         </if>
 	</select>
-	<select id="listCompany" parameterType="com.stomato.domain.FormParam" resultMap="company" >
+	<select id="listCompany" parameterType="com.stomato.form.CompanyFormParam" resultMap="company" >
 		select  id,
 				name,
 				description,

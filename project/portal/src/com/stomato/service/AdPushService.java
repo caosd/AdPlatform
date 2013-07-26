@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.stomato.constant.Constant;
 import com.stomato.dao.AdPushDao;
 import com.stomato.domain.AdPush;
-import com.stomato.domain.FormParam;
+import com.stomato.form.AdPushFormParam;
 
 @Service
 public class AdPushService {
@@ -69,11 +69,11 @@ public class AdPushService {
 	 * @param baseParam
 	 * @return
 	 */
-	public List<Map<String,Object>> getListMap(FormParam formParam) {
+	public List<Map<String,Object>> getListMap(AdPushFormParam formParam) {
 		return dao.getListMap(formParam);
 	}
 
-	public int listTotal(FormParam formParam) {
+	public int listTotal(AdPushFormParam formParam) {
 		return dao.listTotal(formParam);
 	}
 	

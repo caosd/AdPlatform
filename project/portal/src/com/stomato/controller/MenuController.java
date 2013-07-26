@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.Menu;
-import com.stomato.domain.MenuParam;
 import com.stomato.form.MenuForm;
-import com.stomato.form.MenuParamForm;
+import com.stomato.form.MenuFormParam;
 import com.stomato.service.MenuService;
 import com.stomato.utils.StringUtils;
-import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping(value = "/menu")
@@ -117,19 +115,10 @@ public class MenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "/listMenu.html")
-	public String listMenu(@Valid @ModelAttribute("menuParamForm") MenuParamForm paramForm, BindingResult result,HttpServletRequest request) {
-		MenuParam menuParam = paramForm.asPojo();
-		int total = menuService.listTotal(menuParam);
-		int pageTotal = SysConfig.getPageTotal(total, menuParam.getPageSize());
-		if(pageTotal<menuParam.getPageNum()){ menuParam.setPageNum(1); } 
-		int start = (menuParam.getPageNum()-1)*menuParam.getPageSize();
-		menuParam.setSlimt(start);
-
-		List<Menu> list = menuService.listMenu(menuParam);
-
-		request.setAttribute("pageTotal", pageTotal);
-		request.setAttribute("totalcount", total);
-		request.setAttribute("pageNum", menuParam.getPageNum());
+	public String listMenu(@Valid @ModelAttribute("formParam") MenuFormParam formParam, BindingResult result,HttpServletRequest request) {
+		int total = menuService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<Menu> list = menuService.listMenu(formParam);
 		request.setAttribute("menuList", list);
 		return "portal/menu/menuList";
 	}

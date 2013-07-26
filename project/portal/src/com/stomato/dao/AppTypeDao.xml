@@ -45,13 +45,13 @@
 		delete from t_app_type where id = #{id}
 	</delete>
 	
-	<select id="listTotal" parameterType="com.stomato.domain.BaseParam" resultType="int" >
+	<select id="listTotal" parameterType="com.stomato.form.AppTypeFormParam" resultType="int" >
 		select count(1) from t_app_type where 1=1
 		<if test="typeName != null">
 		 	and type_name like '%${typeName}%'
 		</if>
 	</select>
-	<select id="listAppType" parameterType="com.stomato.domain.BaseParam" resultMap="appType" >
+	<select id="listAppType" parameterType="com.stomato.form.AppTypeFormParam" resultMap="appType" >
 		select  id,
 				type_name,
 				description,
@@ -59,18 +59,16 @@
 				visible,
 				order_no
 				from t_app_type where 1=1
-		<if test="param != null">
-			<if test="param.typeName != null">
-			 	and type_name like '%${param.typeName}%'
-			</if>
-			<if test="param.parent != null">
-				and parent = #{param.parent}
-			</if>
-			<if test="param.visible != null">
-				and visible = #{param.visible}
-			</if>
+		<if test="typeName != null">
+		 	and type_name like '%${typeName}%'
+		</if>
+		<if test="parent != null">
+			and parent = #{parent}
+		</if>
+		<if test="visible != null">
+			and visible = #{visible}
 		</if>
 		order by order_no asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

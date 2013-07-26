@@ -171,7 +171,7 @@
 		</set> 
         where id = #{id}
 	</update>
-	<select id="listTotal" parameterType="com.stomato.domain.AdResource" resultType="int">
+	<select id="listTotal" parameterType="com.stomato.form.AdResourceFormParam" resultType="int">
 		select count(1) from t_ad_resource where 1=1
 		<if test="adName != null">
 		 	and ad_name like '%${adName}%'
@@ -184,8 +184,11 @@
 				and is_del=0
 			</otherwise>
 		</choose>
+		<if test="startDate != null">
+            and create_date between #{startDate} and #{endDate}
+        </if>
 	</select>
-	<select id="listAdResource" parameterType="com.stomato.domain.BaseParam" resultMap="adResource" >
+	<select id="listAdResource" parameterType="com.stomato.form.AdResourceFormParam" resultMap="adResource" >
 		select  id,
 				channel_id, 
 				ad_name, 
@@ -217,20 +220,21 @@
 				recom,
 				is_del
 		from t_ad_resource where 1=1 
-		<if test="param != null">
-			<if test="param.adName != null">
-			 	and ad_name like '%${param.adName}%'
-			</if>
-			<choose>
-				<when test="param.isDel != null">
-					and is_del=#{param.isDel}
-				</when>
-				<otherwise>
-					and is_del=0
-				</otherwise>
-			</choose>
+		<if test="adName != null">
+		 	and ad_name like '%${adName}%'
 		</if>
+		<choose>
+			<when test="isDel != null">
+				and is_del=#{isDel}
+			</when>
+			<otherwise>
+				and is_del=0
+			</otherwise>
+		</choose>
+		<if test="startDate != null">
+            and create_date between #{startDate} and #{endDate}
+        </if>
 		order by modify_date asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

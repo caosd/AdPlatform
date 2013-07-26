@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.ReportDao;
-import com.stomato.domain.FormParam;
+import com.stomato.form.ReportFormParam;
 
 @Service
 public class ReportService {
@@ -15,30 +15,30 @@ public class ReportService {
 	@Autowired
 	private ReportDao reportDao;
 	
-	public List<Map<String,Object>> getHourlyReport(FormParam param) {
+	public List<Map<String,Object>> getHourlyReport(ReportFormParam param) {
 		return this.reportDao.getSummaryReport(param);
 	}
 
-	public List<Map<String,Object>>  getAccountsReport(FormParam param) {
+	public List<Map<String,Object>>  getAccountsReport(ReportFormParam param) {
 		return this.reportDao.getAccountsReport(param);
 	}
 	
-	public List<Map<String,Object>> getDailyReport(FormParam param) {
+	public List<Map<String,Object>> getDailyReport(ReportFormParam param) {
 		return this.reportDao.getDailyReport(param);
 	}
 	
-	public int getDailyReportCount(FormParam param) {
+	public int getDailyReportCount(ReportFormParam param) {
 		return this.reportDao.getDailyReportCount(param);
 	}
 	
-	public int getMonthlyReportCount(FormParam param) {
+	public int getMonthlyReportCount(ReportFormParam param) {
 		return this.reportDao.getMonthlyReportCount(param);
 	}
-	public List<Map<String,Object>> getMonthlyReport(FormParam param) {
+	public List<Map<String,Object>> getMonthlyReport(ReportFormParam param) {
 		return this.reportDao.getMonthlyReport(param);
 	}
 	
-	public List<Map<String, Object>> getSummaryReport(FormParam param) {
+	public List<Map<String, Object>> getSummaryReport(ReportFormParam param) {
 		return this.reportDao.getSummaryReport(param);
 	}
 }

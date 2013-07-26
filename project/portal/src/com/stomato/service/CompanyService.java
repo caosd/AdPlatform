@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.CompanyDao;
 import com.stomato.domain.Company;
-import com.stomato.domain.FormParam;
 import com.stomato.form.CompanyFormParam;
 
 @Service
@@ -26,7 +25,7 @@ public class CompanyService {
 	public void deleteCompany(int id) {
 		companyDao.deleteCompany(id);
 	}
-	public List<Company> listCompany(FormParam formParam) {
+	public List<Company> listCompany(CompanyFormParam formParam) {
 		return companyDao.listCompany(formParam);
 	}
 	/**
@@ -39,7 +38,7 @@ public class CompanyService {
 		return companyDao.listCompany(param);
 	}
 	
-	public int listTotal(FormParam formParam) {
+	public int listTotal(CompanyFormParam formParam) {
 		return companyDao.listTotal(formParam);
 	}
 

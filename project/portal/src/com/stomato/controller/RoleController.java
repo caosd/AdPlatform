@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.Menu;
-import com.stomato.domain.MenuParam;
 import com.stomato.domain.Role;
-import com.stomato.domain.RoleParam;
+import com.stomato.form.MenuFormParam;
 import com.stomato.form.RoleForm;
-import com.stomato.form.RoleParamForm;
+import com.stomato.form.RoleFormParam;
 import com.stomato.service.MenuService;
 import com.stomato.service.RoleMenuService;
 import com.stomato.service.RoleService;
 import com.stomato.utils.StringUtils;
-import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping(value="/role")
@@ -76,22 +74,11 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="/listRole.html")
-	public String listRole(@ModelAttribute("roleParamForm") RoleParamForm paramForm,HttpServletRequest request){
-		RoleParam roleForm = paramForm.asPojo();
-		int total = roleService.listTotal(roleForm);
-		int pageTotal = SysConfig.getPageTotal(total, roleForm.getPageSize());
-		if(pageTotal<roleForm.getPageNum()){
-			roleForm.setPageNum(1);
-		}
-		int start = (roleForm.getPageNum()-1)*roleForm.getPageSize();
-		roleForm.setSlimt(start);
-		List<Role> list = roleService.listRole(roleForm);
-		
-		request.setAttribute("pageTotal", pageTotal);
-		request.setAttribute("totalcount", total);
-		request.setAttribute("pageNum", roleForm.getPageNum());
+	public String listRole(@ModelAttribute("formParam") RoleFormParam formParam,HttpServletRequest request){
+		int total = roleService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<Role> list = roleService.listRole(formParam);
 		request.setAttribute("roleList", list);
-		
 		return "portal/role/roleList";
 	}
 	
@@ -114,7 +101,7 @@ public class RoleController {
 		List<Menu> menuList = menuService.listParentMenu();
 		if(menuList != null){
 			for (Menu menu : menuList) {
-				MenuParam parent = new MenuParam();
+				MenuFormParam parent = new MenuFormParam();
 				parent.setParent(menu.getId());
 				List<Menu> sunMenuList = menuService.listMenu(parent);
 				menu.setSunMenu(sunMenuList);
