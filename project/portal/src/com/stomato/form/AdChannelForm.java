@@ -7,9 +7,8 @@ import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
 import com.stomato.domain.AdChannel;
-import com.stomato.domain.BaseParam;
 
-public class AdChannelForm extends BaseParam {
+public class AdChannelForm{
 	
 	private int id; 
 	@NotEmpty

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.AdChannel;
-import com.stomato.domain.BaseParam;
 import com.stomato.form.AdChannelForm;
+import com.stomato.form.AdChannelFormParam;
 import com.stomato.service.AdChannelService;
 
 @Controller
@@ -80,13 +80,10 @@ public class AdChannelController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/adChannelList.html")
-	public String adChannelList(@ModelAttribute("adChannel")AdChannel adChannel,BindingResult result,HttpServletRequest request,Model model){
-		
-		int total = adChannelService.listTotal(adChannel);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(adChannel);
-		List<AdChannel> AdChannelList = adChannelService.listAdChannel(baseParam);
-		model.addAttribute("pageBean", baseParam);
+	public String adChannelList(@ModelAttribute("formParam")AdChannelFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
+		int total = adChannelService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<AdChannel> AdChannelList = adChannelService.listAdChannel(formParam);
 		model.addAttribute("adChannelList", AdChannelList);
 		return "portal/adchannel/adChannelList";
 	}

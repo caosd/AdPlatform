@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import com.stomato.dao.AdResourceDao;
 import com.stomato.domain.AdPush;
 import com.stomato.domain.AdResource;
-import com.stomato.domain.BaseParam;
+import com.stomato.domain.FormParam;
+import com.stomato.form.AdResourceFormParam;
 
 @Service
 public class AdResourceService {
@@ -34,15 +35,20 @@ public class AdResourceService {
 		adResourceDao.updateAdResource(adResource);
 	}
 	
-	public List<AdResource> listAdResource(BaseParam param){
+	public List<AdResource> listAdResource(FormParam param){
 		return adResourceDao.listAdResource(param);
 	}
 	
-	public int listTotal(AdResource adResource){
-		return adResourceDao.listTotal(adResource);
+	public int listTotal(FormParam param){
+		return adResourceDao.listTotal(param);
 	}
 	
 	public AdResource getAdResource(int id){
 		return  adResourceDao.getAdResource(id);
+	}
+	
+	public List<AdResource> getRecycleList(AdResourceFormParam param){
+		param.setIsDel(true);
+		return adResourceDao.listAdResource(param);
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.stomato.dao.AppTypeDao;
 import com.stomato.domain.AppType;
-import com.stomato.domain.BaseParam;
+import com.stomato.domain.FormParam;
 
 @Service
 public class AppTypeService {
@@ -26,12 +26,12 @@ public class AppTypeService {
 	public void deleteAppType(int id) {
 		appTypeDao.deleteAppType(id);
 	}
-	public List<AppType> listAppType(BaseParam param) {
+	public List<AppType> listAppType(FormParam param) {
 		return appTypeDao.listAppType(param);
 	}
 
-	public int listTotal(AppType AppType) {
-		return appTypeDao.listTotal(AppType);
+	public int listTotal(FormParam param) {
+		return appTypeDao.listTotal(param);
 	}
 
 	public AppType getAppType(int id) {

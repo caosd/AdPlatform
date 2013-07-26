@@ -25,8 +25,9 @@ import com.stomato.constant.Constant;
 import com.stomato.domain.AdChannel;
 import com.stomato.domain.AdResource;
 import com.stomato.domain.AppType;
-import com.stomato.domain.BaseParam;
+import com.stomato.form.AdChannelFormParam;
 import com.stomato.form.AdResourceForm;
+import com.stomato.form.AdResourceFormParam;
 import com.stomato.service.AdChannelService;
 import com.stomato.service.AdResourceService;
 import com.stomato.service.AppTypeService;
@@ -258,22 +259,17 @@ public class AdResourceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/adResourceList.html")
-	public String adResourceList(@ModelAttribute("adResource")AdResource adResource,BindingResult result,HttpServletRequest request) throws ParseException{
-		int total = adResourceService.listTotal(adResource);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(adResource);
+	public String adResourceList(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request) throws ParseException{
+		int total = adResourceService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<AdResource> adResourceList = adResourceService.listAdResource(formParam);
 		
-		List<AdResource> adResourceList = adResourceService.listAdResource(baseParam);
-		
-		AdChannel adChannel = new AdChannel();
-		adChannel.setEnable(true);
-		BaseParam adChannelParame = new BaseParam();
-		adChannelParame.setParam(adChannel);
-		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelParame);
+		AdChannelFormParam adChannelFormParam = new AdChannelFormParam();
+		adChannelFormParam.setEnable(true);
+		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelFormParam);
 		request.setAttribute("adResourceList", adResourceList);
 		request.setAttribute("adChannelList", adChannelList);
 		request.setAttribute("appTypeList", appTypeService.listAppType(null));
-		request.setAttribute("pageBean", baseParam);
 		return "portal/adresouce/adResourceList";
 	}
 	/**
@@ -489,23 +485,19 @@ public class AdResourceController {
 	 * @return
 	 */
 	@RequestMapping(value="/listRecycle.html")
-	public String recycleList(@ModelAttribute("adResource")AdResource adResource,BindingResult result,HttpServletRequest request){
-		adResource.setIsDel(true);
-		int total = adResourceService.listTotal(adResource);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(adResource);
+	public String recycleList(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request){
+		formParam.setIsDel(true);
+		int total = adResourceService.listTotal(formParam);
+		formParam.setTotalCount(total);
 		
-		AdChannel adChannel = new AdChannel();
-		adChannel.setEnable(true);
-		BaseParam adChannelParame = new BaseParam();
-		adChannelParame.setParam(adChannel);
-		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelParame);
-		List<AdResource> adResourceList = adResourceService.listAdResource(baseParam);
+		AdChannelFormParam adChannelFormParam = new AdChannelFormParam();
+		adChannelFormParam.setEnable(true);
+		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelFormParam);
+		List<AdResource> adResourceList = adResourceService.listAdResource(formParam);
 		
 		request.setAttribute("adChannelList", adChannelList);
 		request.setAttribute("appTypeList", appTypeService.listAppType(null));
 		request.setAttribute("adResourceList", adResourceList);
-		request.setAttribute("pageBean", baseParam);
 		return "portal/adresouce/adResourceRecycleList";
 	}
 	@RequestMapping("/recover.html")

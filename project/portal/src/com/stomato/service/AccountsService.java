@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.stomato.dao.PaymentDao;
 import com.stomato.dao.TransferDao;
 import com.stomato.dao.UserDao;
+import com.stomato.domain.FormParam;
 import com.stomato.domain.Payment;
 import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
-import com.stomato.domain.UserParam;
 
 @Service
 public class AccountsService {
@@ -25,11 +25,11 @@ public class AccountsService {
 	@Autowired
 	private TransferDao transferDao;
 	
-	public int listTotal(UserParam param){
+	public int listTotal(FormParam param){
 		return userDao.listTotal(param);
 	}
 	
-	public List<User> listUser(UserParam param ){
+	public List<User> listUser(FormParam param ){
 		return userDao.listUser(param);
 	}
 	

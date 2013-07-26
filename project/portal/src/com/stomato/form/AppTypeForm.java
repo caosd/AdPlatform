@@ -4,9 +4,8 @@ import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
 import com.stomato.domain.AppType;
-import com.stomato.domain.BaseParam;
 
-public class AppTypeForm extends BaseParam {
+public class AppTypeForm{
 
 	private Integer id;
 

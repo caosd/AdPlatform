@@ -5,10 +5,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.UserChannel;
 
-public class UserChannelForm extends BaseParam {
+public class UserChannelForm{
 	
 	private Integer id;
 	private Integer companyId;

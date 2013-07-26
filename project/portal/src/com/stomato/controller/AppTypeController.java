@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stomato.domain.AppType;
-import com.stomato.domain.BaseParam;
 import com.stomato.form.AppTypeForm;
+import com.stomato.form.AppTypeFormParam;
 import com.stomato.service.AppTypeService;
 
 @Controller
@@ -83,13 +83,10 @@ public class AppTypeController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/appTypeList.html")
-	public String AppTypeList(@ModelAttribute("appType")AppType appType,BindingResult result,HttpServletRequest request,Model model){
-		
-		int total = appTypeService.listTotal(appType);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(appType);
-		List<AppType> appTypeList = appTypeService.listAppType(baseParam);
-		model.addAttribute("pageBean", baseParam);
+	public String AppTypeList(@ModelAttribute("formParam")AppTypeFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
+		int total = appTypeService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<AppType> appTypeList = appTypeService.listAppType(formParam);
 		model.addAttribute("appTypeList", appTypeList);
 		return "portal/apps/appTypeList";
 	}

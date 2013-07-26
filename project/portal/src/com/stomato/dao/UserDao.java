@@ -2,8 +2,8 @@ package com.stomato.dao;
 
 import java.util.List;
 
+import com.stomato.domain.FormParam;
 import com.stomato.domain.User;
-import com.stomato.domain.UserParam;
 
 public interface UserDao {
 	
@@ -25,7 +25,7 @@ public interface UserDao {
 	
 	User verify(User user);
 	
-	int listTotal(UserParam param);
+	int listTotal(FormParam param);
 	
-	List<User> listUser(UserParam param );
+	List<User> listUser(FormParam param );
 }

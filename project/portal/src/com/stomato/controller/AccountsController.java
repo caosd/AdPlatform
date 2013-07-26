@@ -20,20 +20,18 @@ import com.stomato.domain.Payment;
 import com.stomato.domain.Transfer;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;
-import com.stomato.domain.UserParam;
 import com.stomato.enums.PaymentEnum;
 import com.stomato.form.EmailForm;
 import com.stomato.form.PasswordForm;
 import com.stomato.form.PaymentForm;
 import com.stomato.form.ProfileForm;
 import com.stomato.form.UserForm;
-import com.stomato.form.UserParamForm;
+import com.stomato.form.UserFormParam;
 import com.stomato.service.AccountsService;
 import com.stomato.service.RoleService;
 import com.stomato.service.UserAccountsService;
 import com.stomato.validator.PasswordValidation;
 import com.stomato.validator.PaymentValidation;
-import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping("/accounts")
@@ -255,27 +253,10 @@ public class AccountsController extends UserController {
 		return "portal/user/userForm";
 	}
 	@RequestMapping(value="/listUser.html")
-	public String list(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,Model model){
-		/*if(flag == 1){
-			user.setRoleId(5);
-		}*/
-		UserParam param = paramForm.asPojo();
-		int total = accountsService.listTotal(param);
-		
-		int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
-		
-		if(pageTotal<param.getPageNum()){
-			param.setPageNum(1);
-		}
-		int start = (param.getPageNum()-1)*param.getPageSize();
-		param.setSlimt(start);
-		List<User> userList = accountsService.listUser(param);
-		
-		logger.debug("userList size:"+userList.size());
-
-		model.addAttribute("pageTotal", pageTotal);
-		model.addAttribute("totalcount", total);
-		model.addAttribute("pageNum", param.getPageNum());
+	public String list(@ModelAttribute("formParam")UserFormParam formParam,BindingResult result,Model model){
+		int total = accountsService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<User> userList = accountsService.listUser(formParam);
 		model.addAttribute("userList", userList);
 		return "portal/user/userList";
 	}
@@ -315,27 +296,10 @@ public class AccountsController extends UserController {
 		return "portal/user/userUpdate";
 	}
 	@RequestMapping(value="/userReviewList.html")
-	public String listToReview(@ModelAttribute("userParamForm")UserParamForm paramForm,BindingResult result,Model model){
-		/*if(flag == 1){
-			user.setRoleId(5);
-		}*/
-		UserParam param = paramForm.asPojo();
-		int total = accountsService.listTotal(param);
-		
-		int pageTotal = SysConfig.getPageTotal(total, param.getPageSize());
-		
-		if(pageTotal<param.getPageNum()){
-			param.setPageNum(1);
-		}
-		int start = (param.getPageNum()-1)*param.getPageSize();
-		param.setSlimt(start);
-		List<User> userList = accountsService.listUser(param);
-		
-		logger.debug("userList size:"+userList.size());
-
-		model.addAttribute("pageTotal", pageTotal);
-		model.addAttribute("totalcount", total);
-		model.addAttribute("pageNum", param.getPageNum());
+	public String listToReview(@ModelAttribute("formParam")UserFormParam formParam,BindingResult result,Model model){
+		int total = accountsService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<User> userList = accountsService.listUser(formParam);
 		model.addAttribute("userList", userList);
 		return "portal/user/userReviewList";
 	}

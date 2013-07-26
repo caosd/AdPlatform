@@ -2,11 +2,11 @@ package com.stomato.form;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
+
 import com.google.gson.Gson;
 import com.stomato.domain.App;
-import com.stomato.domain.BaseParam;
 
-public class AppForm extends BaseParam {
+public class AppForm{
 	
 	private int id;
 	

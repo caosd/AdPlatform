@@ -1,6 +1,6 @@
 package com.stomato.domain;
 
-public class RoleParam extends BaseParam {
+public class RoleParam{
 	private int id;
 
 	private String roleName;

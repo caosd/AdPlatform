@@ -3,7 +3,7 @@ package com.stomato.domain;
 import com.google.gson.Gson;
 import com.stomato.enums.ReportTypeEnum;
 
-public class ReportParam extends BaseParam{
+public class ReportParam{
 	
 	private int uid;
 	

@@ -7,10 +7,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
-import com.stomato.domain.BaseParam;
+import com.stomato.domain.FormParam;
 import com.stomato.domain.UserParam;
 
-public class UserParamForm extends BaseParam{
+public class UserFormParam extends FormParam{
 	
 	@Size (min=5, max=20)
 	private String userName;

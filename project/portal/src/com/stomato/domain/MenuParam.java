@@ -1,7 +1,7 @@
 package com.stomato.domain;
 
 
-public class MenuParam extends BaseParam{
+public class MenuParam{
 	
 private Integer id ;
 	

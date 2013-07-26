@@ -12,7 +12,7 @@ import com.stomato.utils.StringUtils;
  * @author zyf
  * 
  */
-public class AdResource extends BaseParam {
+public class AdResource{
 
 	private int id;
 

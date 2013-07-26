@@ -4,10 +4,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.RoleParam;
 
-public class RoleParamForm extends BaseParam{
+public class RoleParamForm{
 	
 	private int id ;
 	@NotEmpty

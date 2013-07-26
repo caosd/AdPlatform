@@ -1,6 +1,6 @@
 package com.stomato.domain;
 
-public class UserParam extends BaseParam{
+public class UserParam{
 
 	private Integer id;
 	
