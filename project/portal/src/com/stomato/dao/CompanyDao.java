@@ -2,8 +2,8 @@ package com.stomato.dao;
 
 import java.util.List;
 
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.Company;
+import com.stomato.domain.FormParam;
 
 public interface CompanyDao {
 
@@ -13,9 +13,9 @@ public interface CompanyDao {
 	
 	public void deleteCompany(int id);
 
-	public List<Company> listCompany(BaseParam param);
+	public List<Company> listCompany(FormParam formParam);
 
-	public int listTotal(Company company);
+	public int listTotal(FormParam formParam);
 
 	public Company getCompany(int id);
 }

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.Company;
 import com.stomato.form.CompanyForm;
+import com.stomato.form.CompanyFormParam;
 import com.stomato.service.CompanyService;
 
 @Controller
@@ -81,13 +81,11 @@ public class CompanyController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/companyList.html")
-	public String companyList(@ModelAttribute("company")Company company,BindingResult result,HttpServletRequest request,Model model){
+	public String companyList(@ModelAttribute("formParam")CompanyFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
 		
-		int total = companyService.listTotal(company);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(company);
-		List<Company> companyList = companyService.listCompany(baseParam);
-		model.addAttribute("pageBean", baseParam);
+		int total = companyService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<Company> companyList = companyService.listCompany(formParam);
 		model.addAttribute("companyList", companyList);
 		return "portal/company/companyList";
 	}

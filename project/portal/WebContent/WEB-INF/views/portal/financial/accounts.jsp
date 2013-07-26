@@ -22,7 +22,7 @@
 			<div class="widget">
 				<div class="widget-header">
 					<h5>账户信息</h5>
-					<form:form id="searchForm" commandName="reportParamForm" method="post" class="form-inline">
+					<form:form id="searchForm" commandName="formParam" method="post" class="form-inline">
                     <form:hidden path="pageNum" id="pageNum"/>
                     <form:hidden path="startDate" id="search_start" />
                     <form:hidden path="endDate" id="search_end" />
@@ -35,9 +35,9 @@
 						</li>
 						<li class="search-col">
 							<form:select class="mini" path="appId" style="width:100px">
-		                            <option value="0">全部应用</option>
+		                            <form:option value="0">全部应用</form:option>
 		                            <c:forEach items="${appList}" var="app" varStatus="stat">
-										<option value="${app.id}" ${reportParam.appId == app.id ? 'selected':'' }>${app.name }</option>
+										<form:option value="${app.id}">${app.name }</form:option>
 									</c:forEach>
 		                    </form:select>
 						</li>

@@ -2,7 +2,7 @@ package com.stomato.dao;
 
 import java.util.List;
 
-import com.stomato.domain.BaseParam;
+import com.stomato.domain.FormParam;
 import com.stomato.domain.UserChannel;
 
 public interface UserChannelDao {
@@ -13,9 +13,9 @@ public interface UserChannelDao {
 	
 	public void deleteUserChannel(int id);
 
-	public List<UserChannel> listUserChannel(BaseParam param);
+	public List<UserChannel> listUserChannel(FormParam formParam);
 
-	public int listTotal(UserChannel userChannel);
+	public int listTotal(FormParam formParam);
 
 	public UserChannel getUserChannel(int id);
 }

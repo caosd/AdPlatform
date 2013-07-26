@@ -37,25 +37,35 @@
 		delete from t_company where id = #{id}
 	</delete>
 	
-	<select id="listTotal" parameterType="com.stomato.domain.BaseParam" resultType="int" >
+	<select id="listTotal" parameterType="com.stomato.domain.FormParam" resultType="int" >
 		select count(1) from t_company where 1=1
 		<if test="name != null">
 		 	and name like '%${name}%'
 		</if>
+		<if test="status != null">
+		 	and status = #{status}#
+		</if>
+		<if test="startDate != null">
+            and create_date between #{startDate} and #{endDate}
+        </if>
 	</select>
-	<select id="listCompany" parameterType="com.stomato.domain.BaseParam" resultMap="company" >
+	<select id="listCompany" parameterType="com.stomato.domain.FormParam" resultMap="company" >
 		select  id,
 				name,
 				description,
 				create_date,
 				status
 				from t_company where 1=1
-		<if test="param != null">
-			<if test="param.name != null">
-			 	and name like '%${param.name}%'
-			</if>
+		<if test="name != null">
+		 	and name like '%${name}%'
 		</if>
+		<if test="status != null">
+		 	and status = #{status}#
+		</if>
+		<if test="startDate != null">
+            and create_date between #{startDate} and #{endDate}
+        </if>
 		order by create_date asc
-		<if test="slimt != null">limit #{slimt},#{pageSize}</if>
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

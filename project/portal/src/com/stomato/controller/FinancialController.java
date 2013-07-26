@@ -26,13 +26,12 @@ import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.Credentials;
 import com.stomato.domain.Remittance;
-import com.stomato.domain.RemittanceParam;
 import com.stomato.domain.User;
 import com.stomato.domain.UserAccount;
 import com.stomato.exception.AdPlatformException;
 import com.stomato.form.CredentialForm;
-import com.stomato.form.RemittanceParamForm;
-import com.stomato.form.ReportParamForm;
+import com.stomato.form.RemittanceFormParam;
+import com.stomato.form.ReportFormParam;
 import com.stomato.service.AppService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.CredentialsService;
@@ -42,7 +41,6 @@ import com.stomato.service.UserAccountsService;
 import com.stomato.utils.ExcelUtils;
 import com.stomato.utils.StringUtils;
 import com.stomato.validator.CredentialValidation;
-import com.stomato.vo.SysConfig;
 
 @Controller
 @RequestMapping("/financial")
@@ -154,7 +152,7 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/accounts")
-	public String accounts(@ModelAttribute("reportParamForm") ReportParamForm formParam,BindingResult result,HttpServletRequest request,Model model) {
+	public String accounts(@ModelAttribute("formParam") ReportFormParam formParam,BindingResult result,HttpServletRequest request,Model model) {
 		User user = this.lookup(request);
 		formParam.setUid(user.getUid());
 		List<App> appList = this.appService.getAppList(user.getUid());
@@ -225,19 +223,12 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/remittance_history")
-	public String remittance_history(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,BindingResult result,HttpServletRequest request, Model model) {
-		RemittanceParam remittanceParam= form.asPojo();
-		remittanceParam.setUid(super.lookup(request).getUid());
-		int total = this.remittanceService.getRemittanceCount(remittanceParam);
-		int pageTotal = SysConfig.getPageTotal(total, remittanceParam.getPageSize());
-		if(pageTotal<remittanceParam.getPageNum()){ remittanceParam.setPageNum(1); } 
-		int start = (remittanceParam.getPageNum()-1)*remittanceParam.getPageSize();
-		remittanceParam.setSlimt(start);
+	public String remittance_history(@ModelAttribute("formParam") RemittanceFormParam formParam,BindingResult result,HttpServletRequest request, Model model) {
+		formParam.setUid(super.lookup(request).getUid());
+		int total = this.remittanceService.getRemittanceCount(formParam);
+		formParam.setTotalCount(total);
 		
-		List<Remittance> remittanceList = this.remittanceService.getRemittanceListByUser(remittanceParam);
-		model.addAttribute("pageTotal", pageTotal);
-		model.addAttribute("totalcount", total);
-		model.addAttribute("pageNum", form.getPageNum());
+		List<Remittance> remittanceList = this.remittanceService.getRemittanceListByUser(formParam);
 		model.addAttribute("remittanceList", remittanceList);
 		return "portal/financial/remittance_history";
 	}
@@ -254,23 +245,15 @@ public class FinancialController extends UserController{
 	}
 	
 	@RequestMapping("/remittance_list")
-	public String remittance_list(@ModelAttribute("remittanceParamForm") RemittanceParamForm form,HttpServletRequest request, Model model) {
-		RemittanceParam remittanceParam= form.asPojo();
-		int total = this.remittanceService.getRemittanceCount(remittanceParam);
-		int pageTotal = SysConfig.getPageTotal(total, remittanceParam.getPageSize());
-		if(pageTotal<remittanceParam.getPageNum()){ remittanceParam.setPageNum(1); } 
-		int start = (remittanceParam.getPageNum()-1)*remittanceParam.getPageSize();
-		remittanceParam.setSlimt(start);
-		
-		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(remittanceParam);
-		model.addAttribute("pageTotal", pageTotal);
-		model.addAttribute("totalcount", total);
-		model.addAttribute("pageNum", form.getPageNum());
+	public String remittance_list(@ModelAttribute("formParam") RemittanceFormParam formParam,BindingResult result,HttpServletRequest request, Model model) {
+		int total = this.remittanceService.getRemittanceCount(formParam);
+		formParam.setTotalCount(total);		
+		List<Remittance> remittanceList = this.remittanceService.getRemittanceList(formParam);
 		model.addAttribute("remittanceList", remittanceList);
 		return "portal/financial/remittance_list";
 	}
 	@RequestMapping(value="/export-excel")
-	public void exportExcel(@ModelAttribute("reportParamForm") ReportParamForm formParam,BindingResult result,HttpServletResponse response,HttpServletRequest request){
+	public void exportExcel(@ModelAttribute("reportParamForm") ReportFormParam formParam,BindingResult result,HttpServletResponse response,HttpServletRequest request){
 		response.reset();
 	    response.setContentType("APPLICATION/vnd.ms-excel");
 	    String fileName;

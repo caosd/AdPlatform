@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.CompanyDao;
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.Company;
+import com.stomato.domain.FormParam;
+import com.stomato.form.CompanyFormParam;
 
 @Service
 public class CompanyService {
@@ -25,23 +26,21 @@ public class CompanyService {
 	public void deleteCompany(int id) {
 		companyDao.deleteCompany(id);
 	}
-	public List<Company> listCompany(BaseParam param) {
-		return companyDao.listCompany(param);
+	public List<Company> listCompany(FormParam formParam) {
+		return companyDao.listCompany(formParam);
 	}
 	/**
 	 * 获取所有有效的厂商列表
 	 * @return
 	 */
 	public List<Company> getCompanyListByActive(){
-		BaseParam param = new BaseParam();
-		Company company = new Company();
-		company.setStatus(1);
-		param.setParam(company);
+		CompanyFormParam param = new CompanyFormParam();
+		param.setStatus(1);
 		return companyDao.listCompany(param);
 	}
 	
-	public int listTotal(Company Company) {
-		return companyDao.listTotal(Company);
+	public int listTotal(FormParam formParam) {
+		return companyDao.listTotal(formParam);
 	}
 
 	public Company getCompany(int id) {

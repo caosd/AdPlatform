@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stomato.dao.RemittanceDao;
+import com.stomato.domain.FormParam;
 import com.stomato.domain.Remittance;
-import com.stomato.domain.RemittanceParam;
 import com.stomato.domain.UserAccount;
 import com.stomato.exception.AdPlatformException;
 
@@ -34,15 +34,15 @@ public class RemittanceService {
 		return this.remittanceDao.getRemittanceListByApplyStatus(uid);
 	}
 	
-	public List<Remittance> getRemittanceList(RemittanceParam param){
+	public List<Remittance> getRemittanceList(FormParam param){
 		return this.remittanceDao.getRemittanceList(param);
 	}
 	
-	public List<Remittance> getRemittanceListByUser(RemittanceParam param){
+	public List<Remittance> getRemittanceListByUser(FormParam param){
 		return this.remittanceDao.getRemittanceListByUser(param);
 	}
 	
-	public int getRemittanceCount(RemittanceParam param){
+	public int getRemittanceCount(FormParam param){
 		return this.remittanceDao.getRemittanceCount(param);
 	}
 	

@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.stomato.domain.BaseParam;
 import com.stomato.domain.Company;
 import com.stomato.domain.UserChannel;
 import com.stomato.form.UserChannelForm;
+import com.stomato.form.UserChannelFormParam;
 import com.stomato.service.CompanyService;
 import com.stomato.service.UserChannelService;
 
@@ -89,13 +89,10 @@ public class UserChannelController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value="/userChannelList.html")
-	public String UserChannelList(@ModelAttribute("userChannel")UserChannel userChannel,BindingResult result,HttpServletRequest request,Model model){
-		
-		int total = userChannelService.listTotal(userChannel);
-		BaseParam baseParam = new BaseParam(request,total);
-		baseParam.setParam(userChannel);
-		List<UserChannel> userChannelList = userChannelService.listUserChannel(baseParam);
-		model.addAttribute("pageBean", baseParam);
+	public String UserChannelList(@ModelAttribute("formParam")UserChannelFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
+		int total = userChannelService.listTotal(formParam);
+		formParam.setTotalCount(total);
+		List<UserChannel> userChannelList = userChannelService.listUserChannel(formParam);
 		model.addAttribute("userChannelList", userChannelList);
 		return "portal/userchannel/userChannelList";
 	}

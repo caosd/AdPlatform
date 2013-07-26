@@ -2,8 +2,8 @@ package com.stomato.dao;
 
 import java.util.List;
 
+import com.stomato.domain.FormParam;
 import com.stomato.domain.Remittance;
-import com.stomato.domain.RemittanceParam;
 
 /**
  * 申请汇款dao接口
@@ -15,11 +15,11 @@ public interface RemittanceDao {
 	
 	List<Remittance> getRemittanceListByApplyStatus(int uid);
 	
-	List<Remittance> getRemittanceListByUser(RemittanceParam param);
+	List<Remittance> getRemittanceListByUser(FormParam param);
 	
-	List<Remittance> getRemittanceList(RemittanceParam param);
+	List<Remittance> getRemittanceList(FormParam param);
 	
-	int getRemittanceCount(RemittanceParam param);
+	int getRemittanceCount(FormParam param);
 	
 	void updateRemittance(Remittance remittance);
 	
