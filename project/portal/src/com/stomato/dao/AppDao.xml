@@ -36,7 +36,7 @@
 		 	and uid = #{uid}
 		</if>
 		<if test="startDate != null">
-		    and create_time between #{startDate} and #{endDate}
+		    and create_time between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
 		</if>
 	</select>
 	<select id="listApps" parameterType="com.stomato.domain.FormParam" resultMap="app" >
@@ -48,7 +48,7 @@
 		 	and uid = #{uid}
 		</if>
 		<if test="startDate != null">
-            and create_time between #{startDate} and #{endDate}
+            and create_time between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		order by id asc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
@@ -81,7 +81,7 @@
 		 	and uid = #{uid}
 		</if>
 		<if test="startDate != null">
-            and create_time between #{startDate} and #{endDate}
+            and create_time between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		order by id asc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
@@ -100,7 +100,7 @@
 		 	and uid = #{uid}
 		</if>
 		<if test="startDate != null">
-            and create_time between #{startDate} and #{endDate}
+            and create_time between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		order by id asc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>

@@ -69,6 +69,5 @@
 			and visible = #{visible}
 		</if>
 		order by order_no asc
-		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

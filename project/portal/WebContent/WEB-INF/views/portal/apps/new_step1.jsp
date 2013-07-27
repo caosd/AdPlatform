@@ -12,7 +12,7 @@
 	</ul>
 
 	<div class="widget">
-		<form id="appForm" method="POST" class="form-horizontal form-wizard" action="/apps/create" enctype="multipart/form-data">
+		<form id="appForm" method="POST" class="form-horizontal form-wizard" action="/apps/create">
 		    <input type="hidden" name="appKey" id="appKey" />
 			<div class="widget-header">
 				<h5>上传应用</h5>

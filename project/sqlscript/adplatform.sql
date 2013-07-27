@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `t_ad_channel` (
 --
 
 DROP TABLE IF EXISTS `t_ad_resource`;
-CREATE TABLE IF NOT EXISTS `t_ad_resource` (
+CREATE TABLE `t_ad_resource` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `channel_id` int(11) DEFAULT NULL,
   `ad_name` varchar(255) NOT NULL COMMENT '广告应用名称',
@@ -50,9 +50,11 @@ CREATE TABLE IF NOT EXISTS `t_ad_resource` (
   `downloads` int(11) DEFAULT NULL,
   `recommens` int(11) DEFAULT NULL COMMENT '推荐次数',
   `ad_rating` int(11) DEFAULT NULL COMMENT '广告资源推荐等级',
+  `language` varchar(10) DEFAULT NULL COMMENT '语言，zh=中文，en=英文',
   `description` varchar(255) DEFAULT NULL COMMENT '应用描述',
   `modify_date` datetime DEFAULT NULL COMMENT '广告修时间',
   `create_date` datetime NOT NULL,
+  `shelf_date` datetime DEFAULT NULL COMMENT '上架时间',
   `apk_url` varchar(255) DEFAULT NULL COMMENT 'apk 下载地址',
   `start_time` datetime DEFAULT NULL COMMENT '开始时间',
   `end_time` datetime DEFAULT NULL COMMENT '结束时间',
@@ -62,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `t_ad_resource` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ad_package` (`ad_package`),
   KEY `status` (`status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
+) ENGINE=InnoDB AUTO_INCREMENT=1005 DEFAULT CHARSET=utf8;
 
 --
 -- 表的结构 `t_ad_rssource`
