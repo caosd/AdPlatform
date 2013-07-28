@@ -9,8 +9,7 @@ import brut.androlib.res.data.ResPackage;
 public class Air {
 
 	public static void main(String[] args) throws Exception {
-		String f = null;//args[0];
-		f = "/Users/dekkerdong/Downloads/3.apk";
+		String f = args[0];
 		ApkDecoder d = new ApkDecoder();
 		d.setApkFile(new File(f));
 		String dir = null;
@@ -23,8 +22,6 @@ public class Air {
 			AirUnZip.getIcons(f, dir);
 			System.exit(0);
 		}
-		
-		
 	}
 
 }
