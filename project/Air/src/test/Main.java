@@ -7,7 +7,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try { 
-			Process pro = Runtime.getRuntime().exec("java -jar /Users/dekkerdong/Desktop/Air.jar /Users/dekkerdong/Desktop/1.apk");
+			Process pro = Runtime.getRuntime().exec("java -jar /Users/dekkerdong/Desktop/Air.jar /Users/dekkerdong/Downloads/GoogleMaps6120.apk");
 			pro.waitFor(); 
 			if (pro.exitValue() != 0) {
 				System.out.println("run cmd exception...");

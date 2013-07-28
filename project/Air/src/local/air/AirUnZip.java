@@ -1,15 +1,18 @@
 package local.air;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import brut.apktool.Main;
 import brut.common.BrutException;
@@ -17,95 +20,33 @@ import brut.common.BrutException;
 public class AirUnZip {
 
 	public static String[] getIconfile(String targetDir) {
-		String manifestFilepath = targetDir + "" + File.separator
-				+ "AndroidManifest.xml";
-		String keyLine = "android:icon=";
-		String nameLine = "android:label";
-		String iconFilePath[] = new String[2];
+		String manifestFilepath = targetDir + "" + File.separator + "AndroidManifest.xml";
+		String iconFile[] = new String[2];
 		try {
 			File file = new File(manifestFilepath);
-			// BufferedInputStream bin = new BufferedInputStream(new
-			// FileInputStream(appDatafilePath));
-			// byte[] buff = new byte[(int)file.length()];
-
-			InputStreamReader read = new InputStreamReader(new FileInputStream(
-					file), "UTF-8");
-			String fileContent = "";
-			BufferedReader reader = new BufferedReader(read);
-			String lineContent;
-			while ((lineContent = reader.readLine()) != null) {
-				fileContent = fileContent + lineContent + "\n";
-			}
-			String[] lines = fileContent.split("\n");
-			// bin.read(buff);
-			OutputStreamWriter fout = new OutputStreamWriter(
-					new FileOutputStream(file), "UTF-8");
-			// String str = new String(buff);
-			// String[] lines = str.split("\n");
-			for (String line : lines) {
-				String line_changed = line;
-				if (line.contains(keyLine)) {
-					int fi = line.indexOf("drawable");
-					int end = line.indexOf("\"", fi);
-					while (end < fi) {
-						end = line.indexOf("\"", end);
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setIgnoringElementContentWhitespace(true);
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document xmldoc = builder.parse(file);
+			Element root = xmldoc.getDocumentElement();
+			NodeList nodeList = root.getElementsByTagName("application");
+			for (int i=0,length=nodeList.getLength(); i<length; i++) {
+				Node node = nodeList.item(i);
+				NamedNodeMap attributes = node.getAttributes();
+				String icon = attributes.getNamedItem("android:icon").getTextContent();
+				if (null != icon) {
+					iconFile[1] = icon.substring(1, icon.indexOf("/"));
+					if (icon.indexOf("/") > 0) {
+						icon = icon.substring(icon.indexOf("/") + 1);
 					}
-					iconFilePath[0] = line.substring(fi + 9, end) + ".png";
-				}
-				if (line.contains(nameLine)) {
-					int fi = line.indexOf("string");
-					int end = line.indexOf("\"", fi);
-					while (end < fi) {
-						end = line.indexOf("\"", end);
-					}
-					iconFilePath[1] = line.substring(fi + 7, end);
-				}
-				fout.write(line_changed + "\n");
-			}
-			fout.flush();
-			fout.close();
-			reader.close();
-			// bin.close();
-		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		String stringsPath = targetDir + "" + File.separator + "res"
-				+ File.separator + "values" + File.separator + "strings.xml";
-		try {
-			File file = new File(stringsPath);
-			InputStreamReader read = new InputStreamReader(new FileInputStream(
-					file), "UTF-8");
-			String fileContent = "";
-			BufferedReader reader = new BufferedReader(read);
-			String lineContent;
-			while ((lineContent = reader.readLine()) != null) {
-				fileContent = fileContent + lineContent + "\n";
-			}
-			String[] lines = fileContent.split("\n");
-			OutputStreamWriter fout = new OutputStreamWriter(
-					new FileOutputStream(file), "UTF-8");
-			for (String line : lines) {
-				String line_changed = line;
-				if (line.contains(iconFilePath[1])) {
-					int fi = line.indexOf(">");
-					int end = line.indexOf("<", fi);
-					iconFilePath[1] = line.substring(fi + 1, end);
+					iconFile[0] = icon + ".png";
 					break;
 				}
-				fout.write(line_changed + "\n");
 			}
-			fout.flush();
-			fout.close();
-			reader.close();
-			// bin.close();
-		} catch (FileNotFoundException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
 		}
-		return iconFilePath;
+		return iconFile;
 	}
 
 	public static String[] getfilepaths(String dir, String searchname) {
@@ -178,22 +119,22 @@ public class AirUnZip {
 			} catch (BrutException e) {
 				e.printStackTrace();
 			}
-			String result[] = getIconfile(targetDir);
+			String[] result = getIconfile(targetDir);
 			String[] iconfilepath = getfilepaths(targetDir, result[0]);
 			File iconDirfile = new File(iconDir + File.separator + saveDir);
 			if (!iconDirfile.exists()) {
 				iconDirfile.mkdir();
 			}
 			AutoCopyFiles copyFiles = new AutoCopyFiles();
-			Pattern p = Pattern.compile("/drawable\\S+");
 			Matcher m = null;
+			Pattern p = Pattern.compile("/"+result[1]+"\\S+");
 			for (int i = 0; i < iconfilepath.length; i++) {
 				m = p.matcher(iconfilepath[i]);
-				String iconFilePath = i + "_" + result[0];
 				if (m.find()) {
+					String iconFilePath = i + "_" + result[0];
 					iconFilePath = m.group(0).substring(1).replace("/", "#");
+					copyFiles.copyFile(iconfilepath[i], iconDirfile.getAbsolutePath() + File.separator + iconFilePath);
 				}
-				copyFiles.copyFile(iconfilepath[i], iconDirfile.getAbsolutePath() + File.separator + iconFilePath);
 			}
 			// deleteDir(new File(targetDir));
 		} catch (IOException e) {
