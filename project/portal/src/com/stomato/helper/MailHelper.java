@@ -209,9 +209,30 @@ public class MailHelper {
 		
 		return mailInfo;
 	}
+	private static MailInfo getRegisterRebutEmailInfo(String email, String username, String reasons, String lang) {
+		MailInfo mailInfo = new MailInfo();
+		mailInfo.setToMail(email);
+		
+		StringBuilder sb = new StringBuilder();
+		if ("zh_cn".equals(lang.toLowerCase())) {
+			sb.append("亲爱的用户：经过我们对你提供的资料审核不通过,理由如下:"+reasons);
+			mailInfo.setSubject("注册用户");
+		} else {
+			sb.append("亲爱的用户：经过我们对你提供的资料审核不通过,很抱歉!"+reasons);
+			mailInfo.setSubject("注册用户");
+		}
+		mailInfo.setMailbody(sb.toString());
+		
+		return mailInfo;
+	}
 	
 	public static boolean sendResetPwdEmail(String email, String username, String link, String lang) {
 		MailInfo mailInfo = getResetPwdEmailInfo(email, username, link, lang);
+		
+		return fromMail(mailInfo);
+	}
+	public static boolean sendRegisterRebutEmail(String email, String username, String reasons, String lang) {
+		MailInfo mailInfo = getRegisterRebutEmailInfo(email, username, reasons, lang);
 		
 		return fromMail(mailInfo);
 	}

@@ -28,6 +28,7 @@ import com.stomato.form.PaymentForm;
 import com.stomato.form.ProfileForm;
 import com.stomato.form.UserForm;
 import com.stomato.form.UserFormParam;
+import com.stomato.helper.MailHelper;
 import com.stomato.service.AccountsService;
 import com.stomato.service.RoleService;
 import com.stomato.service.UserAccountsService;
@@ -350,8 +351,9 @@ public class AccountsController extends UserController {
 		return "portal/user/userRebut";
 	}
 	@RequestMapping(value="/{id}/userRebut.html",method=RequestMethod.POST)
-	public String rebutUser(int id,HttpServletRequest request,Model model){
-		
+	public String rebutUser(@PathVariable int id,String describe,HttpServletRequest request,Model model){
+		User user = accountsService.getUserByUid(id);
+		MailHelper.sendResetPwdEmail(user.getEmail(), user.getContactName(), describe, "zh");
 		model.addAttribute("success", true);
 		return rebutUser(id, model);
 	}
