@@ -59,7 +59,7 @@
 			and account_name like '%${userName}%'
 		</if>
 		<if test="startDate != null">
-            and createtime between #{startDate} and #{endDate}
+            and createtime between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 	</select>
 	<select id="listUser" parameterType="com.stomato.domain.UserParam" resultMap="user" >
@@ -68,7 +68,7 @@
 			and account_name like'%${userName}%'
 		</if>
 		<if test="startDate != null">
-            and createtime between #{startDate} and #{endDate}
+            and createtime between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		order by login_token_time desc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>

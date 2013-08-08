@@ -45,7 +45,7 @@
 						String msg = StringUtils.getStringParameter(request, "msg", true);
 						%>
 						<%if( success || !msg.isEmpty()) {%>
-			                <div class="note note-danger" style="margin: 20px 30px;">
+			                <div class="note ${success ? 'note-success' :'note-danger'}" style="margin: 20px 30px;">
 			                    <button type="button" class="close note-remove">×</button>
 			                    <strong><fmt:message key="tips"/></strong> 
 			                    <%

@@ -7,11 +7,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -65,6 +67,8 @@ public class UserChannelController {
 		userChannel.setCompanyName(company.getName());
 		userChannelService.addUserChannel(userChannel);
 		model.addAttribute("success", true);
+		//清空表单
+		BeanUtils.copyProperties(new UserChannelForm(), userChannelForm);
 		return fromPage(userChannelForm,result, model);
 	}
 	
@@ -135,8 +139,8 @@ public class UserChannelController {
 		return "redirect:/result/success";
 	}
 	 
-	@RequestMapping(value="/openPushChannel.html")
-	public String openPush(int id,@ModelAttribute("userChannel")UserChannel form,BindingResult result,HttpServletRequest request,Model model){
+	@RequestMapping(value="/{id}/openPushChannel.html")
+	public String openPush(@PathVariable int id,@ModelAttribute("userChannel")UserChannel form,BindingResult result,HttpServletRequest request,Model model){
 		UserChannel userChannel = userChannelService.getUserChannel(id);
 		if( userChannel == null){
 			model.addAttribute("success", false);
@@ -146,8 +150,8 @@ public class UserChannelController {
 		model.addAttribute("success", true);
 		return "redirect:/userchannel/userChannelList.html";
 	}
-	@RequestMapping(value="/closePushChannel.html")
-	public String closenPush(int id,@ModelAttribute("userChannel")UserChannel form,BindingResult result,HttpServletRequest request,Model model){
+	@RequestMapping(value="/{id}/closePushChannel.html")
+	public String closePush(@PathVariable int id,@ModelAttribute("userChannel")UserChannel form,BindingResult result,HttpServletRequest request,Model model){
 		UserChannel userChannel = userChannelService.getUserChannel(id);
 		if( userChannel == null){
 			model.addAttribute("success", false);

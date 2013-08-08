@@ -8,7 +8,7 @@
 		  String _goto = request.getParameter("_goto"); 
 		  if(success != null){ 
 		 %>
-           <div class="note note-danger" style="margin: 20px 30px;">
+           <div class="note note-success" style="margin: 20px 30px;">
                <button type="button" class="close note-remove">×</button>
                <strong><fmt:message key="tips"/></strong> 
                <% if(success.equals("del")){  %>

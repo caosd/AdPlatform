@@ -185,7 +185,7 @@
 			</otherwise>
 		</choose>
 		<if test="startDate != null">
-            and create_date between #{startDate} and #{endDate}
+            and create_date between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 	</select>
 	<select id="listAdResource" parameterType="com.stomato.form.AdResourceFormParam" resultMap="adResource" >
@@ -232,7 +232,7 @@
 			</otherwise>
 		</choose>
 		<if test="startDate != null">
-            and create_date between #{startDate} and #{endDate}
+            and create_date between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		order by modify_date asc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>

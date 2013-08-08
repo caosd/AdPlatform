@@ -45,7 +45,7 @@
 								<tr align="left">
 									<th>#</th>
 			                        <th>注册时间</th>
-			                        <th>帐号类型</th>
+			                        <th>角色</th>
 			                        <th>用户名</th>
 			                        <th>电子邮件</th>
 			                        <th>公司名称</th>
@@ -61,8 +61,23 @@
 								<c:forEach items="${userList}" var="item" varStatus="stat">
 					            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 					                        <td class=" ">${stat.index+1}</td>
-					                        <td class=" "><fmt:formatDate value="${item.createtime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					            			<td class=" ">${item.type }</td>
+					                        <td class=" "><fmt:formatDate value="${item.createtime }" pattern="yyyy-MM-dd" /></td>
+					            			<td class=" ">
+												<c:choose>
+													<c:when test="${item.type == 2}">
+														运营管理员
+													</c:when>
+													<c:when test="${item.type == 3}">
+														个人开发者
+													</c:when>
+													<c:when test="${item.type == 4}">
+														公司
+													</c:when>
+													<c:otherwise>
+														游客
+													</c:otherwise>
+												</c:choose>
+											</td>
 					                        <td class=" ">${item.userName }</td>
 					                        <td class=" ">${item.email }</td>
 					                        <td class=" ">${item.company }</td>
@@ -106,7 +121,7 @@
   */
   function approvedBtn(id,userName) {
   		if(confirm("确认用户["+userName+"]审核通过？")){
-     		window.location.href = "/accounts/userApproved.html?id="+id;
+     		window.location.href = "/accounts/"+id+"/userApproved.html";
      	}
   };
   /*
@@ -114,14 +129,14 @@
   */
   function noPassBtn(id,userName) {
   		if(confirm("确认用户["+userName+"]审核不通过？")){
-     		window.location.href = "/accounts/userNoPass.html?id="+id;
+     		window.location.href = "/accounts/"+id+"/userNoPass.html";
      	}
   };
   /*
    *审核不通过驳回
    */
    function rebutBtn(id) {
-      	window.location.href = "/accounts/userRebut.html?id="+id;
+      	window.location.href = "/accounts/"+id+"/userRebut.html";
    };
 </script>
 </body>

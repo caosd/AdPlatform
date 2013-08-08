@@ -57,8 +57,22 @@
 					            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 					            			<td class="sorting_1">${stat.index}</td>
 					                        <td class=" ">${item.userName }</td>
-					                        <td class=" ">${item.type }</td>
-					                        <td class=" "><fmt:formatDate value="${item.createtime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					                        <td class=" "><c:choose>
+													<c:when test="${item.type == 2}">
+														运营管理员
+													</c:when>
+													<c:when test="${item.type == 3}">
+														个人开发者
+													</c:when>
+													<c:when test="${item.type == 4}">
+														公司
+													</c:when>
+													<c:otherwise>
+														游客
+													</c:otherwise>
+												</c:choose>
+											</td>
+					                        <td class=" "><fmt:formatDate value="${item.createtime }" pattern="yyyy-MM-dd" /></td>
 					                        <td class=" "><fmt:formatDate value="${item.loginTokenTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					                        <td>
 												<c:choose>

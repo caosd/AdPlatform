@@ -19,7 +19,7 @@
 			</div>
 			<div class="widget-content no-padding">
 				<c:if test="${success != null}">
-                <div class="note note-danger" style="margin: 20px 30px;">
+                <div class="note ${success ? 'note-success' :'note-danger'}" style="margin: 20px 30px;">
                     <button type="button" class="close note-remove">×</button>
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
@@ -86,7 +86,6 @@
 					<div class="field">
 						<div class="input-prepend input-append">
 							<form:input path="description" class="span12" value="${adChannel.description }"/> 
-							<span class="add-on"></span>
 						</div>
 						<form:errors path="description" cssClass="error"/>
 					</div>

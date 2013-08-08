@@ -26,7 +26,7 @@ textarea {width:600px;}
 				<h5>修改资源信息</h5>
 			</div>
 			<c:if test="${success != null}">
-                <div class="note note-danger" style="margin: 20px 30px;">
+                <div class="note ${success ? 'note-success' :'note-danger'}" style="margin: 20px 30px;">
                     <button type="button" class="close note-remove">×</button>
                     <strong><fmt:message key="tips"/></strong> 
                     <c:choose>
@@ -203,8 +203,8 @@ textarea {width:600px;}
 					<label class="field-name" for="language">语言：</label>
 					<div class="field noSearch">
 						<form:select path="language" class="chosen">
-							<form:option value="en" ${adResource.language=="en" ? "selected":""}>英文</form:option>
-							<form:option value="zh" ${adResource.language=="zh" ? "selected":""}>中文</form:option>
+							<option value="en" ${adResource.language=="en" ? "selected":""}>英文</option>
+							<option value="zh" ${adResource.language=="zh" ? "selected":""}>中文</option>
 						</form:select>
 						<form:errors path="language" cssClass="error"/>
 					</div>

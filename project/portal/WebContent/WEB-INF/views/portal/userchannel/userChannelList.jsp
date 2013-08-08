@@ -72,8 +72,8 @@
 												</c:choose>
 											</td>
 					                        <td class=" ">
-					                        	<a href="javascript:void(0)" onclick="openPushBtn(${item.id },'${item.channelNo }')"> 打开 </a>
-					                        	<a href="javascript:void(0)" onclick="closePushBtn(${item.id },'${item.channelNo }')"> 关闭 </a>
+					                        	<a href="javascript:void(0)" onclick="openPushBtn(${item.id })"> 打开 </a>
+					                        	<a href="javascript:void(0)" onclick="closePushBtn(${item.id })"> 关闭 </a>
 					                        	<a href="javascript:void(0)" onclick="deleteData('/userchannel/deleteUserChannel.html?id=${item.id }')"> 删除 </a>
 					                        </td>
 					                    </tr>
@@ -88,4 +88,12 @@
 			</div>
 		</div>
 	</div>
+<script>
+     function openPushBtn(id){
+     	window.location.href="/userchannel/"+id+"/openPushChannel.html";
+     }
+     function closePushBtn(id){
+     	window.location.href="/userchannel/"+id+"/closePushChannel.html";
+     }
+</script>
 </body>

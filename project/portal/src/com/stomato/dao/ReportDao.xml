@@ -24,7 +24,7 @@
 	     		AND app_id = #{appId}
 	    </if>
 		<if test="startDate != null">
-            and a.idate between #{startDate} and #{endDate}
+            and a.idate between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		group by a.idate,a.app_id 
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
@@ -47,7 +47,7 @@
 	     		AND app_id = #{appId}
 	    </if>
 		<if test="startDate != null">
-            and a.idate between #{startDate} and #{endDate}
+            and a.idate between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		group by a.idate,a.app_id 
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
@@ -60,7 +60,7 @@
 	     	and app_id = #{appId}
 	    </if>
 		<if test="startDate != null">
-            and a.idate between #{startDate} and #{endDate}
+            and a.idate between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		 group by a.idate,a.app_id) as report
 	</select>
@@ -82,7 +82,7 @@
 	     		AND app_id = #{appId}
 	    </if>
 		<if test="startDate != null">
-            and a.idate between #{startDate} and #{endDate}
+            and a.idate between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		group by a.idate,a.app_id 
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
@@ -96,7 +96,7 @@
 	     	and app_id = #{appId}
 	    </if>
 		<if test="startDate != null">
-            and a.idate between #{startDate} and #{endDate}
+            and a.idate between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		 group by a.idate,a.app_id) as report
 	</select>

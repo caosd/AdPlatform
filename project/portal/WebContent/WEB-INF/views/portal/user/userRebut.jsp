@@ -22,7 +22,7 @@
 	 </div>
 	  <div class="widget-body form" style="display: block;">
 	    <c:if test="${success != null}">
-            <div class="note note-danger" style="margin: 20px 30px;">
+            <div class="note ${success ? 'note-success' :'note-danger'}" style="margin: 20px 30px;">
                 <button type="button" class="close note-remove">×</button>
                 <strong><fmt:message key="tips"/></strong> 
                 <c:choose>
@@ -40,7 +40,7 @@
 	       <div class="control-group">
 	          <label class="control-label" for="userName">用户名:</label>
 	          <div class="controls">
-	          	  <input type="hidden" name="uid" value="${user.uid }"/>
+	          	  <input type="hidden" name="id" value="${user.uid }"/>
 	              ${user.userName }
 	          </div>
 	       </div>

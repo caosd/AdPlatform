@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -308,8 +309,8 @@ public class AccountsController extends UserController {
 	 * @param id
 	 * @param model
 	 */
-	@RequestMapping(value="/userApproved.html")
-	public String approvedUser(int id,Model model){
+	@RequestMapping(value="/{id}/userApproved.html")
+	public String approvedUser(@PathVariable int id,Model model){
 		User user = accountsService.getUserByUid(id);
 		if( user == null ){
 			model.addAttribute("success", false);
@@ -325,8 +326,8 @@ public class AccountsController extends UserController {
 	 * @param id
 	 * @param model
 	 */
-	@RequestMapping(value="/userNoPass.html")
-	public String noPassUser(int id,Model model){
+	@RequestMapping(value="/{id}/userNoPass.html")
+	public String noPassUser(@PathVariable int id,Model model){
 		User user = accountsService.getUserByUid(id);
 		if( user == null ){
 			model.addAttribute("success", false);
@@ -342,15 +343,16 @@ public class AccountsController extends UserController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/userRebut.html",method=RequestMethod.GET)
-	public String rebutUser(int id,Model model){
+	@RequestMapping(value="/{id}/userRebut.html",method=RequestMethod.GET)
+	public String rebutUser(@PathVariable int id,Model model){
 		User user = accountsService.getUserByUid(id);
 		model.addAttribute("user", user);
 		return "portal/user/userRebut";
 	}
-	@RequestMapping(value="/userRebut.html",method=RequestMethod.POST)
-	public String rebutUser(HttpServletRequest request,Model model){
+	@RequestMapping(value="/{id}/userRebut.html",method=RequestMethod.POST)
+	public String rebutUser(int id,HttpServletRequest request,Model model){
+		
 		model.addAttribute("success", true);
-		return "portal/user/userRebut";
+		return rebutUser(id, model);
 	}
 }

@@ -48,7 +48,7 @@
 	<select id="getRemittanceListByUser" parameterType="com.stomato.form.RemittanceFormParam" resultMap="remittance" >
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance where uid=#{uid} 
 		<if test="startDate != null">
-            and create_time between #{startDate} and #{endDate}
+            and create_time between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		order by id asc 
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
@@ -57,7 +57,7 @@
 		select id,uid,money,bank_account,bank_name,bank_card,status,remark,create_time,remittance_time,last_update_time from t_remittance 
 		where 1=1
 		<if test="startDate != null">
-            and create_time between #{startDate} and #{endDate}
+            and create_time between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 		order by status,create_time asc 
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
@@ -69,7 +69,7 @@
 			AND uid=#{uid}
 		</if>
 		<if test="startDate != null">
-            and create_time between #{startDate} and #{endDate}
+            and create_time between concat(#{startDate}, ' 00:00:00') and concat(#{endDate}, ' 23:59:59')
         </if>
 	</select>
 </mapper>
