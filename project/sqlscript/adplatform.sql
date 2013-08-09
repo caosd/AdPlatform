@@ -389,7 +389,9 @@ INSERT INTO `t_menu` (`id`, `menuname`, `description`, `path`, `parent`, `visibl
 (93, '渠道列表', '', '/adchannel/adChannelList.html', 90, 1, 1, '0'),
 (94, '增加应用分类', '', '/apps/formpage.html', 1, 1, 1, '8'),
 (95, '应用分类列表', '', '/apps/appTypeList.html', 1, 1, 1, '7'),
-(96, '回收站', '', '/adResource/listRecycle.html', 8, 1, 1, '3');
+(96, '回收站', '', '/adResource/listRecycle.html', 8, 1, 1, '3'),
+(1000, '广告控制管理', '', '', 0, 1, 1, '0'),
+(1001, '广告推送控制列表', '', '/adpush/list.html', 1000, 1, 1, '0');
 
 --
 -- 表的结构 `t_remittance`
@@ -721,7 +723,9 @@ INSERT INTO `t_role_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1785, 2, 18),
 (1786, 2, 19),
 (1787, 2, 21),
-(1788, 2, 97);
+(1788, 2, 97),
+(1823, 2, 1000),
+(1824, 2, 1001);
 
 -- --------------------------------------------------------
 
@@ -852,4 +856,17 @@ CREATE  TABLE `t_app_business` (
   `allow_lbs` BIT NULL DEFAULT 0 ,
   PRIMARY KEY (`app_id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+
+DROP TABLE IF EXISTS `t_ad_push`;
+CREATE TABLE `t_ad_push` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `adresource_id` int(11) NOT NULL,
+  `push_date` datetime DEFAULT NULL,
+  `first_push` tinyint(4) DEFAULT '0',
+  `max_push` int(11) DEFAULT '1',
+  `real_push` int(11) DEFAULT '0',
+  `money` double DEFAULT '0',
+  `status` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
