@@ -32,11 +32,11 @@
                     </c:choose>
                 </div>
                 </c:if>
-			    <div class="form-row">
+				<div class="form-row">
 					<label class="field-name" for="channelNo">渠道编号：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="channelNo" class="span12" maxlength="20" /> 
+							<form:input path="channelNo" maxlength="20" /> 
 							<span class="add-on">*</span>
 						</div>
 						<form:errors path="channelNo" cssClass="error"/>
@@ -45,14 +45,11 @@
 				<div class="form-row">
 					<label class="field-name" for="companyId">选择厂商：</label>
 					<div class="field">
-						<div class="input-prepend input-append">
-							<form:select path="companyId" class="span12">
-			                    <c:forEach items="${companyList}" var="item" varStatus="stat">
-			                    	<option value="${item.id}">${item.name}</option>
-			                    </c:forEach>
-			                 </form:select>
-						</div>
-						<form:errors path="companyId" cssClass="error"/>
+						<form:select path="companyId" class="chosen">
+		                    <c:forEach items="${companyList}" var="item" varStatus="stat">
+		                    	<option value="${item.id}">${item.name}</option>
+		                    </c:forEach>
+		                 </form:select>
 					</div>
 				</div>
 				<div class="form-row">

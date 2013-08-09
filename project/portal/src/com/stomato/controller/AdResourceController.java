@@ -2,8 +2,6 @@ package com.stomato.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
@@ -518,26 +516,14 @@ public class AdResourceController {
 	
 	@RequestMapping(value="/export-excel")
 	public void exportExcel(@ModelAttribute("formParam") AdResourceFormParam formParam,BindingResult result,HttpServletRequest request,HttpServletResponse response){
-		response.reset();
-	    response.setContentType("APPLICATION/vnd.ms-excel");
-	    String fileName;
-		try {
-			fileName = URLEncoder.encode("广告资源报表","UTF-8");
-		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
-		} catch (UnsupportedEncodingException e) {}
-		  
 		int total = adResourceService.listTotal(formParam);
 		formParam.setTotalCount(total);
 		List<AdResource> adResourceList = adResourceService.listAdResource(formParam);
-		
+
 		Map<String,Object> beans = new HashMap<String,Object>();
 		beans.put("adResourceList", adResourceList);
 		beans.put("formParam", formParam);
-		try{
-			String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/adresource_report.xls";
-			ExcelUtils.export2Excel(tempFile, beans, response.getOutputStream());
-		}catch(IOException ioError){
-			logger.error("导出Excel异常",ioError);
-		}
+		String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/adresource_report.xls";
+		ExcelUtils.export2Excel("广告资源报表",tempFile, beans, response);
 	}
 }

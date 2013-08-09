@@ -1,9 +1,6 @@
 package com.stomato.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -254,13 +251,6 @@ public class FinancialController extends UserController{
 	}
 	@RequestMapping(value="/export-excel")
 	public void exportExcel(@ModelAttribute("reportParamForm") ReportFormParam formParam,BindingResult result,HttpServletResponse response,HttpServletRequest request){
-		response.reset();
-	    response.setContentType("APPLICATION/vnd.ms-excel");
-	    String fileName;
-		try {
-			fileName = URLEncoder.encode("财务明细报表","UTF-8");
-		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
-		} catch (UnsupportedEncodingException e) {}
 		User user = this.lookup(request);
 		formParam.setUid(user.getUid());
 		int total = this.reportService.getDailyReportCount(formParam);
@@ -270,11 +260,7 @@ public class FinancialController extends UserController{
 		Map<String,Object> beans = new HashMap<String,Object>();
 		beans.put("dailyList", dailyList);
 		beans.put("formParam", formParam);
-		try{
-			String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/financial_report.xls";
-			ExcelUtils.export2Excel(tempFile, beans, response.getOutputStream());
-		}catch(IOException ioError){
-			logger.error("导出Excel异常",ioError);
-		}
+		String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/financial_report.xls";
+		ExcelUtils.export2Excel("财务明细报表",tempFile, beans, response);
 	}
 }

@@ -76,7 +76,7 @@
 					<label class="field-name" for=description>渠道描述：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:textarea path="description" class="span12" cols="50" rows="4"/>
+							<form:textarea path="description" class="span12" cols="50" rows="4" maxlength="3000"/>
 						</div>
 						<form:errors path="description" cssClass="error"/>
 					</div>

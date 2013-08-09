@@ -1,8 +1,6 @@
 package com.stomato.controller;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -452,27 +450,12 @@ public class AppsController extends UserController {
 	    exportExcel(formParam, request, response);
 	}
 	private void exportExcel(FormParam formParam,HttpServletRequest request,HttpServletResponse response){
-		response.reset();
-	    response.setContentType("APPLICATION/vnd.ms-excel");
-	    String fileName;
-		try {
-			fileName = URLEncoder.encode("应用列表","UTF-8");
-		    if(fileName.length()>150){//解决IE 6.0 bug
-		        fileName=new String("应用列表".getBytes("GBK"),"ISO-8859-1");
-		    }
-		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
-		} catch (UnsupportedEncodingException e) {}
-	       
 		formParam.setTotalCount(appService.listTotal(formParam));
 		List<Map<String,Object>> applist  = appService.getAppListForMap(formParam);
 		Map<String,Object> beans = new HashMap<String,Object>();
 		beans.put("applist", applist);
 		beans.put("formParam", formParam);
-		try{
-			String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/app_report.xls";
-			ExcelUtils.export2Excel(tempFile, beans, response.getOutputStream());
-		}catch(IOException ioError){
-			logger.error("导出Excel异常",ioError);
-		}
+		String tempFile = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/report/template/app_report.xls";
+		ExcelUtils.export2Excel("应用报表",tempFile, beans, response);
 	}
 }

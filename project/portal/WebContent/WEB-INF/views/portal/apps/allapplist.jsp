@@ -62,7 +62,7 @@
 								<c:forEach items="${applist}" var="app" varStatus="stat">
 									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
 										<td>${stat.index+1}</td>
-										<td class="app_name"><a href="/apps/${app.appKey }/detail">${app.name}</a></td>
+										<td class="app_name"><a href="#">${app.name}</a></td>
 										<td><fmt:formatDate value="${app.createTime }" pattern="yyyy-MM-dd" /></td>
 										<td>-</td>
 										<td>-</td>

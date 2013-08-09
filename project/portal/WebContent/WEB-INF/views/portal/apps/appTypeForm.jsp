@@ -60,7 +60,7 @@
 					<label class="field-name" for="description">描述：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="description" class="span12" maxlength="50" /> 
+							<form:input path="description" class="span12" maxlength="100" /> 
 						</div>
 						<form:errors path="description" cssClass="error"/>
 					</div>

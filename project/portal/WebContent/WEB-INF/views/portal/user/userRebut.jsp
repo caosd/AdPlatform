@@ -18,7 +18,7 @@
 </div>
 <div class="widget">
 	 <div class="widget-header">
-		<h5>用户注册不通过驳回理由</h5>
+		<h5>用户审核不通过驳回理由</h5>
 	 </div>
 	  <div class="widget-body form" style="display: block;">
 	    <c:if test="${success != null}">
@@ -53,7 +53,7 @@
 	       </div>
 	       <div class="form-row" style="padding-left: 180px;">
 				<button type="submit" class="button button-blue">发送</button>
-	         	<button type="button" class="btn" onclick="javascript:document.location.href='/accounts/userReviewList.html'">取消</button>
+	         	<button type="button" class="button" onclick="javascript:document.location.href='/accounts/userReviewList.html'">取消</button>
 		   </div>
 	    </form>
 	    <!-- END FORM-->

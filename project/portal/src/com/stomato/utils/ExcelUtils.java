@@ -3,21 +3,19 @@ package com.stomato.utils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jxls.transformer.XLSTransformer;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-import com.stomato.domain.Part;
 /**
  * excel工具类，使用excel模板生成excel
  * @author  jiandong
@@ -62,19 +60,23 @@ public class ExcelUtils {
             }
 		}
 	}
-
-	public static void main(String[] args) {
-		List<Object> resultList = new ArrayList<Object>();
-		for (int i = 0; i < 20; i++) {
-			resultList.add(new Part<String, String>(""+i,"str"+i));
-		}
-		Map<String,Object> beans = new HashMap<String, Object>();
-		beans.put("result", resultList);
+	/**
+	 * 使用模板生成excel
+	 * @param from 模板路径
+	 * @param beans 值
+	 * @param outputStream 输出流
+	 */
+	public static <T> void export2Excel(String name,String tempFile, Map<String,T> beans,HttpServletResponse response){
+		response.reset();
+	    response.setContentType("APPLICATION/vnd.ms-excel");
 		try {
-			OutputStream output = new FileOutputStream(new File("D:\\save.xlsx"));
-			ExcelUtils.export2Excel("c:/log/tefst.xlsx", beans, output);
-		}catch(Exception error){
-			error.printStackTrace();
+			String fileName = URLEncoder.encode(name,"UTF-8")+"-" + DateUtils.getDateStr(DateUtils.patternB);
+		    response.setHeader("Content-Disposition", "attachment;filename=\""+fileName+".xls\"");
+		} catch (UnsupportedEncodingException e) {}
+		try {
+			export2Excel(tempFile, beans, response.getOutputStream());
+		} catch (IOException e) {
+			logger.error("导出Excel异常", e);
 		}
 	}
 }
