@@ -65,7 +65,7 @@
 							<tbody>
 								<c:forEach items="${adResourceList}" var="item" varStatus="stat">
 					            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
-					            			<td class="sorting_1">${stat.index}</td>
+					            			<td class="sorting_1">${stat.index+1}</td>
 					                        <td>
 											<c:forEach items="${adChannelList}" var="adChannel" >
 					                        	<c:if test="${adChannel.id == item.channelId}">

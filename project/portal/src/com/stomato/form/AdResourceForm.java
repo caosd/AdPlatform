@@ -49,7 +49,7 @@ public class AdResourceForm {
 	/**
 	 * 应用文件大小
 	 */
-	private Integer fileSize;
+	private Double fileSize;
 	/**
 	 * 应用版本
 	 */
@@ -68,6 +68,11 @@ public class AdResourceForm {
 	 * 收费类型，0=免费，1=收费
 	 */
 	private Integer chargeType;
+	/**
+	 * 0=横屏，1=竖屏
+	 */
+	private Integer displayPosition;
+
 	/**
 	 * 结算方式
 	 */
@@ -197,6 +202,14 @@ public class AdResourceForm {
 		return adResource;
 	}
 
+	public Integer getDisplayPosition() {
+		return displayPosition;
+	}
+
+	public void setDisplayPosition(Integer displayPosition) {
+		this.displayPosition = displayPosition;
+	}
+
 	public Double getPrice() {
 		return price;
 	}
@@ -269,11 +282,11 @@ public class AdResourceForm {
 		this.adImages = adImages;
 	}
 
-	public Integer getFileSize() {
+	public Double getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(Integer fileSize) {
+	public void setFileSize(Double fileSize) {
 		this.fileSize = fileSize;
 	}
 

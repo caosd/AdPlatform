@@ -209,11 +209,21 @@ textarea {width:600px;}
 						<form:errors path="language" cssClass="error"/>
 					</div>
 				</div>
+				<div class="form-row">
+					<label class="field-name" for="displayPosition">显示位置：</label>
+					<div class="field noSearch">
+						<form:select path="displayPosition" class="chosen">
+							<option value="0" ${adResource.displayPosition=="0" ? "selected":""}>横屏</option>
+							<option value="1" ${adResource.displayPosition=="1" ? "selected":""}>竖屏</option>
+						</form:select>
+						<form:errors path="displayPosition" cssClass="error"/>
+					</div>
+				</div>
 			    <div class="form-row">
 					<label class="field-name" for="description">资源描述：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:textarea path="description" rows="5" cols="70" value="${adResource.description}" maxlength="3000"/> 
+							<textarea name="description" id="description" rows="5" cols="70" maxlength="3000">${adResource.description}</textarea>
 						</div>
 						<form:errors path="description" cssClass="error"/>
 					</div>

@@ -12,7 +12,7 @@ import com.stomato.utils.StringUtils;
  * @author zyf
  * 
  */
-public class AdResource{
+public class AdResource {
 
 	private int id;
 
@@ -50,7 +50,7 @@ public class AdResource{
 	/**
 	 * 应用文件大小
 	 */
-	private Integer fileSize;
+	private Double fileSize;
 	/**
 	 * 应用版本
 	 */
@@ -67,6 +67,10 @@ public class AdResource{
 	 * 收费类型，0=免费，1=收费
 	 */
 	private Integer chargeType;
+	/**
+	 * 0=横屏，1=竖屏
+	 */
+	private Integer displayPosition;
 	/**
 	 * 单价
 	 */
@@ -138,6 +142,18 @@ public class AdResource{
 			adImagesList = list;
 		}
 		return adImagesList;
+	}
+
+	public Integer getDisplayPosition() {
+		return displayPosition;
+	}
+
+	public void setDisplayPosition(Integer displayPosition) {
+		this.displayPosition = displayPosition;
+	}
+
+	public void setFileSize(Double fileSize) {
+		this.fileSize = fileSize;
 	}
 
 	public int getId() {
@@ -236,12 +252,8 @@ public class AdResource{
 		this.adImages = adImages;
 	}
 
-	public Integer getFileSize() {
+	public Double getFileSize() {
 		return fileSize;
-	}
-
-	public void setFileSize(Integer fileSize) {
-		this.fileSize = fileSize;
 	}
 
 	public String getVersion() {

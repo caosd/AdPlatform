@@ -54,7 +54,7 @@ public class AdChannelController {
 		AdChannel adChannel = AdChannelForm.asPojo();
 		adChannelService.addAdChannel(adChannel);
 		//清空表单
-		BeanUtils.copyProperties(new AdChannelForm(), adChannel);
+		BeanUtils.copyProperties(new AdChannelForm(), AdChannelForm);
 		model.addAttribute("success", true);
 		return "portal/adchannel/adChannelForm";
 	}
@@ -111,7 +111,7 @@ public class AdChannelController {
 		AdChannel adChannel = form.asPojo();
 		adChannelService.updateAdChannel(adChannel);
 		model.addAttribute("success", true);
-		return "portal/adchannel/adChannelUpdate";
+		return adChannelUpdate(form, adChannel.getId(), model);
 	}
 	/**
 	 * 删除渠道，数据库标识删除

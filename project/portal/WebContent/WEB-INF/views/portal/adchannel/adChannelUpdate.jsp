@@ -85,7 +85,7 @@
 					<label class="field-name" for=description>渠道描述：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
-							<form:input path="description" class="span12" value="${adChannel.description }"/> 
+							<textarea name="description" id="description" class="span12" rows="4" cols="50">${adChannel.description }</textarea>
 						</div>
 						<form:errors path="description" cssClass="error"/>
 					</div>

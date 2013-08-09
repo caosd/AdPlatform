@@ -195,6 +195,16 @@ textarea {width:600px;}
 						<form:errors path="language" cssClass="error"/>
 					</div>
 				</div>
+				<div class="form-row">
+					<label class="field-name" for="displayPosition">显示位置：</label>
+					<div class="field noSearch">
+						<form:select path="displayPosition" class="chosen">
+							<option value="0">横屏</option>
+							<option value="1">竖屏</option>
+						</form:select>
+						<form:errors path="displayPosition" cssClass="error"/>
+					</div>
+				</div>
 			    <div class="form-row">
 					<label class="field-name" for="description">资源描述：</label>
 					<div class="field">
