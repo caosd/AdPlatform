@@ -51,10 +51,10 @@
 	             <form:errors path="describe" cssClass="error"/>
 	          </div>
 	       </div>
-	       <div class="form-actions">
-	          <button type="submit" class="btn btn-success">发送</button>
-	          <button type="button" class="btn">取消</button>
-	       </div>
+	       <div class="form-row" style="padding-left: 180px;">
+				<button type="submit" class="button button-blue">发送</button>
+	         	<button type="button" class="btn" onclick="javascript:document.location.href='/accounts/userReviewList.html'">取消</button>
+		   </div>
 	    </form>
 	    <!-- END FORM-->
 	 </div>

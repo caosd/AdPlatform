@@ -40,7 +40,7 @@ CREATE TABLE `t_ad_resource` (
   `desktop_icon` varchar(255) DEFAULT NULL COMMENT '桌面快捷方式图片',
   `ad_images` varchar(500) DEFAULT NULL COMMENT '应用图片组(a.jpg,c.jpg,b.jpg)',
   `ad_package` varchar(255) DEFAULT NULL COMMENT '应用包名',
-  `file_size` int(11) DEFAULT NULL COMMENT '安装包大小(KB)',
+  `file_size` double DEFAULT '0' COMMENT '安装包大小(KB)',
   `version` varchar(255) DEFAULT NULL COMMENT '应用版本',
   `support_platform` varchar(255) DEFAULT NULL COMMENT '应用支持平台要求',
   `app_type_id` int(8) DEFAULT '1' COMMENT ' 广告类型0:热门,1:应用,2:游戏',
@@ -61,6 +61,7 @@ CREATE TABLE `t_ad_resource` (
   `status` int(8) DEFAULT '0' COMMENT '0,下架，1上架',
   `is_del` tinyint(4) DEFAULT NULL COMMENT '标记删除',
   `recom` tinyint(4) NOT NULL,
+  `display_position` int(1) DEFAULT '0' COMMENT '0=横屏，1=竖屏',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ad_package` (`ad_package`),
   KEY `status` (`status`)

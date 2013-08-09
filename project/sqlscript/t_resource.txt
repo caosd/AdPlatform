@@ -1,2 +1,0 @@
- `file_size` double DEFAULT '0' COMMENT '安装包大小(KB)',
- `display_position` int(8) DEFAULT '0' COMMENT '0=横屏，1=竖屏',
