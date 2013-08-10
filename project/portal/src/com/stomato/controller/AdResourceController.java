@@ -93,7 +93,7 @@ public class AdResourceController {
 		/**
 		 * 上传文件路径
 		 */
-		String realPath = request.getSession().getServletContext().getRealPath(configService.loadConfig(Constant.Configs.filesDirPath)+"/upload");
+		String realPath = configService.loadConfig(Constant.Configs.filesDirPath)+"/upload";
 		File uploadDir = new File(realPath);
 		if(!uploadDir.exists()){
 			uploadDir.mkdir();
@@ -292,7 +292,7 @@ public class AdResourceController {
 		/**
 		 * 上传文件路径
 		 */
-		String realPath = request.getSession().getServletContext().getRealPath(configService.loadConfig(Constant.Configs.filesDirPath)+"/upload");
+		String realPath = configService.loadConfig(Constant.Configs.filesDirPath)+"/upload";
 		AdResource oldAdResource = adResourceService.getAdResource(adResourceForm.getId());
 		/**
 		 * 有效日期

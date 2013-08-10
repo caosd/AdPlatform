@@ -44,6 +44,7 @@
 							<thead>
 								<tr align="left">
 								   <th>#</th>
+								   <th>图标</th>
 			                       <th>广告渠道</th>
 			                       <th>资源名称</th>
 			                       <!--<th>应用包名</th>
@@ -66,6 +67,7 @@
 								<c:forEach items="${adResourceList}" var="item" varStatus="stat">
 					            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 					            			<td class="sorting_1">${stat.index+1}</td>
+					            			<td style="width: 50px;height: 30px;background-image: ${item.adIcon}"></td>
 					                        <td>
 											<c:forEach items="${adChannelList}" var="adChannel" >
 					                        	<c:if test="${adChannel.id == item.channelId}">
