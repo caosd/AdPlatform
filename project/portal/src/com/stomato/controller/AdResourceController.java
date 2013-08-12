@@ -378,9 +378,25 @@ public class AdResourceController {
 				adIconDir.mkdir();
 			}
 	//		String newname = "icon"+StringUtils.getSuffix(adIcon.getOriginalFilename());
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(adIcon.getOriginalFilename());
+			String newname = DateUtils.getDateStr(DateUtils.patternB)+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
 			adResourceForm.setAdIcon(showpath.toString()+adIconDirPath+"/"+newname);
+		}
+		/**
+		 * ad desktopIcon
+		 */
+		MultipartFile desktopIconFile = adResourceForm.getDesktopIconFile();
+		if(desktopIconFile.isEmpty()){
+			adResourceForm.setDesktopIcon(oldAdResource.getDesktopIcon());
+		}else{
+			String adIconDirPath = adPackageDirPath+"/icon";
+			File adIconDir = new File(realPath+adIconDirPath);
+			if(!adIconDir.exists()){
+				adIconDir.mkdir();
+			}
+			String newname = DateUtils.getDateStr(DateUtils.patternB)+StringUtils.getSuffix(desktopIconFile.getOriginalFilename());
+			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
+			adResourceForm.setDesktopIcon(showpath.toString()+adIconDirPath+"/"+newname);
 		}
 		/**
 		 * 应用图片组(a.jpg,c.jpg,b.jpg)

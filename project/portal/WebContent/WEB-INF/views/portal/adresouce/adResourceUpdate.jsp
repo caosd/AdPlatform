@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../includes/config.jsp"%>
 <head>
 <style type="text/css">
 .navbar .span2{width:14%;}
@@ -76,7 +77,7 @@ textarea {width:600px;}
 				<div class="form-row">
 					<label class="field-name" for="adIconFile">Icon图片：</label>
 					<div class="field">
-						<img width="50px" src="${adResource.adIcon}"/>
+						<img width="50px" src="${imgServer}${adResource.adIcon}"/>
 						<input type="file" name="adIconFile" id="file">
 						<form:errors path="adIconFile" cssClass="error"/>
 					</div>
@@ -84,7 +85,7 @@ textarea {width:600px;}
 			    <div class="form-row">
 					<label class="field-name" for="adBannerFile">Banner图片：</label>
 					<div class="field">
-						<img width="20px" src="${adResource.adBanner}"/>
+						<img width="20px" src="${imgServer}${adResource.adBanner}"/>
 						<input type="file" name="adBannerFile" id="file">
 						<form:errors path="adBannerFile" cssClass="error"/>
 					</div>
@@ -92,7 +93,7 @@ textarea {width:600px;}
 				<div class="form-row">
 					<label class="field-name" for="desktopIconFile">桌面快捷方式图片：</label>
 					<div class="field">
-						<img width="50px" src="${adResource.desktopIcon}"/>
+						<img width="50px" src="${imgServer}${adResource.desktopIcon}"/>
 						<input type="file" name="desktopIconFile" id="file">
 						<form:errors path="desktopIconFile" cssClass="error"/>
 					</div>
@@ -104,7 +105,7 @@ textarea {width:600px;}
 							<c:if test="${status.index % 2 == 0}">
 								<p/>
 							</c:if>
-							<img width="250px" src="${iconStr}"/>
+							<img width="250px" src="${imgServer}${iconStr}"/>
 						</c:forEach>
 					</div>
 					<div class="field">
