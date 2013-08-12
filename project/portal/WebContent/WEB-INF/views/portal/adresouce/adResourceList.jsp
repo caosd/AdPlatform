@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/page" prefix="p"%>
+<%@include file="../includes/config.jsp"%>
 <body>
 	<div class="row-fluid">
 		<div class="span12">
@@ -69,7 +70,7 @@
 								<c:forEach items="${adResourceList}" var="item" varStatus="stat">
 					            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 					            			<td class="sorting_1">${stat.index+1}</td>
-					                        <td style="width: 50px;height: 30px;background-image: ${item.adIcon}"></td>
+					                        <td><img width="50px" src="${imgServer}${item.adIcon}"/></td>
 					                        <td>
 					                        <c:forEach items="${adChannelList}" var="adChannel" >
 					                        	<c:if test="${adChannel.id == item.channelId}">
