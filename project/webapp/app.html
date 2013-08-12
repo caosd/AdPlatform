@@ -45,30 +45,18 @@
     #ad_scroll li img{box-shadow:1px 1px 5px #363535; height:100%}
   </style>
 </head>
-
 <body>
+  <textarea style="display:none" id="template">
   <section class="carousel" id="s1">
     <div class="wrap">
     <div class="ad_wrap">
-      <ul id="ad_scroll" style="-webkit-transform: translateX(0); -webkit-transition: all 0.3s ease; transition: all 0.3s ease;">
-          <li><img src="res/i_1.jpg"></li>
-          <li><img src="res/i_2.jpg"></li>
-          <li><img src="res/i_3.jpg"></li>
-          <li><img src="res/i_4.jpg"></li>
-          <li><img src="res/i_5.jpg"></li>
-      </ul>
+      <ul id="ad_scroll" style="-webkit-transform: translateX(0); -webkit-transition: all 0.3s ease; transition: all 0.3s ease;"></ul>
       <div>
         <div class="stats">
-          <p>版本：9.2&nbsp;&nbsp;大小：3.8M</p>
-          <p>下载次数：40293232</p>
+          <p>版本：{version}&nbsp;&nbsp;大小：{size}</p>
+          <p>下载次数：{download}</p>
         </div>
-        <ul class="indent" id="index_point">
-          <li class="actived">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ul>
+        <ul class="indent" id="index_point"></ul>
       </div>
       <div class="clearfix"></div>  
     </div>
@@ -79,7 +67,7 @@
     <div class="wrap" id="s2">
       <img src="res/icon.png" class="appIcon"/>
       <div class="m">
-        <H1 class="appName">91熊猫阅读</H1>
+        <H1 class="appName">{name}</H1>
         <div style="margin-left: -3px;">
           <em class="star1 s5"></em>
           <em class="star2 s0"></em>
@@ -87,14 +75,14 @@
       </div>
     </div>
     <div class="text">
-      <p id="scroll">91熊猫看书致力于打造手机阅读第一品牌，她支持TXT、EPUB、PDF、UMD、NDB、NDZ、ZIP、RAR、CBR、CBZ等多达50多种格式的书籍。智能断章、夜间模式、仿真3D翻页特效、章节批量下载、章节更新推送提醒等功能的人性化设计让她显得更加与众不同，另外，创新性的男女声智能朗读功能则让您充分享受“懒人”听书的乐趣。在内容方面，无论您喜欢的是玄幻、武侠，还是言情、穿越，甚至是杂志、漫画，91熊猫看书可谓是应有尽有。91熊猫看书数十万海量书籍，无数个日夜的辛苦研发，一切都只为了您快乐阅读！</p>
+      <p id="scroll">{desc}</p>
     </div>
     <div class="opt" id="s3">
       <a class="download" id="btnInstall" href="btnInstall"><img src="img/download1.png"></a>
       <a class="back" id="btnBack" href="btnBack"><img src="img/back1.png"/></a>
     </div>
   </section>
-
+  </textarea>
 </body>
 <script type="text/javascript">
     function g(o){return document.getElementById(o)}
@@ -111,7 +99,7 @@
     function wSlider(o){
         var self=this;
         this.el=g(o);
-        var elCount=5,distX=0,distY=0,startPosX=0,startPosY=0,endPosX=0,endPosY=0,move=0,index=0,len=this.el.getElementsByTagName("img").length;
+        var elCount=this.el.getElementsByTagName("img").length,distX=0,distY=0,startPosX=0,startPosY=0,endPosX=0,endPosY=0,move=0,index=0;
         this.setVendorProperty=function(prop, val){
             self.el.style.setProperty('-webkit-' + prop, val);
             self.el.style.setProperty('-moz-' + prop, val);
@@ -180,9 +168,8 @@
           }
         }
     }
-    var s = new wSlider ("ad_scroll");
-    s.action();
     var timer = null;
+    var s = null;
     function startTimer() {
       calc();
       if (timer) clearInterval(timer);
@@ -205,9 +192,32 @@
     window.onresize = function() {
       startTimer();
     }
-    window.onload = function() {
+    function init() {
+      s = new wSlider("ad_scroll");
+      s.action();
       startTimer();
     }
-    startTimer();
+    function populate(data) {
+      var body = document.querySelector("body");
+      var template = g("template").value;
+      for (var d in data) {
+        template = template.replace("{"+d+"}",data[d]);
+      }
+      body.innerHTML = template;
+      if (data['res']) {
+        var lis = [];
+        var ind = [];
+        for (var r in data['res']) {
+          lis.push('<li><img src="'+data['res'][r]+'"/></li>');
+          ind.push('<li '+(r==0?'class="actived"':'')+'></li>');
+        }
+        g("ad_scroll").innerHTML = lis.join("");
+        g("index_point").innerHTML = ind.join("");
+      }
+      init();
+    }
+
+    //demo代码，正式情况下请删除
+    populate({res:["res/i_1.jpg","res/i_2.jpg","res/i_3.jpg","res/i_4.jpg","res/i_5.jpg"],desc:"91熊猫看书致力于打造手机阅读第一品牌，她支持TXT、EPUB、PDF、UMD、NDB、NDZ、ZIP、RAR、CBR、CBZ等多达50多种格式的书籍。智能断章、夜间模式、仿真3D翻页特效、章节批量下载、章节更新推送提醒等功能的人性化设计让她显得更加与众不同，另外，创新性的男女声智能朗读功能则让您充分享受“懒人”听书的乐趣。在内容方面，无论您喜欢的是玄幻、武侠，还是言情、穿越，甚至是杂志、漫画，91熊猫看书可谓是应有尽有。91熊猫看书数十万海量书籍，无数个日夜的辛苦研发，一切都只为了您快乐阅读！",version:"9.2",size:"3.8M",download:"40293232",name:"91熊猫阅读",star:5});
 </script>
 </html>
