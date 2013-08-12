@@ -6,7 +6,7 @@
   <meta name="format-detection" content="telephone=no" />
   <meta charset="utf8">
   <style>
-    body{background: url(img/bg.png) no-repeat;margin: 5px 0;padding: 0;background-size: 100%;color: #666F74;font: 12px/14px "Microsoft YaHei","lucida Grande",Verdana;background-color: #8DAEAF;height: 100%;}
+    body{background: url(img/bg.png) no-repeat;margin: 5px 0;padding: 0;background-size: 100% 100%;color: #666F74;font: 12px/14px "Microsoft YaHei","lucida Grande",Verdana;background-color: #8DAEAF;height: 100%;}
     p,h1,section,h2,h3,h4,h5,h6,ul,li{margin: 0;padding: 0;}
     .carousel,.desc {margin: 0 auto;width: 96%;}
     .carousel .wrap{padding: 8px;position: relative;background: #FFF;-webkit-border-radius: 8px;-webkit-box-shadow: 0 0 8px #9E9E9E;box-shadow: 0 0 8px #9E9E9E;margin-top: 5px;}
@@ -47,7 +47,7 @@
 </head>
 
 <body>
-  <section class="carousel">
+  <section class="carousel" id="s1">
     <div class="wrap">
     <div class="ad_wrap">
       <ul id="ad_scroll" style="-webkit-transform: translateX(0); -webkit-transition: all 0.3s ease; transition: all 0.3s ease;">
@@ -76,7 +76,7 @@
   </section>
 
   <section class="desc">
-    <div class="wrap">
+    <div class="wrap" id="s2">
       <img src="res/icon.png" class="appIcon"/>
       <div class="m">
         <H1 class="appName">91熊猫阅读</H1>
@@ -89,7 +89,7 @@
     <div class="text">
       <p id="scroll">91熊猫看书致力于打造手机阅读第一品牌，她支持TXT、EPUB、PDF、UMD、NDB、NDZ、ZIP、RAR、CBR、CBZ等多达50多种格式的书籍。智能断章、夜间模式、仿真3D翻页特效、章节批量下载、章节更新推送提醒等功能的人性化设计让她显得更加与众不同，另外，创新性的男女声智能朗读功能则让您充分享受“懒人”听书的乐趣。在内容方面，无论您喜欢的是玄幻、武侠，还是言情、穿越，甚至是杂志、漫画，91熊猫看书可谓是应有尽有。91熊猫看书数十万海量书籍，无数个日夜的辛苦研发，一切都只为了您快乐阅读！</p>
     </div>
-    <div class="opt">
+    <div class="opt" id="s3">
       <a class="download" id="btnInstall" href="btnInstall"><img src="img/download1.png"></a>
       <a class="back" id="btnBack" href="btnBack"><img src="img/back1.png"/></a>
     </div>
@@ -195,13 +195,17 @@
       for (var i=0,len=bm.length; i<len; i++) {
         bm[i].style.height = h*0.3+'px';
       }
-      scroll.style.height = h*0.26+'px';
+      var th = 5 + g("s1").offsetHeight + 10 + g("s2").offsetHeight + 5 + g("s3").offsetHeight;
+      if (document.defaultView) {
+      	var p = document.defaultView.getComputedStyle(document.querySelector(".text"))['padding'].replace("px","").split(" ");
+      	th = th + p[0] + p[1];
+      }
+      scroll.style.height = (h-th)+'px';
     }
     window.onresize = function() {
       startTimer();
     }
     window.onload = function() {
-      window.scrollTo(0,0);
       startTimer();
     }
     startTimer();
