@@ -178,7 +178,7 @@ private Integer id ;
 	}
 
 	public int getPageNum() {
-		if(pageTotal<pageNum){ pageNum = 1;} 
+		if(getPageTotal()<pageNum){ pageNum = 1;} 
 		return pageNum;
 	}
 

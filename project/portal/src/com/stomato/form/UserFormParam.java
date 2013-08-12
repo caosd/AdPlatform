@@ -165,7 +165,7 @@ public class UserFormParam {
 	}
 
 	public int getPageNum() {
-		if (pageTotal < pageNum) {
+		if (getPageTotal() < pageNum) {
 			pageNum = 1;
 		}
 		return pageNum;
