@@ -6,35 +6,35 @@ import java.util.Date;
 import com.stomato.utils.DateUtils;
 import com.stomato.vo.SysConfig;
 
-public class AdPushFormParam{
+public class AdPushFormParam {
 
 	private Integer adresourceId;
 
-
-	//查询起始日期
+	// 查询起始日期
 	private String startDate;
-	
-	//查询结束日期
+
+	// 查询结束日期
 	private String endDate;
-	
-	//每页展示数量
+
+	// 每页展示数量
 	private int pageSize = 15;
-	
-	//总数
+
+	// 总数
 	private int pageTotal;
-	
-	//总行数
+
+	// 总行数
 	private int totalCount = 0;
-	
-	//当前页数，1开始
+
+	// 当前页数，1开始
 	private int pageNum = 1;
-	
-	//数据库查询偏移量
+
+	// 数据库查询偏移量
 	private Integer offset;
-	
+
 	public String getStartDate() {
 		if (null == startDate) {
-			startDate = new SimpleDateFormat("yyyy-MM-dd").format(DateUtils.getInstance().getSomeDaysBeforeAfter(new Date(), -29));
+			startDate = new SimpleDateFormat("yyyy-MM-dd").format(DateUtils
+					.getInstance().getSomeDaysBeforeAfter(new Date(), -29));
 		}
 		return startDate;
 	}
@@ -59,7 +59,7 @@ public class AdPushFormParam{
 	}
 
 	public void setPageSize(int pageSize) {
-		if(pageSize == 15 || pageSize == 30 || pageSize == 50) { 
+		if (pageSize == 15 || pageSize == 30 || pageSize == 50) {
 			this.pageSize = pageSize;
 		}
 	}
@@ -82,7 +82,9 @@ public class AdPushFormParam{
 	}
 
 	public int getPageNum() {
-		if(pageTotal<pageNum){ pageNum = 1;} 
+		if (pageTotal < pageNum) {
+			pageNum = 1;
+		}
 		return pageNum;
 	}
 
@@ -101,7 +103,7 @@ public class AdPushFormParam{
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
-	
+
 	public Integer getAdresourceId() {
 		return adresourceId;
 	}

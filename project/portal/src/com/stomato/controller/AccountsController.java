@@ -353,7 +353,7 @@ public class AccountsController extends UserController {
 	@RequestMapping(value="/{id}/userRebut.html",method=RequestMethod.POST)
 	public String rebutUser(@PathVariable int id,String describe,HttpServletRequest request,Model model){
 		User user = accountsService.getUserByUid(id);
-		MailHelper.sendResetPwdEmail(user.getEmail(), user.getContactName(), describe, "zh");
+		MailHelper.sendRegisterRebutEmail(user.getEmail(), user.getContactName(), describe, "zh");
 		model.addAttribute("success", true);
 		return rebutUser(id, model);
 	}
