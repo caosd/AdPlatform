@@ -137,7 +137,7 @@ public class AppsController extends UserController {
 		app.setKey(appKey);
 		app.setUid(user.getUid());
 		appService.deleteApp(app);
-		
+		appBusinessService.deleteByAppId(app.getId());
 		return "redirect:/apps/";
 	}
 	

@@ -23,4 +23,8 @@ public class AppBusinessService {
 	public AppBusiness getAppBusiness(int appId){
 		return appBusinessDao.get(appId);
 	}
+	
+	public int deleteByAppId(int appId){
+		return appBusinessDao.delete(appId);
+	}
 }
