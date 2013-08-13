@@ -65,12 +65,12 @@
 
   <section class="desc">
     <div class="wrap" id="s2">
-      <img src="res/icon.png" class="appIcon"/>
+      <img src="{icon}" class="appIcon"/>
       <div class="m">
         <H1 class="appName">{name}</H1>
         <div style="margin-left: -3px;">
-          <em class="star1 s5"></em>
-          <em class="star2 s0"></em>
+          <em class="star1"></em>
+          <em class="star2"></em>
         </div>
       </div>
     </div>
@@ -214,10 +214,12 @@
         g("ad_scroll").innerHTML = lis.join("");
         g("index_point").innerHTML = ind.join("");
       }
+      document.querySelector(".star1").className += (" s"+data["star"]);
+      document.querySelector(".star2").className += (" s"+(5-data["star"]));
       init();
     }
 
     //demo代码，正式情况下请删除
-    populate({res:["res/i_1.jpg","res/i_2.jpg","res/i_3.jpg","res/i_4.jpg","res/i_5.jpg"],desc:"91熊猫看书致力于打造手机阅读第一品牌，她支持TXT、EPUB、PDF、UMD、NDB、NDZ、ZIP、RAR、CBR、CBZ等多达50多种格式的书籍。智能断章、夜间模式、仿真3D翻页特效、章节批量下载、章节更新推送提醒等功能的人性化设计让她显得更加与众不同，另外，创新性的男女声智能朗读功能则让您充分享受“懒人”听书的乐趣。在内容方面，无论您喜欢的是玄幻、武侠，还是言情、穿越，甚至是杂志、漫画，91熊猫看书可谓是应有尽有。91熊猫看书数十万海量书籍，无数个日夜的辛苦研发，一切都只为了您快乐阅读！",version:"9.2",size:"3.8M",download:"40293232",name:"91熊猫阅读",star:5});
+    populate({res:["res/i_1.jpg","res/i_2.jpg","res/i_3.jpg","res/i_4.jpg","res/i_5.jpg"],desc:"91熊猫看书致力于打造手机阅读第一品牌，她支持TXT、EPUB、PDF、UMD、NDB、NDZ、ZIP、RAR、CBR、CBZ等多达50多种格式的书籍。智能断章、夜间模式、仿真3D翻页特效、章节批量下载、章节更新推送提醒等功能的人性化设计让她显得更加与众不同，另外，创新性的男女声智能朗读功能则让您充分享受“懒人”听书的乐趣。在内容方面，无论您喜欢的是玄幻、武侠，还是言情、穿越，甚至是杂志、漫画，91熊猫看书可谓是应有尽有。91熊猫看书数十万海量书籍，无数个日夜的辛苦研发，一切都只为了您快乐阅读！",version:"9.2",size:"3.8M",download:"40293232",name:"91熊猫阅读",star:4,icon:"res/icon.png"});
 </script>
 </html>

@@ -92,6 +92,24 @@ public class UserController {
 		return 0;
 	}
 	/**
+	 * 取得boolean参数的值
+	 * 
+	 * @param parameter
+	 *            参数
+	 * @return boolean 当前类别
+	 */
+	protected boolean getBooleanParameter(HttpServletRequest request,String name) {
+		String value = request.getParameter(name);
+		if (value != null) {
+			try {
+				return Boolean.parseBoolean(value);
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		return false;
+	}
+	/**
 	 * 取得整型参数的值
 	 * 
 	 * @param parameter

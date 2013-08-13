@@ -103,23 +103,31 @@ public class AppsController extends UserController {
 	
 	@RequestMapping(value="/{appKey}/edit", method=RequestMethod.GET)
 	public String showEditAppForm(@ModelAttribute("appForm") AppForm form, @PathVariable String appKey, Model model, HttpServletRequest request) {
-		return "portal/apps/editForm";
+		return "portal/apps/appUpdate";
 	}
 	
 	@RequestMapping(value="/{appKey}/edit", method=RequestMethod.POST)
-	public String updateApp(@Valid AppForm form, BindingResult result, @PathVariable String appKey, HttpServletRequest request) {
+	public String updateApp(@Valid AppForm form, BindingResult result, @PathVariable String appKey, HttpServletRequest request,Model model) {
 		if (result.hasErrors()) {
-			return "portal/apps/editForm";
+			return "portal/apps/appUpdate";
 		}
+		//boolean allowPush, boolean allowRichPush, boolean allowLBS,
+		boolean allowPush = getBooleanParameter(request, "allowPush");
+		boolean allowRichPush = getBooleanParameter(request, "allowRichPush");
+		boolean allowLBS = getBooleanParameter(request, "allowLBS");
+		
 		App app = (App)request.getAttribute("app");
-		if (app.getName().equals(form.getName())) {
-			return "redirect:/apps/" + appKey + "/detail";
-		}
+		AppBusiness appBusiness = (AppBusiness)request.getAttribute("appBusiness");
+		appBusiness.setAllowPush(allowPush);
+		appBusiness.setAllowRichPush(allowRichPush);
+		appBusiness.setAllowLBS(allowLBS);
+		
 		app.setName(form.getName());
 		app.setPkg(null);//不允许修改包名
 		appService.updateApp(app);
-		form = null;
-		return "redirect:detail";
+		appBusinessService.update(appBusiness);
+		model.addAttribute("success", true);
+		return "portal/apps/appUpdate";
 	}
 	
 	@RequestMapping(value="/{appKey}/delete", method=RequestMethod.GET)
