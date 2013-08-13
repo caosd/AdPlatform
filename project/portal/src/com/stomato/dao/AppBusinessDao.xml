@@ -24,6 +24,6 @@
 	</update>
 	
 	<select id="get" parameterType="int" resultMap="appBusiness" >
-		select app_id, allow_push, allow_richpush, allow_lbs from t_app_business where id=#{id}
+		select app_id, allow_push, allow_richpush, allow_lbs from t_app_business where app_id=#{appId}
 	</select>
 </mapper>

@@ -45,6 +45,7 @@
 							<thead>
 								<tr align="left">
 									<th class="sorting">#</th>
+									<th class="sorting">Icon</th>
 									<th class="sorting">应用名称</th>
 									<th class="sorting">创建日期</th>
 									<th class="sorting">天数</th>
@@ -62,6 +63,7 @@
 								<c:forEach items="${applist}" var="app" varStatus="stat">
 									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
 										<td>${stat.index+1}</td>
+										<td><img width="50px" src="${imgServer}${app.icon}"/></td>
 										<td class="app_name"><a href="#">${app.name}</a></td>
 										<td><fmt:formatDate value="${app.createTime }" pattern="yyyy-MM-dd" /></td>
 										<td>-</td>

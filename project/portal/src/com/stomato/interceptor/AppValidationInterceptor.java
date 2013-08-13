@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.stomato.domain.App;
+import com.stomato.domain.AppBusiness;
 import com.stomato.domain.User;
+import com.stomato.service.AppBusinessService;
 import com.stomato.service.AppService;
 
 /*
@@ -24,6 +26,8 @@ public class AppValidationInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	private AppService appService;
+	@Autowired
+	private AppBusinessService appBusinessService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
@@ -42,7 +46,9 @@ public class AppValidationInterceptor extends HandlerInterceptorAdapter {
 				app.setUid(user.getUid());
 				app = appService.getApp(app);
 				if (app != null) {
+					AppBusiness appBusiness = appBusinessService.getAppBusiness(app.getId());
 					request.setAttribute("app", app);
+					request.setAttribute("appBusiness", appBusiness);
 					return true;
 				}
 			}

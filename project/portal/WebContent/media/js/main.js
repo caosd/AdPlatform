@@ -2195,6 +2195,6 @@ function nextPage(){
 
 function deleteData(url){
 	if(confirm("确认删除该记录？")){
-		$("#searchForm").attr("action", url).submit();
+		window.location.href=url;
 	}
 }
