@@ -45,7 +45,7 @@
 							<thead>
 								<tr align="left">
 								   <th>#</th>
-								   <th>图标</th>
+								   <th>Icon</th>
 			                       <th>广告渠道</th>
 			                       <th>资源名称</th>
 			                       <!--<th>应用包名</th>
