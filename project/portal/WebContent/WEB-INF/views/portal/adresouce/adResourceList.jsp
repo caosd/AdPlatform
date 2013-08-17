@@ -46,11 +46,7 @@
 							<thead>
 								<tr align="left">
 								   <th>#</th>
-<<<<<<< HEAD
 								   <th>Icon</th>
-=======
-								   <th>Icon/th>
->>>>>>> 42ced0df4820e50cecb81e9dbc472f54a7a846c7
 			                       <th>广告渠道</th>
 			                       <th>资源名称</th>
 			                       <!--<th>应用包名</th>
