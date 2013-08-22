@@ -6,9 +6,9 @@
   <meta name="format-detection" content="telephone=no" />
   <meta charset="utf8">
   <style>
-    body{background: url(img/bg.png) no-repeat;margin: 5px 0;padding: 0;background-size: 0 100%;color: #666F74;font: 12px/14px "Microsoft YaHei","lucida Grande",Verdana;background-color: #8DAEAF;height: 100%;}
+    body{background: url(img/bg.png) no-repeat;margin: 5px 0;padding: 0;background-size: 0 100%;color: #666F74;font: 12px/14px "Microsoft YaHei","lucida Grande",Verdana;background-color: #8DAEAF;height: 100%;background-size: 100%;}
     p,h1,section,h2,h3,h4,h5,h6,ul,li{margin: 0;padding: 0;}
-    #s1{height: 65px;position: fixed;top: 0;left: 0;padding-top: 10px;padding-bottom: 10px;z-index: 999;background-color: rgb(141,174,175);width: 100%;}
+    #s1{height: 65px;position: fixed;top: 0;left: 0;padding-top: 10px;padding-bottom: 10px;z-index: 999;width: 100%;}
     #s1 .b1, #s1 .b2, #s1 .b3{margin-left: 10px;float: left;display: block;}
     #s1 .b1 img{-webkit-border-radius: 12px;background: #FFF;padding: 3px;-webkit-box-shadow: 0px 0px 10px #535353;width: 60px;height:60px;}
     #s1 .b2 {margin-left: 15px;margin-top: 2px;}
@@ -157,6 +157,13 @@
     }
     window.onresize = function() {
       startTimer();
+    }
+    window.onscroll = function() {
+      if (window.scrollY > 7) {
+        g("s1").style.backgroundColor = 'rgb(141,174,175)';
+      } else {
+        g("s1").style.backgroundColor = '';
+      }
     }
     function init() {
       s = new wSlider("ad_scroll");
