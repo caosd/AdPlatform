@@ -159,11 +159,9 @@
       startTimer();
     }
     window.onscroll = function() {
-      if (window.scrollY > 7) {
-        g("s1").style.backgroundColor = 'rgb(141,174,175)';
-      } else {
-        g("s1").style.backgroundColor = '';
-      }
+      var s1 = g("s1");
+      s1.style.background = 'url(img/bg.png)';
+      s1.style.backgroundSize = '100%';
     }
     function init() {
       s = new wSlider("ad_scroll");
