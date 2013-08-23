@@ -1,0 +1,217 @@
+
+<html>
+<head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <meta charset="utf8">
+  <style>
+    body{background: url(img/bg.jpg) no-repeat;margin: 5px 0;padding: 0;background-size: 100% 100%;color: #666F74;font: 12px/14px "Microsoft YaHei","lucida Grande",Verdana;background-color: #8DAEAF;height: 100%;}
+    p,h1,section,h2,h3,h4,h5,h6,ul,li{margin: 0;padding: 0;}
+    .carousel,.desc {margin: 0 auto;width: 96%;}
+    .carousel .wrap{padding: 8px;position: relative;background: #FFF;-webkit-border-radius: 8px;-webkit-box-shadow: 0 0 8px #9E9E9E;box-shadow: 0 0 8px #9E9E9E;margin-top: 5px;}
+    .carousel .stats{float: left;}
+    .carousel .stats p{line-height: 18px;}
+    .carousel .indent{list-style: none;float: right;margin-top: 6px;margin-right: 5px;}
+    .carousel .indent li {float: left;width: 8px;height: 10px;background: url(img/point1.png) no-repeat;text-indent: -10000px;margin-left: 5px;background-size: 100%;}
+    .carousel .indent li.actived{background: url(img/point2.png) no-repeat;background-size: 100%;}
+    .clearfix {clear: both;}
+    .desc{background: url(img/shadow.png) no-repeat;background-size: 100%;padding: 10px 0 0 0;}
+    .desc .wrap{position: relative;padding: 0 5px;}
+    .desc .text{background: url(img/desc_bg.png) no-repeat;padding: 8px 10px;background-size: 100%;color: #FDFFF3;font-size: 14px;line-height: 22px;margin-top: 5px;}
+    .desc .appIcon{-webkit-border-radius: 12px;background: #FFF;padding: 3px;-webkit-box-shadow: 0px 0px 10px #535353;width: 50px;height:50px;margin-left: 10px;}
+    .desc .m{position: absolute;left: 100px;top: 13%;}
+    .desc .appName{color: #FDFFF3;font-size: 16px;letter-spacing: 3px;line-height: 18px;margin-bottom: 10px;}
+    .desc .star1{background: url(img/star1.png) repeat-x;height: 16px;display: inline-block;}
+    .desc .star2{background: url(img/star2.png) repeat-x;height: 16px;display: inline-block;}
+    .desc .s1 {width: 16px;}
+    .desc .s2 {width: 32px;}
+    .desc .s3 {width: 48px;}
+    .desc .s4 {width: 64px;}
+    .desc .s5 {width: 80px;}
+    .desc #scroll {height: 30%;overflow-y: scroll;}
+    .desc .opt {text-align: center;margin-top: 5px;height:55px;}
+    .desc .opt a {width: 125px;height: 33px;display: inline-block;}
+    .desc .opt img {width: 100%;}
+    .desc .back {margin-left: 10px;}
+
+    body,ul,ol,p,h1{margin: 0;padding: 0;font-size: 12px;-webkit-backface-visibility: hidden}
+    img{border:0;}
+     a,button,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+    ol,ul{list-style:none;}
+    .ad_wrap{overflow: hidden;-webkit-backface-visibility: hidden;position: relative;}
+    #ad_scroll{width: 1000%;height: 148px;overflow: hidden;-webkit-backface-visibility: hidden;margin-left: -10px;}
+    #ad_scroll li{float: left;margin-left: 10px;}
+    #ad_scroll li img{box-shadow:1px 1px 5px #363535; height:144px; width: 291px;}
+  </style>
+</head>
+<body>
+  <textarea style="display:none" id="template">
+  <section class="carousel" id="s1">
+    <div class="wrap">
+    <div class="ad_wrap">
+      <ul id="ad_scroll" style="-webkit-transform: translateX(0); -webkit-transition: all 0.3s ease; transition: all 0.3s ease;"></ul>
+      <div style="margin-top: 3px;">
+        <div class="stats">
+          <p>版本: {version}&nbsp;&nbsp;大小: {size}&nbsp;&nbsp;下载: {download}</p>
+        </div>
+        <ul class="indent" id="index_point"></ul>
+      </div>
+      <div class="clearfix"></div>  
+    </div>
+    </div>
+  </section>
+
+  <section class="desc">
+    <div class="wrap" id="s2">
+      <img src="{icon}" class="appIcon"/>
+      <div class="m">
+        <H1 class="appName">{name}</H1>
+        <div style="margin-left: -3px;">
+          <em class="star1"></em>
+          <em class="star2"></em>
+        </div>
+      </div>
+    </div>
+    <div class="text">
+      <p id="scroll">{desc}</p>
+    </div>
+    <div class="opt" id="s3">
+      <a class="download" id="btnInstall" href="btnInstall"><img src="img/download1.png"></a>
+      <a class="back" id="btnBack" href="btnBack"><img src="img/back1.png"/></a>
+    </div>
+  </section>
+  </textarea>
+</body>
+<script type="text/javascript">
+    function g(o){return document.getElementById(o)}
+    function setAdPos(w){
+        var ad_scroll=g("ad_scroll");
+        var dist=Math.abs(ad_scroll.offsetWidth-window.innerWidth)/2-w;
+        if(ad_scroll.offsetWidth<window.innerWidth){
+            ad_scroll.style.marginLeft=dist+"px";
+        }else if(ad_scroll.offsetWidth>window.innerWidth){
+            ad_scroll.style.marginLeft=-dist+"px";
+        }
+        ad_scroll.style.webkitTransform="translateX(-90px)";
+    }
+    function wSlider(o){
+        var self=this;
+        this.el=g(o);
+        var elCount=this.el.getElementsByTagName("img").length,distX=0,distY=0,startPosX=0,startPosY=0,endPosX=0,endPosY=0,move=0,index=0;
+        this.setVendorProperty=function(prop, val){
+            self.el.style.setProperty('-webkit-' + prop, val);
+            self.el.style.setProperty('-moz-' + prop, val);
+            self.el.style.setProperty('-ms-' + prop, val);
+            self.el.style.setProperty('-o-' + prop, val);
+        };
+        this.start=function(event){
+            if (!event.touches.length) return;
+            var touch=event.touches[0];
+            startPosX=touch.pageX;
+            startPosY=touch.pageY;
+            event.stopPropagation();
+        };
+        this.move=function(event){
+            if (!event.touches.length&&!current) return;
+            var touch=event.touches[0];
+            endPosX=touch.pageX;
+            distX=endPosX-startPosX;
+            endPosY=touch.pageY;
+            distY=Math.abs(endPosY-startPosY);
+            if(Math.abs(distX)>Math.abs(distY)){
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        };
+        this.end=function(){
+            if(Math.abs(distX)>self.el.parentNode.offsetWidth/5){
+                move=-self.el.getElementsByTagName("img")[0].offsetWidth-10;
+                if(distX<0&&index<elCount-1){
+                    index++;
+                }else if(index>0&&distX>0&&index<elCount){
+                    index--;
+                }
+            }
+            var endDist=move*index;
+            this.setVendorProperty("transform","translateX("+endDist+"px)");
+            this.setVendorProperty("transition","all ease 0.3s");
+            var pointer=g("index_point").getElementsByTagName("li");
+            for(var i=0; i<pointer.length;i++ ){
+                pointer[i].className="";
+            }
+            pointer[index].className="actived";
+            distX=0;
+            if (event)
+            event.stopPropagation();
+        };
+        this.action=function(){
+            self.el.addEventListener("touchstart",function(event){
+                self.start(event);
+                if (timer) clearInterval(timer);
+                timer = null;
+            });
+            self.el.addEventListener("touchmove",function(event){
+                self.move(event);
+            });
+            self.el.addEventListener("touchend",function(event){
+                self.end();
+                startTimer();
+            });
+        };
+        this.step=function() {
+          move=-self.el.getElementsByTagName("img")[0].offsetWidth-10;
+          index++;
+          if (index >= elCount) {
+            index = 0;
+          }
+        }
+    }
+    var timer = null;
+    var s = null;
+    function startTimer() {
+      calc();
+      if (timer) clearInterval(timer);
+      timer = setInterval(function() { s.step(); s.end(); }, 5000);
+    }
+    function calc() {
+      var h = document.body.offsetHeight;
+      var scroll = g("scroll");
+      var bm = document.querySelectorAll("#ad_scroll img");
+      var th = 5 + g("s1").offsetHeight + 10 + g("s2").offsetHeight + 5 + g("s3").offsetHeight + 16;
+      scroll.style.height = (h-th)+'px';
+    }
+    window.onresize = function() {
+      startTimer();
+    }
+    function init() {
+      s = new wSlider("ad_scroll");
+      s.action();
+      startTimer();
+    }
+    function populate(data) {
+      var body = document.querySelector("body");
+      var template = g("template").value;
+      for (var d in data) {
+        template = template.replace("{"+d+"}",data[d]);
+      }
+      body.innerHTML = template;
+      if (data['res']) {
+        var lis = [];
+        var ind = [];
+        for (var r in data['res']) {
+          lis.push('<li><img src="'+data['res'][r]+'"/></li>');
+          ind.push('<li '+(r==0?'class="actived"':'')+'></li>');
+        }
+        g("ad_scroll").innerHTML = lis.join("");
+        g("index_point").innerHTML = ind.join("");
+      }
+      document.querySelector(".star1").className += (" s"+data["star"]);
+      document.querySelector(".star2").className += (" s"+(5-data["star"]));
+      init();
+    }
+
+    //demo代码，正式情况下请删除
+    populate({res:["i_1","i_2","i_3"],desc:"91熊猫看书致力于打造手机阅读第一品牌，她支持TXT、EPUB、PDF、UMD、NDB、NDZ、ZIP、RAR、CBR、CBZ等多达50多种格式的书籍。智能断章、夜间模式、仿真3D翻页特效、章节批量下载、章节更新推送提醒等功能的人性化设计让她显得更加与众不同，另外，创新性的男女声智能朗读功能则让您充分享受“懒人”听书的乐趣。在内容方面，无论您喜欢的是玄幻、武侠，还是言情、穿越，甚至是杂志、漫画，91熊猫看书可谓是应有尽有。91熊猫看书数十万海量书籍，无数个日夜的辛苦研发，一切都只为了您快乐阅读！",version:"9.2.22",size:"113.8M",download:"402万",name:"熊猫阅读熊猫",star:5,icon:"icon"});
+</script>
+</html>
