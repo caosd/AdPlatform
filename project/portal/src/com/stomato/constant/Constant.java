@@ -1,5 +1,8 @@
 package com.stomato.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public interface Constant {
 	
 	public static final String BUILD_EXAMPLE_ANDROID_PACKAGE = "BUILD_EXAMPLE_ANDROID_PACKAGE";
@@ -14,6 +17,8 @@ public interface Constant {
 		String appsDirPath = "apps";
 
 		String tmpsDirPath = "tmps";
+		
+		String apkDirPath = "apks";
 		
 		String filesDirPath = "files_path";
 		
@@ -57,5 +62,16 @@ public interface Constant {
 	interface AdPushStatus{
 		boolean open = true;
 		boolean close = false;
+	}
+	
+	class FileSuffixs{
+		public static String apk = "apk";
+		public static final Map<String,String> IMG_SUFFIXS = new HashMap<String, String>();
+		static{
+	        IMG_SUFFIXS.put("image/gif", "gif");
+	        IMG_SUFFIXS.put("image/jpg", "jpg");
+	        IMG_SUFFIXS.put("image/jpeg", "jpg");
+	        IMG_SUFFIXS.put("image/png", "png");
+		}
 	}
 }

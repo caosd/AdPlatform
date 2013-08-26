@@ -113,6 +113,7 @@
 												</c:choose>
 											</td>
 					                        <td class=" ">
+					                            <a href="${item.apkUrl }">下载APK</a>
 					                        	<a href="/adResource/updateAdResource.html?id=${item.id }">编辑</a>
 					                        	<c:if test="${item.status==1}">
 					                        		<a href="/adResource/offShelf.html?id=${item.id }">下架</a>
@@ -121,7 +122,7 @@
 					                        		<a href="/adResource/onShelf.html?id=${item.id }">上架</a>
 					                        	</c:if>
 					                        	<c:choose>
-					                        		<c:when test="${item.recom}">
+					                        		<c:when test="${item.isRecom}">
 					                        			<a href="/adResource/cancelRecomm.html?id=${item.id }">取消推荐</a>	
 													</c:when>
 					                        		<c:otherwise>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stomato.dao.RptPushDao">
+
+	<resultMap type="com.stomato.domain.RptPush" id="rptPush">
+        <result property="id" column="id" />
+        <result property="idate" column="idate" />
+        <result property="adId" column="ad_id" />
+        <result property="push" column="push" />
+        <result property="arrive" column="arrive" />
+        <result property="click" column="click" />
+        <result property="download" column="download" />
+        <result property="install" column="install" />
+        <result property="request" column="request" />
+        <result property="fail" column="fail" />
+        <result property="downloadSuccess" column="downloadSuccess" />
+        <result property="shows" column="shows" />
+	</resultMap>
+	<select id="get" parameterType="int" resultMap="RptPush" >
+		select id, idate, ad_id, push, arrive,click,download,install,request,fail,downloadSuccess,shows
+		from t_rpt_push where id=#{id} 
+	</select>
+	<select id="listTotal" parameterType="com.stomato.form.RptPushFormParam" resultType="int">
+		<!-- select count(1) from t_ad_push where 1=1
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
+		</if> -->
+		SELECT
+			count(1)
+		FROM
+			t_ad_push push,
+			t_ad_resource resource,
+			t_ad_channel channel
+		WHERE
+			push.adresource_id = resource.id and resource.channel_id = channel.id
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
+		</if>
+	</select>
+	<select id="list" parameterType="com.stomato.form.RptPushFormParam" resultMap="RptPush" >
+		select  id, adresource_id, first_push, max_push, real_push,money,push_date,status
+		from t_ad_push where 1=1 
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
+		</if>
+		order by pushDate asc
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
+	</select>
+	<select id="getListMap" parameterType="com.stomato.form.RptPushFormParam" resultType="map" >
+		SELECT
+			push.id,
+		    push.push_date,
+		    resource.shelf_date,
+		    channel.channel_name,
+		    resource.ad_name,
+			resource.price,
+			push.first_push,
+			push.max_push,
+			push.real_push,
+			push.money,
+			push.money/push.real_push as arpu,
+			push.status
+		FROM
+			t_ad_push push,
+			t_ad_resource resource,
+			t_ad_channel channel
+		WHERE
+			push.adresource_id = resource.id and resource.channel_id = channel.id
+		<if test="adresourceId != null">
+		 	and adresource_id = #{adresourceId}
+		</if>
+		order by push_date asc
+		<if test="offset != null">limit #{offset},#{pageSize}</if>
+	</select>
+</mapper>

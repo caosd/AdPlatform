@@ -27,7 +27,6 @@ import com.stomato.service.AccountsService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.CredentialsService;
 import com.stomato.service.UserAccountsService;
-import com.stomato.validator.CredentialValidation;
 import com.stomato.validator.RegistrationValidation;
 
 @Controller
@@ -102,7 +101,7 @@ public class RegistrationController {
 			credentials.setCredentialsNo(credentialsNo);
 			try{
 				if (file1.getSize() > 0) {
-					String surfix = CredentialValidation.IMG_SUFFIXS.get(file1.getContentType());
+					String surfix = Constant.FileSuffixs.IMG_SUFFIXS.get(file1.getContentType());
 					if (null != surfix) {
 						String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", user.getUid(),Constant.Configs.credentialsDirPath,credentials.getCredentialsType(),credentialsNo,"photo1",surfix);
 						File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", Constant.fileSeparator));
@@ -115,7 +114,7 @@ public class RegistrationController {
 					}
 				}
 				if (file2.getSize() > 0) {
-					String surfix = CredentialValidation.IMG_SUFFIXS.get(file2.getContentType());
+					String surfix = Constant.FileSuffixs.IMG_SUFFIXS.get(file2.getContentType());
 					if (null != surfix) {
 						String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", user.getUid(),Constant.Configs.credentialsDirPath,credentials.getCredentialsType(),credentialsNo,"photo2",surfix);
 						File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", Constant.fileSeparator));

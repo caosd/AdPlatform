@@ -101,6 +101,13 @@ textarea {width:600px;}
 					</div>
 				</div>
 				<div class="form-row">
+					<label class="field-name" for="apkFile">上传APK：</label>
+					<div class="field">
+						<input type="file" name="apkFile" id="file">
+						<form:errors path="apkFile" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
 					<label class="field-name" for="adPackage">应用包名：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
@@ -132,11 +139,13 @@ textarea {width:600px;}
 				</div>
 			    <div class="form-row">
 					<label class="field-name" for="supportPlatform">平台版本要求：</label>
-					<div class="field">
-						<div class="input-prepend input-append">
-							<form:input path="supportPlatform" maxlength="100" /> 
-							<span class="add-on">*</span>
-						</div>
+					<div class="field noSearch">
+						<form:select path="supportPlatform" class="chosen">
+							<form:option value="0">android</form:option>
+							<form:option value="1">iphone</form:option>
+							<form:option value="2">ipad</form:option>
+							<form:option value="3">91桌面</form:option>
+						</form:select>
 						<form:errors path="supportPlatform" cssClass="error"/>
 					</div>
 				</div>
@@ -203,6 +212,40 @@ textarea {width:600px;}
 							<option value="1">竖屏</option>
 						</form:select>
 						<form:errors path="displayPosition" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="adMode">广告模式：</label>
+					<div class="field noSearch">
+						<form:select path="adMode" class="chosen">
+							<form:option value="1">本地</form:option>
+							<form:option value="2">web页面</form:option>
+						</form:select>
+						<form:errors path="adMode" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="downloadMode">下载模式：</label>
+					<div class="field noSearch">
+						<form:select path="downloadMode" class="chosen">
+							<form:option value="0">手动下载</form:option>
+							<form:option value="1">WIFI自动下载</form:option>
+							<form:option value="2">非WIFI自动下载</form:option>
+							<form:option value="3">自动下载</form:option>
+							<form:option value="4">91桌面下载模式</form:option>
+						</form:select>
+						<form:errors path="downloadMode" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label class="field-name" for="installMode">安装模式：</label>
+					<div class="field noSearch">
+						<form:select path="installMode" class="chosen">
+							<form:option value="1">显示安装按钮并有提示信息</form:option>
+							<form:option value="2">显示安装按钮但没有提示</form:option>
+							<form:option value="3">自动安装</form:option>
+						</form:select>
+						<form:errors path="installMode" cssClass="error"/>
 					</div>
 				</div>
 			    <div class="form-row">
