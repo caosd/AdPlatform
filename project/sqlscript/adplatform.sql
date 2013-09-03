@@ -1,11 +1,11 @@
+﻿
+DROP DATABASE IF EXISTS `stomato`;
 
-DROP DATABASE IF EXISTS `adplatform`;
-
-CREATE DATABASE `adplatform`
+CREATE DATABASE `stomato`
     CHARACTER SET 'utf8'
     COLLATE 'utf8_general_ci';
 
-USE `adplatform`;
+USE `stomato`;
 
 --
 -- 表的结构 `t_ad_channel`
