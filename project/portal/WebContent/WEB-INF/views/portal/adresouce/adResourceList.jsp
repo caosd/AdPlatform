@@ -49,12 +49,7 @@
 								   <th>Icon</th>
 			                       <th>广告渠道</th>
 			                       <th>资源名称</th>
-			                       <!--<th>应用包名</th>
-			                       <th>文件大小</th>
-			                       -->
-			                       <!--<th>应用版本</th>
-			                       <th>支持平台</th>
-			                       --><th>应用分类</th>
+			                       <th>应用分类</th>
 			                       <th>收费类型</th>
 			                       <th>单价</th>
 			                       <th>结算方式</th>
@@ -79,10 +74,6 @@
 					                        </c:forEach>
 					                        </td>
 					                        <td>${item.adName }</td>
-					                        <!--<td>${item.adPackage }</td>
-					                        <td>${item.fileSize }</td>
-					                        <td>${item.version }</td>
-					                        <td>${item.supportPlatform }</td>-->
 					                        <td>
 					                        <c:forEach items="${appTypeList}" var="appType" >
 					                        	<c:if test="${appType.id == item.appTypeId}">

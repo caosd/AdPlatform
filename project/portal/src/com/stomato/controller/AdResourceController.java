@@ -24,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.stomato.common.BaseDao;
 import com.stomato.constant.Constant;
 import com.stomato.domain.AdChannel;
 import com.stomato.domain.AdResource;
 import com.stomato.domain.AppType;
 import com.stomato.domain.User;
+import com.stomato.exception.DaoException;
 import com.stomato.form.AdChannelFormParam;
 import com.stomato.form.AdResourceForm;
 import com.stomato.form.AdResourceFormParam;
@@ -45,7 +47,7 @@ import com.stomato.validator.AdResourceValidation;
 @RequestMapping(value="/adResource")
 public class AdResourceController extends UserController{
 
-	private Logger logger = Logger.getLogger(AdResourceController.class);
+	private Logger log = Logger.getLogger(AdResourceController.class);
 	@Autowired
 	private AdResourceService adResourceService ;
 	@Autowired
@@ -54,6 +56,8 @@ public class AdResourceController extends UserController{
 	private AppTypeService appTypeService ;
 	@Autowired
 	private AdChannelService adChannelService ;
+	@Autowired
+	private BaseDao baseDao;
 
 	/**
 	 * goto 下载资源录入页面
@@ -280,16 +284,21 @@ public class AdResourceController extends UserController{
 	 */
 	@RequestMapping(value="/adResourceList.html")
 	public String adResourceList(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request) throws ParseException{
-		int total = adResourceService.listTotal(formParam);
-		formParam.setTotalCount(total);
-		List<AdResource> adResourceList = adResourceService.listAdResource(formParam);
-		
-		AdChannelFormParam adChannelFormParam = new AdChannelFormParam();
-		adChannelFormParam.setEnable(true);
-		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelFormParam);
-		request.setAttribute("adResourceList", adResourceList);
-		request.setAttribute("adChannelList", adChannelList);
-		request.setAttribute("appTypeList", appTypeService.listAppType(null));
+		try {
+			int total = adResourceService.listTotal(formParam);
+			formParam.setTotalCount(total);
+			List<AdResource> adResourceList = adResourceService.listAdResource(formParam);
+			
+			AdChannel adChannel = new AdChannel();
+			adChannel.setEnable(true);
+			List<AdChannel> adChannelList = baseDao.queryForListEntity("com.stomato.dao.AdChannelDao.queryAdChannelList",AdChannel.class,adChannel);
+
+			request.setAttribute("adResourceList", adResourceList);
+			request.setAttribute("adChannelList", adChannelList);
+			request.setAttribute("appTypeList", appTypeService.listAppType(null));
+		} catch (DaoException err) {
+			log.error("查询数据库失败", err);
+		}
 		return "portal/adresouce/adResourceList";
 	}
 	/**

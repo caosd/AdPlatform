@@ -15,7 +15,7 @@ public class AdResourceValidation {
 	public void validate(Object target, Errors errors) {
 		AdResourceForm form = (AdResourceForm) target;
 		if( form.getApkFile() != null && !form.getApkFile().isEmpty()){
-			if( !Constant.FileSuffixs.apk.equals(form.getApkFile().getContentType()) ){
+			if( !form.getApkFile().getOriginalFilename().endsWith("."+Constant.FileSuffixs.apk) ){
 				errors.rejectValue("apkFile", "side.adresoure.apk.suffix.err", "Apk file format is incorrect.");
 			}
 		}
@@ -41,17 +41,17 @@ public class AdResourceValidation {
 		}
 		if( form.getAdImageb() != null ){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdImageb().getContentType()) ){
-				errors.rejectValue("adimageb", "side.adresoure.adimageb.suffix.err", "Img format is incorrect.");
+				errors.rejectValue("adImageb", "side.adresoure.adimageb.suffix.err", "Img format is incorrect.");
 			}
 		}
 		if( form.getAdImagec() != null ){
-			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getApkFile().getContentType()) ){
-				errors.rejectValue("adimagec", "side.adresoure.adimagec.suffix.err", "Img format is incorrect.");
+			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdImagec().getContentType()) ){
+				errors.rejectValue("adImagec", "side.adresoure.adimagec.suffix.err", "Img format is incorrect.");
 			}
 		}
 		if( form.getAdImaged() != null ){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdImaged().getContentType()) ){
-				errors.rejectValue("adimaged", "side.adresoure.adimagec.suffix.err", "Img format is incorrect.");
+				errors.rejectValue("adImaged", "side.adresoure.adimagec.suffix.err", "Img format is incorrect.");
 			}
 		}
 	}

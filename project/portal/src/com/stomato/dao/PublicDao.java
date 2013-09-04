@@ -6,7 +6,7 @@ import java.util.List;
  * @author  jiandong
  * @param <T>
  */
-public interface BaseDao<T> {
+public interface PublicDao<T> {
 
 	public int delete(int id);
 	
