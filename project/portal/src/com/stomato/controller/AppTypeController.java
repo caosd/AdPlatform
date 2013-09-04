@@ -86,7 +86,6 @@ public class AppTypeController {
 	public String AppTypeList(@ModelAttribute("formParam")AppTypeFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
 		int total = appTypeService.listTotal(formParam);
 		formParam.setTotalCount(total);
-System.out.println(formParam.getOffset());
 		List<AppType> appTypeList = appTypeService.listAppType(formParam);
 		model.addAttribute("appTypeList", appTypeList);
 		return "portal/apps/appTypeList";

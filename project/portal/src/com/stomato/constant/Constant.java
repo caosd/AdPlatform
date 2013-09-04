@@ -4,7 +4,18 @@ public interface Constant {
 	
 	public static final String BUILD_EXAMPLE_ANDROID_PACKAGE = "BUILD_EXAMPLE_ANDROID_PACKAGE";
 	public static final String fileSeparator = System.getProperty("file.separator");
-	
+	/**
+	 * 系统公共配置
+	 */
+	public interface SYS_CONFIG {
+		String DEFAULT_LANGUAGE = "en_US";
+		/** 用户登录后的Session Key */
+		String LOGIN_SESSION_KEY = "__SYSTEM_USER_SESSION_KEY__";
+		/** session 过期时间为20分钟 */
+		int LOGIN_SESSION_INVALIDATE = 1200;
+
+		long PAGE_SIZE = 20;
+	}
 	//系统配置
 	interface Configs {
 		String credentialsDirPath = "credentials";
