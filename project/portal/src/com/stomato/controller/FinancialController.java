@@ -133,7 +133,7 @@ public class FinancialController extends UserController{
 	}
 	private String savePhoto(MultipartFile file,Model model,Integer uid,Integer credentialsType,String credentialsNo,String photoname){
 		try{
-			String suffix = CredentialValidation.IMG_SUFFIXS.get(file.getContentType());
+			String suffix = Constant.FileSuffixs.IMG_SUFFIXS.get(file.getContentType());
 			String savefilepath = String.format("/%s/%s/%s_%s_%s.%s", uid,Constant.Configs.credentialsDirPath,credentialsType,credentialsNo,photoname,suffix);
 			File targetFile = new File((configService.loadConfig(Constant.Configs.filesDirPath) + savefilepath).replace("/", fileSeparator));
 			if (!targetFile.exists()) {

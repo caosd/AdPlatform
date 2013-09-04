@@ -33,7 +33,10 @@
 		<result property="endTime" column="end_time" />
 		<result property="status" column="status" />
 		<result property="isDel" column="is_del" />
-		<result property="recom" column="recom" />
+		<result property="isRecom" column="is_recom" />
+		<result property="adMode" column="ad_mode" />
+		<result property="downloadMode" column="download_mode" />
+		<result property="installMode" column="install_mode" />
 	</resultMap>
 	
 	<insert id="addAdResource" parameterType="com.stomato.domain.AdResource">
@@ -66,8 +69,11 @@
 			start_time, 
 			end_time, 
 			status,
-			recom, 
-			is_del) 
+			is_recom, 
+			is_del,
+			ad_mode,
+			download_mode,
+			install_mode) 
 		values (#{channelId},
 			#{adName},
 			#{adTitle},
@@ -97,7 +103,11 @@
 			#{endTime},
 			0,
 			0,
-			0)
+			0,
+			0,
+			0,
+			0
+			)
 		 <selectKey  keyProperty="id" resultType="int"> 
 		    SELECT @@IDENTITY as ID
 		 </selectKey>
@@ -137,8 +147,11 @@
 				start_time, 
 				end_time, 
 				status, 
-				recom,
-				is_del 
+				is_recom,
+				is_del,
+				ad_mode,
+				download_mode,
+				install_mode
 		from t_ad_resource where id=#{id} 
 	</select>
 	<update id="updateAdResource" parameterType="com.stomato.domain.AdResource">
@@ -170,8 +183,11 @@
 			<if test="startTime != null">start_time = #{startTime},</if>
 			<if test="endTime != null">end_time = #{endTime},</if>
 			<if test="status != null">status = #{status},</if>
-			<if test="recom != null">recom = #{recom},</if>
+			<if test="isRecom != null">is_recom = #{isRecom},</if>
 			<if test="isDel != null">is_del = #{isDel},</if>
+			<if test="adMode != null">ad_mode = #{adMode},</if>
+			<if test="downloadMode != null">download_mode = #{downloadMode},</if>
+			<if test="installMode != null">install_mode = #{installMode},</if>
 			modify_date = now()
 		</set> 
         where id = #{id}
@@ -223,8 +239,11 @@
 				start_time, 
 				end_time, 
 				status, 
-				recom,
-				is_del
+				is_recom,
+				is_del,
+				ad_mode,
+				download_mode,
+				install_mode
 		from t_ad_resource where 1=1 
 		<if test="adName != null">
 		 	and ad_name like '%${adName}%'

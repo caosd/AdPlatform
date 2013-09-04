@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Navicat MySQL Data Transfer
 
@@ -12,6 +13,16 @@ File Encoding         : 65001
 
 Date: 2013-09-03 18:30:34
 */
+=======
+﻿
+DROP DATABASE IF EXISTS `stomato`;
+
+CREATE DATABASE `stomato`
+    CHARACTER SET 'utf8'
+    COLLATE 'utf8_general_ci';
+
+USE `stomato`;
+>>>>>>> 3400105c30abe1479f62db58813fe21e68f0aefe
 
 SET FOREIGN_KEY_CHECKS=0;
 

@@ -58,8 +58,7 @@ public class AdResourceForm {
 	/**
 	 * 应用支持平台
 	 */
-	@NotEmpty
-	private String supportPlatform;
+	private Integer supportPlatform;
 	/**
 	 * 应用分类编号ID
 	 */
@@ -112,6 +111,18 @@ public class AdResourceForm {
 
 	private Integer status;
 	private Boolean is_del;
+	/**
+	 * 广告模式
+	 */
+	private Integer adMode;
+	/**
+	 * 下载模式
+	 */
+	private Integer downloadMode;
+	/**
+	 * 安装模式,IOS专用
+	 */
+	private Integer installMode;
 
 	/***************************************************************************
 	 * 
@@ -134,6 +145,16 @@ public class AdResourceForm {
 	private MultipartFile adImagec;
 
 	private MultipartFile adImaged;
+	
+	private MultipartFile apkFile;
+ 
+	public MultipartFile getApkFile() {
+		return apkFile;
+	}
+
+	public void setApkFile(MultipartFile apkFile) {
+		this.apkFile = apkFile;
+	}
 
 	public MultipartFile getDesktopIconFile() {
 		return desktopIconFile;
@@ -298,14 +319,6 @@ public class AdResourceForm {
 		this.version = version;
 	}
 
-	public String getSupportPlatform() {
-		return supportPlatform;
-	}
-
-	public void setSupportPlatform(String supportPlatform) {
-		this.supportPlatform = supportPlatform;
-	}
-
 	public Integer getChargeType() {
 		return chargeType;
 	}
@@ -432,6 +445,38 @@ public class AdResourceForm {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public Integer getSupportPlatform() {
+		return supportPlatform;
+	}
+
+	public void setSupportPlatform(Integer supportPlatform) {
+		this.supportPlatform = supportPlatform;
+	}
+
+	public Integer getAdMode() {
+		return adMode;
+	}
+
+	public void setAdMode(Integer adMode) {
+		this.adMode = adMode;
+	}
+
+	public Integer getDownloadMode() {
+		return downloadMode;
+	}
+
+	public void setDownloadMode(Integer downloadMode) {
+		this.downloadMode = downloadMode;
+	}
+
+	public Integer getInstallMode() {
+		return installMode;
+	}
+
+	public void setInstallMode(Integer installMode) {
+		this.installMode = installMode;
 	}
 
 }

@@ -58,7 +58,7 @@ public class AdResource {
 	/**
 	 * 应用支持平台
 	 */
-	private String supportPlatform;
+	private Integer supportPlatform;
 	/**
 	 * 应用分类编号ID
 	 */
@@ -115,8 +115,19 @@ public class AdResource {
 
 	private Integer status;
 	private Boolean isDel;
-	private Boolean recom;
-
+	private Boolean isRecom;
+	/**
+	 * 广告模式
+	 */
+	private Integer adMode;
+	/**
+	 * 下载模式
+	 */
+	private Integer downloadMode;
+	/**
+	 * 安装模式,IOS专用
+	 */
+	private Integer installMode;
 	/**
 	 * 展示需要
 	 */
@@ -212,14 +223,6 @@ public class AdResource {
 		this.adTitle = adTitle;
 	}
 
-	public Boolean getRecom() {
-		return recom;
-	}
-
-	public void setRecom(Boolean recom) {
-		this.recom = recom;
-	}
-
 	public String getAdIcon() {
 		return adIcon;
 	}
@@ -262,14 +265,6 @@ public class AdResource {
 
 	public void setVersion(String version) {
 		this.version = version;
-	}
-
-	public String getSupportPlatform() {
-		return supportPlatform;
-	}
-
-	public void setSupportPlatform(String supportPlatform) {
-		this.supportPlatform = supportPlatform;
 	}
 
 	public Integer getChargeType() {
@@ -398,6 +393,46 @@ public class AdResource {
 
 	public void setClearingForm(String clearingForm) {
 		this.clearingForm = clearingForm;
+	}
+
+	public Integer getSupportPlatform() {
+		return supportPlatform;
+	}
+
+	public void setSupportPlatform(Integer supportPlatform) {
+		this.supportPlatform = supportPlatform;
+	}
+
+	public Boolean getIsRecom() {
+		return isRecom;
+	}
+
+	public void setIsRecom(Boolean isRecom) {
+		this.isRecom = isRecom;
+	}
+
+	public Integer getAdMode() {
+		return adMode;
+	}
+
+	public void setAdMode(Integer adMode) {
+		this.adMode = adMode;
+	}
+
+	public Integer getDownloadMode() {
+		return downloadMode;
+	}
+
+	public void setDownloadMode(Integer downloadMode) {
+		this.downloadMode = downloadMode;
+	}
+
+	public Integer getInstallMode() {
+		return installMode;
+	}
+
+	public void setInstallMode(Integer installMode) {
+		this.installMode = installMode;
 	}
 
 }
