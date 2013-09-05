@@ -47,6 +47,7 @@
 								<tr align="left">
 								   <th>#</th>
 								   <th>Icon</th>
+								   <th>资源ID</th>
 			                       <th>广告渠道</th>
 			                       <th>资源名称</th>
 			                       <th>应用分类</th>
@@ -66,6 +67,7 @@
 					            		<tr class="gradeX ${(stat.index%2) == 0 ? 'odd':'even' }">
 					            			<td class="sorting_1">${stat.index+1}</td>
 					                        <td><img width="50px" src="${imgServer}${item.adIcon}"/></td>
+					                        <td>${item.id}</td>
 					                        <td>
 					                        <c:forEach items="${adChannelList}" var="adChannel" >
 					                        	<c:if test="${adChannel.id == item.channelId}">

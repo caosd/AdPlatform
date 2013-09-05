@@ -116,6 +116,14 @@ textarea {width:600px;}
 					</div>
 				</div>
 				<div class="form-row">
+					<label class="field-name" for="apkFile">上传APK：</label>
+					<div class="field">
+						<input type="file" name="apkFile" id="file">
+						<a href="${adResource.apkUrl}">下载apk</a>
+						<form:errors path="apkFile" cssClass="error"/>
+					</div>
+				</div>
+				<div class="form-row">
 					<label class="field-name" for="adPackage">应用包名：</label>
 					<div class="field">
 						<div class="input-prepend input-append">
