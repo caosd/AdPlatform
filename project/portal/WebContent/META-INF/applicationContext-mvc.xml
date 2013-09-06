@@ -59,13 +59,13 @@
 	        <mvc:mapping path="/accounts/**" />
 	        <mvc:mapping path="/apps/**" />
             <mvc:mapping path="/financial/**"/>
-            <mvc:mapping path="/adResource/**"/>
             <mvc:mapping path="/report/**"/>
             <mvc:mapping path="/menu/**"/>
             <mvc:mapping path="/role/**"/>
             <mvc:mapping path="/adchannel/**"/>
             <mvc:mapping path="/adpush/**"/>
-            <mvc:mapping path="/adResource/**"/>
+            <mvc:mapping path="/rptpush/**"/>
+            <mvc:mapping path="/adresource/**"/>
             <mvc:mapping path="/company/**"/>
             <mvc:mapping path="/userchannel/**"/>
             <mvc:mapping path="/dashboard.html"/>

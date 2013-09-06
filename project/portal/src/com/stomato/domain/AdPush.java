@@ -1,31 +1,22 @@
 package com.stomato.domain;
 
-import java.util.Date;
 
 public class AdPush {
 	private Integer id;
 
 	private Integer adresourceId;
 
-	private Date pushDate;
-
-	private Boolean firstPush;
+	private Boolean topPush;
 
 	private Integer maxPush;
 
-	private Integer realPush;
+	private Integer dailyPush;
 
-	private Double money;
+	private Integer totalPush;
 
+	private Integer todayPush;
+	
 	private Boolean status;
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
 
 	public Integer getId() {
 		return id;
@@ -33,6 +24,14 @@ public class AdPush {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	public Integer getAdresourceId() {
@@ -43,20 +42,12 @@ public class AdPush {
 		this.adresourceId = adresourceId;
 	}
 
-	public Date getPushDate() {
-		return pushDate;
+	public Boolean getTopPush() {
+		return topPush;
 	}
 
-	public void setPushDate(Date pushDate) {
-		this.pushDate = pushDate;
-	}
-
-	public Boolean getFirstPush() {
-		return firstPush;
-	}
-
-	public void setFirstPush(Boolean firstPush) {
-		this.firstPush = firstPush;
+	public void setTopPush(Boolean topPush) {
+		this.topPush = topPush;
 	}
 
 	public Integer getMaxPush() {
@@ -67,19 +58,28 @@ public class AdPush {
 		this.maxPush = maxPush;
 	}
 
-	public Integer getRealPush() {
-		return realPush;
+	public Integer getDailyPush() {
+		return dailyPush;
 	}
 
-	public void setRealPush(Integer realPush) {
-		this.realPush = realPush;
+	public void setDailyPush(Integer dailyPush) {
+		this.dailyPush = dailyPush;
 	}
 
-	public Double getMoney() {
-		return money;
+	public Integer getTotalPush() {
+		return totalPush;
 	}
 
-	public void setMoney(Double money) {
-		this.money = money;
+	public void setTotalPush(Integer totalPush) {
+		this.totalPush = totalPush;
 	}
+
+	public Integer getTodayPush() {
+		return todayPush;
+	}
+
+	public void setTodayPush(Integer todayPush) {
+		this.todayPush = todayPush;
+	}
+
 }

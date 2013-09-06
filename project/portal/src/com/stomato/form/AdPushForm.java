@@ -1,7 +1,5 @@
 package com.stomato.form;
 
-import java.util.Date;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -9,22 +7,17 @@ import org.springframework.beans.BeanUtils;
 
 import com.google.gson.Gson;
 import com.stomato.domain.AdPush;
-import com.stomato.utils.DateUtils;
 
 public class AdPushForm {
 
 	private Integer id;
 
-	private Date pushDate;
-
-	private Boolean firstPush;
+	private Boolean topPush;
 	@Max(1000)
 	@Min(1)
 	private Integer maxPush;
 	@Min(1)
-	private Integer realPush;
-	@Min(0)
-	private Double money;
+	private Integer dailyPush;
 
 	private Boolean status;
 
@@ -32,31 +25,12 @@ public class AdPushForm {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Boolean getTopPush() {
+		return topPush;
 	}
 
-	public Date getPushDate() {
-		return pushDate;
-	}
-	public String getPushDateStr() {
-		if( pushDate != null )
-			return DateUtils.getInstance().formateDate(pushDate);
-		return "";
-	}
-	public void setPushDateStr(String pushDateStr) {
-		pushDate = DateUtils.getInstance().stringToDate(pushDateStr);
-	}
-	public void setPushDate(Date pushDate) {
-		this.pushDate = pushDate;
-	}
-
-	public Boolean getFirstPush() {
-		return firstPush;
-	}
-
-	public void setFirstPush(Boolean firstPush) {
-		this.firstPush = firstPush;
+	public void setTopPush(Boolean topPush) {
+		this.topPush = topPush;
 	}
 
 	public Integer getMaxPush() {
@@ -67,20 +41,12 @@ public class AdPushForm {
 		this.maxPush = maxPush;
 	}
 
-	public Integer getRealPush() {
-		return realPush;
+	public Integer getDailyPush() {
+		return dailyPush;
 	}
 
-	public void setRealPush(Integer realPush) {
-		this.realPush = realPush;
-	}
-
-	public Double getMoney() {
-		return money;
-	}
-
-	public void setMoney(Double money) {
-		this.money = money;
+	public void setDailyPush(Integer dailyPush) {
+		this.dailyPush = dailyPush;
 	}
 
 	public Boolean getStatus() {
@@ -91,6 +57,9 @@ public class AdPushForm {
 		this.status = status;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
 		return new Gson().toJson(this);

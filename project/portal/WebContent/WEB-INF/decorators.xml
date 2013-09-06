@@ -22,7 +22,7 @@
         <pattern>/menu/*</pattern>
         <pattern>/role/*</pattern>
         <pattern>/financial/*</pattern>
-        <pattern>/adResource/*</pattern>
+        <pattern>/adresource/*</pattern>
         <pattern>/adchannel/*</pattern>
         <pattern>/company/*</pattern>
         <pattern>/userchannel/*</pattern>
@@ -30,6 +30,7 @@
         <pattern>/errors/*</pattern>
         <pattern>/result/*</pattern>
         <pattern>/adpush/*</pattern>
+        <pattern>/rptpush/*</pattern>
     </decorator>
 
 </decorators>

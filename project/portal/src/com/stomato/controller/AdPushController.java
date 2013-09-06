@@ -46,32 +46,25 @@ public class AdPushController {
 		formParam.setTotalCount(total);
 		List<Map<String,Object>> adPushList = adPushService.getListMap(formParam);
 		model.addAttribute("adPushList", adPushList);
-		return "portal/adpush/pushList";
+		return "portal/adpush/push_list";
 	}
 
-	@RequestMapping(value="/{id}/update.html",method=RequestMethod.GET)
+	@RequestMapping(value="/{id}/edit.html",method=RequestMethod.GET)
 	public String update(@PathVariable int id,@ModelAttribute("adPushForm")AdPushForm adPushForm,BindingResult result) throws ParseException, IOException{
 		AdPush adPush = adPushService.get(id);
 		BeanUtils.copyProperties(adPush, adPushForm);
-		return "portal/adpush/pushUpdate";
+		return "portal/adpush/push_edit";
 	}
-	@RequestMapping(value="/{id}/update.html",method=RequestMethod.POST)
+	@RequestMapping(value="/{id}/edit.html",method=RequestMethod.POST)
 	public String update(@PathVariable int id,@Valid @ModelAttribute("adPushForm")AdPushForm adPushForm,BindingResult result,Model model) throws ParseException, IOException{
 		if( result.hasErrors()){
-			return "portal/adpush/pushUpdate";
+			return "portal/adpush/push_edit";
 		}
 		adPushForm.setId(id);
 		adPushService.update(adPushForm.asPojo());
 		model.addAttribute("success", true);
 		return update(id, adPushForm, result);
 	}
-	/*@RequestMapping(value="/{id}/delete.html")
-	public String delete(@PathVariable int id,Model model) throws ParseException, IOException{
-		adPushService.delete(id);
-		model.addAttribute("success", "del");
-		model.addAttribute("_goto", "/adpush/pushList.html");
-		return "redirect:/result/success";
-	}*/
 	
 	@RequestMapping(value="/export-excel")
 	public void exportExcel(@ModelAttribute("formParam") AdPushFormParam formParam,BindingResult result,HttpServletRequest request,HttpServletResponse response){

@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.stomato.constant.Constant;
 import com.stomato.domain.App;
 import com.stomato.domain.AppBusiness;
-import com.stomato.domain.AppType;
+import com.stomato.domain.AppCategory;
 import com.stomato.domain.FormParam;
 import com.stomato.domain.TempApp;
 import com.stomato.domain.User;
@@ -38,7 +38,7 @@ import com.stomato.helper.BuildExampleHelper;
 import com.stomato.helper.FileHelper;
 import com.stomato.service.AppBusinessService;
 import com.stomato.service.AppService;
-import com.stomato.service.AppTypeService;
+import com.stomato.service.AppCategoryService;
 import com.stomato.service.ConfigService;
 import com.stomato.service.TempAppService;
 import com.stomato.utils.ExcelUtils;
@@ -66,7 +66,7 @@ public class AppsController extends UserController {
 	private ConfigService configService;
 	
 	@Autowired
-	private AppTypeService appTypeService;
+	private AppCategoryService appTypeService;
 	
 	@Autowired
 	private AppBusinessService appBusinessService;
@@ -266,7 +266,7 @@ public class AppsController extends UserController {
 			}
 			model.addAttribute("icon", icon);
 			
-			List<AppType> appTypeList = appTypeService.getListFillSun();
+			List<AppCategory> appTypeList = appTypeService.getListFillSun();
 			model.addAttribute("appTypeList", appTypeList);
 		} catch (IOException e) {
 			logger.error(e);

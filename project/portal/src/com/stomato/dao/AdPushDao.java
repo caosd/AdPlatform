@@ -11,7 +11,7 @@ import com.stomato.form.AdPushFormParam;
  * 
  * @author jiandong
  */
-public interface AdPushDao extends PublicDao<AdPush> {
+public interface AdPushDao extends BaseDao<AdPush> {
 
 	List<Map<String,Object>> getListMap(AdPushFormParam formParam);
 }

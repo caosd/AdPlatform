@@ -6,48 +6,48 @@
 	<resultMap type="com.stomato.domain.AdPush" id="adPush">
         <result property="id" column="id" />
         <result property="adresourceId" column="adresource_id" />
-        <result property="pushDate" column="push_date" />
-        <result property="firstPush" column="first_push" />
+        <result property="topPush" column="top_push" />
         <result property="maxPush" column="max_push" />
-        <result property="realPush" column="real_push" />
-        <result property="money" column="money" />
+        <result property="dailyPush" column="daily_push" />
+        <result property="totalPush" column="total_push" />
+        <result property="todayPush" column="today_push" />
         <result property="status" column="status" />
 	</resultMap>
 	
 	<insert id="add" parameterType="com.stomato.domain.AdPush">
 		insert into t_ad_push(adresource_id
-			<if test="firstPush != null">
-				,first_push
+			<if test="topPush != null">
+				,top_push
 			</if>
 			<if test="maxPush != null">
 				,max_push
 			</if>
-			<if test="realPush != null">
-				,real_push
+			<if test="dailyPush != null">
+				,daily_push
 			</if>
-			<if test="money != null">
-				,money
+			<if test="totalPush != null">
+				,total_push
 			</if>
-			<if test="pushDate != null">
-				,push_date
+			<if test="todayPush != null">
+				,today_push
 			</if>
 			,status
 		)
 		values(#{adresourceId}
-		<if test="firstPush != null">
-				,#{firstPush}
+		<if test="topPush != null">
+				,#{topPush}
 			</if>
 			<if test="maxPush != null">
 				,#{maxPush}
 			</if>
-			<if test="realPush != null">
-				,#{realPush}
+			<if test="dailyPush != null">
+				,#{dailyPush}
 			</if>
-			<if test="money != null">
-				,#{money}
+			<if test="totalPush != null">
+				,#{totalPush}
 			</if>
-			<if test="pushDate != null">
-				,#{pushDate}
+			<if test="todayPush != null">
+				,#{todayPush}
 			</if>
 			,1)
 	</insert>
@@ -58,17 +58,17 @@
 	    update t_ad_push
 	    <set>
 	    	<if test="adresourceId != null">adresource_id=#{adresourceId},</if>
-	    	<if test="pushDate != null">push_date=#{pushDate},</if>
-	    	<if test="firstPush != null">first_push=#{firstPush},</if>
+	    	<if test="topPush != null">top_push=#{topPush},</if>
 	    	<if test="maxPush != null">max_push=#{maxPush},</if>
-	    	<if test="realPush != null">real_push=#{realPush},</if>
-	    	<if test="money != null">money=#{money},</if>
+	    	<if test="dailyPush != null">daily_push=#{dailyPush},</if>
+	    	<if test="totalPush != null">total_push=#{totalPush},</if>
+	    	<if test="todayPush != null">today_push=#{todayPush},</if>
 	    	<if test="status != null">status=#{status}</if>
 	    </set>
 	     where id=#{id}
 	</update>
 	<select id="get" parameterType="int" resultMap="adPush" >
-		select id, adresource_id, first_push, max_push, real_push,money,push_date,status
+		select id, adresource_id, top_push, max_push, daily_push,total_push,today_push,status
 		from t_ad_push where id=#{id} 
 	</select>
 	<select id="listTotal" parameterType="com.stomato.form.AdPushFormParam" resultType="int">
@@ -84,43 +84,46 @@
 			t_ad_channel channel
 		WHERE
 			push.adresource_id = resource.id and resource.channel_id = channel.id
+			and resource.status=1
+			and resource.is_del=0
 		<if test="adresourceId != null">
 		 	and adresource_id = #{adresourceId}
 		</if>
 	</select>
 	<select id="list" parameterType="com.stomato.form.AdPushFormParam" resultMap="adPush" >
-		select  id, adresource_id, first_push, max_push, real_push,money,push_date,status
+		select  id, adresource_id, top_push, max_push, daily_push,total_push,today_push,status
 		from t_ad_push where 1=1 
 		<if test="adresourceId != null">
 		 	and adresource_id = #{adresourceId}
 		</if>
-		order by pushDate asc
+		order by adresource_id desc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 	<select id="getListMap" parameterType="com.stomato.form.AdPushFormParam" resultType="map" >
 		SELECT
 			push.id,
-		    push.push_date,
 		    resource.shelf_date,
 		    channel.channel_name,
 		    resource.ad_name,
-			resource.price,
-			push.first_push,
+			push.top_push,
 			push.max_push,
-			push.real_push,
-			push.money,
-			push.money/push.real_push as arpu,
+			push.daily_push,
+			push.total_push,
+			push.today_push,
 			push.status
 		FROM
 			t_ad_push push,
 			t_ad_resource resource,
 			t_ad_channel channel
 		WHERE
-			push.adresource_id = resource.id and resource.channel_id = channel.id
+			push.adresource_id = resource.id 
+			and resource.channel_id = channel.id
+			and resource.status=1
+			and resource.is_del=0
 		<if test="adresourceId != null">
-		 	and adresource_id = #{adresourceId}
+		 	and push.adresource_id = #{adresourceId}
 		</if>
-		order by push_date asc
+		order by push.adresource_id asc
 		<if test="offset != null">limit #{offset},#{pageSize}</if>
 	</select>
 </mapper>

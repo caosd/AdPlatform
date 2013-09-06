@@ -90,8 +90,7 @@
 				description,
 				enable,
 				create_time
-				from t_ad_channel where is_del=0
-		##{channelName},#{contactTel},#{qq},#{contactName},#{description},#{enable}
+		from t_ad_channel where is_del=0
 		<if test="channelName != null">
 		 	and channel_name like '%${channelName}%'
 		</if>

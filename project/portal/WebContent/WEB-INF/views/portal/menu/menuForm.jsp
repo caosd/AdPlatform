@@ -49,17 +49,17 @@
 	             <form:errors path="path" cssClass="error"/>
 	          </div>
 	       </div>
-	       <div class="control-group">
-              <label class="control-label" for="">父级菜单:</label>
-              <div class="controls">
-                 <form:select path="parent" id="parent" class="span6 " data-placeholder="父级菜单:" tabindex="1">
-                    <option value="0">Select...</option>
-                    <c:forEach items="${parentMenus}" var="item" varStatus="stat">
-                    	<option value="${item.id}">${item.name}</option>
-                    </c:forEach>
-                 </form:select>
-              </div>
-           </div>
+          <div class="control-group">
+				<label class="control-label" for="parent">父级菜单：</label>
+				<div class="controls">
+					<form:select path="parent" data-placeholder="请选择一个分类" class="chosen" tabindex="-1">
+						<c:forEach var="item" items="${parentMenus }">
+						        <option value="${item.id }">${item.name }</option>
+						</c:forEach>
+                  	</form:select>
+					<form:errors path="parent" cssClass="error"/>
+				</div>
+		  </div>
 	       <div class="control-group">
               <label class="control-label">是否可见:</label>
               <div class="controls">

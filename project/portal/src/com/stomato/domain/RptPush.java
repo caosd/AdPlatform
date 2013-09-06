@@ -17,8 +17,8 @@ public class RptPush {
 	private Integer download;
 	// 安装
 	private Integer install;
-	// 请求
-	private Integer request;
+	// 收入
+	private Double revenue;
 	// 下载失败
 	private Integer fail;
 	// 下载成功
@@ -90,12 +90,12 @@ public class RptPush {
 		this.install = install;
 	}
 
-	public Integer getRequest() {
-		return request;
+	public Double getRevenue() {
+		return revenue;
 	}
 
-	public void setRequest(Integer request) {
-		this.request = request;
+	public void setRevenue(Double revenue) {
+		this.revenue = revenue;
 	}
 
 	public Integer getFail() {

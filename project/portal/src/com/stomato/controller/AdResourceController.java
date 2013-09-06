@@ -20,31 +20,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.stomato.common.BaseDao;
 import com.stomato.constant.Constant;
 import com.stomato.domain.AdChannel;
 import com.stomato.domain.AdResource;
-import com.stomato.domain.AppType;
+import com.stomato.domain.AppCategory;
 import com.stomato.domain.User;
 import com.stomato.exception.DaoException;
-import com.stomato.form.AdChannelFormParam;
+import com.stomato.exception.ServiceException;
 import com.stomato.form.AdResourceForm;
 import com.stomato.form.AdResourceFormParam;
 import com.stomato.service.AdChannelService;
 import com.stomato.service.AdResourceService;
-import com.stomato.service.AppTypeService;
+import com.stomato.service.AppCategoryService;
 import com.stomato.service.ConfigService;
+import com.stomato.service.PublicService;
 import com.stomato.utils.DateUtils;
 import com.stomato.utils.ExcelUtils;
 import com.stomato.utils.StringUtils;
 import com.stomato.validator.AdResourceValidation;
 
 @Controller
-@RequestMapping(value="/adResource")
+@RequestMapping(value="/adresource")
 public class AdResourceController extends UserController{
 
 	private Logger log = Logger.getLogger(AdResourceController.class);
@@ -53,23 +54,23 @@ public class AdResourceController extends UserController{
 	@Autowired
 	private ConfigService configService;
 	@Autowired
-	private AppTypeService appTypeService ;
+	private AppCategoryService appTypeService ;
 	@Autowired
 	private AdChannelService adChannelService ;
 	@Autowired
-	private BaseDao baseDao;
+	private PublicService publicService;
 
 	/**
 	 * goto 下载资源录入页面
 	 * @return
 	 */
 	@RequestMapping(value="/formpage.html",method=RequestMethod.GET)
-	public String resourceFromPage(@ModelAttribute("adResourceForm") AdResourceForm adResourceForm,Model model){
-		List<AppType> appTypeList = appTypeService.getListFillSun();
+	public String fromPage(@ModelAttribute("adResourceForm") AdResourceForm adResourceForm,Model model){
+		List<AppCategory> appTypeList = appTypeService.getListFillSun();
 		List<AdChannel> adChannerlList = adChannelService.listAdChannel(null);
 		model.addAttribute("appTypeList", appTypeList);
 		model.addAttribute("adChannerlList", adChannerlList);
-		return "portal/adresouce/adResourceForm";
+		return "portal/adresouce/adresource_form";
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class AdResourceController extends UserController{
 	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
 	public String addAdResource(@Valid @ModelAttribute("adResourceForm")AdResourceForm adResourceForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
 		
-		List<AppType> appTypeList = appTypeService.getListFillSun();
+		List<AppCategory> appTypeList = appTypeService.getListFillSun();
 		List<AdChannel> adChannerlList = adChannelService.listAdChannel(null);
 		model.addAttribute("appTypeList", appTypeList);
 		model.addAttribute("adChannerlList", adChannerlList);
@@ -92,7 +93,7 @@ public class AdResourceController extends UserController{
 		validation.validate(adResourceForm, result);
 		
 		if( result.hasErrors() ){
-			return "portal/adresouce/adResourceForm";
+			return "portal/adresouce/adresource_form";
 		}
 		String path = request.getSession().getServletContext().getContextPath();
 		StringBuffer showpath = new StringBuffer(configService.loadConfig(Constant.Configs.filesDirPath)).append(path.trim());
@@ -118,7 +119,7 @@ public class AdResourceController extends UserController{
 		if(adResourceForm.getStartTime().getTime()>adResourceForm.getEndTime().getTime()){
 			logger.debug("有效开始日期不能大于结束日期！");
 			request.setAttribute("msg", "有效开始日期不能大于结束日期！");
-			return "portal/adresouce/adResourceForm";
+			return "portal/adresouce/adresource_form";
 		}
 		/**
 		 * ad package & name 应用包 & 包名
@@ -140,7 +141,7 @@ public class AdResourceController extends UserController{
 			if(!apkDir.exists()){
 				apkDir.mkdirs();
 			}
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(apkFile.getOriginalFilename());
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(apkFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(apkFile.getInputStream(), new File(realPath+apkDirPath, newname));
 			adResourceForm.setApkUrl(showpath.toString()+apkDirPath+File.separator+newname);
 		}
@@ -156,7 +157,7 @@ public class AdResourceController extends UserController{
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(adIcon.getOriginalFilename());
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
 			adResourceForm.setAdIcon(showpath.toString()+adIconDirPath+"/"+newname);
 		}
@@ -167,12 +168,12 @@ public class AdResourceController extends UserController{
 		if(adBannerFile.isEmpty()){
 			adResourceForm.setAdBanner("");
 		}else{
-			String adIconDirPath = adPackageDirPath+"/icon";
+			String adIconDirPath = adPackageDirPath+File.separator+ Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(adBannerFile.getOriginalFilename());
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adBannerFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adBannerFile.getInputStream(), new File(realPath+adIconDirPath, newname));
 			adResourceForm.setAdBanner(showpath.toString()+adIconDirPath+"/"+newname);
 		}
@@ -183,12 +184,12 @@ public class AdResourceController extends UserController{
 		if(desktopIconFile.isEmpty()){
 			adResourceForm.setDesktopIcon("");
 		}else{
-			String adIconDirPath = adPackageDirPath+"/icon";
+			String adIconDirPath = adPackageDirPath+File.separator+ Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(desktopIconFile.getOriginalFilename());
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(desktopIconFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
 			adResourceForm.setDesktopIcon(showpath.toString()+adIconDirPath+"/"+newname);
 		}
@@ -207,12 +208,12 @@ public class AdResourceController extends UserController{
 		MultipartFile adImaged = adResourceForm.getAdImaged();
 		String newname = "";
 		if(!adImagea.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"a"+StringUtils.getSuffix(adImagea.getOriginalFilename());
+			newname = StringUtils.getUUID()+"a"+StringUtils.getSuffix(adImagea.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagea.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(!adImageb.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"b"+StringUtils.getSuffix(adImageb.getOriginalFilename());
+			newname = StringUtils.getUUID()+"b"+StringUtils.getSuffix(adImageb.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImageb.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
@@ -220,7 +221,7 @@ public class AdResourceController extends UserController{
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(!adImagec.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"c"+StringUtils.getSuffix(adImagec.getOriginalFilename());
+			newname = StringUtils.getUUID()+"c"+StringUtils.getSuffix(adImagec.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagec.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
@@ -228,7 +229,7 @@ public class AdResourceController extends UserController{
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(!adImaged.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"d"+StringUtils.getSuffix(adImaged.getOriginalFilename());
+			newname = StringUtils.getUUID()+"d"+StringUtils.getSuffix(adImaged.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImaged.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
@@ -242,7 +243,7 @@ public class AdResourceController extends UserController{
 		//清空表单
 		BeanUtils.copyProperties(new AdResourceForm(), adResourceForm);
 		model.addAttribute("success", true);
-		return "portal/adresouce/adResourceForm";
+		return "portal/adresouce/adresource_form";
 	}
 	
 	/**
@@ -251,28 +252,15 @@ public class AdResourceController extends UserController{
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/updateAdResource.html")
-	public String getAdResource(@ModelAttribute("adResourceForm")AdResourceForm adResourceForm,int id,Model model){
+	@RequestMapping(value="/{id}/edit.html")
+	public String preEdit(@PathVariable int id,@ModelAttribute("adResourceForm")AdResourceForm adResourceForm,Model model){
 		AdResource adResource = adResourceService.getAdResource(id);
-		List<AppType> appTypeList = appTypeService.getListFillSun();
+		List<AppCategory> appTypeList = appTypeService.getListFillSun();
 		List<AdChannel> adChannerlList = adChannelService.listAdChannel(null);
 		model.addAttribute("appTypeList", appTypeList);
 		model.addAttribute("adChannerlList", adChannerlList);
 		model.addAttribute("adResource", adResource);
-		return "portal/adresouce/adResourceUpdate";
-	}
-	
-	/**
-	 * 展示下载资源信息
-	 * @param id
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="/showAdResource.html")
-	public String showAdResource(int id,HttpServletRequest request){
-		AdResource adResource = adResourceService.getAdResource(id);
-		request.setAttribute("adResource", adResource);
-		return "portal/adresouce/adResourceShow";
+		return "portal/adresouce/adresource_edit";
 	}
 	
 	/**
@@ -281,9 +269,10 @@ public class AdResourceController extends UserController{
 	 * @param request
 	 * @return
 	 * @throws ParseException
+	 * @throws ServiceException 
 	 */
-	@RequestMapping(value="/adResourceList.html")
-	public String adResourceList(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request) throws ParseException{
+	@RequestMapping(value="/list.html")
+	public String list(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request){
 		try {
 			int total = adResourceService.listTotal(formParam);
 			formParam.setTotalCount(total);
@@ -291,15 +280,15 @@ public class AdResourceController extends UserController{
 			
 			AdChannel adChannel = new AdChannel();
 			adChannel.setEnable(true);
-			List<AdChannel> adChannelList = baseDao.queryForListEntity("com.stomato.dao.AdChannelDao.queryAdChannelList",AdChannel.class,adChannel);
+			List<AdChannel> adChannelList = publicService.queryForListEntity("com.stomato.dao.AdChannelDao.queryAdChannelList",AdChannel.class,adChannel);
 
 			request.setAttribute("adResourceList", adResourceList);
 			request.setAttribute("adChannelList", adChannelList);
-			request.setAttribute("appTypeList", appTypeService.listAppType(null));
-		} catch (DaoException err) {
+			request.setAttribute("appTypeList", appTypeService.listCategory(null));
+		} catch (Exception err) {
 			log.error("查询数据库失败", err);
 		}
-		return "portal/adresouce/adResourceList";
+		return "portal/adresouce/adresource_list";
 	}
 	/**
 	 * 修改下载资源
@@ -309,16 +298,16 @@ public class AdResourceController extends UserController{
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/updateAdResource.html",method=RequestMethod.POST)
-	public String adResourceUpdate(@Valid @ModelAttribute("adResourceForm")AdResourceForm adResourceForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
+	@RequestMapping(value="/{id}/edit.html",method=RequestMethod.POST)
+	public String doEdit(@PathVariable int id,@Valid @ModelAttribute("adResourceForm")AdResourceForm adResourceForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
 		String path = request.getSession().getServletContext().getContextPath();
 		StringBuffer showpath = new StringBuffer(configService.loadConfig(Constant.Configs.filesDirPath)).append(path.trim());
 		showpath.append("/upload");
 		/**
 		 * 上传文件路径
 		 */
-		String realPath = configService.loadConfig(Constant.Configs.filesDirPath)+"/upload";
-		AdResource oldAdResource = adResourceService.getAdResource(adResourceForm.getId());
+		String realPath = configService.loadConfig(Constant.Configs.filesDirPath)+File.separator+"upload";
+		AdResource oldAdResource = adResourceService.getAdResource(id);
 		/**
 		 * 有效日期
 		 */
@@ -331,63 +320,30 @@ public class AdResourceController extends UserController{
 		if(adResourceForm.getStartTime().getTime()>adResourceForm.getEndTime().getTime()){
 			logger.debug("有效开始日期不能大于结束日期！");
 			request.setAttribute("msg", "有效开始日期不能大于结束日期！");
-			return "msg/error";
+			return "portal/adresouce/adresource_edit";
 		}
 		/**
 		 * ad package & name 应用包 & 包名
 		 */
 		User user = this.lookup(request);
-		String adPackageDirPath = File.separator+user.getUid()+File.separator+Constant.Configs.apkDirPath+File.separator+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
-/*		String adPackageDirPath = "";
-		if(adResourceForm.getChannelId() != oldAdResource.getChannelId()){
-			adPackageDirPath ="/"+adResourceForm.getChannelId()+"-"+DateUtils.getDateStr(DateUtils.patternB);
-			File adPackageDir = new File(realPath+adPackageDirPath);
-	        if(!adPackageDir.exists()){
-	        	adPackageDir.mkdirs();
-	        }
-	        String oldAdPackageDirPath = "/"+oldAdResource.getChannelId()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
-	        File oldAdPackageDir = new File(realPath+oldAdPackageDirPath);
-	        for(File file:oldAdPackageDir.listFiles()){
-	        	if(file.isDirectory()){
-	        		FileUtils.moveDirectoryToDirectory(file, adPackageDir, true);
-	        	}else{
-	        		FileUtils.moveFileToDirectory(file, adPackageDir, false);
-	        	}
-	        }
-	        
-	        oldAdPackageDir.delete();
-	        
-	        oldAdResource.setAdIcon(oldAdResource.getAdIcon().replaceFirst(oldAdResource.getChannelId()+"", adResourceForm.getChannelId()+""));
-	        oldAdResource.setApkUrl(oldAdResource.getApkUrl().replaceFirst(oldAdResource.getChannelId()+"", adResourceForm.getChannelId()+""));
-	        
-	        String adImagesArr[] = oldAdResource.getAdImages().split(",");
-	        StringBuffer adImages = new StringBuffer("");
-	        for(String aa: adImagesArr){
-	        	aa.replaceFirst(oldAdResource.getChannelId()+"", adResourceForm.getChannelId()+"");
-	        	if(adImages.length()>1){
-					adImages.append(",");
-				}
-	        	adImages.append(aa);
-	        }
-	        oldAdResource.setAdImages(adImages.toString());
-	        oldAdResource.setCreateDate(new Date());
-		}else{
-			adPackageDirPath = "/"+oldAdResource.getChannelId()+"-"+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
-		}*/
+		String adPackageDirPath = File.separator+user.getUid()+File.separator+Constant.Configs.adresourceDirPath+File.separator+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
 		/**
 		 *  apkFile
 		 */
 		MultipartFile apkFile = adResourceForm.getApkFile();
 		if(apkFile == null || apkFile.isEmpty()){
-			adResourceForm.setApkUrl("");
+			adResourceForm.setApkUrl(oldAdResource.getApkUrl());
 		}else{
-			String apkDirPath = adPackageDirPath+File.separator+Constant.Configs.appIconDir;
+			if( null != oldAdResource.getApkUrl() ){
+				com.stomato.utils.FileUtils.delete(new File(oldAdResource.getApkUrl()));
+			}
+			String apkDirPath = adPackageDirPath+File.separator+Constant.Configs.apkDirPath;
 			File apkDir = new File(realPath+apkDirPath);
 			if(!apkDir.exists()){
 				apkDir.mkdirs();
 			}
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(apkFile.getOriginalFilename());
-			FileUtils.copyInputStreamToFile(apkFile.getInputStream(), new File(realPath+apkDir, newname));
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(apkFile.getOriginalFilename());
+			FileUtils.copyInputStreamToFile(apkFile.getInputStream(), new File(realPath+apkDirPath, newname));
 			adResourceForm.setApkUrl(showpath.toString()+apkDirPath+File.separator+newname);
 		}
         /**
@@ -397,12 +353,13 @@ public class AdResourceController extends UserController{
 		if(adBannerFile.isEmpty()){
 			adResourceForm.setAdBanner(oldAdResource.getAdBanner());
 		}else{
-			String adIconDirPath = adPackageDirPath+File.separator+"icon";
+			com.stomato.utils.FileUtils.delete(new File(oldAdResource.getAdBanner()));
+			String adIconDirPath = adPackageDirPath+File.separator+Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(adBannerFile.getOriginalFilename());
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adBannerFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adBannerFile.getInputStream(), new File(realPath+adIconDirPath, newname));
 			adResourceForm.setAdBanner(showpath.toString()+adIconDirPath+File.separator+newname);
 		}
@@ -413,13 +370,14 @@ public class AdResourceController extends UserController{
 		if(adIcon.isEmpty()){
 			adResourceForm.setAdIcon(oldAdResource.getAdIcon());
 		}else{
-			String adIconDirPath = adPackageDirPath+File.separator+"icon";
+			com.stomato.utils.FileUtils.delete(new File(oldAdResource.getAdIcon()));
+			String adIconDirPath = adPackageDirPath+File.separator+Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
 	//		String newname = "icon"+StringUtils.getSuffix(adIcon.getOriginalFilename());
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(adIcon.getOriginalFilename());
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
 			adResourceForm.setAdIcon(showpath.toString()+adIconDirPath+File.separator+newname);
 		}
@@ -430,12 +388,13 @@ public class AdResourceController extends UserController{
 		if(desktopIconFile.isEmpty()){
 			adResourceForm.setDesktopIcon(oldAdResource.getDesktopIcon());
 		}else{
-			String adIconDirPath = adPackageDirPath+File.separator+"icon";
+			com.stomato.utils.FileUtils.delete(new File(oldAdResource.getDesktopIcon()));
+			String adIconDirPath = adPackageDirPath+File.separator+Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
-			String newname = DateUtils.getDateStr(DateUtils.patternF)+StringUtils.getSuffix(desktopIconFile.getOriginalFilename());
+			String newname = StringUtils.getUUID()+StringUtils.getSuffix(desktopIconFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
 			adResourceForm.setDesktopIcon(showpath.toString()+adIconDirPath+File.separator+newname);
 		}
@@ -454,12 +413,12 @@ public class AdResourceController extends UserController{
 		MultipartFile adImaged = adResourceForm.getAdImaged();
 		String newname = "" ;
 		if(!adImagea.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"a"+StringUtils.getSuffix(adImagea.getOriginalFilename());
+			newname = StringUtils.getUUID()+"a"+StringUtils.getSuffix(adImagea.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagea.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(!adImageb.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"b"+StringUtils.getSuffix(adImageb.getOriginalFilename());
+			newname = StringUtils.getUUID()+"b"+StringUtils.getSuffix(adImageb.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImageb.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
@@ -467,7 +426,7 @@ public class AdResourceController extends UserController{
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(!adImagec.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"c"+StringUtils.getSuffix(adImagec.getOriginalFilename());
+			newname = StringUtils.getUUID()+"c"+StringUtils.getSuffix(adImagec.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagec.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
@@ -475,7 +434,7 @@ public class AdResourceController extends UserController{
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(!adImaged.isEmpty()){
-			newname = DateUtils.getDateStr(DateUtils.patternF)+"d"+StringUtils.getSuffix(adImaged.getOriginalFilename());
+			newname = StringUtils.getUUID()+"d"+StringUtils.getSuffix(adImaged.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImaged.getInputStream(), new File(realPath+adImagesDirPath,newname));
 			if(adImages.length()>1){
 				adImages.append(",");
@@ -483,6 +442,13 @@ public class AdResourceController extends UserController{
 			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
 		}
 		if(adImages.length()>1){
+			//删除已存在图片
+			if( null != oldAdResource.getAdImages() ){
+				String []images = oldAdResource.getAdImages().split(",");
+				for (int i = 0,j = images.length; i < j; i++) {
+					com.stomato.utils.FileUtils.delete(new File(images[i]));
+				}
+			}
 			adResourceForm.setAdImages(adImages.toString());
 		}else{
 			adResourceForm.setAdImages(oldAdResource.getAdImages());
@@ -490,85 +456,87 @@ public class AdResourceController extends UserController{
 		AdResource adResource = adResourceForm.asPojo();
 		adResourceService.updateAdResource(adResource);
 		request.setAttribute("success", true);
-		return getAdResource(adResourceForm, adResourceForm.getId(), model);
+		return preEdit(id,adResourceForm, model);
 	}
 	
-	@RequestMapping("/onShelf.html")
-	public String onShelfAdResource(int id,Model model){
+	@RequestMapping("/{id}/onshelf.html")
+	public String onShelfAdResource(@PathVariable int id,Model model){
 		AdResource resource = adResourceService.getAdResource(id);
 		if( Constant.AdResourceStatus.onShelf != resource.getStatus() ){
 			resource.setStatus(Constant.AdResourceStatus.onShelf);
 			resource.setShelfDate(new Date());
 			adResourceService.updateAdResource(resource);
 		}
-		return "redirect:/adResource/adResourceList.html";
+		return "redirect:/adresource/list.html";
 	}
-	@RequestMapping("/offShelf.html")
-	public String offShelfAdResource(int id,Model model){
+	@RequestMapping("/{id}/offshelf.html")
+	public String offShelfAdResource(@PathVariable int id,Model model){
 		AdResource resource = adResourceService.getAdResource(id);
 		if( Constant.AdResourceStatus.offShelf != resource.getStatus() ){
 			resource.setStatus(Constant.AdResourceStatus.offShelf);
 			adResourceService.updateAdResource(resource);
 		}
-		return "redirect:/adResource/adResourceList.html";
+		return "redirect:/adresource/list.html";
 	}
-	@RequestMapping("/recomm.html")
-	public String recommAdResource(int id,Model model){
+	@RequestMapping("/{id}/recomm.html")
+	public String recommAdResource(@PathVariable int id,Model model){
 		AdResource resource = adResourceService.getAdResource(id);
 		if( !resource.getIsRecom() ){
 			resource.setIsRecom(true);
 			adResourceService.updateAdResource(resource);
 		}
-		return "redirect:/adResource/adResourceList.html";
+		return "redirect:/adresource/list.html";
 	}
-	@RequestMapping("/cancelRecomm.html")
-	public String cancelRecommAdResource(int id,Model model){
+	@RequestMapping("/{id}/cancelrecomm.html")
+	public String cancelRecommAdResource(@PathVariable int id,Model model){
 		AdResource resource = adResourceService.getAdResource(id);
 		if( resource.getIsRecom() ){
 			resource.setIsRecom(false);
 			adResourceService.updateAdResource(resource);
 		}
-		return "redirect:/adResource/adResourceList.html";
+		return "redirect:/adresource/list.html";
 	}
-	@RequestMapping("/deleteAdResource.html")
-	public String deleteAdResource(int id,Model model){
+	@RequestMapping("/{id}/delete.html")
+	public String deleteAdResource(@PathVariable int id,Model model){
 		AdResource resource = adResourceService.getAdResource(id);
 		if( !resource.getIsDel() ){
 			resource.setIsDel(true);
 			resource.setStatus(Constant.AdResourceStatus.offShelf);
 			adResourceService.updateAdResource(resource);
 		}
-		return "redirect:/adResource/adResourceList.html";
+		return "redirect:/adresource/list.html";
 	}
 	/**
 	 * 查询回收站列表
 	 * @param model
 	 * @return
+	 * @throws DaoException 
+	 * @throws ServiceException 
 	 */
-	@RequestMapping(value="/listRecycle.html")
-	public String recycleList(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request){
+	@RequestMapping(value="/recycle/list.html")
+	public String recycleList(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request) throws ServiceException, DaoException{
 		formParam.setIsDel(true);
 		int total = adResourceService.listTotal(formParam);
 		formParam.setTotalCount(total);
 		
-		AdChannelFormParam adChannelFormParam = new AdChannelFormParam();
-		adChannelFormParam.setEnable(true);
-		List<AdChannel> adChannelList = adChannelService.listAdChannel(adChannelFormParam);
+		AdChannel adChannel = new AdChannel();
+		adChannel.setEnable(true);
+		List<AdChannel> adChannelList = publicService.queryForListEntity("com.stomato.dao.AdChannelDao.queryAdChannelList",AdChannel.class,adChannel);
 		List<AdResource> adResourceList = adResourceService.listAdResource(formParam);
 		
 		request.setAttribute("adChannelList", adChannelList);
-		request.setAttribute("appTypeList", appTypeService.listAppType(null));
+		request.setAttribute("appTypeList", appTypeService.listCategory(null));
 		request.setAttribute("adResourceList", adResourceList);
-		return "portal/adresouce/adResourceRecycleList";
+		return "portal/adresouce/adresource_recyclelist";
 	}
-	@RequestMapping("/recover.html")
-	public String recoverAdResource(int id,Model model){
+	@RequestMapping("/{id}/recover.html")
+	public String recoverAdResource(@PathVariable int id,Model model){
 		AdResource resource = adResourceService.getAdResource(id);
 		if( resource.getIsDel() ){
 			resource.setIsDel(false);
 			adResourceService.updateAdResource(resource);
 		}
-		return "redirect:/adResource/listRecycle.html";
+		return "redirect:/adresource/recycle/list.html";
 	}
 	
 	@RequestMapping(value="/export-excel")

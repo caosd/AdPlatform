@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,9 +34,9 @@ public class CompanyController {
 	 * goto 进入天津渠道页面
 	 * @return
 	 */
-	@RequestMapping(value="/formpage.html",method=RequestMethod.GET)
+	@RequestMapping(value="/add.html",method=RequestMethod.GET)
 	public String fromPage(@ModelAttribute("companyForm") CompanyForm companyForm){
-		return "portal/company/companyForm";
+		return "portal/company/company_form";
 	}
 
 	/**
@@ -46,31 +47,18 @@ public class CompanyController {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	@RequestMapping(value="/formpage.html",method=RequestMethod.POST)
+	@RequestMapping(value="/add.html",method=RequestMethod.POST)
 	public String addCompany(@Valid @ModelAttribute("companyForm")CompanyForm companyForm, BindingResult result,HttpServletRequest request,Model model){
 		logger.info(String.format("addCompany[%s]",companyForm.getName()));
 		if(result.hasErrors()){
-			return "portal/company/companyForm";
+			return "portal/company/company_form";
 		}
 		Company company = companyForm.asPojo();
 		companyService.addCompany(company);
 		//清空表单
 		BeanUtils.copyProperties(new CompanyForm(), companyForm);
 		model.addAttribute("success", true);
-		return "portal/company/companyForm";
-	}
-	
-	/**
-	 * 展示渠道信息
-	 * @param id
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="/showCompany.html")
-	public String showcompany(int id,HttpServletRequest request){
-		Company company = companyService.getCompany(id);
-		request.setAttribute("company", company);
-		return "portal/company/companyShow";
+		return "portal/company/company_form";
 	}
 	
 	/**
@@ -80,21 +68,21 @@ public class CompanyController {
 	 * @return
 	 * @throws ParseException
 	 */
-	@RequestMapping(value="/companyList.html")
+	@RequestMapping(value="/list.html")
 	public String companyList(@ModelAttribute("formParam")CompanyFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
 		
 		int total = companyService.listTotal(formParam);
 		formParam.setTotalCount(total);
 		List<Company> companyList = companyService.listCompany(formParam);
 		model.addAttribute("companyList", companyList);
-		return "portal/company/companyList";
+		return "portal/company/company_list";
 	}
 
-	@RequestMapping(value="/updateCompany.html",method=RequestMethod.GET)
-	public String companyUpdate(@ModelAttribute("companyForm")CompanyForm form,int id,Model model){
+	@RequestMapping(value="/{id}/edit.html",method=RequestMethod.GET)
+	public String companyUpdate(@PathVariable int id,@ModelAttribute("companyForm")CompanyForm form,Model model){
 		Company company = companyService.getCompany(id);
 		model.addAttribute("company",company);
-		return "portal/company/companyUpdate";
+		return "portal/company/company_edit";
 	}
 	/**
 	 * 修改渠道
@@ -104,27 +92,26 @@ public class CompanyController {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/updateCompany.html",method=RequestMethod.POST)
-	public String companyUpdate(@Valid @ModelAttribute("companyForm")CompanyForm form, BindingResult result,HttpServletRequest request,Model model){
+	@RequestMapping(value="/{id}/edit.html",method=RequestMethod.POST)
+	public String companyUpdate(@PathVariable int id,@Valid @ModelAttribute("companyForm")CompanyForm form, BindingResult result,HttpServletRequest request,Model model){
 		if( result.hasErrors()){
 			model.addAttribute("company", form.asPojo());
-			return "portal/company/companyUpdate";
+			return "portal/company/edit";
 		}
 		Company company = form.asPojo();
 		companyService.updateCompany(company);
 		model.addAttribute("success", true);
-		return companyUpdate(form, company.getId(), model);
+		return companyUpdate(id,form, model);
 	}
 	/**
 	 * 删除渠道，数据库标识删除
 	 * @param id
 	 * @return
 	 */
-	 @RequestMapping(value="/deleteCompany.html")
-	public String adChanelDelete(@ModelAttribute("company")Company company,int id,BindingResult result,HttpServletRequest request,Model model){
+	 @RequestMapping(value="/{id}/delete.html")
+	public String adChanelDelete(@PathVariable int id,@ModelAttribute("company")Company company,BindingResult result,HttpServletRequest request,Model model){
 		companyService.deleteCompany(id);
-		model.addAttribute("success", "del");
-		model.addAttribute("_goto", "/company/companyList.html");
-		return "redirect:/result/success";
+		model.addAttribute("success", "success");
+		return "redirect:/company/list.html";
 	}
 }

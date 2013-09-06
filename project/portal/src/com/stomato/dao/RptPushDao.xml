@@ -2,5 +2,108 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stomato.dao.RptPushDao">
-
+	<resultMap type="com.stomato.domain.RptPush" id="rptPush">
+        <result property="id" column="id" />
+        <result property="idate" column="idate" />
+        <result property="adId" column="ad_id" />
+        <result property="push" column="push" />
+        <result property="arrive" column="arrive" />
+        <result property="click" column="click" />
+        <result property="download" column="download" />
+        <result property="install" column="install" />
+        <result property="revenue" column="revenue" />
+        <result property="fail" column="fail" />
+        <result property="downloadSuccess" column="download_success" />
+        <result property="shows" column="shows" />
+	</resultMap>
+	<sql id="public_column">
+		 id,
+		 idate,
+		 ad_id,
+		 push,
+		 arrive,
+		 shows,
+		 click,
+		 download,
+		 fail,
+		 download_success,
+		 install,
+		 active,
+		 revenue
+	</sql>
+	<select id="totalRows" parameterType="com.stomato.form.RptPushFormParam" resultType="int">
+		select 
+			count(1)
+		from t_rpt_push rpt,
+		     t_ad_resource res,
+		     t_ad_channel cn
+		where 
+			rpt.ad_id=res.id
+			and res.channel_id=cn.id
+			<if test="adName != null">
+				and res.ad_name like '%${adName}%' 
+			</if>
+			<if test="startDate != null">
+            	and rpt.idate between date_format(#{startDate},'%Y%m%d') and date_format(#{endDate},'%Y%m%d')
+        	</if>
+	</select>
+	<select id="queryPage" parameterType="com.stomato.form.RptPushFormParam" resultType="map">
+		select 
+			rpt.id,
+			res.ad_name,
+			cn.channel_name,
+			rpt.idate,
+			rpt.push,
+			rpt.revenue,
+			rpt.shows,
+			rpt.click,
+			rpt.download,
+			rpt.download_success,
+			rpt.fail,
+			rpt.install
+		from t_rpt_push rpt,
+		     t_ad_resource res,
+		     t_ad_channel cn
+		where 
+			rpt.ad_id=res.id
+			and res.channel_id=cn.id
+			<if test="adName != null">
+				and res.ad_name like '%${adName}%' 
+			</if>
+			<if test="startDate != null">
+            	and rpt.idate between date_format(#{startDate},'%Y%m%d') and date_format(#{endDate},'%Y%m%d')
+        	</if>
+			order by rpt.idate
+			<if test="offset != null">limit #{offset},#{pageSize}</if>
+	</select>
+	<update id ="update" parameterType="com.stomato.domain.RptPush">
+	    update t_rpt_push
+	    <set>
+	        id=id
+	    	<if test="idate != null">,idate=#{idate}</if>
+	    	<if test="adId != null">,ad_id=#{adId}</if>
+	    	<if test="push != null">,push=#{push}</if>
+	    	<if test="arrive != null">,arrive=#{arrive}</if>
+	    	<if test="click != null">,click=#{click}</if>
+	    	<if test="download != null">,download=#{download}</if>
+	    	<if test="install != null">,install=#{install}</if>
+	    	<if test="revenue != null">,revenue=#{revenue}</if>
+	    	<if test="fail != null">,fail=#{fail}</if>
+	    	<if test="downloadSuccess != null">,download_success=#{downloadSuccess}</if>
+	    	<if test="shows != null">,shows=#{shows}</if>
+	    </set>
+	     where idate=#{idate} and ad_id=#{adId} 
+	</update>
+	<select id="get" parameterType="int" resultMap="rptPush" >
+		select <include refid="public_column"/>
+		from t_rpt_push where id=#{id} 
+	</select>
+	<select id="queryByCondition" parameterType="com.stomato.domain.RptPush" resultMap="rptPush" >
+		select <include refid="public_column"/>
+		from t_rpt_push 
+		where 1=1
+		<if test="id != null">and id=#{id} </if>
+		<if test="idate != null">and idate=#{idate} </if>
+		<if test="adId != null">and ad_id=#{adId} </if>
+	</select>
 </mapper>
