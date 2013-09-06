@@ -1,5 +1,5 @@
 ﻿# Host: 127.0.0.1  (Version: 5.5.27)
-# Date: 2013-09-05 07:56:34
+# Date: 2013-09-07 00:40:07
 # Generator: MySQL-Front 5.3  (Build 4.9)
 
 /*!40101 SET NAMES utf8 */;
@@ -20,13 +20,12 @@ CREATE TABLE `t_ad_channel` (
   `create_time` datetime NOT NULL,
   `is_del` tinyint(2) NOT NULL COMMENT '数据删除标识，0=未删除，1=已删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_ad_channel"
 #
 
-INSERT INTO `t_ad_channel` VALUES (1000,'Google广告','1363164444','44456666','google','Google广告',1,'2013-07-24 14:08:16',0);
 
 #
 # Source for table "t_ad_push"
@@ -36,20 +35,19 @@ DROP TABLE IF EXISTS `t_ad_push`;
 CREATE TABLE `t_ad_push` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `adresource_id` int(11) NOT NULL,
-  `push_date` datetime DEFAULT NULL,
-  `first_push` tinyint(4) DEFAULT '0',
+  `top_push` tinyint(4) DEFAULT '0',
   `max_push` int(11) DEFAULT '1',
-  `real_push` int(11) DEFAULT '0',
-  `money` double DEFAULT '0',
-  `status` tinyint(4) DEFAULT '0',
+  `daily_push` int(11) DEFAULT '1' COMMENT '每日推送数',
+  `total_push` int(11) DEFAULT '0' COMMENT '总推送数',
+  `today_push` int(11) DEFAULT '0',
+  `status` tinyint(3) DEFAULT '0' COMMENT '1=打开，0=关闭',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_ad_push"
 #
 
-INSERT INTO `t_ad_push` VALUES (1,1003,NULL,NULL,NULL,NULL,NULL,1),(2,1004,'2013-07-20 00:00:00',0,1,0,0,1),(3,1005,NULL,0,1,0,0,1),(4,1007,NULL,0,1,0,0,1),(5,1008,NULL,0,1,0,0,1);
 
 #
 # Source for table "t_ad_resource"
@@ -94,13 +92,12 @@ CREATE TABLE `t_ad_resource` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ad_package` (`ad_package`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_ad_resource"
 #
 
-INSERT INTO `t_ad_resource` VALUES (1003,1000,'愤怒的小鸟','愤怒的小鸟','','','','','com.app.ap',34,'2.1',0,18,0,0,'CPA',NULL,NULL,NULL,'en','','2013-07-24 14:23:52','2013-07-24 14:23:03','2013-07-24 14:23:52',NULL,'2013-07-24 06:23:03','2014-03-24 14:23:03',1,0,0,0,0,0,0),(1004,1000,'愤怒的小鸟2','愤怒的小鸟2','/home/sd/files/upload/1000-20130724/icon/20130810140410.bmp','','','','com.app.fn',34,'2.1',0,18,0,0,'CPA',NULL,NULL,NULL,'en','','2013-08-10 14:04:10','2013-07-24 14:29:17',NULL,NULL,'2013-07-24 06:29:17','2014-03-24 14:29:17',1,0,0,0,0,0,0),(1005,1000,'愤怒的小鸟','愤怒的小鸟','','','','','com.app.ws.w',4,'1.0',0,18,0,200,'CPA',NULL,NULL,NULL,'en','资源描述','2013-08-09 15:11:48','2013-08-09 15:11:34',NULL,NULL,'2013-08-09 07:11:34','2014-05-09 15:11:34',0,1,0,0,0,0,0),(1007,1000,'愤怒的小鸟','愤怒的小鸟','/home/sd/files/upload/1000-20130809/icon/20130809.jpg','/home/sd/files/upload/1000-20130809/icon/20130809.jpg','/home/sd/files/upload/1000-20130809/icon/20130809.jpg','/home/sd/files/upload/1000-20130809/images/20130809151403a.jpg,/home/sd/files/upload/1000-20130809/images/20130809151403b.jpg,/home/sd/files/upload/1000-20130809/images/20130809151403c.jpg,/home/sd/files/upload/1000-20130809/images/20130809151403d.jpg','com.app.ap.test',34,'2.1',0,18,0,200,'CPA',NULL,NULL,NULL,'en','test','2013-09-05 07:31:07','2013-08-09 15:14:03',NULL,'','2013-08-09 07:14:03','2014-05-09 15:14:03',0,0,0,0,1,0,1),(1008,1000,'美女麻将写真馆','美女麻将写真馆，爽歪歪，美女麻将写真馆，爽歪歪','/home/sd/files/upload\\2\\adresource\\20130905\\icon/20130905072902.jpg','/home/sd/files/upload\\2\\adresource\\20130905/icon/20130905072902.jpg','/home/sd/files/upload\\2\\adresource\\20130905/icon/20130905072902.jpg','/home/sd/files/upload\\2\\adresource\\20130905/images/20130905072902a.jpg,/home/sd/files/upload\\2\\adresource\\20130905/images/20130905072902b.jpg,/home/sd/files/upload\\2\\adresource\\20130905/images/20130905072902c.jpg,/home/sd/files/upload\\2\\adresource\\20130905/images/20130905072902d.jpg','com.majiang',34,'2.1',0,18,0,0,'CPA',NULL,NULL,NULL,'en','',NULL,'2013-09-05 07:29:02',NULL,'/home/sd/files/upload\\2\\adresource\\20130905\\apks\\20130905072902.apk','2013-09-04 23:29:02','2014-07-05 07:29:02',0,0,0,0,0,0,0);
 
 #
 # Source for table "t_app_business"
@@ -119,28 +116,6 @@ CREATE TABLE `t_app_business` (
 # Data for table "t_app_business"
 #
 
-INSERT INTO `t_app_business` VALUES (2,b'0',b'0',b'0');
-
-#
-# Source for table "t_app_type"
-#
-
-DROP TABLE IF EXISTS `t_app_type`;
-CREATE TABLE `t_app_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(255) NOT NULL COMMENT '应用类型名称',
-  `description` varchar(500) DEFAULT NULL COMMENT '描述',
-  `parent` int(11) DEFAULT NULL COMMENT '上一级分类',
-  `visible` tinyint(4) DEFAULT NULL COMMENT '是否可见，1=可见，0=隐藏 ',
-  `order_no` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
-
-#
-# Data for table "t_app_type"
-#
-
-INSERT INTO `t_app_type` VALUES (1,'应用','应用分类',0,1,1),(2,'游戏','游戏分类',0,1,0),(3,'系统工具','',1,1,1),(4,'实用工具','',1,1,2),(5,'社交通信','',1,1,3),(6,'旅行天气','',1,1,4),(7,'影音漫画','',1,1,5),(8,'商务财经','',1,1,6),(9,'生活助手','',1,1,7),(10,'学习人文','',1,1,8),(11,'美化壁纸','',1,1,9),(12,'阅读资讯','',1,1,10),(13,'网络通讯','',1,1,11),(14,'电子书','',1,1,12),(15,'手机安全','',1,1,13),(16,'应用商店','',1,1,14),(17,'其它','',1,1,15),(18,'休闲益智','',2,1,16),(19,'策略棋牌','',2,1,17),(20,'角色扮演','',2,1,18),(21,'动作格斗','',2,1,19),(22,'射击飞行','',2,1,20),(23,'体育竞技','',2,1,21),(24,'网游游戏','',2,1,22),(25,'模拟游戏','',2,1,23);
 
 #
 # Source for table "t_apps"
@@ -172,6 +147,27 @@ CREATE TABLE `t_apps` (
 #
 
 INSERT INTO `t_apps` VALUES (2,'2e7cffa9bd0905acc08cc6bb10783563',1350070,'微信','com.tencent.mm','drawable-hdpi#share_to_time_line_icon.png',17,1,0,'2013-07-19 08:15:55','2013-07-19 16:15:55');
+
+#
+# Source for table "t_category"
+#
+
+DROP TABLE IF EXISTS `t_category`;
+CREATE TABLE `t_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(255) NOT NULL COMMENT '应用类型名称',
+  `description` varchar(500) DEFAULT NULL COMMENT '描述',
+  `parent` int(11) DEFAULT NULL COMMENT '上一级分类',
+  `visible` tinyint(4) DEFAULT NULL COMMENT '是否可见，1=可见，0=隐藏 ',
+  `order_no` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "t_category"
+#
+
+INSERT INTO `t_category` VALUES (1,'应用','应用分类',0,1,1),(2,'游戏','游戏分类',0,1,0),(3,'系统工具','',1,1,1),(4,'实用工具','',1,1,2),(5,'社交通信','',1,1,3),(6,'旅行天气','',1,1,4),(7,'影音漫画','',1,1,5),(8,'商务财经','',1,1,6),(9,'生活助手','',1,1,7),(10,'学习人文','',1,1,8),(11,'美化壁纸','',1,1,9),(12,'阅读资讯','',1,1,10),(13,'网络通讯','',1,1,11),(14,'电子书','',1,1,12),(15,'手机安全','',1,1,13),(16,'应用商店','',1,1,14),(17,'其它','',1,1,15),(18,'休闲益智','',2,1,16),(19,'策略棋牌','',2,1,17),(20,'角色扮演','',2,1,18),(21,'动作格斗','',2,1,19),(22,'射击飞行','',2,1,20),(23,'体育竞技','',2,1,21),(24,'网游游戏','',2,1,22),(25,'模拟游戏','',2,1,23);
 
 #
 # Source for table "t_channel"
@@ -225,13 +221,12 @@ CREATE TABLE `t_company` (
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(2) DEFAULT '0' COMMENT '0：有效， 1：无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_company"
 #
 
-INSERT INTO `t_company` VALUES (1,'厂商名称','厂商名称','2013-08-09 09:59:26',1),(2,'test','','2013-08-12 16:41:38',1),(3,'test','','2013-08-12 16:41:40',1),(4,'test','','2013-08-12 16:41:42',1),(5,'test','','2013-08-12 16:41:44',1),(6,'test','','2013-08-12 16:41:45',1),(7,'test','','2013-08-12 16:41:47',1),(8,'test','','2013-08-12 16:41:48',1),(9,'test','','2013-08-12 16:41:50',1),(10,'test','','2013-08-12 16:41:51',1),(11,'test','','2013-08-12 16:41:53',1),(12,'test','','2013-08-12 16:41:55',1),(13,'test','','2013-08-12 16:42:02',1),(14,'tset','','2013-08-12 16:42:04',1),(15,'test','','2013-08-12 16:42:05',1),(16,'test','','2013-08-12 16:42:07',1),(17,'tset','','2013-08-12 16:42:08',1);
 
 #
 # Source for table "t_config"
@@ -321,13 +316,13 @@ CREATE TABLE `t_menu` (
   `status` int(4) DEFAULT '0' COMMENT '是否有效 0-有效，1-无效',
   `order_no` varchar(50) DEFAULT '0' COMMENT '排序标示',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1002 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_menu"
 #
 
-INSERT INTO `t_menu` VALUES (1,'系统管理',NULL,'',0,1,1,'1'),(2,'新增用户','','/accounts/formpage.html',1,1,1,'111'),(3,'用户列表',NULL,'/accounts/listUser.html',1,1,1,'112'),(4,'新增角色',NULL,'/role/formpage.html',1,1,1,'121'),(5,'角色列表',NULL,'/role/listRole.html',1,1,1,'122'),(6,'新增菜单',NULL,'/menu/formpage.html',1,1,1,'131'),(7,'菜单列表',NULL,'/menu/listMenu.html',1,1,1,'132'),(8,'资源管理',NULL,'',0,1,1,'2'),(9,'资源录入',NULL,'/adResource/formpage.html',8,1,1,'211'),(10,'资源列表',NULL,'/adResource/adResourceList.html',8,1,1,'212'),(13,'查看权限',NULL,'/role/roleFormpage.html',1,0,1,'124'),(14,'设置角色权限',NULL,'/role/setRoleMenu.html',1,0,1,'125'),(15,'新增菜单',NULL,'/menu/formpage.html',1,0,1,'133'),(16,'查找菜单',NULL,'/menu/getMenu.html',1,0,1,'134'),(17,'修改菜单',NULL,'/menu/updateMenu.html',1,0,1,'135'),(18,'查找资源',NULL,'/adResource/getAdResource.html',8,0,1,'213'),(19,'展示资源',NULL,'/adResource/showAdResource.html',8,0,1,'214'),(21,'修改资源',NULL,'/adResource/updateAdResource.html',8,0,1,'216'),(22,'编辑用户',NULL,'/user/editUser.html',1,0,1,'114'),(23,'修改用户角色&状态',NULL,'/user/updateUserRoleAndStatus.html',1,0,1,'115'),(24,'重置密码',NULL,'/ajax/updateUser.html',1,0,1,'116'),(25,'检测用户名',NULL,'/hasUser.html',1,0,1,'117'),(26,'开发者应用','','',0,1,1,'0'),(27,'应用上传','','/apps/create.html',26,1,1,'311'),(28,'上传应用action',NULL,'/appInfo/addAppInfo.html',26,0,1,'312'),(29,'应用列表','开发者个人应用列表','/apps/',26,1,1,'313'),(30,'查询应用',NULL,'/appInfo/selectAppInfo.html',26,0,1,'314'),(31,'修改应用',NULL,'/appInfo/updateAppInfo.html',26,0,1,'315'),(32,'删除应用',NULL,'/appInfo/deleteAppInfo.html',26,0,1,'316'),(33,'应用列表','所有开发者应用列表','/apps/listAll.html',26,1,1,'313'),(34,'SDK报表',NULL,'',0,1,1,'4'),(35,'用户报表',NULL,'/report/userDayReport.html',34,0,1,'411'),(36,'应用安装上报报表',NULL,'/report/appInstallReport.html',34,0,1,'412'),(37,'报表列管理',NULL,'',0,0,1,'5'),(38,'column列表',NULL,'/gridColumn/list.html',37,0,1,'511'),(39,'add报表列',NULL,'/gridColumn/formAdd.html',37,0,1,'512'),(40,'add报表列action',NULL,'/gridColumn/add.html',37,0,1,'513'),(41,'update报表列',NULL,'/gridColumn/formUpdate.html',37,0,1,'514'),(42,'update报表列action',NULL,'/gridColumn/update.html',37,0,1,'515'),(43,'delete报表列',NULL,'/gridColumn/delete.html',37,0,1,'516'),(44,'渠道报表',NULL,'',0,0,1,'6'),(45,'渠道列表',NULL,'/user/listChannelUser.html',1,0,1,'118'),(46,'新增支付项目','','/amountItem/form.html',1,0,1,'141'),(47,'新增支付项目action',NULL,'/amountItem/add.html',1,0,1,'142'),(48,'支付项目列表',NULL,'/amountItem/list.html',1,0,1,'143'),(49,'修改支付项目',NULL,'/amountItem/updateForm.html',1,0,1,'144'),(50,'修改支付项目action',NULL,'/amountItem/update.html',1,0,1,'145'),(51,'删除支付项目',NULL,'/amountItem/delete.html',1,0,1,'146'),(52,'支付报表','渠道本身的支付报表 —— 对外','/report/channelAmountReport.html',44,0,1,'611'),(53,'支付报表','所有渠道支付报表 —— 对内','/report/allChannelAmountReport.html',44,0,1,'612'),(66,'财务中心','','',0,1,1,'3'),(67,'帐户管理','','',0,1,1,'4'),(68,'财务信息','','/financial/overview',66,1,1,'0'),(69,'财务明细','','/financial/accounts',66,1,1,'0'),(70,'申请汇款','','/financial/remittance',66,1,1,'0'),(71,'汇款记录','','/financial/remittance_history',66,1,1,'0'),(72,'收入报表','','',0,1,1,'2'),(73,'广告报表','','',0,1,1,'1'),(74,'小时统计','','',72,0,1,'0'),(75,'每日统计','','/report/incoming/daily',72,1,1,'0'),(76,'每月统计','','/report/incoming/monthly',72,1,1,'0'),(77,'广告推送','','/report/advert/pushes',73,1,1,'0'),(78,'应用内广告','','/report/advert/advertising',73,1,1,'0'),(79,'个人资料','','/accounts/overview',67,1,1,'0'),(80,'修改Email','','/accounts/change_email',67,1,1,'0'),(81,'修改资料','','/accounts/change_profile',67,1,1,'0'),(82,'修改密码','','/accounts/change_pwd',67,1,1,'0'),(83,'用户渠道','','',0,1,1,'0'),(84,'添加用户渠道','','/userchannel/formpage.html',83,1,1,'0'),(85,'用户渠道列表','','/userchannel/userChannelList.html',83,1,1,'0'),(86,'添加厂商','','/company/formpage.html',83,1,1,'0'),(87,'厂商列表','','/company/companyList.html',83,1,1,'0'),(88,'用户审核','','',0,1,1,'0'),(89,'用户审核列表','','/accounts/userReviewList.html',88,1,1,'0'),(90,'广告渠道管理','','',0,1,1,'0'),(91,'添加广告渠道','','/adchannel/formpage.html',90,1,1,'0'),(92,'修改渠道','','',90,0,1,'0'),(93,'渠道列表','','/adchannel/adChannelList.html',90,1,1,'0'),(94,'增加应用分类','','/apps/formpage.html',1,1,1,'8'),(95,'应用分类列表','','/apps/appTypeList.html',1,1,1,'7'),(96,'回收站','','/adResource/listRecycle.html',8,1,1,'3'),(1000,'广告控制管理','','',0,1,1,'0'),(1001,'广告推送控制列表','','/adpush/list.html',1000,1,1,'0');
+INSERT INTO `t_menu` VALUES (1,'系统管理',NULL,'',0,1,1,'1'),(2,'新增用户','','/accounts/formpage.html',1,1,1,'111'),(3,'用户列表',NULL,'/accounts/listUser.html',1,1,1,'112'),(4,'新增角色',NULL,'/role/formpage.html',1,1,1,'121'),(5,'角色列表',NULL,'/role/listRole.html',1,1,1,'122'),(6,'新增菜单',NULL,'/menu/formpage.html',1,1,1,'131'),(7,'菜单列表',NULL,'/menu/listMenu.html',1,1,1,'132'),(8,'资源管理',NULL,'',0,1,1,'2'),(9,'资源录入',NULL,'/adresource/formpage.html',8,1,1,'211'),(10,'资源列表',NULL,'/adresource/list.html',8,1,1,'212'),(13,'查看权限',NULL,'/role/roleFormpage.html',1,0,1,'124'),(14,'设置角色权限',NULL,'/role/setRoleMenu.html',1,0,1,'125'),(15,'新增菜单',NULL,'/menu/formpage.html',1,0,1,'133'),(18,'查找资源',NULL,'/adResource/getAdResource.html',8,0,1,'213'),(19,'展示资源',NULL,'/adResource/showAdResource.html',8,0,1,'214'),(21,'修改资源',NULL,'/adResource/updateAdResource.html',8,0,1,'216'),(22,'编辑用户',NULL,'/user/editUser.html',1,0,1,'114'),(23,'修改用户角色&状态',NULL,'/user/updateUserRoleAndStatus.html',1,0,1,'115'),(24,'重置密码',NULL,'/ajax/updateUser.html',1,0,1,'116'),(25,'检测用户名',NULL,'/hasUser.html',1,0,1,'117'),(26,'开发者应用','','',0,1,1,'0'),(27,'应用上传','','/apps/create.html',26,1,1,'311'),(28,'上传应用action',NULL,'/appInfo/addAppInfo.html',26,0,1,'312'),(29,'应用列表','开发者个人应用列表','/apps/',26,1,1,'313'),(30,'查询应用',NULL,'/appInfo/selectAppInfo.html',26,0,1,'314'),(31,'修改应用',NULL,'/appInfo/updateAppInfo.html',26,0,1,'315'),(32,'删除应用',NULL,'/appInfo/deleteAppInfo.html',26,0,1,'316'),(33,'应用列表','所有开发者应用列表','/apps/listAll.html',26,1,1,'313'),(34,'SDK报表',NULL,'',0,1,1,'4'),(35,'用户报表',NULL,'/report/userDayReport.html',34,0,1,'411'),(36,'应用安装上报报表',NULL,'/report/appInstallReport.html',34,0,1,'412'),(37,'报表列管理',NULL,'',0,0,1,'5'),(38,'column列表',NULL,'/gridColumn/list.html',37,0,1,'511'),(39,'add报表列',NULL,'/gridColumn/formAdd.html',37,0,1,'512'),(40,'add报表列action',NULL,'/gridColumn/add.html',37,0,1,'513'),(41,'update报表列',NULL,'/gridColumn/formUpdate.html',37,0,1,'514'),(42,'update报表列action',NULL,'/gridColumn/update.html',37,0,1,'515'),(43,'delete报表列',NULL,'/gridColumn/delete.html',37,0,1,'516'),(44,'渠道报表',NULL,'',0,0,1,'6'),(45,'渠道列表',NULL,'/user/listChannelUser.html',1,0,1,'118'),(49,'修改支付项目',NULL,'/amountItem/updateForm.html',1,0,1,'144'),(50,'修改支付项目action',NULL,'/amountItem/update.html',1,0,1,'145'),(51,'删除支付项目',NULL,'/amountItem/delete.html',1,0,1,'146'),(52,'支付报表','渠道本身的支付报表 —— 对外','/report/channelAmountReport.html',44,0,1,'611'),(53,'支付报表','所有渠道支付报表 —— 对内','/report/allChannelAmountReport.html',44,0,1,'612'),(66,'财务中心','','',0,1,1,'3'),(67,'帐户管理','','',0,1,1,'4'),(68,'财务信息','','/financial/overview',66,1,1,'0'),(69,'财务明细','','/financial/accounts',66,1,1,'0'),(70,'申请汇款','','/financial/remittance',66,1,1,'0'),(71,'汇款记录','','/financial/remittance_history',66,1,1,'0'),(72,'收入报表','','',0,1,1,'2'),(73,'广告报表','','',0,1,1,'1'),(74,'小时统计','','',72,0,1,'0'),(75,'每日统计','','/report/incoming/daily',72,1,1,'0'),(76,'每月统计','','/report/incoming/monthly',72,1,1,'0'),(77,'广告推送','','/report/advert/pushes',73,1,1,'0'),(78,'应用内广告','','/report/advert/advertising',73,1,1,'0'),(79,'个人资料','','/accounts/overview',67,1,1,'0'),(80,'修改Email','','/accounts/change_email',67,1,1,'0'),(81,'修改资料','','/accounts/change_profile',67,1,1,'0'),(82,'修改密码','','/accounts/change_pwd',67,1,1,'0'),(83,'用户渠道','','',0,1,1,'0'),(84,'添加用户渠道','','/userchannel/formpage.html',83,1,1,'0'),(85,'用户渠道列表','','/userchannel/userChannelList.html',83,1,1,'0'),(86,'添加厂商','','/company/add.html',83,1,1,'0'),(87,'厂商列表','','/company/list.html',83,1,1,'0'),(88,'用户审核','','',0,1,1,'0'),(89,'用户审核列表','','/accounts/userReviewList.html',88,1,1,'0'),(90,'广告渠道管理','','',0,1,1,'0'),(91,'添加广告渠道','','/adchannel/formpage.html',90,1,1,'0'),(92,'修改渠道','','',90,0,1,'0'),(93,'渠道列表','','/adchannel/adChannelList.html',90,1,1,'0'),(94,'增加应用分类','','/apps/category/add.html',1,1,1,'8'),(95,'应用分类列表','','/apps/category/list.html',1,1,1,'7'),(96,'回收站','','/adresource/recycle/list.html',8,1,1,'3'),(1000,'广告控制管理','','',0,1,1,'0'),(1001,'广告推送控制列表','','/adpush/list.html',1000,1,1,'0'),(1002,'广告收入报表','','/rptpush/list.html',73,1,1,'0');
 
 #
 # Source for table "t_remittance"
@@ -371,13 +366,12 @@ CREATE TABLE `t_report_daily` (
   PRIMARY KEY (`id`),
   KEY `ind_idate` (`idate`),
   KEY `ind_devId_code_appId` (`uid`,`kpi_code`,`app_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_report_daily"
 #
 
-INSERT INTO `t_report_daily` VALUES (1,'2013-06-27','1350070','2','sm_user_new',78,'2012-12-27 10:41:00'),(6,'2013-06-27','1350070','2','sm_user_new',10,'2012-12-27 10:43:56'),(7,'2013-06-27','1350070','2','sm_user_new',8,'2012-12-27 10:43:56'),(8,'2013-06-27','1350070','2','sm_user_new',24,'2012-12-27 10:43:56'),(9,'2013-06-27','1350070','2','sm_user_new',64,'2012-12-27 10:43:56'),(10,'2013-06-27','1350070','2','sm_user_new',200,'2012-12-27 10:43:56'),(11,'2013-06-27','1350070','2','sm_user_new',35,'2012-12-27 10:43:57'),(12,'2013-06-27','1350070','2','sm_user_new',48,'2012-12-27 10:43:57'),(13,'2013-06-27','1350070','2','sm_user_new',13,'2012-12-27 10:43:57'),(14,'2013-06-27','1350070','2','sm_user_new',15,'2012-12-27 10:43:57'),(15,'2013-06-27','1350070','2','sm_user_new',9,'2012-12-27 10:43:57'),(16,'2013-06-27','1350070','2','sm_user_new',29,'2012-12-27 10:43:58'),(17,'2013-06-27','1350070','2','sm_user_new',63,'2012-12-27 10:43:58'),(18,'2013-06-27','1350070','2','sm_user_new',42,'2012-12-27 10:43:58'),(19,'2013-06-27','1350070','2','sm_user_new',31,'2012-12-27 10:43:58'),(20,'2013-06-27','1350070','2','sm_user_new',63,'2012-12-27 10:43:58'),(21,'2013-06-27','1350070','2','sm_user_new',98,'2012-12-27 10:43:58'),(22,'2013-06-27','1350070','2','sm_user_new',63,'2012-12-27 10:43:58'),(23,'2013-06-27','1350070','2','sm_user_new',55,'2012-12-27 10:43:59'),(24,'2013-06-27','1350070','2','sm_user_new',36,'2012-12-27 10:43:59'),(25,'2013-06-27','1350070','2','sm_user_new',28,'2012-12-27 10:43:59'),(26,'2013-06-27','1350070','2','sm_user_new',33,'2012-12-27 10:43:59'),(27,'2013-06-27','1350070','2','sm_user_new',60,'2012-12-27 10:43:59'),(28,'2013-06-27','1350070','2','sm_user_new',51,'2012-12-27 10:44:00'),(29,'2013-06-27','1350070','2','sm_user_new',39,'2012-12-27 10:44:00'),(30,'2013-06-27','1350070','2','sm_user_new',400,'2012-12-27 10:44:00'),(31,'2013-06-27','1350070','2','sm_user_new',32,'2012-12-27 10:44:00'),(32,'2013-06-27','1350070','2','sm_user_online',4,'2012-12-28 12:38:00'),(33,'2013-06-27','1350070','2','sm_user_online',77,'2012-12-28 12:38:00'),(34,'2013-06-27','1350070','2','sm_user_online',32,'2012-12-28 12:38:01'),(35,'2013-06-27','1350070','2','sm_user_online',63,'2012-12-28 12:38:02');
 
 #
 # Source for table "t_report_hourly"
@@ -477,13 +471,13 @@ CREATE TABLE `t_role_menu` (
   `role_id` int(4) NOT NULL COMMENT '角色ID',
   `menu_id` int(4) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1832 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1877 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_role_menu"
 #
 
-INSERT INTO `t_role_menu` VALUES (1565,4,66),(1566,4,68),(1567,4,69),(1568,4,70),(1569,4,71),(1570,4,67),(1571,4,79),(1572,4,80),(1573,4,81),(1574,4,82),(1575,4,72),(1576,4,74),(1577,4,75),(1578,4,76),(1579,4,73),(1580,4,77),(1581,4,78),(1582,4,26),(1583,4,27),(1584,4,28),(1585,4,29),(1586,4,30),(1587,4,31),(1588,4,32),(1614,5,66),(1615,5,68),(1616,5,69),(1617,5,70),(1618,5,71),(1619,5,67),(1620,5,79),(1621,5,80),(1622,5,81),(1623,5,82),(1624,5,72),(1625,5,74),(1626,5,75),(1627,5,76),(1628,5,73),(1629,5,77),(1630,5,78),(1631,5,83),(1632,5,84),(1633,5,85),(1634,5,86),(1635,5,87),(1636,5,88),(1637,5,89),(1638,5,90),(1639,5,91),(1640,5,92),(1641,5,93),(1642,5,1),(1643,5,2),(1644,5,3),(1645,5,22),(1646,5,23),(1647,5,24),(1648,5,25),(1649,5,45),(1650,5,4),(1651,5,5),(1652,5,13),(1653,5,14),(1654,5,6),(1655,5,7),(1656,5,15),(1657,5,16),(1658,5,17),(1659,5,46),(1660,5,47),(1661,5,48),(1662,5,49),(1663,5,50),(1664,5,51),(1665,5,8),(1666,5,9),(1667,5,10),(1668,5,18),(1669,5,19),(1670,5,21),(1671,5,26),(1672,5,27),(1673,5,28),(1674,5,29),(1675,5,33),(1676,5,30),(1677,5,31),(1678,5,32),(1721,3,66),(1722,3,68),(1723,3,69),(1724,3,70),(1725,3,71),(1726,3,67),(1727,3,79),(1728,3,80),(1729,3,81),(1730,3,82),(1731,3,72),(1732,3,75),(1733,3,76),(1734,3,73),(1735,3,77),(1736,3,78),(1737,3,26),(1738,3,27),(1739,3,28),(1740,3,29),(1741,3,30),(1742,3,31),(1743,3,32),(1744,1,1),(1745,1,95),(1746,1,96),(1747,1,2),(1748,1,3),(1749,1,22),(1750,1,23),(1751,1,24),(1752,1,25),(1753,1,45),(1754,1,4),(1755,1,5),(1756,1,13),(1757,1,14),(1758,1,6),(1759,1,7),(1760,1,15),(1761,1,16),(1762,1,17),(1763,1,46),(1764,1,47),(1765,1,48),(1766,1,49),(1767,1,50),(1768,1,51),(1810,2,26),(1811,2,33),(1812,2,83),(1813,2,84),(1814,2,85),(1815,2,86),(1816,2,87),(1817,2,88),(1818,2,89),(1819,2,90),(1820,2,91),(1821,2,92),(1822,2,93),(1823,2,1000),(1824,2,1001),(1825,2,8),(1826,2,9),(1827,2,10),(1828,2,18),(1829,2,19),(1830,2,21),(1831,2,96);
+INSERT INTO `t_role_menu` VALUES (1565,4,66),(1566,4,68),(1567,4,69),(1568,4,70),(1569,4,71),(1570,4,67),(1571,4,79),(1572,4,80),(1573,4,81),(1574,4,82),(1575,4,72),(1576,4,74),(1577,4,75),(1578,4,76),(1579,4,73),(1580,4,77),(1581,4,78),(1582,4,26),(1583,4,27),(1584,4,28),(1585,4,29),(1586,4,30),(1587,4,31),(1588,4,32),(1614,5,66),(1615,5,68),(1616,5,69),(1617,5,70),(1618,5,71),(1619,5,67),(1620,5,79),(1621,5,80),(1622,5,81),(1623,5,82),(1624,5,72),(1625,5,74),(1626,5,75),(1627,5,76),(1628,5,73),(1629,5,77),(1630,5,78),(1631,5,83),(1632,5,84),(1633,5,85),(1634,5,86),(1635,5,87),(1636,5,88),(1637,5,89),(1638,5,90),(1639,5,91),(1640,5,92),(1641,5,93),(1642,5,1),(1643,5,2),(1644,5,3),(1645,5,22),(1646,5,23),(1647,5,24),(1648,5,25),(1649,5,45),(1650,5,4),(1651,5,5),(1652,5,13),(1653,5,14),(1654,5,6),(1655,5,7),(1656,5,15),(1657,5,16),(1658,5,17),(1659,5,46),(1660,5,47),(1661,5,48),(1662,5,49),(1663,5,50),(1664,5,51),(1665,5,8),(1666,5,9),(1667,5,10),(1668,5,18),(1669,5,19),(1670,5,21),(1671,5,26),(1672,5,27),(1673,5,28),(1674,5,29),(1675,5,33),(1676,5,30),(1677,5,31),(1678,5,32),(1721,3,66),(1722,3,68),(1723,3,69),(1724,3,70),(1725,3,71),(1726,3,67),(1727,3,79),(1728,3,80),(1729,3,81),(1730,3,82),(1731,3,72),(1732,3,75),(1733,3,76),(1734,3,73),(1735,3,77),(1736,3,78),(1737,3,26),(1738,3,27),(1739,3,28),(1740,3,29),(1741,3,30),(1742,3,31),(1743,3,32),(1832,2,26),(1833,2,33),(1834,2,83),(1835,2,84),(1836,2,85),(1837,2,86),(1838,2,87),(1839,2,88),(1840,2,89),(1841,2,90),(1842,2,91),(1843,2,92),(1844,2,93),(1845,2,1000),(1846,2,1001),(1847,2,73),(1848,2,1002),(1849,2,8),(1850,2,9),(1851,2,10),(1852,2,18),(1853,2,19),(1854,2,21),(1855,2,96),(1856,1,1),(1857,1,2),(1858,1,3),(1859,1,22),(1860,1,23),(1861,1,24),(1862,1,25),(1863,1,45),(1864,1,4),(1865,1,5),(1866,1,13),(1867,1,14),(1868,1,6),(1869,1,7),(1870,1,15),(1871,1,49),(1872,1,50),(1873,1,51),(1874,1,95),(1875,1,94),(1876,1,96);
 
 #
 # Source for table "t_rpt_push"
@@ -503,10 +497,10 @@ CREATE TABLE `t_rpt_push` (
   `download_success` decimal(10,0) DEFAULT '0' COMMENT '下载成功数',
   `install` decimal(10,0) DEFAULT '0' COMMENT '安装数',
   `active` decimal(10,0) DEFAULT '0' COMMENT '激活数',
-  `revenue` decimal(10,0) DEFAULT '0' COMMENT '收入',
+  `revenue` decimal(10,2) DEFAULT '0.00' COMMENT '收入',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_key` (`idate`,`ad_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12042 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_rpt_push"
@@ -534,7 +528,6 @@ CREATE TABLE `t_temp_apps` (
 # Data for table "t_temp_apps"
 #
 
-INSERT INTO `t_temp_apps` VALUES ('1096bf4cb6f2f93f8792c49a705d0d3a',1350070,'test','com.elevenbitstudios.FunkySmugglers\r',0,'2013-07-24 10:56:18','2013-07-24 10:56:18'),('6220d4833c594c1d0f20e371bb12569a',1350070,'Google Maps','com.google.android.apps.maps\r',0,'2013-07-24 10:49:04','2013-07-24 10:49:04'),('b01985d2b7fa9e5525704a9886054146',1350070,'Google Maps','com.google.android.apps.maps\r',0,'2013-07-24 10:43:30','2013-07-24 10:43:30');
 
 #
 # Source for table "t_transfer_history"
@@ -588,7 +581,7 @@ CREATE TABLE `t_user` (
 # Data for table "t_user"
 #
 
-INSERT INTO `t_user` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e','admin@adplatform.com',1,'','系统管理员','',NULL,'','2013-06-02 17:43:46','26b7971d5c0e4ec3815205effd50f1a2','2013-08-12 16:40:34',1),(1350071,'company','e10adc3949ba59abbe56e057f20f883e','company@adplatform.com',4,'','公司','','',NULL,'2013-07-08 00:13:23','','2013-07-15 18:31:52',1),(1350070,'developer','e10adc3949ba59abbe56e057f20f883e','developer@adplatform.com',3,'','个人开发者','','',NULL,'2013-07-08 00:13:23','c889d0f9bba14aa89908eba5bc1e3373','2013-08-12 17:37:09',1),(1350072,'jiandong','692df0468e7688ba44f588dd714c1927','jiandong@powerallnetworks.com',1,NULL,'覃建栋','13631661621',NULL,'http://localhost:8080','2013-08-09 09:43:44',NULL,NULL,0),(2,'spadmin','e10adc3949ba59abbe56e057f20f883e','spadmin@adplatform.com',2,'','运营管理员','',NULL,'','2013-07-08 00:12:45','fd9b5a8528ee4bd086d611d4963e605b','2013-09-05 07:07:41',1);
+INSERT INTO `t_user` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e','admin@adplatform.com',1,'','系统管理员','',NULL,'','2013-06-02 17:43:46','5179a4b7200a4af5a4eb232f9a737a3a','2013-09-06 23:40:49',1),(1350071,'company','e10adc3949ba59abbe56e057f20f883e','company@adplatform.com',4,'','公司','','',NULL,'2013-07-08 00:13:23','','2013-07-15 18:31:52',1),(1350070,'developer','e10adc3949ba59abbe56e057f20f883e','developer@adplatform.com',3,'','个人开发者','','',NULL,'2013-07-08 00:13:23','c889d0f9bba14aa89908eba5bc1e3373','2013-08-12 17:37:09',1),(1350072,'jiandong','692df0468e7688ba44f588dd714c1927','jiandong@powerallnetworks.com',1,NULL,'覃建栋','13631661621',NULL,'http://localhost:8080','2013-08-09 09:43:44',NULL,NULL,0),(2,'spadmin','e10adc3949ba59abbe56e057f20f883e','spadmin@adplatform.com',2,'','运营管理员','',NULL,'','2013-07-08 00:12:45','1adee91fab50404bba6f49ade0ed2750','2013-09-06 23:44:22',1);
 
 #
 # Source for table "t_user_account"
@@ -624,10 +617,9 @@ CREATE TABLE `t_user_channel` (
   `status` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `T_CHANNEL_USER_LAST_UPDATE_TIME_IDX` (`last_update_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "t_user_channel"
 #
 
-INSERT INTO `t_user_channel` VALUES (1,1,'厂商名称','234234','test','2013-08-09 10:04:25','2013-08-09 10:04:25',1);
