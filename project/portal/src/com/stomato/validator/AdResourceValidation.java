@@ -19,37 +19,37 @@ public class AdResourceValidation {
 				errors.rejectValue("apkFile", "side.adresoure.apk.suffix.err", "Apk file format is incorrect.");
 			}
 		}
-		if( form.getAdIconFile() != null || !form.getAdIconFile().isEmpty()){
+		if( form.getAdIconFile() != null && !form.getAdIconFile().isEmpty()){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdIconFile().getContentType()) ){
 				errors.rejectValue("adIconFile", "side.adresoure.adicon.suffix.err", "Img format is incorrect.");
 			}
 		}
-		if( form.getAdBannerFile() != null || !form.getAdBannerFile().isEmpty()){
+		if( form.getAdBannerFile() != null && !form.getAdBannerFile().isEmpty()){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdBannerFile().getContentType()) ){
 				errors.rejectValue("adBannerFile", "side.adresoure.adbanner.suffix.err", "Img format is incorrect.");
 			}
 		}
-		if( form.getDesktopIconFile() != null ){
+		if( form.getDesktopIconFile() != null && !form.getDesktopIconFile().isEmpty()){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getDesktopIconFile().getContentType()) ){
 				errors.rejectValue("desktopIconFile", "side.adresoure.desktopicon.suffix.err", "Img format is incorrect.");
 			}
 		}
-		if( form.getAdImagea() != null ){
+		if( form.getAdImagea() != null && !form.getAdImagea().isEmpty()){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdImagea().getContentType()) ){
 				errors.rejectValue("adImagea", "side.adresoure.adImagea.suffix.err", "Img format is incorrect.");
 			}
 		}
-		if( form.getAdImageb() != null ){
+		if( form.getAdImageb() != null && !form.getAdImageb().isEmpty()){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdImageb().getContentType()) ){
 				errors.rejectValue("adImageb", "side.adresoure.adimageb.suffix.err", "Img format is incorrect.");
 			}
 		}
-		if( form.getAdImagec() != null ){
+		if( form.getAdImagec() != null && !form.getAdImagec().isEmpty()){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdImagec().getContentType()) ){
 				errors.rejectValue("adImagec", "side.adresoure.adimagec.suffix.err", "Img format is incorrect.");
 			}
 		}
-		if( form.getAdImaged() != null ){
+		if( form.getAdImaged() != null && !form.getAdImaged().isEmpty()){
 			if( !Constant.FileSuffixs.IMG_SUFFIXS.containsKey(form.getAdImaged().getContentType()) ){
 				errors.rejectValue("adImaged", "side.adresoure.adimagec.suffix.err", "Img format is incorrect.");
 			}

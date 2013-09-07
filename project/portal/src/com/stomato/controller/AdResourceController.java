@@ -300,6 +300,11 @@ public class AdResourceController extends UserController{
 	 */
 	@RequestMapping(value="/{id}/edit.html",method=RequestMethod.POST)
 	public String doEdit(@PathVariable int id,@Valid @ModelAttribute("adResourceForm")AdResourceForm adResourceForm, BindingResult result,HttpServletRequest request,Model model) throws IOException, ParseException{
+		AdResourceValidation validation = new AdResourceValidation();
+		validation.validate(adResourceForm, result);
+		if( result.hasErrors() ){
+			return "portal/adresouce/adresource_form";
+		}
 		String path = request.getSession().getServletContext().getContextPath();
 		StringBuffer showpath = new StringBuffer(configService.loadConfig(Constant.Configs.filesDirPath)).append(path.trim());
 		showpath.append("/upload");
