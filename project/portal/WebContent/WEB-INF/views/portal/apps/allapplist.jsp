@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/page" prefix="p"%>
+<%@ include file="../includes/config.jsp" %>
 <body>
 	<div class="row-fluid">
 		<div class="span12">
@@ -63,7 +65,7 @@
 								<c:forEach items="${applist}" var="app" varStatus="stat">
 									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
 										<td>${stat.index+1}</td>
-										<td><img width="50px" src="${imgServer}${app.icon}"/></td>
+										<td><img width="50" src='${imgServer }${iconDir}${fn:replace(app.icon, "#", "%23")}'/></td>
 										<td class="app_name"><a href="#">${app.name}</a></td>
 										<td><fmt:formatDate value="${app.createTime }" pattern="yyyy-MM-dd" /></td>
 										<td>-</td>
