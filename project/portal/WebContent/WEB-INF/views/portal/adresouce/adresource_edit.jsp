@@ -77,7 +77,7 @@ textarea {width:600px;}
 				<div class="form-row">
 					<label class="field-name" for="adIconFile">Icon图片：</label>
 					<div class="field">
-						<img width="50px" src="${imgServer}${adResource.adIcon}"/>
+						<img width="50px" src="${imgServer}${dir}${adResource.adIcon}"/>
 						<input type="file" name="adIconFile" id="file">
 						<form:errors path="adIconFile" cssClass="error"/>
 					</div>
@@ -85,7 +85,7 @@ textarea {width:600px;}
 			    <div class="form-row">
 					<label class="field-name" for="adBannerFile">Banner图片：</label>
 					<div class="field">
-						<img width="20px" src="${imgServer}${adResource.adBanner}"/>
+						<img width="50" src="${imgServer}${dir}${adResource.adBanner}"/>
 						<input type="file" name="adBannerFile" id="file">
 						<form:errors path="adBannerFile" cssClass="error"/>
 					</div>
@@ -93,7 +93,7 @@ textarea {width:600px;}
 				<div class="form-row">
 					<label class="field-name" for="desktopIconFile">桌面快捷方式图片：</label>
 					<div class="field">
-						<img width="50px" src="${imgServer}${adResource.desktopIcon}"/>
+						<img width="50px" src="${imgServer}${dir}${adResource.desktopIcon}"/>
 						<input type="file" name="desktopIconFile" id="file">
 						<form:errors path="desktopIconFile" cssClass="error"/>
 					</div>
@@ -105,7 +105,7 @@ textarea {width:600px;}
 							<c:if test="${status.index % 2 == 0}">
 								<p/>
 							</c:if>
-							<img width="250px" src="${imgServer}${iconStr}"/>
+							<img width="250px" src="${imgServer}${dir}${iconStr}"/>
 						</c:forEach>
 					</div>
 					<div class="field">

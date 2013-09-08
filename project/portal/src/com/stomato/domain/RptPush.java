@@ -26,6 +26,8 @@ public class RptPush {
 	// 展示数
 	private Integer shows;
 
+	private Integer active;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -120,6 +122,14 @@ public class RptPush {
 
 	public void setShows(Integer shows) {
 		this.shows = shows;
+	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
 	}
 
 }

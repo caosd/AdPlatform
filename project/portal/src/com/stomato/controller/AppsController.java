@@ -79,8 +79,7 @@ public class AppsController extends UserController {
 		List<Map<String,Object>> applist  = appService.getAppListForMap(formParam);
 		model.addAttribute("applist", applist);
 		
-		String iconDir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
-				+ Constant.Configs.appsDirPath + fileSeparator;
+		String iconDir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator;
 		model.addAttribute("iconDir", iconDir);
 		return "portal/apps/applist";
 	}
@@ -90,6 +89,8 @@ public class AppsController extends UserController {
 		formParam.setTotalCount(appService.listTotal(formParam));
 		List<Map<String,Object>> applist  = appService.getAppListForMap(formParam);
 		model.addAttribute("applist", applist);
+		String iconDir = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator;
+		model.addAttribute("iconDir", iconDir);
 		return "portal/apps/allapplist";
 	}
 	

@@ -29,7 +29,6 @@ import com.stomato.constant.Constant;
 import com.stomato.domain.AdChannel;
 import com.stomato.domain.AdResource;
 import com.stomato.domain.AppCategory;
-import com.stomato.domain.User;
 import com.stomato.exception.DaoException;
 import com.stomato.exception.ServiceException;
 import com.stomato.form.AdResourceForm;
@@ -95,9 +94,6 @@ public class AdResourceController extends UserController{
 		if( result.hasErrors() ){
 			return "portal/adresouce/adresource_form";
 		}
-		String path = request.getSession().getServletContext().getContextPath();
-		StringBuffer showpath = new StringBuffer(configService.loadConfig(Constant.Configs.filesDirPath)).append(path.trim());
-		User user = this.lookup(request);
 		/**
 		 * 上传文件路径
 		 */
@@ -106,7 +102,6 @@ public class AdResourceController extends UserController{
 		if(!uploadDir.exists()){
 			uploadDir.mkdirs();
 		}
-		showpath.append("/upload");
 		/**
 		 * 有效日期
 		 */
@@ -124,8 +119,8 @@ public class AdResourceController extends UserController{
 		/**
 		 * ad package & name 应用包 & 包名
 		 */
-		String adPackageDirPath = File.separator+user.getUid()+File.separator+Constant.Configs.adresourceDirPath+File.separator+DateUtils.getDateStr(DateUtils.patternB);
-		File adPackageDir = new File(realPath+adPackageDirPath);
+		String adResourceDirPath = File.separator+Constant.Configs.adresourceDirPath+File.separator+DateUtils.getDateStr(DateUtils.patternB);
+		File adPackageDir = new File(realPath+adResourceDirPath);
         if(!adPackageDir.exists()){
         	adPackageDir.mkdirs();
         }		
@@ -136,14 +131,14 @@ public class AdResourceController extends UserController{
 		if(apkFile == null || apkFile.isEmpty()){
 			adResourceForm.setApkUrl("");
 		}else{
-			String apkDirPath = adPackageDirPath+File.separator+Constant.Configs.apkDirPath;
+			String apkDirPath = adResourceDirPath+File.separator+Constant.Configs.apkDirPath;
 			File apkDir = new File(realPath+apkDirPath);
 			if(!apkDir.exists()){
 				apkDir.mkdirs();
 			}
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(apkFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(apkFile.getInputStream(), new File(realPath+apkDirPath, newname));
-			adResourceForm.setApkUrl(showpath.toString()+apkDirPath+File.separator+newname);
+			adResourceForm.setApkUrl(apkDirPath+File.separator+newname);
 		}
 		/**
 		 * ad icon
@@ -152,14 +147,14 @@ public class AdResourceController extends UserController{
 		if(adIcon.isEmpty()){
 			adResourceForm.setAdIcon("");
 		}else{
-			String adIconDirPath = adPackageDirPath+File.separator+Constant.Configs.appIconDir;
+			String adIconDirPath = adResourceDirPath+File.separator+Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
-			adResourceForm.setAdIcon(showpath.toString()+adIconDirPath+"/"+newname);
+			adResourceForm.setAdIcon(adIconDirPath+File.separator+newname);
 		}
 		/**
 		 * Banner icon
@@ -168,14 +163,14 @@ public class AdResourceController extends UserController{
 		if(adBannerFile.isEmpty()){
 			adResourceForm.setAdBanner("");
 		}else{
-			String adIconDirPath = adPackageDirPath+File.separator+ Constant.Configs.appIconDir;
+			String adIconDirPath = adResourceDirPath+File.separator+ Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adBannerFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adBannerFile.getInputStream(), new File(realPath+adIconDirPath, newname));
-			adResourceForm.setAdBanner(showpath.toString()+adIconDirPath+"/"+newname);
+			adResourceForm.setAdBanner(adIconDirPath+File.separator+newname);
 		}
 		/**
 		 * ad desktopIcon
@@ -184,19 +179,19 @@ public class AdResourceController extends UserController{
 		if(desktopIconFile.isEmpty()){
 			adResourceForm.setDesktopIcon("");
 		}else{
-			String adIconDirPath = adPackageDirPath+File.separator+ Constant.Configs.appIconDir;
+			String adIconDirPath = adResourceDirPath+File.separator+ Constant.Configs.appIconDir;
 			File adIconDir = new File(realPath+adIconDirPath);
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(desktopIconFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
-			adResourceForm.setDesktopIcon(showpath.toString()+adIconDirPath+"/"+newname);
+			adResourceForm.setDesktopIcon(adIconDirPath+File.separator+newname);
 		}
 		/**
 		 * 应用图片组(a.jpg,c.jpg,b.jpg)
 		 */
-		String adImagesDirPath = adPackageDirPath+"/images";
+		String adImagesDirPath = adResourceDirPath+File.separator+"images";
 		File adImagesDir = new File(realPath+adImagesDirPath);
 		if(!adImagesDir.exists()){
 			adImagesDir.mkdirs();
@@ -208,33 +203,33 @@ public class AdResourceController extends UserController{
 		MultipartFile adImaged = adResourceForm.getAdImaged();
 		String newname = "";
 		if(!adImagea.isEmpty()){
-			newname = StringUtils.getUUID()+"a"+StringUtils.getSuffix(adImagea.getOriginalFilename());
+			newname = StringUtils.getUUID()+StringUtils.getSuffix(adImagea.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagea.getInputStream(), new File(realPath+adImagesDirPath, newname));
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		if(!adImageb.isEmpty()){
-			newname = StringUtils.getUUID()+"b"+StringUtils.getSuffix(adImageb.getOriginalFilename());
+			newname = StringUtils.getUUID()+StringUtils.getSuffix(adImageb.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImageb.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
 			}
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		if(!adImagec.isEmpty()){
-			newname = StringUtils.getUUID()+"c"+StringUtils.getSuffix(adImagec.getOriginalFilename());
+			newname = StringUtils.getUUID()+StringUtils.getSuffix(adImagec.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagec.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
 			}
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		if(!adImaged.isEmpty()){
-			newname = StringUtils.getUUID()+"d"+StringUtils.getSuffix(adImaged.getOriginalFilename());
+			newname = StringUtils.getUUID()+StringUtils.getSuffix(adImaged.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImaged.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
 			}
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		adResourceForm.setAdImages(adImages.toString());
 		AdResource adResource = adResourceForm.asPojo();
@@ -260,6 +255,7 @@ public class AdResourceController extends UserController{
 		model.addAttribute("appTypeList", appTypeList);
 		model.addAttribute("adChannerlList", adChannerlList);
 		model.addAttribute("adResource", adResource);
+		model.addAttribute("dir", configService.loadConfig(Constant.Configs.filesDirPath) + File.separator + Constant.Configs.uploadDirPath);
 		return "portal/adresouce/adresource_edit";
 	}
 	
@@ -272,7 +268,7 @@ public class AdResourceController extends UserController{
 	 * @throws ServiceException 
 	 */
 	@RequestMapping(value="/list.html")
-	public String list(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request){
+	public String list(@ModelAttribute("formParam")AdResourceFormParam formParam,BindingResult result,HttpServletRequest request,Model model){
 		try {
 			int total = adResourceService.listTotal(formParam);
 			formParam.setTotalCount(total);
@@ -285,6 +281,7 @@ public class AdResourceController extends UserController{
 			request.setAttribute("adResourceList", adResourceList);
 			request.setAttribute("adChannelList", adChannelList);
 			request.setAttribute("appTypeList", appTypeService.listCategory(null));
+			model.addAttribute("dir", configService.loadConfig(Constant.Configs.filesDirPath) + File.separator + Constant.Configs.uploadDirPath);
 		} catch (Exception err) {
 			log.error("查询数据库失败", err);
 		}
@@ -305,9 +302,6 @@ public class AdResourceController extends UserController{
 		if( result.hasErrors() ){
 			return "portal/adresouce/adresource_form";
 		}
-		String path = request.getSession().getServletContext().getContextPath();
-		StringBuffer showpath = new StringBuffer(configService.loadConfig(Constant.Configs.filesDirPath)).append(path.trim());
-		showpath.append("/upload");
 		/**
 		 * 上传文件路径
 		 */
@@ -327,11 +321,7 @@ public class AdResourceController extends UserController{
 			request.setAttribute("msg", "有效开始日期不能大于结束日期！");
 			return "portal/adresouce/adresource_edit";
 		}
-		/**
-		 * ad package & name 应用包 & 包名
-		 */
-		User user = this.lookup(request);
-		String adPackageDirPath = File.separator+user.getUid()+File.separator+Constant.Configs.adresourceDirPath+File.separator+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
+		String adPackageDirPath = File.separator+Constant.Configs.adresourceDirPath+File.separator+DateUtils.getDateStr(DateUtils.patternB,oldAdResource.getCreateDate());
 		/**
 		 *  apkFile
 		 */
@@ -344,12 +334,12 @@ public class AdResourceController extends UserController{
 			}
 			String apkDirPath = adPackageDirPath+File.separator+Constant.Configs.apkDirPath;
 			File apkDir = new File(realPath+apkDirPath);
-			if(!apkDir.exists()){
+			if (!apkDir.exists()) {
 				apkDir.mkdirs();
 			}
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(apkFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(apkFile.getInputStream(), new File(realPath+apkDirPath, newname));
-			adResourceForm.setApkUrl(showpath.toString()+apkDirPath+File.separator+newname);
+			adResourceForm.setApkUrl(apkDirPath+File.separator+newname);
 		}
         /**
 		 * ad icon
@@ -366,7 +356,7 @@ public class AdResourceController extends UserController{
 			}
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adBannerFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adBannerFile.getInputStream(), new File(realPath+adIconDirPath, newname));
-			adResourceForm.setAdBanner(showpath.toString()+adIconDirPath+File.separator+newname);
+			adResourceForm.setAdBanner(adIconDirPath+File.separator+newname);
 		}
         /**
 		 * ad icon
@@ -381,10 +371,9 @@ public class AdResourceController extends UserController{
 			if(!adIconDir.exists()){
 				adIconDir.mkdirs();
 			}
-	//		String newname = "icon"+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(adIcon.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
-			adResourceForm.setAdIcon(showpath.toString()+adIconDirPath+File.separator+newname);
+			adResourceForm.setAdIcon(adIconDirPath+File.separator+newname);
 		}
 		/**
 		 * ad desktopIcon
@@ -401,7 +390,7 @@ public class AdResourceController extends UserController{
 			}
 			String newname = StringUtils.getUUID()+StringUtils.getSuffix(desktopIconFile.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adIcon.getInputStream(), new File(realPath+adIconDirPath, newname));
-			adResourceForm.setDesktopIcon(showpath.toString()+adIconDirPath+File.separator+newname);
+			adResourceForm.setDesktopIcon(adIconDirPath+File.separator+newname);
 		}
 		/**
 		 * 应用图片组(a.jpg,c.jpg,b.jpg)
@@ -418,25 +407,25 @@ public class AdResourceController extends UserController{
 		MultipartFile adImaged = adResourceForm.getAdImaged();
 		String newname = "" ;
 		if(!adImagea.isEmpty()){
-			newname = StringUtils.getUUID()+"a"+StringUtils.getSuffix(adImagea.getOriginalFilename());
+			newname = StringUtils.getUUID()+StringUtils.getSuffix(adImagea.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagea.getInputStream(), new File(realPath+adImagesDirPath, newname));
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		if(!adImageb.isEmpty()){
-			newname = StringUtils.getUUID()+"b"+StringUtils.getSuffix(adImageb.getOriginalFilename());
+			newname = StringUtils.getUUID()+StringUtils.getSuffix(adImageb.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImageb.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
 			}
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		if(!adImagec.isEmpty()){
-			newname = StringUtils.getUUID()+"c"+StringUtils.getSuffix(adImagec.getOriginalFilename());
+			newname = StringUtils.getUUID()+StringUtils.getSuffix(adImagec.getOriginalFilename());
 			FileUtils.copyInputStreamToFile(adImagec.getInputStream(), new File(realPath+adImagesDirPath, newname));
 			if(adImages.length()>1){
 				adImages.append(",");
 			}
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		if(!adImaged.isEmpty()){
 			newname = StringUtils.getUUID()+"d"+StringUtils.getSuffix(adImaged.getOriginalFilename());
@@ -444,7 +433,7 @@ public class AdResourceController extends UserController{
 			if(adImages.length()>1){
 				adImages.append(",");
 			}
-			adImages.append(showpath.toString()).append(adImagesDirPath).append("/").append(newname);
+			adImages.append(adImagesDirPath+File.separator+newname);
 		}
 		if(adImages.length()>1){
 			//删除已存在图片

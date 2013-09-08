@@ -95,7 +95,7 @@
 				</div>
 				<div class="form-row" style="padding-left: 208px;">
 					<button type="submit" class="button button-blue" id="submitForm">提取信息</button>
-					<span style="color:#006b8e;display: none;" id="submitInfo"><img src="/img/loader01.gif"/>分析应用大约需要至少10s的时间（具体根据文件大小而定），请耐心等候。</span>
+					<span style="color:#006b8e;display: none;" id="submitInfo"><img src="/img/loader01.gif"/>分析应用需要耗费一定时间，请耐心等候。</span>
 				</div>
 			</div>
 		</form>

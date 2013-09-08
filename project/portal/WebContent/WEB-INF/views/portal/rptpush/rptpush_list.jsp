@@ -49,31 +49,36 @@
 									<th class="sorting">渠道</th>
 									<th class="sorting">日期</th>
 									<th class="sorting">拉取数</th>
-									<th class="sorting">收入</th>
 									<th class="sorting">展示数</th>
 									<th class="sorting">点击数</th>
 									<th class="sorting">下载数</th>
 									<th class="sorting">下载成功数</th>
 									<th class="sorting">下载失败数</th>
-									<th class="install">安装数</th>
+                                    <th class="install">安装数</th>
+                                    <th class="install">激活数</th>
+                                    <th class="install">送达数</th>
+                                    <th class="sorting">收入</th>
 									<th class="sorting">操作</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${rptPushList}" var="item" varStatus="stat">
+								    <c:set var="title" value="送达数/拉取数=${item.push==0?0:item.arrive/item.push }&#10;展示数/送达数=${item.arrive==0?0:item.shows/item.arrive}&#10;点击数/送达数=${item.arrive==0?0:item.click/item.arrive}&#10;下载数/点击数=${item.click==0?0:item.download/item.click}&#10;下载成功数/下载数=${item.download==0?0:item.download_success/item.download }&#10;安装数/下载数=${item.download==0?0:item.install/item.download}&#10;安装数/点击数=${item.click==0?0:item.install/item.click }&#10;安装数/送达数=${item.arrive==0?0:item.install/item.arrive }"></c:set>
 									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
 										<td>${stat.index+1}</td>
 										<td>${item.ad_name}</td>
 				                        <td>${item.channel_name }</td>
 				                        <td>${item.idate }</td>
-				                        <td>${item.push }</td>
-				                        <td>${item.revenue }</td>
-				                        <td>${item.shows }</td>
-				                        <td>${item.click }</td>
-				                        <td>${item.download }</td>
-				                        <td>${item.download_success }</td>
-				                        <td>${item.fail }</td>
-				                        <td>${item.install }</td>
+				                        <td title="${title }">${item.push }</td>
+				                        <td title="${title }">${item.shows }</td>
+				                        <td title="${title }">${item.click }</td>
+				                        <td title="${title }">${item.download }</td>
+				                        <td title="${title }">${item.download_success }</td>
+				                        <td title="${title }">${item.fail }</td>
+				                        <td title="${title }">${item.install }</td>
+                                        <td title="${title }">${item.active }</td>
+                                        <td title="${title }">${item.arrive }</td>
+                                        <td title="${title }">${item.revenue }</td>
 				                        <td class=" ">
 				                        	<a href="/rptpush/${item.id }/edit.html">编辑</a>
 				                        </td>

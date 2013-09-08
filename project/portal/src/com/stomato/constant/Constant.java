@@ -38,6 +38,8 @@ public interface Constant {
 		String appDirSuffix = "Dir";
 
 		String appIconDir = "icon";
+		
+		String uploadDirPath = "upload";
 
 	}
 	

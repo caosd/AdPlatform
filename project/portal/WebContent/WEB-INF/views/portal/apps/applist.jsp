@@ -66,7 +66,7 @@
 								<c:forEach items="${applist}" var="app" varStatus="stat">
 									<tr class="${(stat.index%2) == 0 ? 'odd':'even' }">
 										<td>${stat.index+1}</td>
-										<td><img width="50" src='${imgServer }${iconDir}${app.key}/icon/${fn:replace(app.icon, "#", "%23")}'/></td>
+										<td><img width="50" height="50" src='${imgServer }${iconDir}${app.uid}/apps/${app.appKey}/icon/${fn:replace(app.icon, "#", "%23")}'/></td>
 										<td class="app_name"><a href="/apps/${app.appKey }/detail">${app.name}</a></td>
 										<td><fmt:formatDate value="${app.createTime }" pattern="yyyy-MM-dd" /></td>
 										<td>-</td>

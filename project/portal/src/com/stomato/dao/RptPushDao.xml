@@ -15,6 +15,7 @@
         <result property="fail" column="fail" />
         <result property="downloadSuccess" column="download_success" />
         <result property="shows" column="shows" />
+        <result property="active" column="active" />
 	</resultMap>
 	<sql id="public_column">
 		 id,
@@ -60,7 +61,9 @@
 			rpt.download,
 			rpt.download_success,
 			rpt.fail,
-			rpt.install
+			rpt.install,
+			rpt.active,
+			rpt.arrive
 		from t_rpt_push rpt,
 		     t_ad_resource res,
 		     t_ad_channel cn
