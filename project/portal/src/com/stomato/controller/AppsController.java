@@ -350,6 +350,12 @@ public class AppsController extends UserController {
 		appBusiness.setAppId(app.getId());
 		appBusinessService.add(appBusiness);
 		
+		String src = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
+						+ Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator + appKey + ".apk";
+		String dst = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator
+						+ Constant.Configs.appsDirPath + fileSeparator + appKey + fileSeparator + appKey + ".apk";
+		FileUtils.copy(new File(src), new File(dst));
+		
 		//删除反编译资源
 		String rmFolder = configService.loadConfig(Constant.Configs.filesDirPath) + fileSeparator + user.getUid() + fileSeparator 
 				+ Constant.Configs.tmpsDirPath + fileSeparator + appKey + fileSeparator;

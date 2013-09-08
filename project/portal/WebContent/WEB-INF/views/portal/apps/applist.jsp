@@ -104,8 +104,8 @@
 										<td>-</td>
 										<td>
 											<a href="/apps/${app.appKey }/edit">编辑</a>
-											<a href="javascript:," onclick="deleteData('/apps/${app.appKey }/delete')"><fmt:message key="app_overview_delete_middle"/></a>
-											<a href="javascript:,">下载</a>
+											<a href="javascript:;" onclick="deleteData('/apps/${app.appKey }/delete')"><fmt:message key="app_overview_delete_middle"/></a>
+											<a href="${imgServer }${iconDir}${app.uid}/apps/${app.appKey}/${app.appKey}.apk">下载</a>
 										</td>
 									</tr>
 								</c:forEach>
