@@ -1,0 +1,23 @@
+#airpush-superiority-widget { background: #E8E8E8 !important; }
+#airpush-superiority-widget .container {height: 100%; position: relative; }
+#airpush-superiority-widget .superiority-container { width: 100%;position: relative; height: 439px; margin-top: 30px; margin-bottom: 40px; margin-left: 20px;}
+#airpush-superiority-widget .superiority-container .carousel-wrapper { height: 439px;z-index: 0; padding:15px 10px 0 10px;}
+#airpush-superiority-widget .superiority-container .carousel-wrapper img { width: 580px; height: 439px; display: none; float: left;margin-left: 60px;}
+#airpush-superiority-widget .superiority-container .carousel-wrapper img:first-child { display: block; }
+#airpush-superiority-widget .superiority-container .carousel-controls a { display: block; width: 18px; height: 29px; position: absolute; top: 42%; left: 25px; margin-top: -14px; background: url(images/airpush-nav-laptop-loupe.png) left	-29px; text-indent: -9999px; opacity: 0.5;
+	transition: opacity 200ms linear; -webkit-transition: opacity 200ms linear; -moz-transition: opacity 200ms linear; -o-transition: opacity 200ms linear;	
+}
+#airpush-superiority-widget .superiority-container .carousel-controls a.btn-next { left: auto; right: 25px; background-position: left top; }
+#airpush-superiority-widget .superiority-container .carousel-controls a:hover { opacity: 1; }
+#airpush-superiority-widget .superiority-container .carousel-indicators { position: absolute; top: 100%; left: 0; width: 100%; text-align: center; }
+#airpush-superiority-widget .superiority-container .carousel-indicators a { display: inline-block; width: 12px; height: 12px; background: #b9bdbf; margin: 0 1px; border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;
+	transition: background-color 200ms linear; -webkit-transition: background-color 200ms linear; -moz-transition: background-color 200ms linear; -o-transition: background-color 200ms linear;
+}
+#airpush-superiority-widget .superiority-container .carousel-indicators a:hover { background-color: #979a9b; }
+#airpush-superiority-widget .superiority-container .carousel-indicators a.active { background-color: #1c6aac; }
+#airpush-superiority-widget .superiority-container .carousel-caption { top: 100%; background: transparent; font-size: 0.8em;}	
+#airpush-superiority-widget .copy-container { width: 420px; float: right;color: #707070; margin-top: 80px;margin-right: 70px; text-align: right;}
+#airpush-superiority-widget .copy-container .headline { color: #00427D; font-size: 2em; line-height: .9em; margin-bottom: 4px; letter-spacing: 0; font-weight: normal; }
+#airpush-superiority-widget .copy-container .subheading { color: #00427D; font-size: 1.5em; line-height: 1.4em; letter-spacing: 0; margin-bottom: 0; font-weight: normal; }
+#airpush-superiority-widget .copy-container .copy { font-size: .9em; line-height: 1.5em; margin-top: 20px; font-weight: normal; }
+#airpush-superiority-widget .copy-container .button { margin-top: 30px; }	
