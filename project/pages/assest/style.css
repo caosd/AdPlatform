@@ -424,7 +424,7 @@ header#header { z-index: 5; }
 	#airpush-superiority-widget .copy-container { width: 480px; float: right;color: #707070; margin-top: 120px;margin-right: 30px; text-align: right;}
 	#airpush-superiority-widget .copy-container .headline { color: #00427D; font-size: 2em; line-height: .9em; margin-bottom: 4px; letter-spacing: 0; font-weight: normal; }
 	#airpush-superiority-widget .copy-container .subheading { color: #00427D; font-size: 1.5em; line-height: 1.4em; letter-spacing: 0; margin-bottom: 0; font-weight: normal; }
-	#airpush-superiority-widget .copy-container .copy { font-size: .9em; line-height: 1.5em; margin-top: 20px; font-weight: normal; }
+	#airpush-superiority-widget .copy-container .copy { font-size: 1em; line-height: 1.5em; margin-top: 20px; font-weight: normal; }
 	#airpush-superiority-widget .copy-container .button { margin-top: 30px; }	
 	
 	
@@ -453,7 +453,7 @@ header#header { z-index: 5; }
 	#airpush-laptop-loupe-widget .copy-container { width: 40%; float: left; margin: 120px 0; color: #f5f5f5; }
 	#airpush-laptop-loupe-widget .copy-container .headline { color: #f5f5f5; font-size: 2em; line-height: .9em; margin-bottom: 4px; letter-spacing: 0; font-weight: normal; }
 	#airpush-laptop-loupe-widget .copy-container .subheading { color: #f5f5f5; font-size: 1.5em; line-height: 1.4em; letter-spacing: 0; margin-bottom: 0; font-weight: normal; }
-	#airpush-laptop-loupe-widget .copy-container .copy { font-size: .9em; line-height: 1.5em; margin-top: 20px; font-weight: normal; }
+	#airpush-laptop-loupe-widget .copy-container .copy { font-size: 1em; line-height: 1.5em; margin-top: 20px; font-weight: normal; }
 	#airpush-laptop-loupe-widget .copy-container .button { margin-top: 30px; }	
 	
 	@media all and (min-width: 980px) and (max-width: 1199px) {
