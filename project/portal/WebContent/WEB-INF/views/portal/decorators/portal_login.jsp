@@ -26,7 +26,7 @@
     </div>
     <!-- END LOGIN -->
     <!-- BEGIN COPYRIGHT -->
-    <div id="login-copyright">2013 © Admin Lab Dashboard.</div>
+    <div id="login-copyright">2013 © umScape. All rights reserved.</div>
     <!-- END COPYRIGHT -->
     <!-- BEGIN JAVASCRIPTS -->
     <script src="/js/jquery-1.8.3.min.js"></script>

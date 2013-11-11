@@ -3,7 +3,7 @@
 <!-- END CONTAINER -->
 </div>
 <div id="footer">
-    2013 © Admin Lab Dashboard.
+    2013 © umScape. All rights reserved.
     <div class="span pull-right">
         <span class="go-top"><i class="icon-arrow-up"></i></span>
     </div>
