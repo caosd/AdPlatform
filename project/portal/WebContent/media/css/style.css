@@ -16,7 +16,7 @@ body {
 
 /* fix for font awesome icon classes */
 [class^="icon-"], [class*=" icon-"],[class^="icon-"]:hover, [class*=" icon-"]:hover {
-    background: none !important;
+    background: none 
 }
 
 /* hide by default, used to handle elements to show only for ie8*/
@@ -4176,3 +4176,8 @@ ul.errorlist li {
   padding-right: 20px;
   padding-left: 20px;
 }
+
+#login .lock{background:url(../img/login.gif) -1px 7px no-repeat;height:100px;}
+#login span.add-on .icon-user{background:url(../img/login.gif) 2px -136px no-repeat;width:15px;height:15px;display:block;}
+#login span.add-on .icon-key{background:url(../img/login.gif) 2px -165px no-repeat;width:15px;height:15px;display:block;}
+#login input{*padding:8px;}
