@@ -4177,7 +4177,4 @@ ul.errorlist li {
   padding-left: 20px;
 }
 
-#login .lock{background:url(../img/login.gif) -1px 7px no-repeat;height:100px;}
-#login span.add-on .icon-user{background:url(../img/login.gif) 2px -136px no-repeat;width:15px;height:15px;display:block;}
-#login span.add-on .icon-key{background:url(../img/login.gif) 2px -165px no-repeat;width:15px;height:15px;display:block;}
 #login input{*padding:8px;}

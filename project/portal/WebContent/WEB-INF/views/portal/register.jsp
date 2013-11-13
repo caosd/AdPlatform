@@ -14,20 +14,19 @@ body { background: url("./img/bg-denim.png") !important }
 .register { margin-top: 50px; text-align: center; color: #C6C6C6; }
 .container { width: 600px; margin: 0 auto; text-align:left; }
 .register  .span6{ float: left; }
-h1.title { border-bottom: 1px solid #2fbfca; text-align: left; padding-bottom: 10px; }
+h1.title { border-bottom: 1px solid #2fbfca; text-align: left; padding-bottom: 10px; height: 30px; position: relative;}
 h1 label { color: #2FBFCA; display: inline; font-size: 40px; }
 h1.link { color: #2FBFCA !important }
-form { margin: 50px 0; }
+form { margin: 30px 0; }
 form .form-row .lbl { font-size: 16px; line-height: 37px; text-align: left; }
 form .form-row .error { font-size: 14px; color: #F00; float: right; }
 .register  input { height: 24px; width: 90%; }
 .form-row #register-btn { height: 35px;  }
-form .form-tab { height:50px; width: 315px; margin: 0 auto; }
+form .form-tab { height: 90px;width: 345px;margin: 0 auto; }
 .carousel-indicators { position: relative; text-align: center; z-index: 5; left: 0; list-style: none; }
-.carousel-indicators li { width: 140px; height: 8px; border: 1px solid #D2D2D2; display: inline-block; background: #F8F8F8; background: -moz-linear-gradient(top, #F8F8F8 0%, #ECECEC 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F8F8F8), color-stop(100%, #ECECEC)); background: -webkit-linear-gradient(top, #F8F8F8 0%, #ECECEC 100%); background: -o-linear-gradient(top, #F8F8F8 0%, #ECECEC 100%); background: -ms-linear-gradient(top, #F8F8F8 0%, #ECECEC 100%); background: linear-gradient(to bottom, #F8F8F8 0%, #ECECEC 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#ececec', GradientType=0 );
-cursor: pointer; text-indent: -9999px; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; position: relative; }
-.carousel-indicators .active { background: #09C; border: 1px solid #09C; cursor: default; filter: none !important; }
-.carousel-indicators li em { position: absolute; top: -25px; font-size: 18px; text-indent: 0; display: block; width: 100px; padding-left: 18px; font-style: normal; }
+.carousel-indicators li { background-color: transparent; height: 30px;border-bottom: 10px solid #C6C6C6;width: 140px; display: inline-block;cursor: pointer; text-indent: -9999px; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; position: relative; }
+.carousel-indicators .active { background-color: transparent; border-bottom: 10px solid #09C; cursor: default; filter: none !important; }
+.carousel-indicators li em { font-size: 18px;text-indent: 0;display: block;width: 100%;text-align: center;font-style: normal; }
 .carousel-indicators li.active em { color: #FACC5F; }
 div.uploader { width:292px; max-width:292px; }
 #register-btn { display: inline; width: 40%; }
@@ -50,7 +49,7 @@ div.uploader { width:292px; max-width:292px; }
 			<h1 class="title">
 				<label>注册</label>
 
-				<span style="font-size: 14px; float: right;">
+				<span style="font-size: 14px; position: absolute; right: 0;line-height: 40px;">
 					已经拥有帐号？前去<a href="login.html" class="twt-color">登录</a>
 				</span>
 			</h1>
@@ -114,7 +113,7 @@ div.uploader { width:292px; max-width:292px; }
                 
                 <div class="form-row">
                     <label class="lbl">网站地址：<span class="error"><form:errors path="website"></form:errors></span></label>
-                    <form:input path="website" />
+                    <form:input path="website" style="width:95%"/>
                 </div>
                 
                 <div class="row-fluid" id="extrafields" style="display:none;">
